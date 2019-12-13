@@ -22,7 +22,37 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null)
+        {
+            long start = savedInstanceState.getLong("mStart");
+            if (start != 0)
+            {
+                mStart = new Date(start);
+            }
+            long stop = savedInstanceState.getLong("mStop");
+            if (stop != 0)
+            {
+                mStop = new Date(stop);
+            }
+        }
         updateState();
+    }
+
+    @Override protected void onSaveInstanceState(Bundle outState)
+    {
+        long start = 0;
+        if (mStart != null)
+        {
+            start = mStart.getTime();
+        }
+        outState.putLong("mStart", start);
+        long stop = 0;
+        if (mStop != null)
+        {
+            stop = mStop.getTime();
+        }
+        outState.putLong("mStop", stop);
+        super.onSaveInstanceState(outState);
     }
 
     @Override protected void onStart()
