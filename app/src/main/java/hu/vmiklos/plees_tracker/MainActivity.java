@@ -2,6 +2,7 @@ package hu.vmiklos.plees_tracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -59,12 +60,16 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStart();
         Log.d("plees", "onStart");
+        Intent intent = new Intent(this, MainService.class);
+        stopService(intent);
     }
 
     @Override protected void onStop()
     {
         super.onStop();
         Log.d("plees", "onStop");
+        Intent intent = new Intent(this, MainService.class);
+        startService(intent);
     }
 
     public void startStop(View v)
