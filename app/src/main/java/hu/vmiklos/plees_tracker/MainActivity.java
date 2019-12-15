@@ -13,12 +13,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+/**
+ * The activity is the primary UI of the app: allows starting and stopping the
+ * tracking.
+ */
 public class MainActivity extends AppCompatActivity
 {
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DataModel dataModel = DataModel.getDataModel();
+        dataModel.setContext(getApplicationContext());
         updateView();
     }
 
@@ -48,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         if (dataModel.getStart() != null && dataModel.getStop() == null)
         {
             dataModel.setStop(Calendar.getInstance().getTime());
+            dataModel.storeSleep();
         }
         else
         {
@@ -64,6 +71,8 @@ public class MainActivity extends AppCompatActivity
         Button startStop = (Button)findViewById(R.id.startStop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        int sleeps = dataModel.getDatabase().sleepDao().getAll().size();
+        String sleepStat = sleeps + " sleeps in total.";
         if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
             long durationMS =
@@ -71,7 +80,7 @@ public class MainActivity extends AppCompatActivity
             String duration = formatDuration(durationMS / 1000);
             state.setText("Started on " + sdf.format(dataModel.getStart()) +
                           ", stopped on " + sdf.format(dataModel.getStop()) +
-                          ", slept for " + duration + ".");
+                          ", slept for " + duration + ". " + sleepStat);
             startStop.setText("Start again");
         }
         else if (dataModel.getStart() != null)
@@ -82,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            state.setText("Press start to begin tracking.");
+            state.setText("Press start to begin tracking. " + sleepStat);
             startStop.setText("Start");
         }
     }

@@ -11,6 +11,10 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+/**
+ * A foreground service that just keeps the app alive, so the state is not lost
+ * while tracking is on.
+ */
 public class MainService extends Service
 {
     private static final String NOTIFICATION_CHANNEL_ID = "Notification";
