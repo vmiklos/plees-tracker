@@ -71,13 +71,13 @@ public class MainActivity extends AppCompatActivity
         Button startStop = (Button)findViewById(R.id.startStop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        int sleeps = dataModel.getDatabase().sleepDao().getAll().size();
-        String sleepStat = sleeps + " sleeps in total.";
+
+        String sleepStat = dataModel.getSleepStat();
         if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
             long durationMS =
                 dataModel.getStop().getTime() - dataModel.getStart().getTime();
-            String duration = formatDuration(durationMS / 1000);
+            String duration = DataModel.formatDuration(durationMS / 1000);
             state.setText("Started on " + sdf.format(dataModel.getStart()) +
                           ", stopped on " + sdf.format(dataModel.getStop()) +
                           ", slept for " + duration + ". " + sleepStat);
@@ -94,11 +94,5 @@ public class MainActivity extends AppCompatActivity
             state.setText("Press start to begin tracking. " + sleepStat);
             startStop.setText("Start");
         }
-    }
-
-    private static String formatDuration(long seconds)
-    {
-        return String.format("%d:%02d:%02d", seconds / 3600,
-                             (seconds % 3600) / 60, seconds % 60);
     }
 }
