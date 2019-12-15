@@ -65,6 +65,10 @@ public class DataModel
             sum += diff;
         }
         int count = sleeps.size();
+        if (count == 0)
+        {
+            return "";
+        }
         String average = formatDuration(sum / count);
         String ret = "Average is " + average + " (" + count + " nights).";
         return ret;
