@@ -16,44 +16,11 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
 {
-    private Date mStart = null;
-    private Date mStop = null;
-
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState != null)
-        {
-            long start = savedInstanceState.getLong("mStart");
-            if (start != 0)
-            {
-                mStart = new Date(start);
-            }
-            long stop = savedInstanceState.getLong("mStop");
-            if (stop != 0)
-            {
-                mStop = new Date(stop);
-            }
-        }
-        updateState();
-    }
-
-    @Override protected void onSaveInstanceState(Bundle outState)
-    {
-        long start = 0;
-        if (mStart != null)
-        {
-            start = mStart.getTime();
-        }
-        outState.putLong("mStart", start);
-        long stop = 0;
-        if (mStop != null)
-        {
-            stop = mStop.getTime();
-        }
-        outState.putLong("mStop", stop);
-        super.onSaveInstanceState(outState);
+        updateView();
     }
 
     @Override protected void onStart()
@@ -74,35 +41,40 @@ public class MainActivity extends AppCompatActivity
 
     public void startStop(View v)
     {
-        if (mStart != null && mStop == null)
+        DataModel dataModel = DataModel.getDataModel();
+        if (dataModel.getStart() != null && dataModel.getStop() == null)
         {
-            mStop = Calendar.getInstance().getTime();
+            dataModel.setStop(Calendar.getInstance().getTime());
         }
         else
         {
-            mStart = Calendar.getInstance().getTime();
-            mStop = null;
+            dataModel.setStart(Calendar.getInstance().getTime());
+            dataModel.setStop(null);
         }
-        updateState();
+        updateView();
     }
 
-    private void updateState()
+    private void updateView()
     {
+        DataModel dataModel = DataModel.getDataModel();
         TextView state = (TextView)findViewById(R.id.state);
         Button startStop = (Button)findViewById(R.id.startStop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        if (mStart != null && mStop != null)
+        if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
-            long durationMS = mStop.getTime() - mStart.getTime();
+            long durationMS =
+                dataModel.getStop().getTime() - dataModel.getStart().getTime();
             String duration = formatDuration(durationMS / 1000);
-            state.setText("Started on " + sdf.format(mStart) + ", stopped on " +
-                          sdf.format(mStop) + ", slept for " + duration + ".");
+            state.setText("Started on " + sdf.format(dataModel.getStart()) +
+                          ", stopped on " + sdf.format(dataModel.getStop()) +
+                          ", slept for " + duration + ".");
             startStop.setText("Start again");
         }
-        else if (mStart != null)
+        else if (dataModel.getStart() != null)
         {
-            state.setText("Started on " + sdf.format(mStart) + ", tracking.");
+            state.setText("Started on " + sdf.format(dataModel.getStart()) +
+                          ", tracking.");
             startStop.setText("Stop");
         }
         else
