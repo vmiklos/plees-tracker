@@ -73,26 +73,30 @@ public class MainActivity extends AppCompatActivity
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
         String sleepStat = dataModel.getSleepStat();
+        String text;
         if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
             long durationMS =
                 dataModel.getStop().getTime() - dataModel.getStart().getTime();
             String duration = DataModel.formatDuration(durationMS / 1000);
-            state.setText("Started on " + sdf.format(dataModel.getStart()) +
-                          ", stopped on " + sdf.format(dataModel.getStop()) +
-                          ", slept for " + duration + ". " + sleepStat);
+            text = "Started on " + sdf.format(dataModel.getStart()) +
+                   ", stopped on " + sdf.format(dataModel.getStop()) +
+                   ", slept for " + duration + ".";
             startStop.setText("Start again");
         }
         else if (dataModel.getStart() != null)
         {
-            state.setText("Started on " + sdf.format(dataModel.getStart()) +
-                          ", tracking.");
+            text = "Started on " + sdf.format(dataModel.getStart()) +
+                   ", tracking.";
             startStop.setText("Stop");
         }
         else
         {
-            state.setText("Press start to begin tracking. " + sleepStat);
+            text = "Press start to begin tracking.";
             startStop.setText("Start");
         }
+
+        text += " " + sleepStat;
+        state.setText(text);
     }
 }
