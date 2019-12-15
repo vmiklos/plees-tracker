@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
@@ -36,7 +35,11 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
         Log.d("plees", "onStop");
         Intent intent = new Intent(this, MainService.class);
-        startService(intent);
+        DataModel dataModel = DataModel.getDataModel();
+        if (dataModel.getStart() != null && dataModel.getStop() == null)
+        {
+            startService(intent);
+        }
     }
 
     public void startStop(View v)
