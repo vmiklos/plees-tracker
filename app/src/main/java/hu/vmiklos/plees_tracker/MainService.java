@@ -30,14 +30,10 @@ public class MainService extends Service
 
         NotificationManager notificationManager =
             (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >=
-            android.os.Build.VERSION_CODES.O)
-        {
-            NotificationChannel channel =
-                new NotificationChannel(NOTIFICATION_CHANNEL_ID, "channel",
-                                        NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel =
+            new NotificationChannel(NOTIFICATION_CHANNEL_ID, "channel",
+                                    NotificationManager.IMPORTANCE_DEFAULT);
+        notificationManager.createNotificationChannel(channel);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent =
