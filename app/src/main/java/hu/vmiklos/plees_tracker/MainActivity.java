@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode,
                                     @Nullable Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
         final ContentResolver cr = getContentResolver();
         final Uri uri = data != null ? data.getData() : null;
         if (uri == null)
