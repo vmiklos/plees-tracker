@@ -2,4 +2,10 @@ This is meant to be a very simple replacement of
 <https://play.google.com/store/apps/details?id=com.primenap>, i.e. just track
 sleep start/stop times and count the average / day.
 
-The app is very minimal: it litreally does nothing while you sleep.
+Features:
+
+- It literally does nothing while you sleep, causes no battery drain.
+
+- Stores past sleeps, counts stat from them (average).
+
+- Exports sleep data to CSV.

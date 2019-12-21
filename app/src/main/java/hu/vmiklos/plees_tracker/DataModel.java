@@ -7,9 +7,12 @@
 package hu.vmiklos.plees_tracker;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.room.Room;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import java.util.List;
  */
 public class DataModel
 {
+    private static final String TAG = "DataModel";
     private static final DataModel sDataModel = new DataModel();
 
     private Date mStart = null;
@@ -78,6 +82,30 @@ public class DataModel
         String average = formatDuration(sum / count);
         String ret = "Average is " + average + " (" + count + " nights).";
         return ret;
+    }
+
+    void export(OutputStream os)
+    {
+        try
+        {
+            List<Sleep> sleeps = getDatabase().sleepDao().getAll();
+            os.write("sid,start,stop\n".getBytes());
+            for (Sleep sleep : sleeps)
+            {
+                StringBuilder row = new StringBuilder();
+                row.append(sleep.sid);
+                row.append(",");
+                row.append(sleep.start);
+                row.append(",");
+                row.append(sleep.stop);
+                row.append("\n");
+                os.write(row.toString().getBytes());
+            }
+        }
+        catch (IOException e)
+        {
+            Log.e(TAG, "export: write() failed");
+        }
     }
 
     public static String formatDuration(long seconds)
