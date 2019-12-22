@@ -169,8 +169,7 @@ public class MainActivity extends AppCompatActivity
             stop.setText("");
             startStop.setText(R.string.stop);
         }
-        countStat.setText(dataModel.getSleepCountStat() + " nights");
-        durationStat.setText("Average duration is " +
-                             dataModel.getSleepDurationStat());
+        countStat.setText(dataModel.getSleepCountStat());
+        durationStat.setText(dataModel.getSleepDurationStat());
     }
 }

@@ -9,4 +9,6 @@
     <string name="stopped_on">Stopped on</string>
     <string name="started_on">Started on</string>
     <string name="slept_for">Slept for %s</string>
+    <string name="nights">Nights</string>
+    <string name="average">Average</string>
 </resources>
