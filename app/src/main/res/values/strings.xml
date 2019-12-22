@@ -6,4 +6,7 @@
     <string name="start_again">Start again</string>
     <string name="press_start">Press start to begin tracking.</string>
     <string name="tracking">Tracking</string>
+    <string name="stopped_on">Stopped on</string>
+    <string name="started_on">Started on</string>
+    <string name="slept_for">Slept for %s</string>
 </resources>

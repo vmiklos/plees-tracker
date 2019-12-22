@@ -156,15 +156,16 @@ public class MainActivity extends AppCompatActivity
             long durationMS =
                 dataModel.getStop().getTime() - dataModel.getStart().getTime();
             String duration = DataModel.formatDuration(durationMS / 1000);
-            status.setText("Slept for " + duration);
-            start.setText("Started on " + sdf.format(dataModel.getStart()));
-            stop.setText("Stopped on " + sdf.format(dataModel.getStop()));
+            status.setText(
+                String.format(getString(R.string.slept_for), duration));
+            start.setText(sdf.format(dataModel.getStart()));
+            stop.setText(sdf.format(dataModel.getStop()));
             startStop.setText(R.string.start_again);
         }
         else if (dataModel.getStart() != null)
         {
             status.setText(R.string.tracking);
-            start.setText("Started on " + sdf.format(dataModel.getStart()));
+            start.setText(sdf.format(dataModel.getStart()));
             stop.setText("");
             startStop.setText(R.string.stop);
         }
