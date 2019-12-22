@@ -11,4 +11,6 @@
     <string name="slept_for">Slept for %s</string>
     <string name="nights">Nights</string>
     <string name="average">Average</string>
+    <string name="status">Status</string>
+    <string name="statistics">Statistics</string>
 </resources>
