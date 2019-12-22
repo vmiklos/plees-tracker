@@ -64,7 +64,13 @@ public class DataModel
         getDatabase().sleepDao().insert(sleep);
     }
 
-    String getSleepStat()
+    String getSleepCountStat()
+    {
+        List<Sleep> sleeps = getDatabase().sleepDao().getAll();
+        return String.valueOf(sleeps.size());
+    }
+
+    String getSleepDurationStat()
     {
         List<Sleep> sleeps = getDatabase().sleepDao().getAll();
         long sum = 0;
@@ -79,9 +85,7 @@ public class DataModel
         {
             return "";
         }
-        String average = formatDuration(sum / count);
-        String ret = "Average is " + average + " (" + count + " nights).";
-        return ret;
+        return formatDuration(sum / count);
     }
 
     void export(OutputStream os)

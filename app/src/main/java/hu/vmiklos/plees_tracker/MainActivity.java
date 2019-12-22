@@ -142,36 +142,34 @@ public class MainActivity extends AppCompatActivity
     private void updateView()
     {
         DataModel dataModel = DataModel.getDataModel();
-        TextView state = (TextView)findViewById(R.id.state);
+        TextView status = (TextView)findViewById(R.id.status);
+        TextView start = (TextView)findViewById(R.id.start);
+        TextView stop = (TextView)findViewById(R.id.stop);
+        TextView countStat = (TextView)findViewById(R.id.count_stat);
+        TextView durationStat = (TextView)findViewById(R.id.duration_stat);
         Button startStop = (Button)findViewById(R.id.startStop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-        String sleepStat = dataModel.getSleepStat();
-        String text;
         if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
             long durationMS =
                 dataModel.getStop().getTime() - dataModel.getStart().getTime();
             String duration = DataModel.formatDuration(durationMS / 1000);
-            text = "Started on " + sdf.format(dataModel.getStart()) +
-                   ", stopped on " + sdf.format(dataModel.getStop()) +
-                   ", slept for " + duration + ".";
-            startStop.setText("Start again");
+            status.setText("Slept for " + duration);
+            start.setText("Started on " + sdf.format(dataModel.getStart()));
+            stop.setText("Stopped on " + sdf.format(dataModel.getStop()));
+            startStop.setText(R.string.start_again);
         }
         else if (dataModel.getStart() != null)
         {
-            text = "Started on " + sdf.format(dataModel.getStart()) +
-                   ", tracking.";
-            startStop.setText("Stop");
+            status.setText(R.string.tracking);
+            start.setText("Started on " + sdf.format(dataModel.getStart()));
+            stop.setText("");
+            startStop.setText(R.string.stop);
         }
-        else
-        {
-            text = "Press start to begin tracking.";
-            startStop.setText("Start");
-        }
-
-        text += " " + sleepStat;
-        state.setText(text);
+        countStat.setText(dataModel.getSleepCountStat() + " nights");
+        durationStat.setText("Average duration is " +
+                             dataModel.getSleepDurationStat());
     }
 }
