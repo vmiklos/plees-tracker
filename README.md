@@ -1,2 +1,0 @@
-# plees-tracker
-Plees Tracker is a simple sleep tracker for your Android phone.
