@@ -24,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 public class MainService extends Service
 {
     private static final String NOTIFICATION_CHANNEL_ID = "Notification";
+    private static final int NOTIFICATION_CODE = 1;
     @Override public int onStartCommand(Intent intent, int flags, int startId)
     {
         Log.d("plees", "MainService.onStartCommand");
@@ -46,7 +47,7 @@ public class MainService extends Service
                 .setContentIntent(pendingIntent)
                 .build();
 
-        startForeground(42, notification);
+        startForeground(NOTIFICATION_CODE, notification);
 
         return START_STICKY;
     }

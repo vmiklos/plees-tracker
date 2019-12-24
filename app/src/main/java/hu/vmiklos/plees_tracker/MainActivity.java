@@ -30,7 +30,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = "MainActivity";
-    private static final int CODE_EXPORT = 1;
+    private static final int EXPORT_CODE = 1;
 
     @Override protected void onCreate(Bundle savedInstanceState)
     {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("text/csv");
         intent.putExtra(Intent.EXTRA_TITLE, "plees-tracker.csv");
-        startActivityForResult(intent, CODE_EXPORT);
+        startActivityForResult(intent, EXPORT_CODE);
     }
 
     @Override
