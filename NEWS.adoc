@@ -1,0 +1,7 @@
+= Version descriptions
+
+== 1.0
+
+- Initial release
+- Can store past sleeps
+- Can count average duration of them
