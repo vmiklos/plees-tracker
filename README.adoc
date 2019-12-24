@@ -1,3 +1,11 @@
+= plees-tracker
+
+image:https://travis-ci.com/vmiklos/plees-tracker.svg?branch=master["Build Status", link="https://travis-ci.com/vmiklos/plees-tracker"]
+
+Plees Tracker is a simple sleep tracker for your Android phone.
+
+== Description
+
 This is meant to be a very simple open source clone of
 https://play.google.com/store/apps/details?id=com.primenap[PrimeNap], i.e. just track sleep
 start/stop times and count the average / day.
@@ -9,3 +17,8 @@ Features:
 - Stores past sleeps, counts stat from them (average).
 
 - Exports sleep data to CSV.
+
+== License
+
+Use of this source code is governed by a BSD-style license that can be found in
+the LICENSE file.
