@@ -1,0 +1,2 @@
+This is meant to be a very simple open source clone of PrimeNap, i.e. just
+track sleep start/stop times and count the average / day.
