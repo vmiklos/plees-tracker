@@ -44,7 +44,7 @@ public class MainService extends Service
             new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setContentText(getApplicationContext().getString(
                     R.string.notification_in_progress))
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentIntent(pendingIntent)
                 .build();
 
