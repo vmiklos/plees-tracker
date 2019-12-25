@@ -42,7 +42,8 @@ public class MainService extends Service
 
         Notification notification =
             new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setContentText("Sleep tracking is in progress")
+                .setContentText(getApplicationContext().getString(
+                    R.string.notification_in_progress))
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentIntent(pendingIntent)
                 .build();
