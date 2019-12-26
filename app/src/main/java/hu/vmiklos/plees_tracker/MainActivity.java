@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity
         TextView stop = (TextView)findViewById(R.id.stop);
         TextView countStat = (TextView)findViewById(R.id.count_stat);
         TextView durationStat = (TextView)findViewById(R.id.duration_stat);
-        Button startStop = (Button)findViewById(R.id.start_stop);
+        FloatingActionButton startStop = findViewById(R.id.start_stop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -210,14 +212,14 @@ public class MainActivity extends AppCompatActivity
                 String.format(getString(R.string.slept_for), duration));
             start.setText(sdf.format(dataModel.getStart()));
             stop.setText(sdf.format(dataModel.getStop()));
-            startStop.setText(R.string.start_again);
+            startStop.setContentDescription(getString(R.string.start_again));
         }
         else if (dataModel.getStart() != null)
         {
             status.setText(R.string.tracking);
             start.setText(sdf.format(dataModel.getStart()));
             stop.setText("");
-            startStop.setText(R.string.stop);
+            startStop.setContentDescription(getString(R.string.stop));
         }
         countStat.setText(dataModel.getSleepCountStat());
         durationStat.setText(dataModel.getSleepDurationStat());
