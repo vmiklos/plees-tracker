@@ -4,6 +4,7 @@
 
 - Can import previously exported data
 - Notification icon is now in sync with the launcher icon
+- Runtime baseline is now only API 22 (Android 5.1), not API 26 to cover about 80% of devices
 
 == 1.0
 
