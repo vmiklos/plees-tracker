@@ -42,7 +42,13 @@ public class DataModel
 
     Date getStop() { return mStop; }
 
-    void setContext(Context context) { mContext = context; }
+    void init(Context context)
+    {
+        if (mContext != context)
+        {
+            mContext = context;
+        }
+    }
 
     public AppDatabase getDatabase()
     {
