@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,7 +31,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = "MainActivity";
-    private static final int EXPORT_CODE = 1;
+    private static final int IMPORT_CODE = 1;
+    private static final int EXPORT_CODE = 2;
 
     @Override protected void onCreate(Bundle savedInstanceState)
     {
@@ -75,13 +77,20 @@ public class MainActivity extends AppCompatActivity
         updateView();
     }
 
-    public void export(View v)
+    public void exportData(View v)
     {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("text/csv");
         intent.putExtra(Intent.EXTRA_TITLE, "plees-tracker.csv");
         startActivityForResult(intent, EXPORT_CODE);
+    }
+
+    public void importData(View v)
+    {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("text/csv");
+        startActivityForResult(intent, IMPORT_CODE);
     }
 
     @Override
@@ -96,46 +105,84 @@ public class MainActivity extends AppCompatActivity
             Log.e(TAG, "onActivityResult: null url");
             return;
         }
-        try
-        {
-            cr.takePersistableUriPermission(
-                uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        }
-        catch (SecurityException e)
-        {
-            Log.e(TAG,
-                  "onActivityResult: takePersistableUriPermission() failed");
-            return;
-        }
 
-        OutputStream os = null;
-        try
+        if (requestCode == EXPORT_CODE)
         {
-            os = cr.openOutputStream(uri);
-            DataModel dataModel = DataModel.getDataModel();
-            dataModel.export(os);
-        }
-        catch (Exception e)
-        {
-            Log.e(TAG, "onActivityResult: write() failed");
-            return;
-        }
-        finally
-        {
-            if (os != null)
+            try
             {
-                try
+                cr.takePersistableUriPermission(
+                    uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+            catch (SecurityException e)
+            {
+                Log.e(
+                    TAG,
+                    "onActivityResult: takePersistableUriPermission() failed for write");
+                return;
+            }
+
+            OutputStream os = null;
+            try
+            {
+                os = cr.openOutputStream(uri);
+                DataModel dataModel = DataModel.getDataModel();
+                dataModel.exportData(os);
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG, "onActivityResult: write() failed");
+                return;
+            }
+            finally
+            {
+                if (os != null)
                 {
-                    os.close();
-                }
-                catch (RuntimeException e)
-                {
-                    throw e;
-                }
-                catch (Exception e)
-                {
+                    try
+                    {
+                        os.close();
+                    }
+                    catch (RuntimeException e)
+                    {
+                        throw e;
+                    }
+                    catch (Exception e)
+                    {
+                    }
                 }
             }
+        }
+        else if (requestCode == IMPORT_CODE)
+        {
+            InputStream is = null;
+            try
+            {
+                is = cr.openInputStream(uri);
+                DataModel dataModel = DataModel.getDataModel();
+                dataModel.importData(is);
+            }
+            catch (Exception e)
+            {
+                Log.e(TAG, "onActivityResult: read() failed");
+                return;
+            }
+            finally
+            {
+                if (is != null)
+                {
+                    try
+                    {
+                        is.close();
+                    }
+                    catch (RuntimeException e)
+                    {
+                        throw e;
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                }
+            }
+            updateView();
         }
     }
 
@@ -147,7 +194,7 @@ public class MainActivity extends AppCompatActivity
         TextView stop = (TextView)findViewById(R.id.stop);
         TextView countStat = (TextView)findViewById(R.id.count_stat);
         TextView durationStat = (TextView)findViewById(R.id.duration_stat);
-        Button startStop = (Button)findViewById(R.id.startStop);
+        Button startStop = (Button)findViewById(R.id.start_stop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 

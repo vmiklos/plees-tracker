@@ -101,7 +101,15 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/startStop"
+            android:id="@+id/import_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="importData"
+            android:text="@string/import_data"/>
+
+        <Button
+            android:id="@+id/start_stop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -109,12 +117,12 @@
             android:text="@string/start"/>
 
         <Button
-            android:id="@+id/export"
+            android:id="@+id/export_data"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="export"
-            android:text="@string/export" />
+            android:onClick="exportData"
+            android:text="@string/export_data" />
     </LinearLayout>
 
 </LinearLayout>

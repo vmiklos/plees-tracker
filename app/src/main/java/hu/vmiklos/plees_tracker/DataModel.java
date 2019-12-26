@@ -11,7 +11,10 @@ import android.util.Log;
 
 import androidx.room.Room;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +97,39 @@ public class DataModel
         return formatDuration(sum / count);
     }
 
-    void export(OutputStream os)
+    void importData(InputStream is)
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line = "";
+        try
+        {
+            boolean first = true;
+            while ((line = br.readLine()) != null)
+            {
+                if (first)
+                {
+                    // Ignore the header.
+                    first = false;
+                    continue;
+                }
+                String[] cells = line.split(",");
+                if (cells.length < 3)
+                {
+                    continue;
+                }
+                Sleep sleep = new Sleep();
+                sleep.start = Long.valueOf(cells[1]);
+                sleep.stop = Long.valueOf(cells[2]);
+                getDatabase().sleepDao().insert(sleep);
+            }
+        }
+        catch (IOException e)
+        {
+            Log.e(TAG, "importData: readLine() failed");
+        }
+    }
+
+    void exportData(OutputStream os)
     {
         try
         {
@@ -114,7 +149,7 @@ public class DataModel
         }
         catch (IOException e)
         {
-            Log.e(TAG, "export: write() failed");
+            Log.e(TAG, "exportData: write() failed");
         }
     }
 
