@@ -125,7 +125,7 @@
         android:id="@+id/start_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_start"
         android:onClick="startStop"
         android:layout_gravity="bottom|center_horizontal"
         android:contentDescription="@string/start"

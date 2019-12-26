@@ -213,6 +213,7 @@ public class MainActivity extends AppCompatActivity
             start.setText(sdf.format(dataModel.getStart()));
             stop.setText(sdf.format(dataModel.getStop()));
             startStop.setContentDescription(getString(R.string.start_again));
+            startStop.setImageResource(R.drawable.ic_start);
         }
         else if (dataModel.getStart() != null)
         {
@@ -220,6 +221,7 @@ public class MainActivity extends AppCompatActivity
             start.setText(sdf.format(dataModel.getStart()));
             stop.setText("");
             startStop.setContentDescription(getString(R.string.stop));
+            startStop.setImageResource(R.drawable.ic_stop);
         }
         countStat.setText(dataModel.getSleepCountStat());
         durationStat.setText(dataModel.getSleepDurationStat());
