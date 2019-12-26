@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Plees Tracker</string>
-    <string name="import_data">Import</string>
-    <string name="export_data">Export</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="start_again">Start again</string>
@@ -15,4 +13,6 @@
     <string name="status">Status</string>
     <string name="statistics">Statistics</string>
     <string name="notification_in_progress">Sleep tracking is in progress</string>
+    <string name="import_item">Import...</string>
+    <string name="export_item">Export...</string>
 </resources>

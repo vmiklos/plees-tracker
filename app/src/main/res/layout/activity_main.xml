@@ -12,28 +12,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/status"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/press_start"/>
+        android:text="@string/press_start" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/start_label"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/started_on"/>
+            android:text="@string/started_on" />
+
         <TextView
             android:id="@+id/start"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -41,16 +43,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/stop_label"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/stopped_on"/>
+            android:text="@string/stopped_on" />
+
         <TextView
             android:id="@+id/stop"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -59,22 +63,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorAccent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/count_stat_label"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/nights"/>
+            android:text="@string/nights" />
+
         <TextView
             android:id="@+id/count_stat"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -82,47 +88,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/duration_stat_label"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/average"/>
+            android:text="@string/average" />
+
         <TextView
             android:id="@+id/duration_stat"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/start_stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/import_data"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="importData"
-            android:text="@string/import_data"/>
-
-        <Button
-            android:id="@+id/start_stop"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="startStop"
-            android:text="@string/start"/>
-
-        <Button
-            android:id="@+id/export_data"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="exportData"
-            android:text="@string/export_data" />
-    </LinearLayout>
+        android:onClick="startStop"
+        android:text="@string/start" />
 
 </LinearLayout>
