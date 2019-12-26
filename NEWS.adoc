@@ -1,5 +1,10 @@
 = Version descriptions
 
+== master
+
+- Can import previously exported data
+- Notification icon is now in sync with the launcher icon
+
 == 1.0
 
 - Initial release
