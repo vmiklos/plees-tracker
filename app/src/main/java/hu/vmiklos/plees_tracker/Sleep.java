@@ -10,12 +10,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 /**
  * Represents one tracked sleep.
  */
-@Entity public class Sleep
+@Entity class Sleep
 {
     @PrimaryKey(autoGenerate = true) public int sid;
 

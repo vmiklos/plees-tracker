@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,7 +65,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void startStop(View v)
+    // Used from layout XML.
+    @SuppressWarnings("unused") public void startStop(View v)
     {
         DataModel dataModel = DataModel.getDataModel();
         if (dataModel.getStart() != null && dataModel.getStop() == null)
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         updateView();
     }
 
-    public void exportData()
+    private void exportData()
     {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(intent, EXPORT_CODE);
     }
 
-    public void importData()
+    private void importData()
     {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("text/csv");
@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity
             catch (Exception e)
             {
                 Log.e(TAG, "onActivityResult: write() failed");
-                return;
             }
             finally
             {
@@ -194,11 +193,11 @@ public class MainActivity extends AppCompatActivity
     private void updateView()
     {
         DataModel dataModel = DataModel.getDataModel();
-        TextView status = (TextView)findViewById(R.id.status);
-        TextView start = (TextView)findViewById(R.id.start);
-        TextView stop = (TextView)findViewById(R.id.stop);
-        TextView countStat = (TextView)findViewById(R.id.count_stat);
-        TextView durationStat = (TextView)findViewById(R.id.duration_stat);
+        TextView status = findViewById(R.id.status);
+        TextView start = findViewById(R.id.start);
+        TextView stop = findViewById(R.id.stop);
+        TextView countStat = findViewById(R.id.count_stat);
+        TextView durationStat = findViewById(R.id.duration_stat);
         FloatingActionButton startStop = findViewById(R.id.start_stop);
         SimpleDateFormat sdf =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());

@@ -54,7 +54,7 @@ public class DataModel
         }
     }
 
-    public AppDatabase getDatabase()
+    private AppDatabase getDatabase()
     {
         if (mDatabase == null)
         {
@@ -101,7 +101,7 @@ public class DataModel
     void importData(InputStream is)
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String line = "";
+        String line;
         try
         {
             boolean first = true;
@@ -144,14 +144,9 @@ public class DataModel
             os.write("sid,start,stop\n".getBytes());
             for (Sleep sleep : sleeps)
             {
-                StringBuilder row = new StringBuilder();
-                row.append(sleep.sid);
-                row.append(",");
-                row.append(sleep.start);
-                row.append(",");
-                row.append(sleep.stop);
-                row.append("\n");
-                os.write(row.toString().getBytes());
+                String row =
+                    sleep.sid + "," + sleep.start + "," + sleep.stop + "\n";
+                os.write(row.getBytes());
             }
         }
         catch (IOException e)
