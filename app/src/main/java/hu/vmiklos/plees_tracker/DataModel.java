@@ -8,6 +8,7 @@ package hu.vmiklos.plees_tracker;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.room.Room;
 
@@ -126,7 +127,13 @@ public class DataModel
         catch (IOException e)
         {
             Log.e(TAG, "importData: readLine() failed");
+            return;
         }
+
+        String text = mContext.getString(R.string.import_success);
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(mContext, text, duration);
+        toast.show();
     }
 
     void exportData(OutputStream os)
@@ -150,7 +157,13 @@ public class DataModel
         catch (IOException e)
         {
             Log.e(TAG, "exportData: write() failed");
+            return;
         }
+
+        String text = mContext.getString(R.string.export_success);
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(mContext, text, duration);
+        toast.show();
     }
 
     public static String formatDuration(long seconds)
