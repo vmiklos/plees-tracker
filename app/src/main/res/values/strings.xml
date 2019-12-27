@@ -13,8 +13,8 @@
     <string name="status">Status</string>
     <string name="statistics">Statistics</string>
     <string name="notification_in_progress">Sleep tracking is in progress</string>
-    <string name="import_item">Import...</string>
-    <string name="export_item">Export...</string>
+    <string name="import_item">Import…</string>
+    <string name="export_item">Export…</string>
     <string name="import_success">Import finished successfully</string>
     <string name="export_success">Export finished successfully</string>
 </resources>
