@@ -20,4 +20,6 @@ public interface SleepDao {
     @Query("SELECT * FROM sleep") List<Sleep> getAll();
 
     @Insert void insert(Sleep sleep);
+
+    @Query("DELETE FROM sleep") public void deleteAll();
 }

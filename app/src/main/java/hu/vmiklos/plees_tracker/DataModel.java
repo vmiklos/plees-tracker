@@ -74,6 +74,8 @@ public class DataModel
         getDatabase().sleepDao().insert(sleep);
     }
 
+    void deleteSleeps() { getDatabase().sleepDao().deleteAll(); }
+
     String getSleepCountStat()
     {
         List<Sleep> sleeps = getDatabase().sleepDao().getAll();
