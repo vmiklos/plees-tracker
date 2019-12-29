@@ -17,6 +17,9 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * A foreground service that just keeps the app alive, so the state is not lost
  * while tracking is on.
@@ -41,13 +44,21 @@ public class MainService extends Service
         }
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
+
+        // Save start timestamp in case the notification would outlive the app.
+        DataModel dataModel = DataModel.getDataModel();
+        notificationIntent.putExtra("start", dataModel.getStart());
+
         PendingIntent pendingIntent =
             PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
+        SimpleDateFormat sdf =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String contentText = String.format(getString(R.string.sleeping_since),
+                                           sdf.format(dataModel.getStart()));
         Notification notification =
             new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setContentText(getApplicationContext().getString(
-                    R.string.notification_in_progress))
+                .setContentText(contentText)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentIntent(pendingIntent)
                 .build();

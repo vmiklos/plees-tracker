@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -44,6 +45,18 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         DataModel dataModel = DataModel.getDataModel();
         dataModel.init(getApplicationContext());
+
+        // Restore start timestamp in case the notification outlived the app.
+        if (dataModel.getStart() == null)
+        {
+            Intent intent = getIntent();
+            if (intent.hasExtra("start"))
+            {
+                Date start = new Date(intent.getLongExtra("start", 0));
+                dataModel.setStart(start);
+            }
+        }
+
         updateView();
     }
 

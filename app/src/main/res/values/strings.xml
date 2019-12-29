@@ -17,4 +17,5 @@
     <string name="export_item">Export…</string>
     <string name="import_success">Import finished successfully</string>
     <string name="export_success">Export finished successfully</string>
+    <string name="sleeping_since">Sleeping since %s</string>
 </resources>
