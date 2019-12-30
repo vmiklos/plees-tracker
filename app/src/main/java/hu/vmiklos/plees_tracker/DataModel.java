@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -32,13 +33,22 @@ public class DataModel
     private Date mStart = null;
     private Date mStop = null;
     private Context mContext = null;
+    private SharedPreferences mPreferences;
     private AppDatabase mDatabase = null;
 
     public static DataModel getDataModel() { return sDataModel; }
 
     private DataModel() {}
 
-    void setStart(Date start) { mStart = start; }
+    void setStart(Date start)
+    {
+        mStart = start;
+
+        // Save start timestamp in case the foreground service is killed.
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putLong("start", mStart.getTime());
+        editor.apply();
+    }
 
     Date getStart() { return mStart; }
 
@@ -46,11 +56,24 @@ public class DataModel
 
     Date getStop() { return mStop; }
 
-    void init(Context context)
+    void init(Context context, SharedPreferences preferences)
     {
         if (mContext != context)
         {
             mContext = context;
+        }
+
+        if (mPreferences != preferences)
+        {
+            mPreferences = preferences;
+        }
+
+        long start = mPreferences.getLong("start", 0);
+        if (start > 0)
+        {
+            // Restore start timestamp in case the foreground service was
+            // killed.
+            mStart = new Date(start);
         }
     }
 
@@ -72,6 +95,11 @@ public class DataModel
         sleep.start = mStart.getTime();
         sleep.stop = mStop.getTime();
         getDatabase().sleepDao().insert(sleep);
+
+        // Drop start timestamp from preferences, it's in the database now.
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.remove("start");
+        editor.apply();
     }
 
     void deleteSleeps() { getDatabase().sleepDao().deleteAll(); }

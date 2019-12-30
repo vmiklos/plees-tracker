@@ -11,9 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,20 +46,11 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final Context applicationContext = getApplicationContext();
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(applicationContext);
         DataModel dataModel = DataModel.getDataModel();
-        dataModel.init(getApplicationContext());
-
-        // Restore start timestamp in case the notification outlived the app.
-        if (dataModel.getStart() == null)
-        {
-            Intent intent = getIntent();
-            if (intent.hasExtra("start"))
-            {
-                Date start = new Date(intent.getLongExtra("start", 0));
-                dataModel.setStart(start);
-            }
-        }
-
+        dataModel.init(applicationContext, preferences);
         updateView();
     }
 

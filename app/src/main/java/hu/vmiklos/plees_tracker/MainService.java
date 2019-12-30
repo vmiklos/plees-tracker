@@ -44,11 +44,7 @@ public class MainService extends Service
         }
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
-
-        // Save start timestamp in case the notification would outlive the app.
         DataModel dataModel = DataModel.getDataModel();
-        notificationIntent.putExtra("start", dataModel.getStart());
-
         PendingIntent pendingIntent =
             PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
