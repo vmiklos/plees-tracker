@@ -17,7 +17,8 @@
         android:textColor="@color/colorAccent"
         android:layout_gravity="top|start"
         android:paddingTop="16dp"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
 
     <TextView
         android:id="@+id/status"
@@ -25,14 +26,16 @@
         android:layout_height="wrap_content"
         android:text="@string/press_start"
         android:layout_gravity="top|start"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="top|start"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:id="@+id/start_label"
@@ -53,7 +56,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="top|start"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:id="@+id/stop_label"
@@ -77,14 +81,16 @@
         android:textColor="@color/colorAccent"
         android:layout_gravity="top|start"
         android:paddingTop="16dp"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="top|start"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:id="@+id/count_stat_label"
@@ -105,7 +111,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="top|start"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:id="@+id/duration_stat_label"
