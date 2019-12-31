@@ -8,6 +8,8 @@ package hu.vmiklos.plees_tracker;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,5 +21,11 @@ public class DataModelUnitTest
     {
         String actual = DataModel.formatDuration(61);
         assertEquals("0:01:01", actual);
+    }
+
+    @Test public void testFormatTimestamp()
+    {
+        String actual = DataModel.formatTimestamp(new Date(0));
+        assertTrue(actual.startsWith("1970-01-01"));
     }
 }

@@ -27,10 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -206,8 +203,6 @@ public class MainActivity extends AppCompatActivity
         TextView countStat = findViewById(R.id.count_stat);
         TextView durationStat = findViewById(R.id.duration_stat);
         FloatingActionButton startStop = findViewById(R.id.start_stop);
-        SimpleDateFormat sdf =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
         if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
@@ -216,15 +211,15 @@ public class MainActivity extends AppCompatActivity
             String duration = DataModel.formatDuration(durationMS / 1000);
             status.setText(
                 String.format(getString(R.string.slept_for), duration));
-            start.setText(sdf.format(dataModel.getStart()));
-            stop.setText(sdf.format(dataModel.getStop()));
+            start.setText(DataModel.formatTimestamp(dataModel.getStart()));
+            stop.setText(DataModel.formatTimestamp(dataModel.getStop()));
             startStop.setContentDescription(getString(R.string.start_again));
             startStop.setImageResource(R.drawable.ic_start);
         }
         else if (dataModel.getStart() != null)
         {
             status.setText(R.string.tracking);
-            start.setText(sdf.format(dataModel.getStart()));
+            start.setText(DataModel.formatTimestamp(dataModel.getStart()));
             stop.setText("");
             startStop.setContentDescription(getString(R.string.stop));
             startStop.setImageResource(R.drawable.ic_stop);

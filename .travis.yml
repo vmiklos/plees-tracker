@@ -3,12 +3,6 @@ dist: trusty
 android:
   components:
     - build-tools-29.0.2
-    - android-22
     - android-29
-    - sys-img-armeabi-v7a-android-22
-before_script:
-  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
 script:
-  - ./gradlew build && ./gradlew test --info && ./gradlew connectedAndroidTest
+  - ./gradlew build && ./gradlew test

@@ -21,5 +21,5 @@ public interface SleepDao {
 
     @Insert void insert(Sleep sleep);
 
-    @Query("DELETE FROM sleep") public void deleteAll();
+    @Query("DELETE FROM sleep") void deleteAll();
 }

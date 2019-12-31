@@ -18,8 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Data model is the singleton shared state between the activity and the
@@ -195,5 +197,12 @@ public class DataModel
     {
         return String.format("%d:%02d:%02d", seconds / 3600,
                              (seconds % 3600) / 60, seconds % 60);
+    }
+
+    public static String formatTimestamp(Date date)
+    {
+        SimpleDateFormat sdf =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(date);
     }
 }
