@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Can remember already started (but not yet stopped) sleeps on system restart
+
 == 2.0
 
 - Can import previously exported data
