@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,10 @@ public class SleepsAdapter
             }
 
             TextView id = mView.findViewById(R.id.sleep_id);
-            id.setText(String.valueOf(sleep.sid));
+            DataModel dataModel = DataModel.getDataModel();
+            long durationMS = sleep.stop - sleep.start;
+            String duration = DataModel.formatDuration(durationMS / 1000);
+            id.setText(duration);
         }
     }
 
