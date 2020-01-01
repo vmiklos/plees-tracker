@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -18,6 +19,8 @@ import java.util.List;
 @Dao
 public interface SleepDao {
     @Query("SELECT * FROM sleep") List<Sleep> getAll();
+    @Query("SELECT * FROM sleep ORDER BY sid DESC")
+    LiveData<List<Sleep>> getAllLive();
 
     @Insert void insert(Sleep sleep);
 

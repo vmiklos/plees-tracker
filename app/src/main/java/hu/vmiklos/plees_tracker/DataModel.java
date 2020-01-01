@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import java.io.BufferedReader;
@@ -102,6 +103,11 @@ public class DataModel
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.remove("start");
         editor.apply();
+    }
+
+    LiveData<List<Sleep>> getSleepsLive()
+    {
+        return getDatabase().sleepDao().getAllLive();
     }
 
     void deleteSleeps() { getDatabase().sleepDao().deleteAll(); }

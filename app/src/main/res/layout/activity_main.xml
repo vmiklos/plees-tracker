@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:columnCount="1"
-    android:rowCount="8">
+    android:rowCount="10">
 
     <TextView
         android:id="@+id/status_header"
@@ -127,6 +127,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/past_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/past"
+        android:textColor="@color/colorAccent"
+        android:layout_gravity="top|start"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sleeps"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="top|start"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        tools:listitem="@layout/layout_sleep_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/start_stop"

@@ -9,6 +9,11 @@ package hu.vmiklos.plees_tracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -28,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -39,6 +45,9 @@ public class MainActivity extends AppCompatActivity
     private static final int IMPORT_CODE = 1;
     private static final int EXPORT_CODE = 2;
 
+    private SleepsAdapter mSleepsAdapter;
+    private SleepViewModel mSleepViewModel;
+
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -48,6 +57,26 @@ public class MainActivity extends AppCompatActivity
             PreferenceManager.getDefaultSharedPreferences(applicationContext);
         DataModel dataModel = DataModel.getDataModel();
         dataModel.init(applicationContext, preferences);
+
+        mSleepsAdapter = new SleepsAdapter(this);
+
+        mSleepViewModel = ViewModelProviders.of(this).get(SleepViewModel.class);
+        mSleepViewModel.getSleeps().observe(this, new Observer<List<Sleep>>() {
+            @Override public void onChanged(List<Sleep> sleeps)
+            {
+                if (sleeps != null)
+                {
+                    mSleepsAdapter.setData(sleeps);
+                }
+            }
+        });
+
+        RecyclerView recyclerView = findViewById(R.id.sleeps);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mSleepsAdapter);
+
         updateView();
     }
 
