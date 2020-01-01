@@ -134,6 +134,11 @@ public class MainActivity extends AppCompatActivity
             try
             {
                 os = cr.openOutputStream(uri);
+                if (os == null)
+                {
+                    Log.e(TAG, "onActivityResult: openOutputStream() failed");
+                    return;
+                }
                 DataModel dataModel = DataModel.getDataModel();
                 dataModel.exportData(os);
             }

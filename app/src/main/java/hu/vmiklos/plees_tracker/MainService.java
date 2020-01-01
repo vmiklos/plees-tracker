@@ -23,12 +23,12 @@ import androidx.core.app.NotificationCompat;
  */
 public class MainService extends Service
 {
+    private static final String TAG = "MainService";
     private static final String NOTIFICATION_CHANNEL_ID = "Notification";
     private static final int NOTIFICATION_CODE = 1;
+
     @Override public int onStartCommand(Intent intent, int flags, int startId)
     {
-        Log.d("plees", "MainService.onStartCommand");
-
         NotificationManager notificationManager =
             (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >=
@@ -37,7 +37,14 @@ public class MainService extends Service
             NotificationChannel channel =
                 new NotificationChannel(NOTIFICATION_CHANNEL_ID, "channel",
                                         NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
+            if (notificationManager != null)
+            {
+                notificationManager.createNotificationChannel(channel);
+            }
+            else
+            {
+                Log.e(TAG, "onStartCommand: null notificationManager");
+            }
         }
 
         Intent notificationIntent = new Intent(this, MainActivity.class);

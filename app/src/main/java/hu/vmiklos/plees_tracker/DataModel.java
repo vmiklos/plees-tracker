@@ -195,8 +195,9 @@ public class DataModel
 
     public static String formatDuration(long seconds)
     {
-        return String.format("%d:%02d:%02d", seconds / 3600,
-                             (seconds % 3600) / 60, seconds % 60);
+        return String.format(Locale.getDefault(), "%d:%02d:%02d",
+                             seconds / 3600, (seconds % 3600) / 60,
+                             seconds % 60);
     }
 
     public static String formatTimestamp(Date date)
