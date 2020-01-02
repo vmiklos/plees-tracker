@@ -3,14 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:columnCount="2"
+        android:rowCount="3">
         <TextView
-            android:id="@+id/sleep_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Id" />
-    </LinearLayout>
+            android:id="@+id/sleep_item_start_label"
+            android:text="@string/started_on"
+            android:layout_gravity="top|start"/>
+        <TextView
+            android:id="@+id/sleep_item_start"
+            android:layout_gravity="top|end"/>
+        <TextView
+            android:id="@+id/sleep_item_stop_label"
+            android:text="@string/stopped_on"
+            android:layout_gravity="top|start"/>
+        <TextView
+            android:id="@+id/sleep_item_stop"
+            android:layout_gravity="top|end"/>
+        <TextView
+            android:id="@+id/sleep_item_duration_label"
+            android:text="@string/slept_for_label"
+            android:layout_gravity="top|start"/>
+        <TextView
+            android:id="@+id/sleep_item_duration"
+            android:layout_gravity="top|end"/>
+    </GridLayout>
 </androidx.cardview.widget.CardView>

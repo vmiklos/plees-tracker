@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -89,11 +90,15 @@ public class SleepsAdapter
                 return;
             }
 
-            TextView id = mView.findViewById(R.id.sleep_id);
             DataModel dataModel = DataModel.getDataModel();
+            TextView start = mView.findViewById(R.id.sleep_item_start);
+            start.setText(DataModel.formatTimestamp(new Date(sleep.start)));
+            TextView stop = mView.findViewById(R.id.sleep_item_stop);
+            stop.setText(DataModel.formatTimestamp(new Date(sleep.stop)));
+            TextView duration = mView.findViewById(R.id.sleep_item_duration);
             long durationMS = sleep.stop - sleep.start;
-            String duration = DataModel.formatDuration(durationMS / 1000);
-            id.setText(duration);
+            String durationText = DataModel.formatDuration(durationMS / 1000);
+            duration.setText(durationText);
         }
     }
 
