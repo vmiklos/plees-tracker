@@ -252,8 +252,7 @@ public class MainActivity extends AppCompatActivity
             long durationMS =
                 dataModel.getStop().getTime() - dataModel.getStart().getTime();
             String duration = DataModel.formatDuration(durationMS / 1000);
-            status.setText(
-                String.format(getString(R.string.slept_for), duration));
+            status.setText(R.string.tracking_stopped);
             start.setText(DataModel.formatTimestamp(dataModel.getStart()));
             stop.setText(DataModel.formatTimestamp(dataModel.getStop()));
             startStop.setContentDescription(getString(R.string.start_again));
