@@ -31,51 +31,13 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"/>
 
-        <TextView
-            android:id="@+id/start_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/started_on"
-            app:layout_constraintTop_toBottomOf="@+id/status"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
-
-        <TextView
-            android:id="@+id/start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/status"
-            app:layout_constraintStart_toEndOf="@+id/start_label"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
-
-        <TextView
-            android:id="@+id/stop_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/stopped_on"
-            app:layout_constraintTop_toBottomOf="@+id/start_label"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
-
-        <TextView
-            android:id="@+id/stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/start_label"
-            app:layout_constraintStart_toStartOf="@+id/start"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
-
     <TextView
         android:id="@+id/stats_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/statistics"
         android:textColor="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@+id/stop_label"
+        app:layout_constraintTop_toBottomOf="@+id/status"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingTop="16dp"
         android:paddingLeft="16dp"

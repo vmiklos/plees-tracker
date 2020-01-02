@@ -241,28 +241,21 @@ public class MainActivity extends AppCompatActivity
     {
         DataModel dataModel = DataModel.getDataModel();
         TextView status = findViewById(R.id.status);
-        TextView start = findViewById(R.id.start);
-        TextView stop = findViewById(R.id.stop);
         TextView countStat = findViewById(R.id.count_stat);
         TextView durationStat = findViewById(R.id.duration_stat);
         FloatingActionButton startStop = findViewById(R.id.start_stop);
 
         if (dataModel.getStart() != null && dataModel.getStop() != null)
         {
-            long durationMS =
-                dataModel.getStop().getTime() - dataModel.getStart().getTime();
-            String duration = DataModel.formatDuration(durationMS / 1000);
             status.setText(R.string.tracking_stopped);
-            start.setText(DataModel.formatTimestamp(dataModel.getStart()));
-            stop.setText(DataModel.formatTimestamp(dataModel.getStop()));
             startStop.setContentDescription(getString(R.string.start_again));
             startStop.setImageResource(R.drawable.ic_start);
         }
         else if (dataModel.getStart() != null)
         {
-            status.setText(R.string.tracking);
-            start.setText(DataModel.formatTimestamp(dataModel.getStart()));
-            stop.setText("");
+            status.setText(
+                String.format(getString(R.string.tracking),
+                              DataModel.formatTimestamp(dataModel.getStart())));
             startStop.setContentDescription(getString(R.string.stop));
             startStop.setImageResource(R.drawable.ic_stop);
         }

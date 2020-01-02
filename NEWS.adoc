@@ -3,6 +3,7 @@
 == master
 
 - Can remember already started (but not yet stopped) sleeps on system restart
+- Can show duration of each past sleep
 
 == 2.0
 
