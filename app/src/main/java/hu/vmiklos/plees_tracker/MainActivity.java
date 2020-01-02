@@ -71,11 +71,20 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.sleeps);
+        final RecyclerView recyclerView = findViewById(R.id.sleeps);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mSleepsAdapter);
+        mSleepsAdapter.registerAdapterDataObserver(
+            new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onItemRangeInserted(int positionStart,
+                                                int itemCount)
+                {
+                    recyclerView.scrollToPosition(positionStart);
+                }
+            });
 
         updateView();
     }
