@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity
         else if (dataModel.getStart() != null)
         {
             status.setText(
-                String.format(getString(R.string.tracking),
+                String.format(getString(R.string.sleeping_since),
                               DataModel.formatTimestamp(dataModel.getStart())));
             startStop.setContentDescription(getString(R.string.stop));
             startStop.setImageResource(R.drawable.ic_stop);
