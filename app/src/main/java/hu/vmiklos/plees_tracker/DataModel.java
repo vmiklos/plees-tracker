@@ -112,12 +112,12 @@ public class DataModel
 
     void deleteSleeps() { getDatabase().sleepDao().deleteAll(); }
 
-    String getSleepCountStat(List<Sleep> sleeps)
+    static String getSleepCountStat(List<Sleep> sleeps)
     {
         return String.valueOf(sleeps.size());
     }
 
-    String getSleepDurationStat(List<Sleep> sleeps)
+    static String getSleepDurationStat(List<Sleep> sleeps)
     {
         long sum = 0;
         for (Sleep sleep : sleeps)
