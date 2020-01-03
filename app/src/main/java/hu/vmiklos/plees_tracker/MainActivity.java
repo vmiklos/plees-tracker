@@ -64,6 +64,12 @@ public class MainActivity extends AppCompatActivity
             {
                 if (sleeps != null)
                 {
+                    DataModel dataModel = DataModel.getDataModel();
+                    TextView countStat = findViewById(R.id.count_stat);
+                    countStat.setText(dataModel.getSleepCountStat(sleeps));
+                    TextView durationStat = findViewById(R.id.duration_stat);
+                    durationStat.setText(
+                        dataModel.getSleepDurationStat(sleeps));
                     mSleepsAdapter.setData(sleeps);
                 }
             }
@@ -239,8 +245,6 @@ public class MainActivity extends AppCompatActivity
     {
         DataModel dataModel = DataModel.getDataModel();
         TextView status = findViewById(R.id.status);
-        TextView countStat = findViewById(R.id.count_stat);
-        TextView durationStat = findViewById(R.id.duration_stat);
         FloatingActionButton startStop = findViewById(R.id.start_stop);
 
         if (dataModel.getStart() != null && dataModel.getStop() != null)
@@ -257,8 +261,6 @@ public class MainActivity extends AppCompatActivity
             startStop.setContentDescription(getString(R.string.stop));
             startStop.setImageResource(R.drawable.ic_stop);
         }
-        countStat.setText(dataModel.getSleepCountStat());
-        durationStat.setText(dataModel.getSleepDurationStat());
     }
 
     @Override public boolean onCreateOptionsMenu(Menu menu)

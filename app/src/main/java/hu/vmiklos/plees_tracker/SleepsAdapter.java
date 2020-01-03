@@ -27,14 +27,12 @@ public class SleepsAdapter
     extends RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>
 {
     private List<Sleep> mData;
-    private Context mContext;
     private LayoutInflater mLayoutInflater;
 
     public SleepsAdapter(Context context)
     {
         mData = new ArrayList<>();
-        mContext = context;
-        mLayoutInflater = (LayoutInflater)mContext.getSystemService(
+        mLayoutInflater = (LayoutInflater)context.getSystemService(
             Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -90,7 +88,6 @@ public class SleepsAdapter
                 return;
             }
 
-            DataModel dataModel = DataModel.getDataModel();
             TextView start = mView.findViewById(R.id.sleep_item_start);
             start.setText(DataModel.formatTimestamp(new Date(sleep.start)));
             TextView stop = mView.findViewById(R.id.sleep_item_stop);
