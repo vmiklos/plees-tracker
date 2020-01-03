@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity
     private static final int EXPORT_CODE = 2;
 
     private SleepsAdapter mSleepsAdapter;
-    private SleepViewModel mSleepViewModel;
 
     @Override protected void onCreate(Bundle savedInstanceState)
     {
@@ -60,8 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         mSleepsAdapter = new SleepsAdapter(this);
 
-        mSleepViewModel = ViewModelProviders.of(this).get(SleepViewModel.class);
-        mSleepViewModel.getSleeps().observe(this, new Observer<List<Sleep>>() {
+        dataModel.getSleepsLive().observe(this, new Observer<List<Sleep>>() {
             @Override public void onChanged(List<Sleep> sleeps)
             {
                 if (sleeps != null)
