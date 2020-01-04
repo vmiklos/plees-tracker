@@ -59,21 +59,40 @@ public class SleepsAdapter
 
     @Override public int getItemCount() { return mData.size(); }
 
-    public void setData(List<Sleep> data)
+    public void setData(final List<Sleep> newData)
     {
-        if (mData == null)
-        {
-            mData = data;
-            return;
-        }
+        final List<Sleep> previousData = mData;
+        mData = newData;
+        DiffUtil
+            .calculateDiff(new DiffUtil.Callback() {
+                @Override public int getOldListSize()
+                {
+                    return previousData != null ? previousData.size() : 0;
+                }
 
-        SleepDiffCallback sleepDiffCallback =
-            new SleepDiffCallback(mData, data);
-        DiffUtil.DiffResult diffResult =
-            DiffUtil.calculateDiff(sleepDiffCallback);
-        mData.clear();
-        mData.addAll(data);
-        diffResult.dispatchUpdatesTo(this);
+                @Override public int getNewListSize()
+                {
+                    return newData != null ? newData.size() : 0;
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition,
+                                               int newItemPosition)
+                {
+                    return previousData.get(oldItemPosition).sid ==
+                        newData.get(newItemPosition).sid;
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition,
+                                                  int newItemPosition)
+                {
+                    // No need to do deep comparison of data since the
+                    // start/stop of a sleep never changes.
+                    return true;
+                }
+            })
+            .dispatchUpdatesTo(this);
     }
 
     /**
@@ -91,37 +110,6 @@ public class SleepsAdapter
             start = view.findViewById(R.id.sleep_item_start);
             stop = view.findViewById(R.id.sleep_item_stop);
             duration = view.findViewById(R.id.sleep_item_duration);
-        }
-    }
-
-    class SleepDiffCallback extends DiffUtil.Callback
-    {
-        private final List<Sleep> mOldList;
-        private final List<Sleep> mNewList;
-
-        public SleepDiffCallback(List<Sleep> oldList, List<Sleep> newList)
-        {
-            mOldList = oldList;
-            mNewList = newList;
-        }
-
-        @Override public int getOldListSize() { return mOldList.size(); }
-
-        @Override public int getNewListSize() { return mNewList.size(); }
-
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition)
-        {
-            return mOldList.get(oldItemPosition).sid ==
-                mNewList.get(newItemPosition).sid;
-        }
-
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition,
-                                          int newItemPosition)
-        {
-            return mOldList.get(oldItemPosition)
-                .equals(mNewList.get(newItemPosition));
         }
     }
 }
