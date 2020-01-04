@@ -18,4 +18,6 @@
     <string name="sleeping_since">Sleeping since %s</string>
     <string name="past">Past sleeps</string>
     <string name="tracking_stopped">Tracking stopped</string>
+    <string name="deleted">Deleted</string>
+    <string name="undo">Undo</string>
 </resources>

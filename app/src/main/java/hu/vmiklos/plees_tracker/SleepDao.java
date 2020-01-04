@@ -8,6 +8,7 @@ package hu.vmiklos.plees_tracker;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -23,6 +24,8 @@ public interface SleepDao {
     LiveData<List<Sleep>> getAllLive();
 
     @Insert void insert(Sleep sleep);
+
+    @Delete void delete(Sleep sleep);
 
     @Query("DELETE FROM sleep") void deleteAll();
 }

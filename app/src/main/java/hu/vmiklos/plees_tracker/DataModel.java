@@ -110,7 +110,11 @@ public class DataModel
         return getDatabase().sleepDao().getAllLive();
     }
 
+    void insertSleep(Sleep sleep) { getDatabase().sleepDao().insert(sleep); }
+
     void deleteSleeps() { getDatabase().sleepDao().deleteAll(); }
+
+    void deleteSleep(Sleep sleep) { getDatabase().sleepDao().delete(sleep); }
 
     static String getSleepCountStat(List<Sleep> sleeps)
     {
@@ -210,4 +214,6 @@ public class DataModel
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         return sdf.format(date);
     }
+
+    public String getString(int resId) { return mContext.getString(resId); }
 }

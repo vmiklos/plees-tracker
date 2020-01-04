@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,6 +85,9 @@ public class MainActivity extends AppCompatActivity
                     recyclerView.scrollToPosition(positionStart);
                 }
             });
+        ItemTouchHelper itemTouchHelper =
+            new ItemTouchHelper(new SleepTouchCallback(sleepsAdapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         updateView();
     }

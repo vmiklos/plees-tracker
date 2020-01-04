@@ -88,6 +88,8 @@ public class SleepsAdapter
             .dispatchUpdatesTo(this);
     }
 
+    public List<Sleep> getData() { return mData; }
+
     /**
      * The view holder holds all views that will display one Sleep.
      */
