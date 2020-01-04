@@ -6,7 +6,6 @@
 
 package hu.vmiklos.plees_tracker;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,22 +26,16 @@ public class SleepsAdapter
     extends RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>
 {
     private List<Sleep> mData;
-    private LayoutInflater mLayoutInflater;
 
-    public SleepsAdapter(Context context)
-    {
-        mData = new ArrayList<>();
-        mLayoutInflater = (LayoutInflater)context.getSystemService(
-            Context.LAYOUT_INFLATER_SERVICE);
-    }
+    public SleepsAdapter() { mData = new ArrayList<>(); }
 
     @NonNull
     @Override
     public SleepViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                               int viewType)
     {
-        View view =
-            mLayoutInflater.inflate(R.layout.layout_sleep_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.layout_sleep_item, parent, false);
         return new SleepViewHolder(view);
     }
 
@@ -100,11 +93,11 @@ public class SleepsAdapter
      */
     class SleepViewHolder extends RecyclerView.ViewHolder
     {
-        public final TextView start;
-        public final TextView stop;
-        public final TextView duration;
+        final TextView start;
+        final TextView stop;
+        final TextView duration;
 
-        public SleepViewHolder(View view)
+        SleepViewHolder(View view)
         {
             super(view);
             start = view.findViewById(R.id.sleep_item_start);

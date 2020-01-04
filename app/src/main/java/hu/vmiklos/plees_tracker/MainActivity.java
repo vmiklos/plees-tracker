@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity
     private static final int IMPORT_CODE = 1;
     private static final int EXPORT_CODE = 2;
 
-    private SleepsAdapter mSleepsAdapter;
-
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -56,20 +54,18 @@ public class MainActivity extends AppCompatActivity
         DataModel dataModel = DataModel.getDataModel();
         dataModel.init(applicationContext, preferences);
 
-        mSleepsAdapter = new SleepsAdapter(this);
-
+        final SleepsAdapter sleepsAdapter = new SleepsAdapter();
         dataModel.getSleepsLive().observe(this, new Observer<List<Sleep>>() {
             @Override public void onChanged(List<Sleep> sleeps)
             {
                 if (sleeps != null)
                 {
-                    DataModel dataModel = DataModel.getDataModel();
                     TextView countStat = findViewById(R.id.count_stat);
-                    countStat.setText(dataModel.getSleepCountStat(sleeps));
+                    countStat.setText(DataModel.getSleepCountStat(sleeps));
                     TextView durationStat = findViewById(R.id.duration_stat);
                     durationStat.setText(
-                        dataModel.getSleepDurationStat(sleeps));
-                    mSleepsAdapter.setData(sleeps);
+                        DataModel.getSleepDurationStat(sleeps));
+                    sleepsAdapter.setData(sleeps);
                 }
             }
         });
@@ -78,8 +74,8 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mSleepsAdapter);
-        mSleepsAdapter.registerAdapterDataObserver(
+        recyclerView.setAdapter(sleepsAdapter);
+        sleepsAdapter.registerAdapterDataObserver(
             new RecyclerView.AdapterDataObserver() {
                 @Override
                 public void onItemRangeInserted(int positionStart,
