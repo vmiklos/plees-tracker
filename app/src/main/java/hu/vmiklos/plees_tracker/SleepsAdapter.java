@@ -49,7 +49,12 @@ public class SleepsAdapter
     @Override
     public void onBindViewHolder(@NonNull SleepViewHolder holder, int position)
     {
-        holder.bind(mData.get(position));
+        Sleep sleep = mData.get(position);
+        holder.start.setText(DataModel.formatTimestamp(new Date(sleep.start)));
+        holder.stop.setText(DataModel.formatTimestamp(new Date(sleep.stop)));
+        long durationMS = sleep.stop - sleep.start;
+        String durationText = DataModel.formatDuration(durationMS / 1000);
+        holder.duration.setText(durationText);
     }
 
     @Override public int getItemCount() { return mData.size(); }
@@ -71,31 +76,21 @@ public class SleepsAdapter
         diffResult.dispatchUpdatesTo(this);
     }
 
+    /**
+     * The view holder holds all views that will display one Sleep.
+     */
     class SleepViewHolder extends RecyclerView.ViewHolder
     {
-        private View mView;
+        public final TextView start;
+        public final TextView stop;
+        public final TextView duration;
 
         public SleepViewHolder(View view)
         {
             super(view);
-            mView = view;
-        }
-
-        void bind(final Sleep sleep)
-        {
-            if (sleep == null)
-            {
-                return;
-            }
-
-            TextView start = mView.findViewById(R.id.sleep_item_start);
-            start.setText(DataModel.formatTimestamp(new Date(sleep.start)));
-            TextView stop = mView.findViewById(R.id.sleep_item_stop);
-            stop.setText(DataModel.formatTimestamp(new Date(sleep.stop)));
-            TextView duration = mView.findViewById(R.id.sleep_item_duration);
-            long durationMS = sleep.stop - sleep.start;
-            String durationText = DataModel.formatDuration(durationMS / 1000);
-            duration.setText(durationText);
+            start = view.findViewById(R.id.sleep_item_start);
+            stop = view.findViewById(R.id.sleep_item_stop);
+            duration = view.findViewById(R.id.sleep_item_duration);
         }
     }
 
