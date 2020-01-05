@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey;
 /**
  * Represents one tracked sleep.
  */
-@Entity class Sleep
+@Entity public class Sleep
 {
     @PrimaryKey(autoGenerate = true) public int sid;
 
