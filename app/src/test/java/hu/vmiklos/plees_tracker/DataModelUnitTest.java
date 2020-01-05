@@ -35,8 +35,8 @@ public class DataModelUnitTest
     {
         List<Sleep> sleeps = new ArrayList<>();
         Sleep sleep = new Sleep();
-        sleep.start = 10000;
-        sleep.stop = 20000;
+        sleep.setStart(10000);
+        sleep.setStop(20000);
         sleeps.add(sleep);
         sleeps.add(sleep);
         assertEquals("2", DataModel.getSleepCountStat(sleeps));
@@ -47,14 +47,14 @@ public class DataModelUnitTest
         List<Sleep> sleeps = new ArrayList<>();
         // 10 seconds.
         Sleep sleep = new Sleep();
-        sleep.start = 10000;
-        sleep.stop = 20000;
+        sleep.setStart(10000);
+        sleep.setStop(20000);
         sleeps.add(sleep);
 
         // 20 seconds.
         sleep = new Sleep();
-        sleep.start = 10000;
-        sleep.stop = 30000;
+        sleep.setStart(10000);
+        sleep.setStop(30000);
         sleeps.add(sleep);
 
         assertEquals("0:00:15", DataModel.getSleepDurationStat(sleeps));

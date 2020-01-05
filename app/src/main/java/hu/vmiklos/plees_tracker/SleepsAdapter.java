@@ -43,9 +43,11 @@ public class SleepsAdapter
     public void onBindViewHolder(@NonNull SleepViewHolder holder, int position)
     {
         Sleep sleep = mData.get(position);
-        holder.start.setText(DataModel.formatTimestamp(new Date(sleep.start)));
-        holder.stop.setText(DataModel.formatTimestamp(new Date(sleep.stop)));
-        long durationMS = sleep.stop - sleep.start;
+        holder.start.setText(
+            DataModel.formatTimestamp(new Date(sleep.getStart())));
+        holder.stop.setText(
+            DataModel.formatTimestamp(new Date(sleep.getStop())));
+        long durationMS = sleep.getStop() - sleep.getStart();
         String durationText = DataModel.formatDuration(durationMS / 1000);
         holder.duration.setText(durationText);
     }
@@ -72,8 +74,8 @@ public class SleepsAdapter
                 public boolean areItemsTheSame(int oldItemPosition,
                                                int newItemPosition)
                 {
-                    return previousData.get(oldItemPosition).sid ==
-                        newData.get(newItemPosition).sid;
+                    return previousData.get(oldItemPosition).getSid() ==
+                        newData.get(newItemPosition).getSid();
                 }
 
                 @Override

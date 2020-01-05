@@ -95,8 +95,8 @@ public class DataModel
     void storeSleep()
     {
         Sleep sleep = new Sleep();
-        sleep.start = mStart.getTime();
-        sleep.stop = mStop.getTime();
+        sleep.setStart(mStart.getTime());
+        sleep.setStop(mStop.getTime());
         getDatabase().sleepDao().insert(sleep);
 
         // Drop start timestamp from preferences, it's in the database now.
@@ -126,7 +126,7 @@ public class DataModel
         long sum = 0;
         for (Sleep sleep : sleeps)
         {
-            long diff = sleep.stop - sleep.start;
+            long diff = sleep.getStop() - sleep.getStart();
             diff /= 1000;
             sum += diff;
         }
@@ -159,8 +159,8 @@ public class DataModel
                     continue;
                 }
                 Sleep sleep = new Sleep();
-                sleep.start = Long.valueOf(cells[1]);
-                sleep.stop = Long.valueOf(cells[2]);
+                sleep.setStart(Long.valueOf(cells[1]));
+                sleep.setStop(Long.valueOf(cells[2]));
                 getDatabase().sleepDao().insert(sleep);
             }
         }
@@ -184,8 +184,8 @@ public class DataModel
             os.write("sid,start,stop\n".getBytes());
             for (Sleep sleep : sleeps)
             {
-                String row =
-                    sleep.sid + "," + sleep.start + "," + sleep.stop + "\n";
+                String row = sleep.getSid() + "," + sleep.getStart() + "," +
+                             sleep.getStop() + "\n";
                 os.write(row.getBytes());
             }
         }
