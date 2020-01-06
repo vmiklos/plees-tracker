@@ -33,7 +33,7 @@ public class MainActivityInstrumentedTest
 
     @Test public void testCountStat()
     {
-        DataModel dataModel = DataModel.getDataModel();
+        DataModel dataModel = DataModel.Companion.getDataModel();
         dataModel.deleteSleeps();
 
         onView(withId(R.id.start_stop)).perform(click());

@@ -27,7 +27,7 @@ class SleepTouchCallback(private val mAdapter: SleepsAdapter)
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
                  direction: Int) {
-        val dataModel = DataModel.getDataModel()
+        val dataModel = DataModel.dataModel
         val sleep = mAdapter.data!!.get(viewHolder.getAdapterPosition())
         dataModel.deleteSleep(sleep)
 

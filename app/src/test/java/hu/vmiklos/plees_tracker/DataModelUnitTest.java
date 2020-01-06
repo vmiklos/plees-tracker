@@ -21,13 +21,13 @@ public class DataModelUnitTest
 {
     @Test public void testFormatDuration()
     {
-        String actual = DataModel.formatDuration(61);
+        String actual = DataModel.Companion.formatDuration(61);
         assertEquals("0:01:01", actual);
     }
 
     @Test public void testFormatTimestamp()
     {
-        String actual = DataModel.formatTimestamp(new Date(0));
+        String actual = DataModel.Companion.formatTimestamp(new Date(0));
         assertTrue(actual.startsWith("1970-01-01"));
     }
 
@@ -39,7 +39,7 @@ public class DataModelUnitTest
         sleep.setStop(20000);
         sleeps.add(sleep);
         sleeps.add(sleep);
-        assertEquals("2", DataModel.getSleepCountStat(sleeps));
+        assertEquals("2", DataModel.Companion.getSleepCountStat(sleeps));
     }
 
     @Test public void testGetSleepDurationStat()
@@ -57,6 +57,7 @@ public class DataModelUnitTest
         sleep.setStop(30000);
         sleeps.add(sleep);
 
-        assertEquals("0:00:15", DataModel.getSleepDurationStat(sleeps));
+        assertEquals("0:00:15",
+                     DataModel.Companion.getSleepDurationStat(sleeps));
     }
 }

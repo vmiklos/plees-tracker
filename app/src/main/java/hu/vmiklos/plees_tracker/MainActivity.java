@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         final Context applicationContext = getApplicationContext();
         SharedPreferences preferences =
             PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        DataModel dataModel = DataModel.getDataModel();
+        DataModel dataModel = DataModel.Companion.getDataModel();
         dataModel.init(applicationContext, preferences);
 
         final SleepsAdapter sleepsAdapter = new SleepsAdapter();
@@ -62,10 +62,11 @@ public class MainActivity extends AppCompatActivity
                 if (sleeps != null)
                 {
                     TextView countStat = findViewById(R.id.count_stat);
-                    countStat.setText(DataModel.getSleepCountStat(sleeps));
+                    countStat.setText(
+                        DataModel.Companion.getSleepCountStat(sleeps));
                     TextView durationStat = findViewById(R.id.duration_stat);
                     durationStat.setText(
-                        DataModel.getSleepDurationStat(sleeps));
+                        DataModel.Companion.getSleepDurationStat(sleeps));
                     sleepsAdapter.setData(sleeps);
                 }
             }
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStop();
         Intent intent = new Intent(this, MainService.class);
-        DataModel dataModel = DataModel.getDataModel();
+        DataModel dataModel = DataModel.Companion.getDataModel();
         if (dataModel.getStart() != null && dataModel.getStop() == null)
         {
             startService(intent);
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity
     // Used from layout XML.
     @SuppressWarnings("unused") public void startStop(View v)
     {
-        DataModel dataModel = DataModel.getDataModel();
+        DataModel dataModel = DataModel.Companion.getDataModel();
         if (dataModel.getStart() != null && dataModel.getStop() == null)
         {
             dataModel.setStop(Calendar.getInstance().getTime());
@@ -180,7 +181,7 @@ public class MainActivity extends AppCompatActivity
                     Log.e(TAG, "onActivityResult: openOutputStream() failed");
                     return;
                 }
-                DataModel dataModel = DataModel.getDataModel();
+                DataModel dataModel = DataModel.Companion.getDataModel();
                 dataModel.exportData(os);
             }
             catch (Exception e)
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity
             try
             {
                 is = cr.openInputStream(uri);
-                DataModel dataModel = DataModel.getDataModel();
+                DataModel dataModel = DataModel.Companion.getDataModel();
                 dataModel.importData(is);
             }
             catch (Exception e)
@@ -242,7 +243,7 @@ public class MainActivity extends AppCompatActivity
 
     private void updateView()
     {
-        DataModel dataModel = DataModel.getDataModel();
+        DataModel dataModel = DataModel.Companion.getDataModel();
         TextView status = findViewById(R.id.status);
         FloatingActionButton startStop = findViewById(R.id.start_stop);
 
@@ -254,9 +255,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (dataModel.getStart() != null)
         {
-            status.setText(
-                String.format(getString(R.string.sleeping_since),
-                              DataModel.formatTimestamp(dataModel.getStart())));
+            status.setText(String.format(
+                getString(R.string.sleeping_since),
+                DataModel.Companion.formatTimestamp(dataModel.getStart())));
             startStop.setContentDescription(getString(R.string.stop));
             startStop.setImageResource(R.drawable.ic_stop);
         }
