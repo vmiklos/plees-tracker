@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Used from layout XML.
-    fun startStop(v: View) {
+    fun startStop(@Suppress("UNUSED_PARAMETER") v: View) {
         val dataModel = DataModel.dataModel
         if (dataModel.start != null && dataModel.stop == null) {
             dataModel.stop = Calendar.getInstance().time
