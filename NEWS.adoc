@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- App metadata now features a screenshot
+
 == 3.0
 
 - Can remember already started (but not yet stopped) sleeps on system restart
