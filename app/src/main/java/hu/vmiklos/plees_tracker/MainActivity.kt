@@ -192,7 +192,7 @@ class MainActivity : AppCompatActivity() {
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
 
         if (dataModel.start != null && dataModel.stop != null) {
-            status.text = R.string.tracking_stopped.toString()
+            status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
         } else if (dataModel.start != null) {
