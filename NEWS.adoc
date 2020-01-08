@@ -3,6 +3,7 @@
 == master
 
 - App metadata now features a screenshot
+- Added an about dialog to credit used libraries
 
 == 3.0
 

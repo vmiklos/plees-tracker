@@ -27,6 +27,8 @@ import android.view.View
 import android.widget.TextView
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.LibsBuilder
 
 import java.io.InputStream
 import java.io.OutputStream
@@ -215,6 +217,15 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.export_data -> {
                 exportData()
+                return true
+            }
+            R.id.about -> {
+                LibsBuilder()
+                        .withActivityTitle(getString(R.string.about_toolbar))
+                        .withAboutAppName(getString(R.string.app_name))
+                        .withAboutSpecial1("https://vmiklos.hu/")
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                        .start(this)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

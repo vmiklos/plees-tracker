@@ -20,4 +20,6 @@
     <string name="tracking_stopped">Tracking stopped</string>
     <string name="deleted">Deleted</string>
     <string name="undo">Undo</string>
+    <string name="about_item">About...</string>
+    <string name="about_toolbar">About</string>
 </resources>
