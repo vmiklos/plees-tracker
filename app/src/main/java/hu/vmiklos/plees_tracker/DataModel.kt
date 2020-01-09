@@ -10,10 +10,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
-
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -110,9 +108,9 @@ class DataModel private constructor() {
         try {
             var first = true
             while (true) {
-                var line = br.readLine();
+                var line = br.readLine()
                 if (line == null) {
-                    break;
+                    break
                 }
                 if (first) {
                     // Ignore the header.
