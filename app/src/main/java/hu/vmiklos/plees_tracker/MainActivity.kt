@@ -6,18 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
-import android.content.ContentResolver
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -25,11 +14,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
-
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.Calendar
@@ -66,8 +59,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = sleepsAdapter
         sleepsAdapter.registerAdapterDataObserver(
                 object : RecyclerView.AdapterDataObserver() {
-                    override fun onItemRangeInserted(positionStart: Int,
-                                                     itemCount: Int) {
+                    override fun onItemRangeInserted(
+                        positionStart: Int,
+                        itemCount: Int
+                    ) {
                         recyclerView.scrollToPosition(positionStart)
                     }
                 })
@@ -119,8 +114,11 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, IMPORT_CODE)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int,
-                                  data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         val cr = contentResolver
         val uri = data?.data
@@ -159,7 +157,6 @@ class MainActivity : AppCompatActivity() {
                         throw e
                     } catch (e: Exception) {
                     }
-
                 }
             }
         } else if (requestCode == IMPORT_CODE) {
@@ -179,7 +176,6 @@ class MainActivity : AppCompatActivity() {
                         throw e
                     } catch (e: Exception) {
                     }
-
                 }
             }
             updateView()
