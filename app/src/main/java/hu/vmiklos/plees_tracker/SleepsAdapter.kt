@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-
 import java.util.ArrayList
 import java.util.Date
 
@@ -34,20 +33,26 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
             DiffUtil
                     .calculateDiff(object : DiffUtil.Callback() {
                         override fun getOldListSize(): Int {
-                            return previousData?.size ?: 0;
+                            return previousData?.size ?: 0
                         }
 
                         override fun getNewListSize(): Int {
-                            return newData?.size ?: 0;
+                            return newData?.size ?: 0
                         }
 
-                        override fun areItemsTheSame(oldItemPosition: Int,
-                                            newItemPosition: Int): Boolean {
-                            return previousData!![oldItemPosition].sid == newData!![newItemPosition].sid
+                        override fun areItemsTheSame(
+                            oldItemPosition: Int,
+                            newItemPosition: Int
+                        ): Boolean {
+                            val oldSid = previousData!![oldItemPosition].sid
+                            val newSid = newData!![newItemPosition].sid
+                            return oldSid == newSid
                         }
 
-                        override fun areContentsTheSame(oldItemPosition: Int,
-                                               newItemPosition: Int): Boolean {
+                        override fun areContentsTheSame(
+                            oldItemPosition: Int,
+                            newItemPosition: Int
+                        ): Boolean {
                             // No need to do deep comparison of data since the
                             // start/stop of a sleep never changes.
                             return true
@@ -60,8 +65,10 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
         mData = ArrayList()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup,
-                           viewType: Int): SleepViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SleepViewHolder {
         val view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_sleep_item, parent, false)
         return SleepViewHolder(view)
