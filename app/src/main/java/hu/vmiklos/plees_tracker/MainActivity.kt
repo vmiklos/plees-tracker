@@ -219,7 +219,6 @@ class MainActivity : AppCompatActivity() {
                 LibsBuilder()
                         .withActivityTitle(getString(R.string.about_toolbar))
                         .withAboutAppName(getString(R.string.app_name))
-                        .withAboutSpecial1("https://vmiklos.hu/")
                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                         .start(this)
                 return true
