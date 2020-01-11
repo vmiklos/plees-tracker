@@ -100,3 +100,5 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
         }
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

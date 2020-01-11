@@ -233,3 +233,5 @@ class MainActivity : AppCompatActivity() {
         private val EXPORT_CODE = 2
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

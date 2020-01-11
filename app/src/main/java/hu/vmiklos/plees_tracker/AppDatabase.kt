@@ -17,3 +17,5 @@ import androidx.room.RoomDatabase
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sleepDao(): SleepDao
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

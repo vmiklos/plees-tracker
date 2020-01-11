@@ -194,3 +194,5 @@ class DataModel private constructor() {
         }
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

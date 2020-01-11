@@ -56,3 +56,5 @@ class MainService : Service() {
         private val NOTIFICATION_CODE = 1
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

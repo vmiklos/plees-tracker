@@ -45,3 +45,5 @@ class SleepTouchCallback(private val mAdapter: SleepsAdapter) :
         private val TAG = "SleepTouchCallback"
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

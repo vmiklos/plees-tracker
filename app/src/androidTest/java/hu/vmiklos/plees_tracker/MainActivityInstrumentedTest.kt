@@ -35,3 +35,5 @@ class MainActivityInstrumentedTest {
         onView(withId(R.id.count_stat)).check(matches(withText("1")))
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
