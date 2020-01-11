@@ -6,12 +6,11 @@
 
 package hu.vmiklos.plees_tracker
 
-import org.junit.Test
-
 import java.util.ArrayList
 import java.util.Date
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 /**
  * Unit tests for DataModel.
