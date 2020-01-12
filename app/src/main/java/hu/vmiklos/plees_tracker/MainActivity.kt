@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,8 @@ import java.util.Calendar
  */
 class MainActivity : AppCompatActivity() {
 
+    var mViewModel: MainViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         dataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter()
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         dataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
                 val countStat = findViewById<TextView>(R.id.count_stat)
@@ -66,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.scrollToPosition(positionStart)
                     }
                 })
-        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(sleepsAdapter))
+        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(mViewModel!!, sleepsAdapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         updateView()
@@ -92,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val dataModel = DataModel.dataModel
         if (dataModel.start != null && dataModel.stop == null) {
             dataModel.stop = Calendar.getInstance().time
-            dataModel.storeSleep()
+            mViewModel?.stopSleep()
         } else {
             dataModel.start = Calendar.getInstance().time
             dataModel.stop = null
@@ -145,8 +149,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "onActivityResult: openOutputStream() failed")
                     return
                 }
-                val dataModel = DataModel.dataModel
-                dataModel.exportData(os)
+                mViewModel?.exportData(os)
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: write() failed")
             } finally {
@@ -163,8 +166,7 @@ class MainActivity : AppCompatActivity() {
             var `is`: InputStream? = null
             try {
                 `is` = cr.openInputStream(uri)
-                val dataModel = DataModel.dataModel
-                dataModel.importData(`is`!!)
+                mViewModel?.importData(`is`!!)
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: read() failed")
                 return

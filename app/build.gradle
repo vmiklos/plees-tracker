@@ -37,10 +37,13 @@ dependencies {
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
     implementation 'com.google.android.material:material:1.0.0'
     implementation "androidx.core:core-ktx:1.1.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.mikepenz:aboutlibraries:7.1.0"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }
 repositories {
     mavenCentral()

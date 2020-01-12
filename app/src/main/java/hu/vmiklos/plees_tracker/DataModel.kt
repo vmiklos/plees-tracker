@@ -53,7 +53,6 @@ class DataModel private constructor() {
         get() {
             if (mDatabase == null) {
                 mDatabase = Room.databaseBuilder(mContext!!, AppDatabase::class.java, "database")
-                        .allowMainThreadQueries()
                         .build()
             }
             return mDatabase
@@ -79,7 +78,7 @@ class DataModel private constructor() {
         }
     }
 
-    fun storeSleep() {
+    suspend fun storeSleep() {
         val sleep = Sleep()
         sleep.start = mStart!!.getTime()
         sleep.stop = stop!!.getTime()
@@ -91,19 +90,19 @@ class DataModel private constructor() {
         editor.apply()
     }
 
-    fun insertSleep(sleep: Sleep) {
+    suspend fun insertSleep(sleep: Sleep) {
         database!!.sleepDao().insert(sleep)
     }
 
-    fun deleteSleeps() {
+    suspend fun deleteSleeps() {
         database!!.sleepDao().deleteAll()
     }
 
-    fun deleteSleep(sleep: Sleep) {
+    suspend fun deleteSleep(sleep: Sleep) {
         database!!.sleepDao().delete(sleep)
     }
 
-    fun importData(`is`: InputStream) {
+    suspend fun importData(`is`: InputStream) {
         val br = BufferedReader(InputStreamReader(`is`))
         try {
             var first = true
@@ -137,7 +136,7 @@ class DataModel private constructor() {
         toast.show()
     }
 
-    fun exportData(os: OutputStream) {
+    suspend fun exportData(os: OutputStream) {
         try {
             val sleeps = database!!.sleepDao().getAll()
             os.write("sid,start,stop\n".toByteArray())

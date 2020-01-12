@@ -4,6 +4,7 @@
 
 - App metadata now features a screenshot
 - Added an about dialog to credit used libraries
+- Now never performing database operations on the main thread
 
 == 3.0
 

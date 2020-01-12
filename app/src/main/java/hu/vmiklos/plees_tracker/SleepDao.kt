@@ -18,18 +18,18 @@ import androidx.room.Query
 @Dao
 interface SleepDao {
     @Query("SELECT * FROM sleep")
-    fun getAll(): List<Sleep>
+    suspend fun getAll(): List<Sleep>
     @Query("SELECT * FROM sleep ORDER BY sid DESC")
     fun getAllLive(): LiveData<List<Sleep>>
 
     @Insert
-    fun insert(sleep: Sleep)
+    suspend fun insert(sleep: Sleep)
 
     @Delete
-    fun delete(sleep: Sleep)
+    suspend fun delete(sleep: Sleep)
 
     @Query("DELETE FROM sleep")
-    fun deleteAll()
+    suspend fun deleteAll()
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

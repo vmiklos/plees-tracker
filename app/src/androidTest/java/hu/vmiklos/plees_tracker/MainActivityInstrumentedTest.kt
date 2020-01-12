@@ -13,6 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,7 +29,7 @@ class MainActivityInstrumentedTest {
     @Test
     fun testCountStat() {
         val dataModel = DataModel.dataModel
-        dataModel.deleteSleeps()
+        runBlocking { dataModel.deleteSleeps() }
 
         onView(withId(R.id.start_stop)).perform(click())
         onView(withId(R.id.start_stop)).perform(click())
