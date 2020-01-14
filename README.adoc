@@ -24,6 +24,12 @@ It looks like this:
 
 image::app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png[width=360,height=640]
 
+== Download
+
+Get it on F-Droid:
+
+image::doc/fdroid.png[width=194,height=75,link="https://f-droid.org/en/packages/hu.vmiklos.plees_tracker/"]
+
 == License
 
 Use of this source code is governed by a BSD-style license that can be found in
