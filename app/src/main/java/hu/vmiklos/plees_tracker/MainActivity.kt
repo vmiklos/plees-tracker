@@ -222,6 +222,7 @@ class MainActivity : AppCompatActivity() {
                         .withActivityTitle(getString(R.string.about_toolbar))
                         .withAboutAppName(getString(R.string.app_name))
                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                        .withAboutDescription(getString(R.string.app_description))
                         .start(this)
                 return true
             }

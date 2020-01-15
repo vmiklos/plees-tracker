@@ -22,4 +22,5 @@
     <string name="undo">Undo</string>
     <string name="about_item">About...</string>
     <string name="about_toolbar">About</string>
+    <string name="app_description">A simple sleep tracker for Android</string>
 </resources>
