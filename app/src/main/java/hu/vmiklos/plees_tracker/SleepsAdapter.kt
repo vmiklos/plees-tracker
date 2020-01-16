@@ -76,28 +76,22 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
 
     override fun onBindViewHolder(holder: SleepViewHolder, position: Int) {
         val sleep = mData!![position]
-        holder.start!!.setText(
+        holder.start.setText(
                 DataModel.formatTimestamp(Date(sleep.start)))
-        holder.stop!!.setText(
+        holder.stop.setText(
                 DataModel.formatTimestamp(Date(sleep.stop)))
         val durationMS = sleep.stop - sleep.start
         val durationText = DataModel.formatDuration(durationMS / 1000)
-        holder.duration!!.setText(durationText)
+        holder.duration.setText(durationText)
     }
 
     /**
      * The view holder holds all views that will display one Sleep.
      */
     public inner class SleepViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var start: TextView? = null
-        var stop: TextView? = null
-        var duration: TextView? = null
-
-        init {
-            start = view.findViewById(R.id.sleep_item_start)
-            stop = view.findViewById(R.id.sleep_item_stop)
-            duration = view.findViewById(R.id.sleep_item_duration)
-        }
+        val start: TextView = view.findViewById(R.id.sleep_item_start)
+        val stop: TextView = view.findViewById(R.id.sleep_item_stop)
+        val duration: TextView = view.findViewById(R.id.sleep_item_duration)
     }
 }
 
