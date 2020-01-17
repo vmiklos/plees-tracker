@@ -49,7 +49,10 @@ class DataModel private constructor() {
             mStop = stop
         }
 
-    private val database: AppDatabase?
+    var database: AppDatabase?
+        set(database) {
+            mDatabase = database
+        }
         get() {
             if (mDatabase == null) {
                 mDatabase = Room.databaseBuilder(mContext!!, AppDatabase::class.java, "database")
@@ -92,10 +95,6 @@ class DataModel private constructor() {
 
     suspend fun insertSleep(sleep: Sleep) {
         database!!.sleepDao().insert(sleep)
-    }
-
-    suspend fun deleteSleeps() {
-        database!!.sleepDao().deleteAll()
     }
 
     suspend fun deleteSleep(sleep: Sleep) {

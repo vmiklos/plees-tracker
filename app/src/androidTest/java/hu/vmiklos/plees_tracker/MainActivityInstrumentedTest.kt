@@ -6,6 +6,9 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.content.Context
+import androidx.room.Room
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -27,9 +30,11 @@ class MainActivityInstrumentedTest {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testCountStat() {
+    fun testCountStat() = runBlocking<Unit> {
         val dataModel = DataModel.dataModel
-        runBlocking { dataModel.deleteSleeps() }
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        dataModel.database = database
 
         onView(withId(R.id.start_stop)).perform(click())
         onView(withId(R.id.start_stop)).perform(click())
