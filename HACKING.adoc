@@ -1,0 +1,3 @@
+= Coding style
+
+- Prefer initializing properties inline, rather than in a separate `init {` block.

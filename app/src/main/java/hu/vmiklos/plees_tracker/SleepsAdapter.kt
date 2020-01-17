@@ -19,51 +19,45 @@ import java.util.Date
  * This is the adapter between RecyclerView and SleepDao.
  */
 class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
-    private var mData: List<Sleep>? = null
+    private var mData: List<Sleep> = ArrayList()
 
     override fun getItemCount(): Int {
-        return mData!!.size
+        return mData.size
     }
 
-    var data: List<Sleep>?
+    var data: List<Sleep>
         get() = mData
         set(newData) {
             val previousData = mData
             mData = newData
-            DiffUtil
-                    .calculateDiff(object : DiffUtil.Callback() {
-                        override fun getOldListSize(): Int {
-                            return previousData?.size ?: 0
-                        }
+            DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+                override fun getOldListSize(): Int {
+                    return previousData.size
+                }
 
-                        override fun getNewListSize(): Int {
-                            return newData?.size ?: 0
-                        }
+                override fun getNewListSize(): Int {
+                    return newData.size
+                }
 
-                        override fun areItemsTheSame(
-                            oldItemPosition: Int,
-                            newItemPosition: Int
-                        ): Boolean {
-                            val oldSid = previousData!![oldItemPosition].sid
-                            val newSid = newData!![newItemPosition].sid
-                            return oldSid == newSid
-                        }
+                override fun areItemsTheSame(
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    val oldSid = previousData[oldItemPosition].sid
+                    val newSid = newData[newItemPosition].sid
+                    return oldSid == newSid
+                }
 
-                        override fun areContentsTheSame(
-                            oldItemPosition: Int,
-                            newItemPosition: Int
-                        ): Boolean {
-                            // No need to do deep comparison of data since the
-                            // start/stop of a sleep never changes.
-                            return true
-                        }
-                    })
-                    .dispatchUpdatesTo(this)
+                override fun areContentsTheSame(
+                    oldItemPosition: Int,
+                    newItemPosition: Int
+                ): Boolean {
+                    // No need to do deep comparison of data since the
+                    // start/stop of a sleep never changes.
+                    return true
+                }
+            }).dispatchUpdatesTo(this)
         }
-
-    init {
-        mData = ArrayList()
-    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -75,7 +69,7 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SleepViewHolder, position: Int) {
-        val sleep = mData!![position]
+        val sleep = mData[position]
         holder.start.setText(
                 DataModel.formatTimestamp(Date(sleep.start)))
         holder.stop.setText(
