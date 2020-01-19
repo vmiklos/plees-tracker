@@ -217,6 +217,14 @@ class MainActivity : AppCompatActivity() {
                 exportData()
                 return true
             }
+            R.id.share -> {
+                val action = getString(R.string.share)
+                val title = getString(R.string.app_name)
+                val deepLink = getString(R.string.link_fdroid_store, getPackageName())
+                val text = getString(R.string.share_app_text, deepLink)
+                share(action, title, text)
+                return true
+            }
             R.id.about -> {
                 LibsBuilder()
                         .withActivityTitle(getString(R.string.about_toolbar))
@@ -228,6 +236,15 @@ class MainActivity : AppCompatActivity() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    fun share(action: String, title: String, text: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType("text/plain")
+        intent.putExtra(Intent.EXTRA_SUBJECT, title)
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+        startActivity(Intent.createChooser(intent, action))
     }
 
     companion object {

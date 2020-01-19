@@ -1,4 +1,5 @@
-<resources>
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Plees Tracker</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
@@ -23,4 +24,7 @@
     <string name="about_item">About...</string>
     <string name="about_toolbar">About</string>
     <string name="app_description">A simple sleep tracker for Android</string>
+    <string name="share">Share</string>
+    <string name="link_fdroid_store" translatable="false">https://f-droid.org/en/packages/<xliff:g id="package_name" example="hu.vmiklos.plees_tracker">%1$s</xliff:g></string>
+    <string name="share_app_text">Check out Plees Tracker, a simple sleep tracker for Android.\n\n<xliff:g id="link">%1$s</xliff:g></string>
 </resources>
