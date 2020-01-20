@@ -30,7 +30,7 @@ class DataModel private constructor() {
     private var mStart: Date? = null
     private var mStop: Date? = null
     private lateinit var context: Context
-    private var mPreferences: SharedPreferences? = null
+    private lateinit var preferences: SharedPreferences
     private var mDatabase: AppDatabase? = null
 
     var start: Date?
@@ -38,7 +38,7 @@ class DataModel private constructor() {
         set(start) {
             mStart = start
             // Save start timestamp in case the foreground service is killed.
-            val editor = mPreferences!!.edit()
+            val editor = this.preferences.edit()
             editor.putLong("start", mStart!!.getTime())
             editor.apply()
         }
@@ -67,11 +67,9 @@ class DataModel private constructor() {
     fun init(context: Context, preferences: SharedPreferences) {
         this.context = context
 
-        if (mPreferences !== preferences) {
-            mPreferences = preferences
-        }
+        this.preferences = preferences
 
-        val start = mPreferences!!.getLong("start", 0)
+        val start = this.preferences.getLong("start", 0)
         if (start > 0) {
             // Restore start timestamp in case the foreground service was
             // killed.
@@ -86,7 +84,7 @@ class DataModel private constructor() {
         database!!.sleepDao().insert(sleep)
 
         // Drop start timestamp from preferences, it's in the database now.
-        val editor = mPreferences!!.edit()
+        val editor = this.preferences.edit()
         editor.remove("start")
         editor.apply()
     }
