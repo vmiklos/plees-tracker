@@ -29,7 +29,7 @@ class DataModel private constructor() {
 
     private var mStart: Date? = null
     private var mStop: Date? = null
-    private var mContext: Context? = null
+    private lateinit var context: Context
     private var mPreferences: SharedPreferences? = null
     private var mDatabase: AppDatabase? = null
 
@@ -55,7 +55,7 @@ class DataModel private constructor() {
         }
         get() {
             if (mDatabase == null) {
-                mDatabase = Room.databaseBuilder(mContext!!, AppDatabase::class.java, "database")
+                mDatabase = Room.databaseBuilder(this.context, AppDatabase::class.java, "database")
                         .build()
             }
             return mDatabase
@@ -65,9 +65,7 @@ class DataModel private constructor() {
         get() = database!!.sleepDao().getAllLive()
 
     fun init(context: Context, preferences: SharedPreferences) {
-        if (mContext !== context) {
-            mContext = context
-        }
+        this.context = context
 
         if (mPreferences !== preferences) {
             mPreferences = preferences
@@ -129,9 +127,9 @@ class DataModel private constructor() {
             return
         }
 
-        val text = mContext!!.getString(R.string.import_success)
+        val text = this.context.getString(R.string.import_success)
         val duration = Toast.LENGTH_SHORT
-        val toast = Toast.makeText(mContext, text, duration)
+        val toast = Toast.makeText(this.context, text, duration)
         toast.show()
     }
 
@@ -149,14 +147,14 @@ class DataModel private constructor() {
             return
         }
 
-        val text = mContext!!.getString(R.string.export_success)
+        val text = this.context.getString(R.string.export_success)
         val duration = Toast.LENGTH_SHORT
-        val toast = Toast.makeText(mContext, text, duration)
+        val toast = Toast.makeText(this.context, text, duration)
         toast.show()
     }
 
     fun getString(resId: Int): String {
-        return mContext!!.getString(resId)
+        return this.context.getString(resId)
     }
 
     companion object {
