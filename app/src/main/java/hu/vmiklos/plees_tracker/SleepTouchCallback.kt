@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
  * This callback handles deletion of one recorded sleep in the sleep list. Listens to left/right swipes only.
  */
 class SleepTouchCallback(
-    private val mViewModel: MainViewModel,
+    private val viewModel: MainViewModel,
     private val mAdapter: SleepsAdapter
 ) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -32,13 +32,13 @@ class SleepTouchCallback(
         direction: Int
     ) {
         val sleep = mAdapter.data.get(viewHolder.getAdapterPosition())
-        mViewModel.deleteSleep(sleep)
+        viewModel.deleteSleep(sleep)
 
         val view = viewHolder.itemView
         val snackbar = Snackbar.make(view, R.string.deleted, Snackbar.LENGTH_LONG)
         var dataModel = DataModel.dataModel
         snackbar.setAction(dataModel.getString(R.string.undo), {
-                    mViewModel.insertSleep(sleep)
+                    viewModel.insertSleep(sleep)
                 })
 
         snackbar.show()

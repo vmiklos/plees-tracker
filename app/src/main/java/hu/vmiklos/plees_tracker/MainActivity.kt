@@ -34,7 +34,7 @@ import java.util.Calendar
  */
 class MainActivity : AppCompatActivity() {
 
-    var mViewModel: MainViewModel? = null
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         dataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter()
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         dataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
                 val countStat = findViewById<TextView>(R.id.count_stat)
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.scrollToPosition(positionStart)
                     }
                 })
-        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(mViewModel!!, sleepsAdapter))
+        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(viewModel, sleepsAdapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         updateView()
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val dataModel = DataModel.dataModel
         if (dataModel.start != null && dataModel.stop == null) {
             dataModel.stop = Calendar.getInstance().time
-            mViewModel?.stopSleep()
+            viewModel.stopSleep()
         } else {
             dataModel.start = Calendar.getInstance().time
             dataModel.stop = null
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "onActivityResult: openOutputStream() failed")
                     return
                 }
-                mViewModel?.exportData(os)
+                viewModel.exportData(os)
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: write() failed")
             } finally {
@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
             var `is`: InputStream? = null
             try {
                 `is` = cr.openInputStream(uri)
-                mViewModel?.importData(`is`!!)
+                viewModel.importData(`is`!!)
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: read() failed")
                 return
