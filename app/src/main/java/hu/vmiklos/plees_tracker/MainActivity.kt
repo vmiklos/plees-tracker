@@ -25,7 +25,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import java.io.InputStream
-import java.io.OutputStream
 import java.util.Calendar
 
 /**
@@ -133,34 +132,9 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == EXPORT_CODE) {
             try {
-                cr.takePersistableUriPermission(
-                        uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            } catch (e: SecurityException) {
-                Log.e(
-                        TAG,
-                        "onActivityResult: takePersistableUriPermission() failed for write")
-                return
-            }
-
-            var os: OutputStream? = null
-            try {
-                os = cr.openOutputStream(uri)
-                if (os == null) {
-                    Log.e(TAG, "onActivityResult: openOutputStream() failed")
-                    return
-                }
-                viewModel.exportData(os)
+                viewModel.exportData(cr, uri)
             } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: write() failed")
-            } finally {
-                if (os != null) {
-                    try {
-                        os.close()
-                    } catch (e: RuntimeException) {
-                        throw e
-                    } catch (e: Exception) {
-                    }
-                }
+                Log.e(TAG, "onActivityResult: exportData() failed")
             }
         } else if (requestCode == IMPORT_CODE) {
             var `is`: InputStream? = null

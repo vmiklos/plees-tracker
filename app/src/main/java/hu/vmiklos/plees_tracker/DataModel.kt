@@ -6,8 +6,11 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -121,9 +124,24 @@ class DataModel private constructor() {
         toast.show()
     }
 
-    suspend fun exportData(os: OutputStream) {
+    suspend fun exportData(cr: ContentResolver, uri: Uri) {
+        val sleeps = this.database.sleepDao().getAll()
+
         try {
-            val sleeps = this.database.sleepDao().getAll()
+            cr.takePersistableUriPermission(
+                    uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        } catch (e: SecurityException) {
+            Log.e(DataModel.TAG,
+                    "exportData: takePersistableUriPermission() failed for write")
+            return
+        }
+
+        var os: OutputStream? = cr.openOutputStream(uri)
+        if (os == null) {
+            Log.e(DataModel.TAG, "exportData: openOutputStream() failed")
+            return
+        }
+        try {
             os.write("sid,start,stop\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
@@ -131,8 +149,12 @@ class DataModel private constructor() {
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {
-            Log.e(TAG, "exportData: write() failed")
-            return
+            Log.e(DataModel.TAG, "exportData: write() failed")
+        } finally {
+            try {
+                os.close()
+            } catch (e: Exception) {
+            }
         }
 
         val text = this.context.getString(R.string.export_success)
