@@ -31,7 +31,6 @@ class DataModel private constructor() {
     private var mStop: Date? = null
     private lateinit var context: Context
     private lateinit var preferences: SharedPreferences
-    private var mDatabase: AppDatabase? = null
 
     var start: Date?
         get() = mStart
@@ -49,20 +48,10 @@ class DataModel private constructor() {
             mStop = stop
         }
 
-    var database: AppDatabase?
-        set(database) {
-            mDatabase = database
-        }
-        get() {
-            if (mDatabase == null) {
-                mDatabase = Room.databaseBuilder(this.context, AppDatabase::class.java, "database")
-                        .build()
-            }
-            return mDatabase
-        }
+    lateinit var database: AppDatabase
 
     val sleepsLive: LiveData<List<Sleep>>
-        get() = database!!.sleepDao().getAllLive()
+        get() = this.database.sleepDao().getAllLive()
 
     fun init(context: Context, preferences: SharedPreferences) {
         this.context = context
@@ -75,13 +64,15 @@ class DataModel private constructor() {
             // killed.
             mStart = Date(start)
         }
+        this.database = Room.databaseBuilder(this.context, AppDatabase::class.java, "database")
+                .build()
     }
 
     suspend fun storeSleep() {
         val sleep = Sleep()
         sleep.start = mStart!!.getTime()
         sleep.stop = stop!!.getTime()
-        database!!.sleepDao().insert(sleep)
+        this.database.sleepDao().insert(sleep)
 
         // Drop start timestamp from preferences, it's in the database now.
         val editor = this.preferences.edit()
@@ -90,11 +81,11 @@ class DataModel private constructor() {
     }
 
     suspend fun insertSleep(sleep: Sleep) {
-        database!!.sleepDao().insert(sleep)
+        this.database.sleepDao().insert(sleep)
     }
 
     suspend fun deleteSleep(sleep: Sleep) {
-        database!!.sleepDao().delete(sleep)
+        this.database.sleepDao().delete(sleep)
     }
 
     suspend fun importData(`is`: InputStream) {
@@ -102,7 +93,7 @@ class DataModel private constructor() {
         try {
             var first = true
             while (true) {
-                var line = br.readLine()
+                val line = br.readLine()
                 if (line == null) {
                     break
                 }
@@ -118,7 +109,7 @@ class DataModel private constructor() {
                 val sleep = Sleep()
                 sleep.start = cells[1].toLong()
                 sleep.stop = cells[2].toLong()
-                database!!.sleepDao().insert(sleep)
+                this.database.sleepDao().insert(sleep)
             }
         } catch (e: IOException) {
             Log.e(TAG, "importData: readLine() failed")
@@ -133,7 +124,7 @@ class DataModel private constructor() {
 
     suspend fun exportData(os: OutputStream) {
         try {
-            val sleeps = database!!.sleepDao().getAll()
+            val sleeps = this.database.sleepDao().getAll()
             os.write("sid,start,stop\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
