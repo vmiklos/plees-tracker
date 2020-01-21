@@ -27,26 +27,22 @@ import java.util.Locale
  */
 class DataModel private constructor() {
 
-    private var mStart: Date? = null
     private var mStop: Date? = null
     private lateinit var context: Context
     private lateinit var preferences: SharedPreferences
 
-    var start: Date?
-        get() = mStart
+    var start: Date? = null
         set(start) {
-            mStart = start
+            field = start
             // Save start timestamp in case the foreground service is killed.
             val editor = this.preferences.edit()
-            editor.putLong("start", mStart!!.getTime())
+            field?.let {
+                editor.putLong("start", it.time)
+            }
             editor.apply()
         }
 
-    var stop: Date?
-        get() = mStop
-        set(stop) {
-            mStop = stop
-        }
+    var stop: Date? = null
 
     lateinit var database: AppDatabase
 
@@ -62,7 +58,7 @@ class DataModel private constructor() {
         if (start > 0) {
             // Restore start timestamp in case the foreground service was
             // killed.
-            mStart = Date(start)
+            this.start = Date(start)
         }
         this.database = Room.databaseBuilder(this.context, AppDatabase::class.java, "database")
                 .build()
@@ -70,8 +66,12 @@ class DataModel private constructor() {
 
     suspend fun storeSleep() {
         val sleep = Sleep()
-        sleep.start = mStart!!.getTime()
-        sleep.stop = stop!!.getTime()
+        this.start?.let {
+            sleep.start = it.time
+        }
+        this.stop?.let {
+            sleep.stop = it.time
+        }
         this.database.sleepDao().insert(sleep)
 
         // Drop start timestamp from preferences, it's in the database now.
