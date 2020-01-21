@@ -27,7 +27,6 @@ import java.util.Locale
  */
 class DataModel private constructor() {
 
-    private var mStop: Date? = null
     private lateinit var context: Context
     private lateinit var preferences: SharedPreferences
 
