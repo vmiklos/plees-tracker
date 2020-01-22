@@ -17,7 +17,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.Room
 import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.OutputStream
 import java.text.SimpleDateFormat
@@ -90,8 +89,9 @@ class DataModel private constructor() {
         this.database.sleepDao().delete(sleep)
     }
 
-    suspend fun importData(`is`: InputStream) {
-        val br = BufferedReader(InputStreamReader(`is`))
+    suspend fun importData(cr: ContentResolver, uri: Uri) {
+        var inputStream = cr.openInputStream(uri)
+        val br = BufferedReader(InputStreamReader(inputStream))
         try {
             var first = true
             while (true) {
@@ -116,6 +116,13 @@ class DataModel private constructor() {
         } catch (e: IOException) {
             Log.e(TAG, "importData: readLine() failed")
             return
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close()
+                } catch (e: Exception) {
+                }
+            }
         }
 
         val text = this.context.getString(R.string.import_success)
@@ -150,6 +157,7 @@ class DataModel private constructor() {
             }
         } catch (e: IOException) {
             Log.e(DataModel.TAG, "exportData: write() failed")
+            return
         } finally {
             try {
                 os.close()

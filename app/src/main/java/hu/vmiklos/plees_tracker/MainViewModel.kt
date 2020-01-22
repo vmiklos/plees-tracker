@@ -10,7 +10,6 @@ import android.content.ContentResolver
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import java.io.InputStream
 import kotlinx.coroutines.launch
 
 /**
@@ -31,10 +30,10 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    public fun importData(inputStream: InputStream) {
+    public fun importData(cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
-            dataModel.importData(inputStream)
+            dataModel.importData(cr, uri)
         }
     }
 

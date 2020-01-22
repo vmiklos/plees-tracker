@@ -24,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
-import java.io.InputStream
 import java.util.Calendar
 
 /**
@@ -137,22 +136,11 @@ class MainActivity : AppCompatActivity() {
                 Log.e(TAG, "onActivityResult: exportData() failed")
             }
         } else if (requestCode == IMPORT_CODE) {
-            var `is`: InputStream? = null
             try {
-                `is` = cr.openInputStream(uri)
-                viewModel.importData(`is`!!)
+                viewModel.importData(cr, uri)
             } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: read() failed")
+                Log.e(TAG, "onActivityResult: importData() failed")
                 return
-            } finally {
-                if (`is` != null) {
-                    try {
-                        `is`.close()
-                    } catch (e: RuntimeException) {
-                        throw e
-                    } catch (e: Exception) {
-                    }
-                }
             }
             updateView()
         }
