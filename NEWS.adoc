@@ -1,10 +1,11 @@
 = Version descriptions
 
-== master
+== 4.0
 
 - App metadata now features a screenshot
 - Added an about dialog to credit used libraries
 - Now never performing database operations on the main thread
+- Resolves: gh#1 Cannot import csv after export
 
 == 3.0
 
