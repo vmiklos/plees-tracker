@@ -155,10 +155,11 @@ class MainActivity : AppCompatActivity() {
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
-        } else if (dataModel.start != null) {
-            status.text = String.format(
-                    getString(R.string.sleeping_since),
-                    DataModel.formatTimestamp(dataModel.start!!))
+            return
+        }
+        dataModel.start?.let { start ->
+            status.text = String.format(getString(R.string.sleeping_since),
+                    DataModel.formatTimestamp(start))
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)
         }
