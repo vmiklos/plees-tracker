@@ -140,7 +140,6 @@ class DataModel private constructor() {
         } catch (e: SecurityException) {
             Log.e(DataModel.TAG,
                     "exportData: takePersistableUriPermission() failed for write")
-            return
         }
 
         var os: OutputStream? = cr.openOutputStream(uri)
