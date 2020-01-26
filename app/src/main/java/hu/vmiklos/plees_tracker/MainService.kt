@@ -32,8 +32,11 @@ class MainService : Service() {
         val dataModel = DataModel.dataModel
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
-        val contentText = String.format(getString(R.string.sleeping_since),
-                DataModel.formatTimestamp(dataModel.start!!))
+        var contentText = ""
+        dataModel.start?.let { start ->
+            contentText = String.format(getString(R.string.sleeping_since),
+                    DataModel.formatTimestamp(start))
+        }
         val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setContentText(contentText)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)

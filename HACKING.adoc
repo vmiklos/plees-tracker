@@ -1,3 +1,12 @@
 = Coding style
 
-- Prefer initializing properties inline, rather than in a separate `init {` block.
+- Prefer initializing properties inline over spelling them out in a separate `init {` block.
+
+- Use annotations (`@Foo`) only when it makes the code easier to read.
+
+- Prefer references (`Foo`) over nullable references (`Foo?`).
+
+- Prefer variable names which are not keywords over working the problem around with backticks
+  ('`is`').
+
+- Prefer constructs like `foo?.let {` over non-null assertions (`!!`).
