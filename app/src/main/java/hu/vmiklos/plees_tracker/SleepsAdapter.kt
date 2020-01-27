@@ -82,7 +82,7 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
     /**
      * The view holder holds all views that will display one Sleep.
      */
-    public inner class SleepViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class SleepViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val start: TextView = view.findViewById(R.id.sleep_item_start)
         val stop: TextView = view.findViewById(R.id.sleep_item_stop)
         val duration: TextView = view.findViewById(R.id.sleep_item_duration)

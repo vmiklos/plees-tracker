@@ -16,35 +16,35 @@ import kotlinx.coroutines.launch
  * This is the view model of MainActivity, providing coroutine scopes.
  */
 class MainViewModel : ViewModel() {
-    public fun stopSleep() {
+    fun stopSleep() {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
             dataModel.storeSleep()
         }
     }
 
-    public fun exportData(cr: ContentResolver, uri: Uri) {
+    fun exportData(cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
             dataModel.exportData(cr, uri)
         }
     }
 
-    public fun importData(cr: ContentResolver, uri: Uri) {
+    fun importData(cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
             dataModel.importData(cr, uri)
         }
     }
 
-    public fun insertSleep(sleep: Sleep) {
+    fun insertSleep(sleep: Sleep) {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
             dataModel.insertSleep(sleep)
         }
     }
 
-    public fun deleteSleep(sleep: Sleep) {
+    fun deleteSleep(sleep: Sleep) {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
             dataModel.deleteSleep(sleep)
