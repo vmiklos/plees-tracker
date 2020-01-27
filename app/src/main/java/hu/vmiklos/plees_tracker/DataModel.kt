@@ -138,13 +138,12 @@ class DataModel private constructor() {
             cr.takePersistableUriPermission(
                     uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         } catch (e: SecurityException) {
-            Log.e(DataModel.TAG,
-                    "exportData: takePersistableUriPermission() failed for write")
+            Log.e(TAG, "exportData: takePersistableUriPermission() failed for write")
         }
 
         var os: OutputStream? = cr.openOutputStream(uri)
         if (os == null) {
-            Log.e(DataModel.TAG, "exportData: openOutputStream() failed")
+            Log.e(TAG, "exportData: openOutputStream() failed")
             return
         }
         try {
@@ -155,7 +154,7 @@ class DataModel private constructor() {
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {
-            Log.e(DataModel.TAG, "exportData: write() failed")
+            Log.e(TAG, "exportData: write() failed")
             return
         } finally {
             try {
