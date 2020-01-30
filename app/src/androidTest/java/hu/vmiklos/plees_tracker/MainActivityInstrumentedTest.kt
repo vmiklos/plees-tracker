@@ -43,7 +43,7 @@ class MainActivityInstrumentedTest {
     val intentsTestRule = IntentsTestRule(MainActivity::class.java)
 
     @Test
-    fun testCountStat() = runBlocking<Unit> {
+    fun testCountStat() = runBlocking {
         val dataModel = DataModel.dataModel
         val context = ApplicationProvider.getApplicationContext<Context>()
         val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
@@ -55,7 +55,7 @@ class MainActivityInstrumentedTest {
     }
 
     @Test
-    fun testImportExport() = runBlocking<Unit> {
+    fun testImportExport() = runBlocking {
         // Create one sleep.
         val dataModel = DataModel.dataModel
         val context = ApplicationProvider.getApplicationContext<Context>()
