@@ -45,7 +45,6 @@ class SleepTouchCallback(
     }
 
     companion object {
-        private val TAG = "SleepTouchCallback"
     }
 }
 

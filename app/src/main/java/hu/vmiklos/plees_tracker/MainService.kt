@@ -54,7 +54,6 @@ class MainService : Service() {
     }
 
     companion object {
-        private val TAG = "MainService"
         private val NOTIFICATION_CHANNEL_ID = "Notification"
         private val NOTIFICATION_CODE = 1
     }
