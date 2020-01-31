@@ -43,9 +43,6 @@ class SleepTouchCallback(
 
         snackbar.show()
     }
-
-    companion object {
-    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
