@@ -31,7 +31,7 @@ class SleepTouchCallback(
         viewHolder: RecyclerView.ViewHolder,
         direction: Int
     ) {
-        val sleep = mAdapter.data.get(viewHolder.getAdapterPosition())
+        val sleep = mAdapter.data[viewHolder.getAdapterPosition()]
         viewModel.deleteSleep(sleep)
 
         val view = viewHolder.itemView
