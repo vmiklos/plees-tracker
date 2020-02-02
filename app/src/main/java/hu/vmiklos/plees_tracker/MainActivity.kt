@@ -32,7 +32,7 @@ import java.util.Calendar
  */
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -201,7 +201,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun share(action: String, title: String, text: String) {
+    private fun share(action: String, title: String, text: String) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.setType("text/plain")
         intent.putExtra(Intent.EXTRA_SUBJECT, title)
