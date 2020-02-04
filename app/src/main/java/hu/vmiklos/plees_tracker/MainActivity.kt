@@ -16,7 +16,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         dataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter()
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
         dataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
                 val countStat = findViewById<TextView>(R.id.count_stat)
