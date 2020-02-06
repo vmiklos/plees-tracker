@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             R.id.share -> {
                 val action = getString(R.string.share)
                 val title = getString(R.string.app_name)
-                val deepLink = getString(R.string.link_fdroid_store, getPackageName())
+                val deepLink = getString(R.string.link_fdroid_store, packageName)
                 val text = getString(R.string.share_app_text, deepLink)
                 share(action, title, text)
                 return true
@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun share(action: String, title: String, text: String) {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/plain")
+        intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_SUBJECT, title)
         intent.putExtra(Intent.EXTRA_TEXT, text)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
