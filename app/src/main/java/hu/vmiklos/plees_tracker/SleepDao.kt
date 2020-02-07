@@ -11,6 +11,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 /**
  * Accesses the database of Sleep objects.
@@ -24,6 +25,9 @@ interface SleepDao {
 
     @Insert
     suspend fun insert(sleep: Sleep)
+
+    @Update
+    suspend fun update(sleep: Sleep)
 
     @Delete
     suspend fun delete(sleep: Sleep)
