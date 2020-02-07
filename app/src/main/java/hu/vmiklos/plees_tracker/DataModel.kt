@@ -85,8 +85,16 @@ class DataModel private constructor() {
         this.database.sleepDao().insert(sleep)
     }
 
+    suspend fun updateSleep(sleep: Sleep) {
+        this.database.sleepDao().update(sleep)
+    }
+
     suspend fun deleteSleep(sleep: Sleep) {
         this.database.sleepDao().delete(sleep)
+    }
+
+    suspend fun getSleepById(sid: Int): Sleep {
+        return this.database.sleepDao().getById(sid)
     }
 
     suspend fun importData(cr: ContentResolver, uri: Uri) {

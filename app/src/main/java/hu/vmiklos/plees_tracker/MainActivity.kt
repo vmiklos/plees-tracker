@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
                 })
         val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(viewModel, sleepsAdapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
+        val sleepClickCallback = SleepClickCallback(this, sleepsAdapter, recyclerView)
+        sleepsAdapter.clickCallback = sleepClickCallback
 
         updateView()
     }

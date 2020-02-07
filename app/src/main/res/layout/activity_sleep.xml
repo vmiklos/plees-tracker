@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:rowCount="2">
+    <TextView
+        android:id="@+id/sleep_start_label"
+        android:text="@string/started_on"
+        android:layout_gravity="top|start"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"/>
+    <TextView
+        android:id="@+id/sleep_start"
+        android:layout_gravity="top|end"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:onClick="editDateTime"/>
+    <TextView
+        android:id="@+id/sleep_stop_label"
+        android:text="@string/stopped_on"
+        android:layout_gravity="top|start"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"/>
+    <TextView
+        android:id="@+id/sleep_stop"
+        android:layout_gravity="top|end"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:onClick="editDateTime"/>
+</GridLayout>

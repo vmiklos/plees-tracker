@@ -59,12 +59,17 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
             }).dispatchUpdatesTo(this)
         }
 
+    var clickCallback: View.OnClickListener? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): SleepViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.layout_sleep_item, parent, false)
+        this.clickCallback?.let {
+            view.setOnClickListener(it)
+        }
         return SleepViewHolder(view)
     }
 

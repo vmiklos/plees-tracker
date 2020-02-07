@@ -22,6 +22,8 @@ interface SleepDao {
     suspend fun getAll(): List<Sleep>
     @Query("SELECT * FROM sleep ORDER BY sid DESC")
     fun getAllLive(): LiveData<List<Sleep>>
+    @Query("SELECT * from sleep where sid = :id LIMIT 1")
+    suspend fun getById(id: Int): Sleep
 
     @Insert
     suspend fun insert(sleep: Sleep)
