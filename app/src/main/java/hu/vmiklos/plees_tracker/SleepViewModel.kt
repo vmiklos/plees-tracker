@@ -44,10 +44,10 @@ class SleepViewModel : ViewModel() {
                     Date(sleep.stop)
                 }
             DatePickerDialog(activity,
-                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    DatePickerDialog.OnDateSetListener { _/*view*/, year, monthOfYear, dayOfMonth ->
                 dateTime.set(year, monthOfYear, dayOfMonth)
                 TimePickerDialog(activity,
-                        TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        TimePickerDialog.OnTimeSetListener { _/*view*/, hourOfDay, minute ->
                     dateTime[Calendar.HOUR_OF_DAY] = hourOfDay
                     dateTime[Calendar.MINUTE] = minute
                     if (isStart) {

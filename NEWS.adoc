@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#2 Allow the user to manually edit an entry
+
 == 4.0
 
 - App metadata now features a screenshot

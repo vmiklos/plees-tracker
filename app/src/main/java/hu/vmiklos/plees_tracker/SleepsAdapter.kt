@@ -52,9 +52,7 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
                     oldItemPosition: Int,
                     newItemPosition: Int
                 ): Boolean {
-                    // No need to do deep comparison of data since the
-                    // start/stop of a sleep never changes.
-                    return true
+                    return previousData[oldItemPosition].equals(newData[newItemPosition])
                 }
             }).dispatchUpdatesTo(this)
         }
