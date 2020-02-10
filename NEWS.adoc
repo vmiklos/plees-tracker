@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 5.0
 
 - Resolves: gh#2 Allow the user to manually edit an entry
 
