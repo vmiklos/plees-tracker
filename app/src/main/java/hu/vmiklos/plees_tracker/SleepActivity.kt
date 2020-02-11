@@ -35,10 +35,6 @@ class SleepActivity : AppCompatActivity() {
         val isStart = view == findViewById(R.id.sleep_start)
         viewModel.editSleep(this, sid, isStart)
     }
-
-    companion object {
-        private val TAG = "SleepActivity"
-    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

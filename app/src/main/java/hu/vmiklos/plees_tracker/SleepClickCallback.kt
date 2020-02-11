@@ -32,10 +32,6 @@ class SleepClickCallback(
         intent.putExtras(bundle)
         mainActivity.startActivity(intent)
     }
-
-    companion object {
-        private val TAG = "SleepClickCallback"
-    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
