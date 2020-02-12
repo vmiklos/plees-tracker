@@ -67,10 +67,10 @@ class MainActivityInstrumentedTest {
         assertEquals(1, database.sleepDao().getAll().size)
 
         // Export.
-        var resultData = Intent()
+        val resultData = Intent()
         val file = File(context.filesDir, "sleeps.csv")
         resultData.data = Uri.fromFile(file)
-        var result = ActivityResult(Activity.RESULT_OK, resultData)
+        val result = ActivityResult(Activity.RESULT_OK, resultData)
         intending(hasAction(Intent.ACTION_CREATE_DOCUMENT)).respondWith(result)
         openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
         onView(withText(context.getString(R.string.export_item))).perform(click())

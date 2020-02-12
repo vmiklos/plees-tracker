@@ -98,7 +98,7 @@ class DataModel private constructor() {
     }
 
     suspend fun importData(cr: ContentResolver, uri: Uri) {
-        var inputStream = cr.openInputStream(uri)
+        val inputStream = cr.openInputStream(uri)
         val br = BufferedReader(InputStreamReader(inputStream))
         try {
             var first = true
@@ -149,7 +149,7 @@ class DataModel private constructor() {
             Log.e(TAG, "exportData: takePersistableUriPermission() failed for write")
         }
 
-        var os: OutputStream? = cr.openOutputStream(uri)
+        val os: OutputStream? = cr.openOutputStream(uri)
         if (os == null) {
             Log.e(TAG, "exportData: openOutputStream() failed")
             return
