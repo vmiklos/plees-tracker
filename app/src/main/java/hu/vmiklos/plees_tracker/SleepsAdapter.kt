@@ -39,6 +39,9 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
                     return newData.size
                 }
 
+                /**
+                 * Compares old and new based on their ID only.
+                 */
                 override fun areItemsTheSame(
                     oldItemPosition: Int,
                     newItemPosition: Int
@@ -48,11 +51,14 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
                     return oldSid == newSid
                 }
 
+                /**
+                 * Compares old and new based on their value.
+                 */
                 override fun areContentsTheSame(
                     oldItemPosition: Int,
                     newItemPosition: Int
                 ): Boolean {
-                    return previousData[oldItemPosition].equals(newData[newItemPosition])
+                    return previousData[oldItemPosition] == newData[newItemPosition]
                 }
             }).dispatchUpdatesTo(this)
         }
