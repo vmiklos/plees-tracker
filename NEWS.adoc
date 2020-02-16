@@ -3,6 +3,7 @@
 == master
 
 - Main view: the sleep list now has a scrollbar
+- Sleep view: now shows the ID and has a back button
 
 == 5.0
 

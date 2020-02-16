@@ -28,6 +28,11 @@ class SleepActivity : AppCompatActivity() {
             return
         }
         this.sid = bundle.getInt("sid")
+
+        setTitle(String.format(getString(R.string.sleep_id), this.sid))
+        // Show a back button.
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         viewModel.showSleep(this, sid)
     }
 
