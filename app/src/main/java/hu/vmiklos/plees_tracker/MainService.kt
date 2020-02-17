@@ -54,8 +54,8 @@ class MainService : Service() {
     }
 
     companion object {
-        private val NOTIFICATION_CHANNEL_ID = "Notification"
-        private val NOTIFICATION_CODE = 1
+        private const val NOTIFICATION_CHANNEL_ID = "Notification"
+        private const val NOTIFICATION_CODE = 1
     }
 }
 

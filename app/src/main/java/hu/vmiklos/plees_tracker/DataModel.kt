@@ -182,7 +182,7 @@ class DataModel private constructor() {
     }
 
     companion object {
-        private val TAG = "DataModel"
+        private const val TAG = "DataModel"
         val dataModel = DataModel()
 
         fun getSleepCountStat(sleeps: List<Sleep>): String {

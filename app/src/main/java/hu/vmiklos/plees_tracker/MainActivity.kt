@@ -213,9 +213,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val TAG = "MainActivity"
-        private val IMPORT_CODE = 1
-        private val EXPORT_CODE = 2
+        private const val TAG = "MainActivity"
+        private const val IMPORT_CODE = 1
+        private const val EXPORT_CODE = 2
     }
 }
 
