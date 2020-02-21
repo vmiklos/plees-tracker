@@ -61,7 +61,7 @@ class SleepViewModel : ViewModel() {
         }
     }
 
-    fun updateSleep(activity: SleepActivity, sleep: Sleep) {
+    private fun updateSleep(activity: SleepActivity, sleep: Sleep) {
         viewModelScope.launch {
             val dataModel = DataModel.dataModel
             dataModel.updateSleep(sleep)
