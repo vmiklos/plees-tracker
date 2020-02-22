@@ -28,4 +28,6 @@
     <string name="link_fdroid_store" translatable="false">https://f-droid.org/en/packages/<xliff:g id="package_name" example="hu.vmiklos.plees_tracker">%1$s</xliff:g></string>
     <string name="share_app_text">Check out Plees Tracker, a simple sleep tracker for Android.\n\n<xliff:g id="link">%1$s</xliff:g></string>
     <string name="sleep_id">Sleep #%s</string>
+    <string name="source_link" translatable="false">https://github.com/vmiklos/plees-tracker</string>
+    <string name="source_code">Source code</string>
 </resources>

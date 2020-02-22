@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -199,6 +200,11 @@ class MainActivity : AppCompatActivity() {
                         .start(this)
                 return true
             }
+            R.id.source -> {
+                var source = getString(R.string.source_link)
+                open(Uri.parse(source))
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -210,6 +216,11 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(Intent.EXTRA_TEXT, text)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
         startActivity(Intent.createChooser(intent, action))
+    }
+
+    private fun open(link: Uri) {
+        var intent = Intent(Intent.ACTION_VIEW, link)
+        startActivity(intent)
     }
 
     companion object {
