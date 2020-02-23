@@ -201,7 +201,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.source -> {
-                var source = getString(R.string.source_link)
+                val source = getString(R.string.source_link)
                 open(Uri.parse(source))
                 return true
             }
@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun open(link: Uri) {
-        var intent = Intent(Intent.ACTION_VIEW, link)
+        val intent = Intent(Intent.ACTION_VIEW, link)
         startActivity(intent)
     }
 
