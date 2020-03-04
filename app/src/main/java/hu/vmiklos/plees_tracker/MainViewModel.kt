@@ -18,36 +18,31 @@ import kotlinx.coroutines.launch
 class MainViewModel : ViewModel() {
     fun stopSleep() {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            dataModel.storeSleep()
+            DataModel.storeSleep()
         }
     }
 
     fun exportData(cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            dataModel.exportData(cr, uri)
+            DataModel.exportData(cr, uri)
         }
     }
 
     fun importData(cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            dataModel.importData(cr, uri)
+            DataModel.importData(cr, uri)
         }
     }
 
     fun insertSleep(sleep: Sleep) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            dataModel.insertSleep(sleep)
+            DataModel.insertSleep(sleep)
         }
     }
 
     fun deleteSleep(sleep: Sleep) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            dataModel.deleteSleep(sleep)
+            DataModel.deleteSleep(sleep)
         }
     }
 }

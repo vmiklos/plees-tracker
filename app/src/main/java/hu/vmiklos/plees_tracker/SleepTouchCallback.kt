@@ -36,8 +36,7 @@ class SleepTouchCallback(
 
         val view = viewHolder.itemView
         val snackbar = Snackbar.make(view, R.string.deleted, Snackbar.LENGTH_LONG)
-        val dataModel = DataModel.dataModel
-        snackbar.setAction(dataModel.getString(R.string.undo)) {
+        snackbar.setAction(DataModel.getString(R.string.undo)) {
             viewModel.insertSleep(sleep)
         }
 

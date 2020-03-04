@@ -29,11 +29,10 @@ class MainService : Service() {
         }
 
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val dataModel = DataModel.dataModel
         val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0)
 
         var contentText = ""
-        dataModel.start?.let { start ->
+        DataModel.start?.let { start ->
             contentText = String.format(getString(R.string.sleeping_since),
                     DataModel.formatTimestamp(start))
         }

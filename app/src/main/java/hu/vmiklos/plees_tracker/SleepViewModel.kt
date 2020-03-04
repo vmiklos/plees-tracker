@@ -21,8 +21,7 @@ import kotlinx.coroutines.launch
 class SleepViewModel : ViewModel() {
     fun showSleep(activity: SleepActivity, sid: Int) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            val sleep = dataModel.getSleepById(sid)
+            val sleep = DataModel.getSleepById(sid)
 
             val start = activity.findViewById<TextView>(R.id.sleep_start)
             start.text = DataModel.formatTimestamp(Date(sleep.start))
@@ -33,8 +32,7 @@ class SleepViewModel : ViewModel() {
 
     fun editSleep(activity: SleepActivity, sid: Int, isStart: Boolean) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            val sleep = dataModel.getSleepById(sid)
+            val sleep = DataModel.getSleepById(sid)
 
             val dateTime = Calendar.getInstance()
             dateTime.time =
@@ -63,8 +61,7 @@ class SleepViewModel : ViewModel() {
 
     private fun updateSleep(activity: SleepActivity, sleep: Sleep) {
         viewModelScope.launch {
-            val dataModel = DataModel.dataModel
-            dataModel.updateSleep(sleep)
+            DataModel.updateSleep(sleep)
             showSleep(activity, sleep.sid)
         }
     }

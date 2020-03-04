@@ -27,7 +27,7 @@ import java.util.Locale
  * Data model is the singleton shared state between the activity and the
  * service.
  */
-class DataModel private constructor() {
+object DataModel {
 
     private lateinit var context: Context
     private lateinit var preferences: SharedPreferences
@@ -181,9 +181,7 @@ class DataModel private constructor() {
         return this.context.getString(resId)
     }
 
-    companion object {
         private const val TAG = "DataModel"
-        val dataModel = DataModel()
 
         fun getSleepCountStat(sleeps: List<Sleep>): String {
             return sleeps.size.toString()
@@ -212,7 +210,6 @@ class DataModel private constructor() {
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             return sdf.format(date)
         }
-    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

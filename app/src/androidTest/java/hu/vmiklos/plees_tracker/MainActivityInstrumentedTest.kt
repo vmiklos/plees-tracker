@@ -44,10 +44,9 @@ class MainActivityInstrumentedTest {
 
     @Test
     fun testCountStat() = runBlocking {
-        val dataModel = DataModel.dataModel
         val context = ApplicationProvider.getApplicationContext<Context>()
         val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        dataModel.database = database
+        DataModel.database = database
 
         onView(withId(R.id.start_stop)).perform(click())
         onView(withId(R.id.start_stop)).perform(click())
@@ -57,13 +56,12 @@ class MainActivityInstrumentedTest {
     @Test
     fun testImportExport() = runBlocking {
         // Create one sleep.
-        val dataModel = DataModel.dataModel
         val context = ApplicationProvider.getApplicationContext<Context>()
         val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        dataModel.database = database
-        dataModel.start = Calendar.getInstance().time
-        dataModel.stop = Calendar.getInstance().time
-        dataModel.storeSleep()
+        DataModel.database = database
+        DataModel.start = Calendar.getInstance().time
+        DataModel.stop = Calendar.getInstance().time
+        DataModel.storeSleep()
         assertEquals(1, database.sleepDao().getAll().size)
 
         // Export.

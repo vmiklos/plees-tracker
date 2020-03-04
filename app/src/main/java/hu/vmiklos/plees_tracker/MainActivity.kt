@@ -40,12 +40,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val applicationContext = applicationContext
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val dataModel = DataModel.dataModel
-        dataModel.init(applicationContext, preferences)
+        DataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter()
         viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
-        dataModel.sleepsLive.observe(this, Observer { sleeps ->
+        DataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
                 val countStat = findViewById<TextView>(R.id.count_stat)
                 countStat.text = DataModel.getSleepCountStat(sleeps)
@@ -86,21 +85,19 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         val intent = Intent(this, MainService::class.java)
-        val dataModel = DataModel.dataModel
-        if (dataModel.start != null && dataModel.stop == null) {
+        if (DataModel.start != null && DataModel.stop == null) {
             startService(intent)
         }
     }
 
     // Used from layout XML.
     fun startStop(@Suppress("UNUSED_PARAMETER") v: View) {
-        val dataModel = DataModel.dataModel
-        if (dataModel.start != null && dataModel.stop == null) {
-            dataModel.stop = Calendar.getInstance().time
+        if (DataModel.start != null && DataModel.stop == null) {
+            DataModel.stop = Calendar.getInstance().time
             viewModel.stopSleep()
         } else {
-            dataModel.start = Calendar.getInstance().time
-            dataModel.stop = null
+            DataModel.start = Calendar.getInstance().time
+            DataModel.stop = null
         }
         updateView()
     }
@@ -150,17 +147,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateView() {
-        val dataModel = DataModel.dataModel
         val status = findViewById<TextView>(R.id.status)
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
 
-        if (dataModel.start != null && dataModel.stop != null) {
+        if (DataModel.start != null && DataModel.stop != null) {
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
             return
         }
-        dataModel.start?.let { start ->
+        DataModel.start?.let { start ->
             status.text = String.format(getString(R.string.sleeping_since),
                     DataModel.formatTimestamp(start))
             startStop.contentDescription = getString(R.string.stop)
