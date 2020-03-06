@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 6.0
 
 - Main view: the sleep list now has a scrollbar
 - Sleep view: now shows the ID and has a back button
