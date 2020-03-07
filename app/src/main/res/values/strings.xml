@@ -21,7 +21,7 @@
     <string name="tracking_stopped">Tracking stopped</string>
     <string name="deleted">Deleted</string>
     <string name="undo">Undo</string>
-    <string name="about_item">About...</string>
+    <string name="about_item">About…</string>
     <string name="about_toolbar">About</string>
     <string name="app_description">A simple sleep tracker for Android. Like the project? Star the source code!</string>
     <string name="share">Share</string>
