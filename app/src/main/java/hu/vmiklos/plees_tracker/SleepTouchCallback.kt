@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -14,8 +15,9 @@ import com.google.android.material.snackbar.Snackbar
  * This callback handles deletion of one recorded sleep in the sleep list. Listens to left/right swipes only.
  */
 class SleepTouchCallback(
+    private val context: Context,
     private val viewModel: MainViewModel,
-    private val mAdapter: SleepsAdapter
+    private val adapter: SleepsAdapter
 ) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
 
@@ -31,12 +33,12 @@ class SleepTouchCallback(
         viewHolder: RecyclerView.ViewHolder,
         direction: Int
     ) {
-        val sleep = mAdapter.data[viewHolder.adapterPosition]
+        val sleep = this.adapter.data[viewHolder.adapterPosition]
         viewModel.deleteSleep(sleep)
 
         val view = viewHolder.itemView
         val snackbar = Snackbar.make(view, R.string.deleted, Snackbar.LENGTH_LONG)
-        snackbar.setAction(DataModel.getString(R.string.undo)) {
+        snackbar.setAction(this.context.getString(R.string.undo)) {
             viewModel.insertSleep(sleep)
         }
 

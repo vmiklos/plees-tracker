@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker
 
 import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,15 +23,15 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun exportData(cr: ContentResolver, uri: Uri) {
+    fun exportData(context: Context, cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
-            DataModel.exportData(cr, uri)
+            DataModel.exportData(context, cr, uri)
         }
     }
 
-    fun importData(cr: ContentResolver, uri: Uri) {
+    fun importData(context: Context, cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
-            DataModel.importData(cr, uri)
+            DataModel.importData(context, cr, uri)
         }
     }
 

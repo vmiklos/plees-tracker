@@ -68,7 +68,8 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.scrollToPosition(positionStart)
                     }
                 })
-        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(viewModel, sleepsAdapter))
+        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(applicationContext,
+                viewModel, sleepsAdapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
         val sleepClickCallback = SleepClickCallback(this, sleepsAdapter, recyclerView)
         sleepsAdapter.clickCallback = sleepClickCallback
@@ -131,13 +132,13 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == EXPORT_CODE) {
             try {
-                viewModel.exportData(cr, uri)
+                viewModel.exportData(applicationContext, cr, uri)
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: exportData() failed")
             }
         } else if (requestCode == IMPORT_CODE) {
             try {
-                viewModel.importData(cr, uri)
+                viewModel.importData(applicationContext, cr, uri)
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: importData() failed")
                 return

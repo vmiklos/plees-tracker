@@ -29,7 +29,6 @@ import java.util.Locale
  */
 object DataModel {
 
-    private lateinit var context: Context
     private lateinit var preferences: SharedPreferences
 
     var start: Date? = null
@@ -51,8 +50,6 @@ object DataModel {
         get() = this.database.sleepDao().getAllLive()
 
     fun init(context: Context, preferences: SharedPreferences) {
-        this.context = context
-
         this.preferences = preferences
 
         val start = this.preferences.getLong("start", 0)
@@ -61,7 +58,7 @@ object DataModel {
             // killed.
             this.start = Date(start)
         }
-        this.database = Room.databaseBuilder(this.context, AppDatabase::class.java, "database")
+        this.database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
                 .build()
     }
 
@@ -97,7 +94,7 @@ object DataModel {
         return this.database.sleepDao().getById(sid)
     }
 
-    suspend fun importData(cr: ContentResolver, uri: Uri) {
+    suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
         val inputStream = cr.openInputStream(uri)
         val br = BufferedReader(InputStreamReader(inputStream))
         try {
@@ -133,13 +130,13 @@ object DataModel {
             }
         }
 
-        val text = this.context.getString(R.string.import_success)
+        val text = context.getString(R.string.import_success)
         val duration = Toast.LENGTH_SHORT
-        val toast = Toast.makeText(this.context, text, duration)
+        val toast = Toast.makeText(context, text, duration)
         toast.show()
     }
 
-    suspend fun exportData(cr: ContentResolver, uri: Uri) {
+    suspend fun exportData(context: Context, cr: ContentResolver, uri: Uri) {
         val sleeps = this.database.sleepDao().getAll()
 
         try {
@@ -171,45 +168,41 @@ object DataModel {
             }
         }
 
-        val text = this.context.getString(R.string.export_success)
+        val text = context.getString(R.string.export_success)
         val duration = Toast.LENGTH_SHORT
-        val toast = Toast.makeText(this.context, text, duration)
+        val toast = Toast.makeText(context, text, duration)
         toast.show()
     }
 
-    fun getString(resId: Int): String {
-        return this.context.getString(resId)
+    private const val TAG = "DataModel"
+
+    fun getSleepCountStat(sleeps: List<Sleep>): String {
+        return sleeps.size.toString()
     }
 
-        private const val TAG = "DataModel"
-
-        fun getSleepCountStat(sleeps: List<Sleep>): String {
-            return sleeps.size.toString()
+    fun getSleepDurationStat(sleeps: List<Sleep>): String {
+        var sum: Long = 0
+        for (sleep in sleeps) {
+            var diff = sleep.stop - sleep.start
+            diff /= 1000
+            sum += diff
         }
+        val count = sleeps.size
+        return if (count == 0) {
+            ""
+        } else formatDuration(sum / count)
+    }
 
-        fun getSleepDurationStat(sleeps: List<Sleep>): String {
-            var sum: Long = 0
-            for (sleep in sleeps) {
-                var diff = sleep.stop - sleep.start
-                diff /= 1000
-                sum += diff
-            }
-            val count = sleeps.size
-            return if (count == 0) {
-                ""
-            } else formatDuration(sum / count)
-        }
+    fun formatDuration(seconds: Long): String {
+        return String.format(Locale.getDefault(), "%d:%02d:%02d",
+                seconds / 3600, seconds % 3600 / 60,
+                seconds % 60)
+    }
 
-        fun formatDuration(seconds: Long): String {
-            return String.format(Locale.getDefault(), "%d:%02d:%02d",
-                    seconds / 3600, seconds % 3600 / 60,
-                    seconds % 60)
-        }
-
-        fun formatTimestamp(date: Date): String {
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            return sdf.format(date)
-        }
+    fun formatTimestamp(date: Date): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return sdf.format(date)
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
