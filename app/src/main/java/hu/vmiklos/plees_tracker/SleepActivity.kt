@@ -20,8 +20,9 @@ class SleepActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
+
         setContentView(R.layout.activity_sleep)
-        viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
 
         val bundle = intent.extras
         if (bundle == null) {

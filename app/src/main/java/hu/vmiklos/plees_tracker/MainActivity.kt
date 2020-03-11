@@ -37,13 +37,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+
         setContentView(R.layout.activity_main)
-        val applicationContext = applicationContext
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         DataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter()
-        viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
         DataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
                 val countStat = findViewById<TextView>(R.id.count_stat)
