@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Main view: average of daily sum of sleeps is now visible
+
 == 6.0
 
 - Main view: the sleep list now has a scrollbar
