@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker
 
 import java.util.ArrayList
+import java.util.Calendar
 import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -56,6 +57,45 @@ class DataModelUnitTest {
 
         assertEquals("0:00:15",
                 DataModel.getSleepDurationStat(sleeps))
+    }
+
+    @Test
+    fun testGetSleepDurationDailyStat() {
+        val sleeps = ArrayList<Sleep>()
+        var calendar = Calendar.getInstance()
+        calendar.timeInMillis = 0
+
+        // 1+1 seconds on the first day
+        var sleep = Sleep()
+        calendar.set(2020, 2, 12, 21, 26, 56)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 21, 26, 57)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        calendar.set(2020, 2, 12, 21, 26, 58)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 21, 26, 59)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // 10 + 10 seconds on the second day
+        sleep = Sleep()
+        calendar.set(2020, 2, 13, 21, 26, 29)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 13, 21, 26, 39)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        calendar.set(2020, 2, 13, 21, 26, 49)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 13, 21, 26, 59)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // Note how this is 11, not 5.5.
+        assertEquals("0:00:11",
+                DataModel.getSleepDurationDailyStat(sleeps))
     }
 }
 

@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
                 countStat.text = DataModel.getSleepCountStat(sleeps)
                 val durationStat = findViewById<TextView>(R.id.duration_stat)
                 durationStat.text = DataModel.getSleepDurationStat(sleeps)
+                val durationDailyStat = findViewById<TextView>(R.id.duration_daily_stat)
+                durationDailyStat.text = DataModel.getSleepDurationDailyStat(sleeps)
                 sleepsAdapter.data = sleeps
             }
         })

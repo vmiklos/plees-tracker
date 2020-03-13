@@ -20,8 +20,11 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStream
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.collections.HashMap
+import kotlin.collections.List
 
 /**
  * Data model is the singleton shared state between the activity and the
@@ -180,6 +183,9 @@ object DataModel {
         return sleeps.size.toString()
     }
 
+    /**
+     * Calculates the avg of sleeps.
+     */
     fun getSleepDurationStat(sleeps: List<Sleep>): String {
         var sum: Long = 0
         for (sleep in sleeps) {
@@ -188,6 +194,48 @@ object DataModel {
             sum += diff
         }
         val count = sleeps.size
+        return if (count == 0) {
+            ""
+        } else formatDuration(sum / count)
+    }
+
+    /**
+     * Sums up sleeps per day, and then calculate the avg of those sums.
+     */
+    fun getSleepDurationDailyStat(sleeps: List<Sleep>): String {
+        // Day -> sum (in seconds) map.
+        var sums = HashMap<Long, Long>()
+        for (sleep in sleeps) {
+            var diff = sleep.stop - sleep.start
+            diff /= 1000
+
+            // Calculate stop day
+            var stopDate = Calendar.getInstance()
+            stopDate.timeInMillis = sleep.stop
+
+            val day = Calendar.getInstance()
+            day.timeInMillis = 0
+            var startYear = stopDate.get(Calendar.YEAR)
+            day.set(Calendar.YEAR, startYear)
+            val startMonth = stopDate.get(Calendar.MONTH)
+            day.set(Calendar.MONTH, startMonth)
+            val startDay = stopDate.get(Calendar.DAY_OF_MONTH)
+            day.set(Calendar.DAY_OF_MONTH, startDay)
+            val key = day.timeInMillis
+
+            val sum = sums.get(key)
+            if (sum != null) {
+                sums[key] = sum + diff
+            } else {
+                sums[key] = diff
+            }
+        }
+
+        var sum: Long = 0
+        for (value in sums.values) {
+            sum += value
+        }
+        val count = sums.size
         return if (count == 0) {
             ""
         } else formatDuration(sum / count)

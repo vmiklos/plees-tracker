@@ -10,6 +10,7 @@
     <string name="slept_for_label">Slept for</string>
     <string name="nights">Nights</string>
     <string name="average">Average</string>
+    <string name="daily_average">Average of daily sums</string>
     <string name="status">Status</string>
     <string name="statistics">Statistics</string>
     <string name="import_item">Import…</string>
