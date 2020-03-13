@@ -23,8 +23,8 @@ class SleepClickCallback(
         if (view == null) {
             return
         }
-        val itemPosition = this.recyclerView.getChildLayoutPosition(view)
-        val sleep = this.adapter.data[itemPosition]
+        val itemPosition = recyclerView.getChildLayoutPosition(view)
+        val sleep = adapter.data[itemPosition]
 
         val intent = Intent(mainActivity, SleepActivity::class.java)
         val bundle = Bundle()

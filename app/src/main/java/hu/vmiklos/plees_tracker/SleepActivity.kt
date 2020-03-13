@@ -20,7 +20,7 @@ class SleepActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
+        viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
 
         setContentView(R.layout.activity_sleep)
 
@@ -28,9 +28,9 @@ class SleepActivity : AppCompatActivity() {
         if (bundle == null) {
             return
         }
-        this.sid = bundle.getInt("sid")
+        sid = bundle.getInt("sid")
 
-        this.title = String.format(getString(R.string.sleep_id), this.sid)
+        title = String.format(getString(R.string.sleep_id), sid)
         // Show a back button.
         actionBar?.setDisplayHomeAsUpEnabled(true)
 

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+        viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)

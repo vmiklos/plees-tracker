@@ -38,7 +38,7 @@ object DataModel {
         set(start) {
             field = start
             // Save start timestamp in case the foreground service is killed.
-            val editor = this.preferences.edit()
+            val editor = preferences.edit()
             field?.let {
                 editor.putLong("start", it.time)
             }
@@ -50,51 +50,51 @@ object DataModel {
     lateinit var database: AppDatabase
 
     val sleepsLive: LiveData<List<Sleep>>
-        get() = this.database.sleepDao().getAllLive()
+        get() = database.sleepDao().getAllLive()
 
     fun init(context: Context, preferences: SharedPreferences) {
         this.preferences = preferences
 
-        val start = this.preferences.getLong("start", 0)
+        val start = preferences.getLong("start", 0)
         if (start > 0) {
             // Restore start timestamp in case the foreground service was
             // killed.
             this.start = Date(start)
         }
-        this.database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
+        database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
                 .build()
     }
 
     suspend fun storeSleep() {
         val sleep = Sleep()
-        this.start?.let {
+        start?.let {
             sleep.start = it.time
         }
-        this.stop?.let {
+        stop?.let {
             sleep.stop = it.time
         }
-        this.database.sleepDao().insert(sleep)
+        database.sleepDao().insert(sleep)
 
         // Drop start timestamp from preferences, it's in the database now.
-        val editor = this.preferences.edit()
+        val editor = preferences.edit()
         editor.remove("start")
         editor.apply()
     }
 
     suspend fun insertSleep(sleep: Sleep) {
-        this.database.sleepDao().insert(sleep)
+        database.sleepDao().insert(sleep)
     }
 
     suspend fun updateSleep(sleep: Sleep) {
-        this.database.sleepDao().update(sleep)
+        database.sleepDao().update(sleep)
     }
 
     suspend fun deleteSleep(sleep: Sleep) {
-        this.database.sleepDao().delete(sleep)
+        database.sleepDao().delete(sleep)
     }
 
     suspend fun getSleepById(sid: Int): Sleep {
-        return this.database.sleepDao().getById(sid)
+        return database.sleepDao().getById(sid)
     }
 
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
@@ -119,7 +119,7 @@ object DataModel {
                 val sleep = Sleep()
                 sleep.start = cells[1].toLong()
                 sleep.stop = cells[2].toLong()
-                this.database.sleepDao().insert(sleep)
+                database.sleepDao().insert(sleep)
             }
         } catch (e: IOException) {
             Log.e(TAG, "importData: readLine() failed")
@@ -140,7 +140,7 @@ object DataModel {
     }
 
     suspend fun exportData(context: Context, cr: ContentResolver, uri: Uri) {
-        val sleeps = this.database.sleepDao().getAll()
+        val sleeps = database.sleepDao().getAll()
 
         try {
             cr.takePersistableUriPermission(

@@ -33,12 +33,12 @@ class SleepTouchCallback(
         viewHolder: RecyclerView.ViewHolder,
         direction: Int
     ) {
-        val sleep = this.adapter.data[viewHolder.adapterPosition]
+        val sleep = adapter.data[viewHolder.adapterPosition]
         viewModel.deleteSleep(sleep)
 
         val view = viewHolder.itemView
         val snackbar = Snackbar.make(view, R.string.deleted, Snackbar.LENGTH_LONG)
-        snackbar.setAction(this.context.getString(R.string.undo)) {
+        snackbar.setAction(context.getString(R.string.undo)) {
             viewModel.insertSleep(sleep)
         }
 

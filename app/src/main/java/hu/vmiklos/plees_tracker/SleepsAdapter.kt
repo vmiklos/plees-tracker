@@ -19,17 +19,10 @@ import java.util.Date
  * This is the adapter between RecyclerView and SleepDao.
  */
 class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
-    private var mData: List<Sleep> = ArrayList()
-
-    override fun getItemCount(): Int {
-        return mData.size
-    }
-
-    var data: List<Sleep>
-        get() = mData
+    var data: List<Sleep> = ArrayList()
         set(newData) {
-            val previousData = mData
-            mData = newData
+            val previousData = field
+            field = newData
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize(): Int {
                     return previousData.size
@@ -65,20 +58,24 @@ class SleepsAdapter : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
 
     var clickCallback: View.OnClickListener? = null
 
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): SleepViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.layout_sleep_item, parent, false)
-        this.clickCallback?.let {
+        clickCallback?.let {
             view.setOnClickListener(it)
         }
         return SleepViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: SleepViewHolder, position: Int) {
-        val sleep = mData[position]
+        val sleep = data[position]
         holder.start.text = DataModel.formatTimestamp(Date(sleep.start))
         holder.stop.text = DataModel.formatTimestamp(Date(sleep.stop))
         val durationMS = sleep.stop - sleep.start
