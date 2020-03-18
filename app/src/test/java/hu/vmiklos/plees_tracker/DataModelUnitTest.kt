@@ -62,7 +62,7 @@ class DataModelUnitTest {
     @Test
     fun testGetSleepDurationDailyStat() {
         val sleeps = ArrayList<Sleep>()
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.timeInMillis = 0
 
         // 1+1 seconds on the first day

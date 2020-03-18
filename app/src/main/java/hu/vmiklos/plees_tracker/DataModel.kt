@@ -204,18 +204,18 @@ object DataModel {
      */
     fun getSleepDurationDailyStat(sleeps: List<Sleep>): String {
         // Day -> sum (in seconds) map.
-        var sums = HashMap<Long, Long>()
+        val sums = HashMap<Long, Long>()
         for (sleep in sleeps) {
             var diff = sleep.stop - sleep.start
             diff /= 1000
 
             // Calculate stop day
-            var stopDate = Calendar.getInstance()
+            val stopDate = Calendar.getInstance()
             stopDate.timeInMillis = sleep.stop
 
             val day = Calendar.getInstance()
             day.timeInMillis = 0
-            var startYear = stopDate.get(Calendar.YEAR)
+            val startYear = stopDate.get(Calendar.YEAR)
             day.set(Calendar.YEAR, startYear)
             val startMonth = stopDate.get(Calendar.MONTH)
             day.set(Calendar.MONTH, startMonth)
