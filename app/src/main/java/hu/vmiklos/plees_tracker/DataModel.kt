@@ -103,10 +103,7 @@ object DataModel {
         try {
             var first = true
             while (true) {
-                val line = br.readLine()
-                if (line == null) {
-                    break
-                }
+                val line = br.readLine() ?: break
                 if (first) {
                     // Ignore the header.
                     first = false
@@ -223,7 +220,7 @@ object DataModel {
             day.set(Calendar.DAY_OF_MONTH, startDay)
             val key = day.timeInMillis
 
-            val sum = sums.get(key)
+            val sum = sums[key]
             if (sum != null) {
                 sums[key] = sum + diff
             } else {

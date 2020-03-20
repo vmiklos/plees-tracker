@@ -24,10 +24,7 @@ class SleepActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_sleep)
 
-        val bundle = intent.extras
-        if (bundle == null) {
-            return
-        }
+        val bundle = intent.extras ?: return
         sid = bundle.getInt("sid")
 
         title = String.format(getString(R.string.sleep_id), sid)
