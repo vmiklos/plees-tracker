@@ -22,9 +22,7 @@ Features:
 
 It looks like this:
 
-image::https://github.com/Spikeysanju/Video_templates/blob/master/Plees%20Tracker.png[width=375,height=812]
-
-
+image::app/src/main/play/listings/en-US/graphics/phone-screenshots/1.png[width=360,height=640]
 
 == Download
 
