@@ -31,4 +31,10 @@
     <string name="sleep_id">Sleep #%s</string>
     <string name="source_link" translatable="false">https://github.com/vmiklos/plees-tracker</string>
     <string name="source_code">Source code</string>
+    <string name="average_string">Average</string>
+    <string name="daily_average_string">Daily</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="startimage">StartImage</string>
+    <string name="endicon">endIcon</string>
+    <string name="sleepicon">sleepIcon</string>
 </resources>
