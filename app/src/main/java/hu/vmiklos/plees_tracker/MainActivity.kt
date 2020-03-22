@@ -7,6 +7,8 @@
 package hu.vmiklos.plees_tracker
 
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -16,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -25,7 +28,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
-import java.util.Calendar
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -77,6 +81,33 @@ class MainActivity : AppCompatActivity() {
         sleepsAdapter.clickCallback = sleepClickCallback
 
         updateView()
+        cornerRadius()
+        addCorners()
+    }
+
+    private fun addCorners() {
+        // setting corners for linear dashboard
+
+        // night dashboard linear layout
+        nighs_linear_layout.background = cornerRadius()
+        nighs_linear_layout.background.setColorFilter(ContextCompat.getColor(this, R.color.dash_nights), PorterDuff.Mode.SRC_OVER)
+
+        // average dashboard linear layout
+        average_linear_layout.background = cornerRadius()
+        average_linear_layout.background.setColorFilter(ContextCompat.getColor(this, R.color.dash_average), PorterDuff.Mode.SRC_OVER)
+
+        // daily dashboard linear layout
+        daily_linear_layout.background = cornerRadius()
+        daily_linear_layout.background.setColorFilter(ContextCompat.getColor(this, R.color.dash_daily), PorterDuff.Mode.SRC_OVER)
+    }
+
+    private fun cornerRadius(): GradientDrawable {
+
+        val gradientDrawable = GradientDrawable()
+        gradientDrawable.cornerRadii = floatArrayOf(12f, 12f, 12f, 12f, 12f, 12f, 12f, 12f)
+        return gradientDrawable
+
+
     }
 
     override fun onStart() {

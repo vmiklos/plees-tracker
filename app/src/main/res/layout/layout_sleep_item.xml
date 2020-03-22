@@ -1,33 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp">
-    <GridLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="120dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp">
+
+
+    <RelativeLayout
+        android:id="@+id/card_relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2"
-        android:rowCount="3">
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/start_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/startimage"
+            android:src="@drawable/play" />
+
         <TextView
-            android:id="@+id/sleep_item_start_label"
+            android:id="@+id/started_on_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/started_on"
-            android:layout_gravity="top|start"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/stop_red_image"
+            android:fontFamily="@font/googlesans_regular"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:id="@+id/stop_red_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/start_image"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/endicon"
+            android:src="@drawable/stop_red" />
+
+        <TextView
+            android:id="@+id/stopped_on_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/started_on_header"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/stop_red_image"
+            android:fontFamily="@font/googlesans_regular"
+            android:text="@string/stopped_on"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:id="@+id/sleep_time_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/stop_red_image"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/sleepicon"
+            android:src="@drawable/mdi_bed" />
+
+        <TextView
+            android:id="@+id/sleep_time_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stopped_on_header"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@id/sleep_time_image"
+            android:fontFamily="@font/googlesans_regular"
+            android:text="@string/slept_for_label"
+            android:textSize="16sp" />
+
+
         <TextView
             android:id="@+id/sleep_item_start"
-            android:layout_gravity="top|end"/>
-        <TextView
-            android:id="@+id/sleep_item_stop_label"
-            android:text="@string/stopped_on"
-            android:layout_gravity="top|start"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/googlesans_regular"
+            android:textSize="16sp"
+            tools:text="10:50:38" />
+
         <TextView
             android:id="@+id/sleep_item_stop"
-            android:layout_gravity="top|end"/>
-        <TextView
-            android:id="@+id/sleep_item_duration_label"
-            android:text="@string/slept_for_label"
-            android:layout_gravity="top|start"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/started_on_header"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/googlesans_regular"
+            android:textSize="16sp"
+            tools:text="10:50:38" />
+
+
         <TextView
             android:id="@+id/sleep_item_duration"
-            android:layout_gravity="top|end"/>
-    </GridLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sleep_item_stop"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/googlesans_regular"
+            android:textSize="16sp"
+            tools:text="05:20" />
+
+
+    </RelativeLayout>
+
+
 </androidx.cardview.widget.CardView>

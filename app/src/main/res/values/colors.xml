@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#05668d</color>
-    <color name="colorPrimaryDark">#044c69</color>
-    <color name="colorAccent">#8d2205</color>
+    <color name="colorPrimary">#5E35B1</color>
+    <color name="colorPrimaryDark">#5E35B1</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <!-- Dashboard  color-->
+    <color name="dash_nights">#6FCF97</color>
+    <color name="dash_average">#56CCF2</color>
+    <color name="dash_daily">#F2C94C</color>
+
 </resources>
