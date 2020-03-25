@@ -28,8 +28,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import java.util.Calendar;
+import kotlinx.android.synthetic.main.activity_main.average_linear_layout
+import kotlinx.android.synthetic.main.activity_main.daily_linear_layout
+import kotlinx.android.synthetic.main.activity_main.nighs_linear_layout
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
