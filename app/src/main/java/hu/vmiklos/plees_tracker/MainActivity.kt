@@ -92,15 +92,18 @@ class MainActivity : AppCompatActivity() {
 
         // night dashboard linear layout
         nighs_linear_layout.background = cornerRadius()
-        nighs_linear_layout.background.setColorFilter(ContextCompat.getColor(this, R.color.dash_nights), PorterDuff.Mode.SRC_OVER)
+        val nightsColor = ContextCompat.getColor(this, R.color.dash_nights)
+        nighs_linear_layout.background.setColorFilter(nightsColor, PorterDuff.Mode.SRC_OVER)
 
         // average dashboard linear layout
         average_linear_layout.background = cornerRadius()
-        average_linear_layout.background.setColorFilter(ContextCompat.getColor(this, R.color.dash_average), PorterDuff.Mode.SRC_OVER)
+        val averageColor = ContextCompat.getColor(this, R.color.dash_average)
+        average_linear_layout.background.setColorFilter(averageColor, PorterDuff.Mode.SRC_OVER)
 
         // daily dashboard linear layout
         daily_linear_layout.background = cornerRadius()
-        daily_linear_layout.background.setColorFilter(ContextCompat.getColor(this, R.color.dash_daily), PorterDuff.Mode.SRC_OVER)
+        val dailyAverageColor = ContextCompat.getColor(this, R.color.dash_daily)
+        daily_linear_layout.background.setColorFilter(dailyAverageColor, PorterDuff.Mode.SRC_OVER)
     }
 
     private fun cornerRadius(): GradientDrawable {
