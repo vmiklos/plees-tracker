@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
-import java.util.Calendar;
+import java.util.Calendar
 import kotlinx.android.synthetic.main.activity_main.average_linear_layout
 import kotlinx.android.synthetic.main.activity_main.daily_linear_layout
 import kotlinx.android.synthetic.main.activity_main.nighs_linear_layout
@@ -104,12 +104,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cornerRadius(): GradientDrawable {
-
         val gradientDrawable = GradientDrawable()
         gradientDrawable.cornerRadii = floatArrayOf(12f, 12f, 12f, 12f, 12f, 12f, 12f, 12f)
         return gradientDrawable
-
-
     }
 
     override fun onStart() {
