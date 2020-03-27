@@ -8,6 +8,7 @@ package hu.vmiklos.plees_tracker
 
 import android.content.Intent
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -93,17 +94,20 @@ class MainActivity : AppCompatActivity() {
         // night dashboard linear layout
         nighs_linear_layout.background = cornerRadius()
         val nightsColor = ContextCompat.getColor(this, R.color.dash_nights)
-        nighs_linear_layout.background.setColorFilter(nightsColor, PorterDuff.Mode.SRC_OVER)
+        var filter = PorterDuffColorFilter(nightsColor, PorterDuff.Mode.SRC_OVER)
+        nighs_linear_layout.background.colorFilter = filter
 
         // average dashboard linear layout
         average_linear_layout.background = cornerRadius()
         val averageColor = ContextCompat.getColor(this, R.color.dash_average)
-        average_linear_layout.background.setColorFilter(averageColor, PorterDuff.Mode.SRC_OVER)
+        filter = PorterDuffColorFilter(averageColor, PorterDuff.Mode.SRC_OVER)
+        average_linear_layout.background.colorFilter = filter
 
         // daily dashboard linear layout
         daily_linear_layout.background = cornerRadius()
         val dailyAverageColor = ContextCompat.getColor(this, R.color.dash_daily)
-        daily_linear_layout.background.setColorFilter(dailyAverageColor, PorterDuff.Mode.SRC_OVER)
+        filter = PorterDuffColorFilter(dailyAverageColor, PorterDuff.Mode.SRC_OVER)
+        daily_linear_layout.background.colorFilter = filter
     }
 
     private fun cornerRadius(): GradientDrawable {
