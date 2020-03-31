@@ -23,6 +23,8 @@ Features:
 It looks like this:
 
 image::https://github.com/Spikeysanju/Video_templates/blob/master/Plees%20Tracker.png[width=375,height=812]
+image::https://github.com/Spikeysanju/Video_templates/blob/master/Screenshot_2020-03-31-16-22-29-940_hu.vmiklos.plees_tracker.jpg[width=375,height=812]
+
 
 
 
