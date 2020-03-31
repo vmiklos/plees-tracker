@@ -37,4 +37,7 @@
     <string name="startimage">StartImage</string>
     <string name="endicon">endIcon</string>
     <string name="sleepicon">sleepIcon</string>
+    <string name="sleep_facts_header">Sleep Facts</string>
+    <string name="sleep_fact_demo_info">Short sleep duration is associated with an increased risk of weight gain and obesity in both children and adults.</string>
+    <string name="sleep_details">Sleep Details</string>
 </resources>
