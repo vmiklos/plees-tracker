@@ -9,56 +9,10 @@
     app:cardElevation="3dp">
 
 
-    <RelativeLayout
-        android:id="@+id/sleep_facts_card"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp"
-        android:background="#4DF2C94C"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/sleepfact_color_view"
-            android:layout_width="10dp"
-            android:layout_height="140dp"
-            android:layout_alignParentStart="true"
-            android:background="#FFB300" />
-
-        <TextView
-            android:id="@+id/sleep_facts_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/sleepfact_color_view"
-            android:fontFamily="@font/googlesans_bold"
-            android:text="@string/sleep_facts_header"
-            android:textAllCaps="true"
-            android:textColor="@android:color/holo_orange_light"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/sleep_facts_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/sleep_facts_header"
-            android:layout_toEndOf="@id/sleepfact_color_view"
-            android:fontFamily="@font/googlesans_regular"
-            android:lineSpacingExtra="5dp"
-            android:padding="10dp"
-            android:text="@string/sleep_fact_demo_info"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-
     <TextView
         android:id="@+id/sleep_details_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sleep_facts_card"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/googlesans_bold"
         android:text="@string/sleep_details"
@@ -137,7 +91,8 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/googlesans_regular"
                 android:textSize="16sp"
-                tools:text="10:50:38" />
+                tools:text="10:50:38"
+                android:onClick="editDateTime" />
 
 
             <TextView
@@ -150,7 +105,8 @@
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/googlesans_regular"
                 android:textSize="16sp"
-                tools:text="10:50:38" />
+                tools:text="10:50:38"
+                android:onClick="editDateTime" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
