@@ -3,6 +3,7 @@
 == master
 
 - Main view: average of daily sum of sleeps is now visible
+- Much improved design (Sanju S)
 
 == 6.0
 
