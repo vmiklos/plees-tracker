@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 6.1
 
 - Resolves: gh#11 use different colors for start and stop
 - Much improved design (Sanju S)
