@@ -2,8 +2,9 @@
 
 == master
 
-- Main view: average of daily sum of sleeps is now visible
+- Resolves: gh#11 use different colors for start and stop
 - Much improved design (Sanju S)
+- Resolves: gh#5 Main view: average of daily sum of sleeps is now visible
 
 == 6.0
 

@@ -202,8 +202,6 @@
         android:onClick="startStop"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:backgroundTint="@color/colorAccent"
         android:contentDescription="@string/start"
         android:layout_margin="16dp"/>
 

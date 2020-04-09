@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.GradientDrawable
@@ -186,6 +187,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun createColorStateList(color: Int): ColorStateList {
+        return ColorStateList.valueOf(ContextCompat.getColor(this, color))
+    }
+
     private fun updateView() {
         val status = findViewById<TextView>(R.id.status)
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
@@ -194,6 +199,10 @@ class MainActivity : AppCompatActivity() {
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
+
+            // Set to custom, ~blue.
+            startStop.backgroundTintList = createColorStateList(R.color.colorPrimary)
+
             return
         }
         DataModel.start?.let { start ->
@@ -201,7 +210,15 @@ class MainActivity : AppCompatActivity() {
                     DataModel.formatTimestamp(start))
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)
+
+            // Back to default, ~red.
+            startStop.backgroundTintList = createColorStateList(R.color.colorAccent)
+
+            return
         }
+
+        // Set to custom, ~blue.
+        startStop.backgroundTintList = createColorStateList(R.color.colorPrimary)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
