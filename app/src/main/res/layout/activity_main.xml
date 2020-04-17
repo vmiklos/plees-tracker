@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -17,7 +18,9 @@
             android:fontFamily="@font/googlesans_bold"
             android:text="@string/status"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/status"
@@ -29,7 +32,9 @@
             android:fontFamily="@font/googlesans_regular"
             android:text="@string/press_start"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/status_header"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
         <TextView
@@ -42,7 +47,9 @@
             android:fontFamily="@font/googlesans_bold"
             android:text="@string/dashboard"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/status"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
         <LinearLayout
@@ -50,7 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:layout_below="@id/dashboard_header"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/dashboard_header"
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <LinearLayout
@@ -185,18 +194,23 @@
             android:fontFamily="@font/googlesans_bold"
             android:text="@string/past"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/dashboardLinear"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sleeps"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/past_header"
+            android:layout_height="0dp"
             android:layout_margin="10dp"
             android:scrollbars="vertical"
-            tools:listitem="@layout/layout_sleep_item" />
-    </RelativeLayout>
+            tools:listitem="@layout/layout_sleep_item"
+            app:layout_constraintTop_toBottomOf="@+id/past_header"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/start_stop"

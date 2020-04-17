@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#8 main view: the snackbar and the start/stop button doesn't overlap anymore
+
 == 6.1
 
 - Resolves: gh#11 use different colors for start and stop
