@@ -1,209 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/status_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/googlesans_bold"
-        android:text="@string/status"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/status_header"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/press_start"
-        android:fontFamily="@font/googlesans_regular"
-        android:textColor="@android:color/black"
-        android:textSize="16sp" />
-
-
-    <TextView
-        android:id="@+id/dashboard_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/status"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/googlesans_bold"
-        android:text="@string/dashboard"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-
-
-    <LinearLayout
-        android:id="@+id/dashboardLinear"
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_below="@id/dashboard_header"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-
-        <LinearLayout
-            android:id="@+id/nighs_linear_layout"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@color/dash_nights"
-            android:orientation="vertical">
-
-
-            <!-- space  -->
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/count_stat"
-            android:layout_width="match_parent"
+            android:id="@+id/status_header"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/googlesans_bold"
-            android:textAlignment="center"
+            android:text="@string/status"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
-            tools:text="87" />
+            android:textSize="20sp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
-            android:text="@string/nights"
-            android:textAlignment="center"
+            android:layout_below="@id/status_header"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/googlesans_regular"
+            android:text="@string/press_start"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/dashboard_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/googlesans_bold"
+            android:text="@string/dashboard"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
 
         <LinearLayout
-            android:id="@+id/average_linear_layout"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@color/dash_average"
-            android:orientation="vertical">
+            android:id="@+id/dashboardLinear"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_below="@id/dashboard_header"
+            android:orientation="horizontal">
 
 
-            <!-- space  -->
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/duration_stat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/googlesans_bold"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                tools:text="12:40" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/nighs_linear_layout"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
                 android:layout_margin="10dp"
-                android:padding="10dp"
-                android:text="@string/average_string"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:layout_weight="1"
+                android:background="@color/dash_nights"
+                android:orientation="vertical">
 
+
+                <!-- space  -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/count_stat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/googlesans_bold"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    tools:text="87" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:text="@string/nights"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/average_linear_layout"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/dash_average"
+                android:orientation="vertical">
+
+
+                <!-- space  -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/duration_stat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/googlesans_bold"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    tools:text="12:40" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:text="@string/average_string"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/daily_linear_layout"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@color/dash_daily"
+                android:orientation="vertical">
+
+
+                <!-- space  -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/duration_daily_stat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/googlesans_bold"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    tools:text="8hrs" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:text="@string/daily_average_string"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/daily_linear_layout"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
+
+        <TextView
+            android:id="@+id/past_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashboardLinear"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/googlesans_bold"
+            android:text="@string/past"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sleeps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/past_header"
             android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@color/dash_daily"
-            android:orientation="vertical">
-
-
-            <!-- space  -->
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/duration_daily_stat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/googlesans_bold"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                tools:text="8hrs" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:text="@string/daily_average_string"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/past_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dashboardLinear"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/past"
-        android:fontFamily="@font/googlesans_bold"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sleeps"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/past_header"
-        android:layout_margin="10dp"
-        tools:listitem="@layout/layout_sleep_item" />
+            android:scrollbars="vertical"
+            tools:listitem="@layout/layout_sleep_item" />
+    </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/start_stop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_start"
-        android:onClick="startStop"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
         android:contentDescription="@string/start"
-        android:layout_margin="16dp"/>
-
-
-</RelativeLayout>
+        android:onClick="startStop"
+        android:src="@drawable/ic_start" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
