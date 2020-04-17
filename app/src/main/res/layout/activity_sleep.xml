@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +17,9 @@
         android:fontFamily="@font/googlesans_bold"
         android:text="@string/sleep_details"
         android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <androidx.cardview.widget.CardView
@@ -26,10 +28,12 @@
         android:layout_below="@id/sleep_details_header"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="4dp"
-        app:cardElevation="3dp">
+        app:cardElevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sleep_details_header">
 
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/card_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,77 +43,82 @@
                 android:id="@+id/start_image"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/startimage"
-                android:src="@drawable/ic_play_green" />
+                android:src="@drawable/ic_play_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/started_on_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_toEndOf="@id/stop_red_image"
                 android:fontFamily="@font/googlesans_regular"
                 android:text="@string/started_on"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/stop_red_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
                 android:id="@+id/stop_red_image"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:contentDescription="@string/endicon"
-                android:src="@drawable/ic_stop_red" />
+                android:src="@drawable/ic_stop_red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/stopped_on_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_toEndOf="@id/stop_red_image"
                 android:fontFamily="@font/googlesans_regular"
                 android:text="@string/stopped_on"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/stop_red_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/sleep_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/googlesans_regular"
+                android:onClick="editDateTime"
                 android:textSize="16sp"
-                tools:text="10:50:38"
-                android:onClick="editDateTime" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10:50:38" />
 
 
             <TextView
                 android:id="@+id/sleep_stop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/googlesans_regular"
+                android:onClick="editDateTime"
                 android:textSize="16sp"
-                tools:text="10:50:38"
-                android:onClick="editDateTime" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10:50:38" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
