@@ -8,7 +8,7 @@
     <string name="stopped_on">Stopped on</string>
     <string name="started_on">Started on</string>
     <string name="slept_for_label">Slept for</string>
-    <string name="nights">Nights</string>
+    <string name="sleeps">Sleeps</string>
     <string name="average">Average</string>
     <string name="daily_average">Average of daily sums</string>
     <string name="status">Status</string>
