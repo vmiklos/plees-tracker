@@ -3,6 +3,7 @@
 == master
 
 - Resolves: gh#14 main view: sleep counter is now less confusing for multiple sleeps / day
+- Resolves: gh#13 main view: scroll the content above the recycler view
 - Resolves: gh#8 main view: the snackbar and the start/stop button doesn't overlap anymore
 
 == 6.1
