@@ -16,7 +16,8 @@ Features:
 
 - Stores past sleeps, counts stat from them (average).
 
-- Exports/imports sleep data to/from CSV.
+- Exports/imports sleep data to/from CSV (the start and stop columns are UNIX timestamps in
+  milliseconds).
 
 - Can show past sleeps, can selectively delete individual sleeps.
 
