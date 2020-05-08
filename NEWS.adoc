@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#16 support dark mode (martiandolphin)
+
 == 6.2
 
 - Resolves: gh#15 export format is now better documented
