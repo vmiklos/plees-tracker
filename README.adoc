@@ -4,6 +4,9 @@ image:https://travis-ci.com/vmiklos/plees-tracker.svg?branch=master["Build Statu
 
 Plees Tracker is a simple sleep tracker for your Android phone.
 
+The latest version is v6.2, released on 2020-05-08.  See the
+https://github.com/vmiklos/plees-tracker/blob/master/NEWS.adoc[release notes].
+
 == Description
 
 This is meant to be a very simple open source clone of

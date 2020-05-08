@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 6.2
 
 - Resolves: gh#15 export format is now better documented
 - Resolves: gh#14 main view: sleep counter is now less confusing for multiple sleeps / day
