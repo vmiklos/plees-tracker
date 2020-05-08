@@ -239,7 +239,7 @@ class MainActivity : AppCompatActivity() {
             R.id.share -> {
                 val action = getString(R.string.share)
                 val title = getString(R.string.app_name)
-                val deepLink = getString(R.string.link_fdroid_store, packageName)
+                val deepLink = getString(R.string.website_link)
                 val text = getString(R.string.share_app_text, deepLink)
                 share(action, title, text)
                 return true
@@ -253,9 +253,9 @@ class MainActivity : AppCompatActivity() {
                         .start(this)
                 return true
             }
-            R.id.source -> {
-                val source = getString(R.string.source_link)
-                open(Uri.parse(source))
+            R.id.website -> {
+                val website = getString(R.string.website_link)
+                open(Uri.parse(website))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
