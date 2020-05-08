@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,7 +17,7 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -29,7 +30,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/googlesans_bold"
                     android:text="@string/status"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColor"
                     android:textSize="20sp"
                     app:layout_collapseMode="parallax"
                     app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +45,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/googlesans_regular"
                     android:text="@string/press_start"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@+id/status_header"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -59,7 +60,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/googlesans_bold"
                     android:text="@string/dashboard"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColor"
                     android:textSize="20sp"
                     app:layout_constraintTop_toBottomOf="@+id/status"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -95,9 +96,10 @@
                             android:id="@+id/count_stat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="#00000000"
                             android:fontFamily="@font/googlesans_bold"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="24sp"
                             tools:text="87" />
 
@@ -105,10 +107,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:background="#00000000"
                             android:padding="10dp"
                             android:text="@string/sleeps"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="16sp" />
 
 
@@ -134,9 +137,10 @@
                             android:id="@+id/duration_stat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="#00000000"
                             android:fontFamily="@font/googlesans_bold"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="24sp"
                             tools:text="12:40" />
 
@@ -145,10 +149,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:background="#00000000"
                             android:padding="10dp"
                             android:text="@string/average_string"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="16sp" />
 
 
@@ -174,9 +179,10 @@
                             android:id="@+id/duration_daily_stat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="#00000000"
                             android:fontFamily="@font/googlesans_bold"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="24sp"
                             tools:text="8hrs" />
 
@@ -185,10 +191,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
+                            android:background="#00000000"
                             android:padding="10dp"
                             android:text="@string/daily_average_string"
                             android:textAlignment="center"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/textColor"
                             android:textSize="16sp" />
 
 
@@ -206,7 +213,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/googlesans_bold"
                     android:text="@string/past"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/textColor"
                     android:textSize="20sp"
                     app:layout_constraintTop_toBottomOf="@+id/dashboardLinear"
                     app:layout_constraintStart_toStartOf="parent" />

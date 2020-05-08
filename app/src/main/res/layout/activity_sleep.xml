@@ -16,7 +16,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/googlesans_bold"
         android:text="@string/sleep_details"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
