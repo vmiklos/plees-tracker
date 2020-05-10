@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/settings_category_theme">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:disableDependentsState="true"
+            android:key="follow_system_theme"
+            android:title="@string/settings_follow_system_theme" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="follow_system_theme"
+            android:key="dark_mode"
+            android:title="@string/settings_enable_dark_theme" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
+
