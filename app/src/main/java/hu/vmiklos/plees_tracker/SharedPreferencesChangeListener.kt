@@ -1,3 +1,9 @@
+/*
+ * Copyright 2020 Miklos Vajna and contributors. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
 package hu.vmiklos.plees_tracker
 
 import android.content.SharedPreferences
@@ -20,5 +26,6 @@ class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChan
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
-
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
