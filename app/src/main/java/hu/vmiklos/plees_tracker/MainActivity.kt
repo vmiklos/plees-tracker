@@ -45,6 +45,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreferenceListener = SharedPreferencesChangeListener()
+        sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
+
         viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
@@ -256,6 +260,10 @@ class MainActivity : AppCompatActivity() {
             R.id.website -> {
                 val website = getString(R.string.website_link)
                 open(Uri.parse(website))
+                return true
+            }
+            R.id.settings -> {
+                startActivity(Intent(this, PreferencesActivity::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
