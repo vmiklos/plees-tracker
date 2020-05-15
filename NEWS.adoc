@@ -2,6 +2,7 @@
 
 == master
 
+- Resolves: gh#21 daily average now detects completely skipped days
 - Resolves: gh#16 support dark mode (martiandolphin)
 
 == 6.2

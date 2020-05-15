@@ -17,7 +17,11 @@ Features:
 
 - It literally does nothing while you sleep, causes no battery drain.
 
-- Stores past sleeps, counts stat from them (average).
+- Stores past sleeps, counts stat from them:
+
+  * average of sleep durations
+
+  * daily average: in case you sleep multiple times a day or you sometimes skip a whole day
 
 - Exports/imports sleep data to/from CSV (the start and stop columns are UNIX timestamps in
   milliseconds).

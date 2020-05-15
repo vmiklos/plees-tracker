@@ -97,6 +97,33 @@ class DataModelUnitTest {
         assertEquals("0:00:11",
                 DataModel.getSleepDurationDailyStat(sleeps))
     }
+
+    @Test
+    fun testGetSleepDurationDailyStatEmptyDays() {
+        val sleeps = ArrayList<Sleep>()
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = 0
+
+        // 12 hours on 12th
+        var sleep = Sleep()
+        calendar.set(2020, 2, 12, 1, 26, 56)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 13, 26, 56)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // 12 hours on 14th
+        sleep = Sleep()
+        calendar.set(2020, 2, 14, 1, 26, 29)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 14, 13, 26, 29)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // Note how this is 8 hours per day, not 12.
+        assertEquals("8:00:00",
+                DataModel.getSleepDurationDailyStat(sleeps))
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
