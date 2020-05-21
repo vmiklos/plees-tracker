@@ -55,7 +55,8 @@ class SleepViewModel : ViewModel() {
                         sleep.stop = dateTime.time.time
                     }
                     updateSleep(activity, sleep)
-                }, dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE], false).show()
+                }, dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE],
+                        /*is24HourView=*/true).show()
             }, dateTime[Calendar.YEAR], dateTime[Calendar.MONTH], dateTime[Calendar.DATE]).show()
         }
     }

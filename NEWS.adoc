@@ -4,6 +4,7 @@
 
 - Resolves: gh#21 daily average now detects completely skipped days
 - Resolves: gh#20 sleep entries are now being sorted in chronological order
+- Resolves: gh#19 use 24 hours view in the sleep edit time picker
 - Resolves: gh#16 support dark mode (martiandolphin)
 
 == 6.2
