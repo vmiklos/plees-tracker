@@ -123,7 +123,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun importData() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "text/csv"
+        intent.type = "text/*"
+        val mimeTypes = arrayOf("text/csv", "text/comma-separated-values")
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         startActivityForResult(intent, IMPORT_CODE)
     }
 
