@@ -8,6 +8,7 @@ package hu.vmiklos.plees_tracker
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.text.format.DateFormat
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -56,7 +57,7 @@ class SleepViewModel : ViewModel() {
                     }
                     updateSleep(activity, sleep)
                 }, dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE],
-                        /*is24HourView=*/true).show()
+                        /*is24HourView=*/DateFormat.is24HourFormat(activity)).show()
             }, dateTime[Calendar.YEAR], dateTime[Calendar.MONTH], dateTime[Calendar.DATE]).show()
         }
     }
