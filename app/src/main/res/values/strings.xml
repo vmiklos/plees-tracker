@@ -9,10 +9,7 @@
     <string name="started_on">Started on</string>
     <string name="slept_for_label">Slept for</string>
     <string name="sleeps">Sleeps</string>
-    <string name="average">Average</string>
-    <string name="daily_average">Average of daily sums</string>
     <string name="status">Status</string>
-    <string name="statistics">Statistics</string>
     <string name="import_item">Import…</string>
     <string name="export_item">Export…</string>
     <string name="import_success">Import finished successfully</string>
@@ -35,7 +32,6 @@
     <string name="dashboard">Dashboard</string>
     <string name="startimage">StartImage</string>
     <string name="endicon">endIcon</string>
-    <string name="sleepicon">sleepIcon</string>
     <string name="sleep_details">Sleep Details</string>
     <string name="settings">Settings</string>
     <string name="settings_category_theme">Theme (May Require Restart)</string>
