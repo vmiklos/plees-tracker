@@ -10,8 +10,8 @@
     <string name="slept_for_label">Slept for</string>
     <string name="sleeps">Sleeps</string>
     <string name="status">Status</string>
-    <string name="import_item">Import…</string>
-    <string name="export_item">Export…</string>
+    <string name="import_item">Import</string>
+    <string name="export_item">Export</string>
     <string name="import_success">Import finished successfully</string>
     <string name="export_success">Export finished successfully</string>
     <string name="sleeping_since">Sleeping since %s</string>
@@ -19,11 +19,9 @@
     <string name="tracking_stopped">Tracking stopped</string>
     <string name="deleted">Deleted</string>
     <string name="undo">Undo</string>
-    <string name="about_item">About…</string>
+    <string name="about_item">About</string>
     <string name="about_toolbar">About</string>
     <string name="app_description">A simple sleep tracker for Android.</string>
-    <string name="share">Share</string>
-    <string name="share_app_text">Check out Plees Tracker, a simple sleep tracker for Android.\n\n<xliff:g id="link">%1$s</xliff:g></string>
     <string name="sleep_id">Sleep #%s</string>
     <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
     <string name="website">Website</string>
