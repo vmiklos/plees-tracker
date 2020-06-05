@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 6.3
 
 - Resolves: gh#21 daily average now detects completely skipped days
 - Resolves: gh#20 sleep entries are now being sorted in chronological order (Sebastian Zeller)
