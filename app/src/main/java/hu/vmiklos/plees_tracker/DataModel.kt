@@ -258,6 +258,19 @@ object DataModel {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return sdf.format(date)
     }
+
+    /**
+     * Returns the subset of [sleeps] which stop after [after].
+     */
+    fun filterSleeps(sleeps: List<Sleep>, after: Date): List<Sleep> {
+        val ret = mutableListOf<Sleep>()
+        for (sleep in sleeps) {
+            if (sleep.stop > after.time) {
+                ret.add(sleep)
+            }
+        }
+        return ret
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

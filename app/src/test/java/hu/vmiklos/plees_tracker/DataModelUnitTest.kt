@@ -124,6 +124,34 @@ class DataModelUnitTest {
         assertEquals("8:00:00",
                 DataModel.getSleepDurationDailyStat(sleeps))
     }
+
+    @Test
+    fun testFilterSleeps() {
+        val sleeps = mutableListOf<Sleep>()
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = 0
+
+        // 12 hours on 12th
+        var sleep = Sleep()
+        calendar.set(2020, 2, 12, 1, 26, 56)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 13, 26, 56)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // 12 hours on 14th
+        sleep = Sleep()
+        calendar.set(2020, 2, 14, 1, 26, 29)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 14, 13, 26, 29)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // Note how the first is filtered out but not the second.
+        calendar.set(2020, 2, 14, 12, 0, 0)
+        val filtered = DataModel.filterSleeps(sleeps, calendar.time)
+        assertEquals(filtered.size, 1)
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

@@ -258,6 +258,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, PreferencesActivity::class.java))
                 return true
             }
+            R.id.stats -> {
+                startActivity(Intent(this, StatsActivity::class.java))
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }

@@ -35,4 +35,8 @@
     <string name="settings_category_theme">Theme (May Require Restart)</string>
     <string name="settings_follow_system_theme">Follow System Theme</string>
     <string name="settings_enable_dark_theme">Dark Mode</string>
+    <string name="last7days">Last 7 days</string>
+    <string name="this_year">This year</string>
+    <string name="all_time">All time</string>
+    <string name="stats">Statistics</string>
 </resources>
