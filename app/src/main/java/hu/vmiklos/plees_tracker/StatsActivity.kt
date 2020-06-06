@@ -46,19 +46,19 @@ class StatsActivity : AppCompatActivity() {
                 startOfYear.set(Calendar.DAY_OF_YEAR, 1)
                 val thisYear = DataModel.filterSleeps(sleeps, startOfYear.time)
 
-                count = findViewById<TextView>(R.id.thisyear_sleeps)
+                count = findViewById(R.id.thisyear_sleeps)
                 count.text = DataModel.getSleepCountStat(thisYear)
-                average = findViewById<TextView>(R.id.thisyear_average)
+                average = findViewById(R.id.thisyear_average)
                 average.text = DataModel.getSleepDurationStat(thisYear)
-                daily = findViewById<TextView>(R.id.thisyear_daily)
+                daily = findViewById(R.id.thisyear_daily)
                 daily.text = DataModel.getSleepDurationDailyStat(thisYear)
 
                 // All time, i.e. no filter
-                count = findViewById<TextView>(R.id.alltime_sleeps)
+                count = findViewById(R.id.alltime_sleeps)
                 count.text = DataModel.getSleepCountStat(sleeps)
-                average = findViewById<TextView>(R.id.alltime_average)
+                average = findViewById(R.id.alltime_average)
                 average.text = DataModel.getSleepDurationStat(sleeps)
-                daily = findViewById<TextView>(R.id.alltime_daily)
+                daily = findViewById(R.id.alltime_daily)
                 daily.text = DataModel.getSleepDurationDailyStat(sleeps)
             }
         })
