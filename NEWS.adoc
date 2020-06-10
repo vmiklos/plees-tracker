@@ -2,6 +2,7 @@
 
 == master
 
+- Added Spannish translation (Diego Sanguinetti)
 - Resolves: gh#6 next to all-time stats, there are now "last 7 days" and "this year" stats as well
 
 == 6.3
