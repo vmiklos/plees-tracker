@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:colorBackground">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBackground"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <!-- TODO find a way to avoid this 3x copy&paste. -->
 
                 <TextView
                     android:id="@+id/last7days_header"
@@ -34,111 +35,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
+                <fragment
                     android:id="@+id/last7days_body"
+                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_below="@id/last7days_header"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last7days_header">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_nights"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/last7days_sleeps"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="87" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/sleeps"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_average"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/last7days_average"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="12:40" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/average_string"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_daily"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/last7days_daily"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="8hrs" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/daily_average_string"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/last7days_header" />
 
                 <TextView
                     android:id="@+id/thisyear_header"
@@ -153,111 +57,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/last7days_body" />
 
-                <LinearLayout
+                <fragment
                     android:id="@+id/thisyear_body"
+                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_below="@id/thisyear_header"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/thisyear_header">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_nights"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/thisyear_sleeps"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="87" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/sleeps"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_average"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/thisyear_average"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="12:40" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/average_string"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_daily"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/thisyear_daily"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="8hrs" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/daily_average_string"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/thisyear_header" />
 
                 <TextView
                     android:id="@+id/alltime_header"
@@ -272,111 +79,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/thisyear_body" />
 
-                <LinearLayout
+                <fragment
                     android:id="@+id/alltime_body"
+                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_below="@id/alltime_header"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/alltime_header">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_nights"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/alltime_sleeps"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="87" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/sleeps"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_average"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/alltime_average"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="12:40" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/average_string"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@color/dash_daily"
-                        android:orientation="vertical">
-                        <Space
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-                        <TextView
-                            android:id="@+id/alltime_daily"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#00000000"
-                            android:fontFamily="@font/googlesans_bold"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="24sp"
-                            tools:text="8hrs" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:background="#00000000"
-                            android:padding="10dp"
-                            android:text="@string/daily_average_string"
-                            android:textAlignment="center"
-                            android:textColor="@color/textColor"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/alltime_header" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

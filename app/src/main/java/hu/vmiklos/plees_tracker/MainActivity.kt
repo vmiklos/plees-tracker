@@ -8,9 +8,6 @@ package hu.vmiklos.plees_tracker
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -31,9 +28,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import java.util.Calendar
-import kotlinx.android.synthetic.main.activity_main.average_linear_layout
-import kotlinx.android.synthetic.main.activity_main.daily_linear_layout
-import kotlinx.android.synthetic.main.activity_main.nighs_linear_layout
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -58,12 +52,14 @@ class MainActivity : AppCompatActivity() {
         val sleepsAdapter = SleepsAdapter()
         DataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
-                val countStat = findViewById<TextView>(R.id.count_stat)
-                countStat.text = DataModel.getSleepCountStat(sleeps)
-                val durationStat = findViewById<TextView>(R.id.duration_stat)
-                durationStat.text = DataModel.getSleepDurationStat(sleeps)
-                val durationDailyStat = findViewById<TextView>(R.id.duration_daily_stat)
-                durationDailyStat.text = DataModel.getSleepDurationDailyStat(sleeps)
+                var fragments = supportFragmentManager
+                var stats = fragments.findFragmentById(R.id.dashboard_body)?.view
+                val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
+                countStat?.text = DataModel.getSleepCountStat(sleeps)
+                val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
+                durationStat?.text = DataModel.getSleepDurationStat(sleeps)
+                val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
+                durationDailyStat?.text = DataModel.getSleepDurationDailyStat(sleeps)
                 sleepsAdapter.data = sleeps
             }
         })
@@ -89,36 +85,6 @@ class MainActivity : AppCompatActivity() {
         sleepsAdapter.clickCallback = sleepClickCallback
 
         updateView()
-        cornerRadius()
-        addCorners()
-    }
-
-    private fun addCorners() {
-        // setting corners for linear dashboard
-
-        // night dashboard linear layout
-        nighs_linear_layout.background = cornerRadius()
-        val nightsColor = ContextCompat.getColor(this, R.color.dash_nights)
-        var filter = PorterDuffColorFilter(nightsColor, PorterDuff.Mode.SRC_OVER)
-        nighs_linear_layout.background.colorFilter = filter
-
-        // average dashboard linear layout
-        average_linear_layout.background = cornerRadius()
-        val averageColor = ContextCompat.getColor(this, R.color.dash_average)
-        filter = PorterDuffColorFilter(averageColor, PorterDuff.Mode.SRC_OVER)
-        average_linear_layout.background.colorFilter = filter
-
-        // daily dashboard linear layout
-        daily_linear_layout.background = cornerRadius()
-        val dailyAverageColor = ContextCompat.getColor(this, R.color.dash_daily)
-        filter = PorterDuffColorFilter(dailyAverageColor, PorterDuff.Mode.SRC_OVER)
-        daily_linear_layout.background.colorFilter = filter
-    }
-
-    private fun cornerRadius(): GradientDrawable {
-        val gradientDrawable = GradientDrawable()
-        gradientDrawable.cornerRadii = floatArrayOf(12f, 12f, 12f, 12f, 12f, 12f, 12f, 12f)
-        return gradientDrawable
     }
 
     override fun onStart() {
