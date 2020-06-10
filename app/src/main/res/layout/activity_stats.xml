@@ -35,7 +35,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/last7days_body"
                     android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/last7days_body" />
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/thisyear_body"
                     android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/thisyear_body" />
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/alltime_body"
                     android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"

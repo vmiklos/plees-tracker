@@ -67,7 +67,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/status" />
 
 
-                <fragment
+                <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/dashboard_body"
                     android:name="hu.vmiklos.plees_tracker.StatsFragment"
                     android:layout_width="match_parent"
