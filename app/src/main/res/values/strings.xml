@@ -28,8 +28,6 @@
     <string name="average_string">Average</string>
     <string name="daily_average_string">Daily</string>
     <string name="dashboard">Dashboard</string>
-    <string name="startimage" translatable="false">StartImage</string>
-    <string name="endicon" translatable="false">endIcon</string>
     <string name="sleep_details">Sleep Details</string>
     <string name="settings">Settings</string>
     <string name="settings_category_theme">Theme (May Require Restart)</string>
