@@ -24,7 +24,8 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_play_green"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/started_on" />
 
         <TextView
             android:id="@+id/started_on_header"
@@ -60,7 +61,8 @@
             android:src="@drawable/ic_stop_red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/stopped_on" />
 
         <TextView
             android:id="@+id/stopped_on_header"
@@ -99,7 +101,8 @@
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_sleep_icon"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/slept_for_label" />
 
         <TextView
             android:id="@+id/sleep_time_header"
