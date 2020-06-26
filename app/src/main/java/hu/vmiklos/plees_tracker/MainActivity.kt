@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity() {
             startStop.setImageResource(R.drawable.ic_start)
 
             // Set to custom, ~blue.
-            startStop.backgroundTintList = createColorStateList(R.color.colorPrimary)
+            startStop.backgroundTintList = createColorStateList(R.color.colorFabPrimary)
 
             return
         }
@@ -184,13 +184,13 @@ class MainActivity : AppCompatActivity() {
             startStop.setImageResource(R.drawable.ic_stop)
 
             // Back to default, ~red.
-            startStop.backgroundTintList = createColorStateList(R.color.colorAccent)
+            startStop.backgroundTintList = createColorStateList(R.color.colorFabAccent)
 
             return
         }
 
         // Set to custom, ~blue.
-        startStop.backgroundTintList = createColorStateList(R.color.colorPrimary)
+        startStop.backgroundTintList = createColorStateList(R.color.colorFabPrimary)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
