@@ -29,14 +29,14 @@ class StatsActivity : AppCompatActivity() {
 
         DataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
-                var fragments = supportFragmentManager
+                val fragments = supportFragmentManager
 
                 // Last 7 days
                 val sevenDaysAgo = Calendar.getInstance()
                 sevenDaysAgo.add(Calendar.DATE, -7)
                 val last7days = DataModel.filterSleeps(sleeps, sevenDaysAgo.time)
 
-                var last7daysFragment = fragments.findFragmentById(R.id.last7days_body)?.view
+                val last7daysFragment = fragments.findFragmentById(R.id.last7days_body)?.view
                 var count = last7daysFragment?.findViewById<TextView>(R.id.fragment_stats_sleeps)
                 count?.text = DataModel.getSleepCountStat(last7days)
                 var average = last7daysFragment?.findViewById<TextView>(R.id.fragment_stats_average)
@@ -49,7 +49,7 @@ class StatsActivity : AppCompatActivity() {
                 startOfYear.set(Calendar.DAY_OF_YEAR, 1)
                 val thisYear = DataModel.filterSleeps(sleeps, startOfYear.time)
 
-                var thisyearFragment = fragments.findFragmentById(R.id.thisyear_body)?.view
+                val thisyearFragment = fragments.findFragmentById(R.id.thisyear_body)?.view
                 count = thisyearFragment?.findViewById(R.id.fragment_stats_sleeps)
                 count?.text = DataModel.getSleepCountStat(thisYear)
                 average = thisyearFragment?.findViewById(R.id.fragment_stats_average)
@@ -58,7 +58,7 @@ class StatsActivity : AppCompatActivity() {
                 daily?.text = DataModel.getSleepDurationDailyStat(thisYear)
 
                 // All time, i.e. no filter
-                var alltimeFragment = fragments.findFragmentById(R.id.alltime_body)?.view
+                val alltimeFragment = fragments.findFragmentById(R.id.alltime_body)?.view
                 count = alltimeFragment?.findViewById(R.id.fragment_stats_sleeps)
                 count?.text = DataModel.getSleepCountStat(sleeps)
                 average = alltimeFragment?.findViewById(R.id.fragment_stats_average)

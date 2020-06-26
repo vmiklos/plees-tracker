@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         val sleepsAdapter = SleepsAdapter()
         DataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
-                var fragments = supportFragmentManager
-                var stats = fragments.findFragmentById(R.id.dashboard_body)?.view
+                val fragments = supportFragmentManager
+                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
                 val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
                 countStat?.text = DataModel.getSleepCountStat(sleeps)
                 val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
