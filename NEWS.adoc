@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 6.4
 
 - Resolves: gh#27 improve main activity FAB color in dark mode
 - Added Spannish translation (Diego Sanguinetti)
