@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#7 expand/collapse FAB on scroll
+
 == 6.4
 
 - Resolves: gh#27 improve main activity FAB color in dark mode

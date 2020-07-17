@@ -9,11 +9,13 @@ package hu.vmiklos.plees_tracker
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -83,6 +85,19 @@ class MainActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
         val sleepClickCallback = SleepClickCallback(this, sleepsAdapter, recyclerView)
         sleepsAdapter.clickCallback = sleepClickCallback
+
+        // Hide label of FAB on scroll.
+        val fabText = findViewById<TextView>(R.id.start_stop_text)
+        val listener = View.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            if (scrollY > oldScrollY) {
+                fabText.visibility = View.GONE
+            } else {
+                fabText.visibility = View.VISIBLE
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            recyclerView.setOnScrollChangeListener(listener)
+        }
 
         updateView()
     }
@@ -165,15 +180,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateView() {
         val status = findViewById<TextView>(R.id.status)
+        val startStopLayout = findViewById<LinearLayout>(R.id.start_stop_layout)
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
+        val startStopText = findViewById<TextView>(R.id.start_stop_text)
 
         if (DataModel.start != null && DataModel.stop != null) {
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
+            startStopText.text = getString(R.string.start)
 
             // Set to custom, ~blue.
             startStop.backgroundTintList = createColorStateList(R.color.colorFabPrimary)
+            startStopLayout.backgroundTintList = startStop.backgroundTintList
 
             return
         }
@@ -182,15 +201,18 @@ class MainActivity : AppCompatActivity() {
                     DataModel.formatTimestamp(start))
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)
+            startStopText.text = getString(R.string.stop)
 
             // Back to default, ~red.
             startStop.backgroundTintList = createColorStateList(R.color.colorFabAccent)
+            startStopLayout.backgroundTintList = startStop.backgroundTintList
 
             return
         }
 
         // Set to custom, ~blue.
         startStop.backgroundTintList = createColorStateList(R.color.colorFabPrimary)
+        startStopLayout.backgroundTintList = startStop.backgroundTintList
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

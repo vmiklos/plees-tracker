@@ -111,15 +111,34 @@
             tools:listitem="@layout/layout_sleep_item" />
     </FrameLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/start_stop"
+    <LinearLayout
+        android:id="@+id/start_stop_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:contentDescription="@string/start"
-        android:onClick="startStop"
-        android:src="@drawable/ic_start" />
+        android:animateLayoutChanges="true"
+        android:background="@drawable/fab_btn_corner"
+        android:gravity="center_vertical"
+        android:onClick="startStop">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/start_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/start"
+            android:src="@drawable/ic_start"
+            app:borderWidth="0dp"
+            app:elevation="0dp" />
+
+        <TextView
+            android:id="@+id/start_stop_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="16dp"
+            android:text="@string/start"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textColor="@color/colorFabText" />
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

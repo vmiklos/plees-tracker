@@ -9,6 +9,7 @@
     <!-- FAB color -->
     <color name="colorFabPrimary">#5E35B1</color>
     <color name="colorFabAccent">#D81B60</color>
+    <color name="colorFabText">#ffffff</color>
 
     <!-- Dashboard  color-->
     <color name="dash_nights">#6FCF97</color>
