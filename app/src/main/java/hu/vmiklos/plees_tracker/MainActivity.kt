@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         DataModel.init(applicationContext, preferences)
 
-        val sleepsAdapter = SleepsAdapter()
+        val sleepsAdapter = SleepsAdapter(viewModel)
         DataModel.sleepsLive.observe(this, Observer { sleeps ->
             if (sleeps != null) {
                 val fragments = supportFragmentManager
