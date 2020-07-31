@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase
  * Contains the database holder and serves as the main access point for the
  * stored data.
  */
-@Database(entities = [Sleep::class], version = 1, exportSchema = false)
+@Database(entities = [Sleep::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun sleepDao(): SleepDao
 }

@@ -15,6 +15,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -25,6 +27,12 @@ import java.util.Date
 import java.util.Locale
 import kotlin.collections.HashMap
 import kotlin.collections.List
+
+val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE sleep ADD COLUMN rating INTEGER NOT NULL DEFAULT 0")
+    }
+}
 
 /**
  * Data model is the singleton shared state between the activity and the
@@ -62,6 +70,7 @@ object DataModel {
             this.start = Date(start)
         }
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
+                .addMigrations(MIGRATION_1_2)
                 .build()
     }
 
@@ -116,6 +125,9 @@ object DataModel {
                 val sleep = Sleep()
                 sleep.start = cells[1].toLong()
                 sleep.stop = cells[2].toLong()
+                if (cells.size >= 4) {
+                    sleep.rating = cells[3].toLong()
+                }
                 database.sleepDao().insert(sleep)
             }
         } catch (e: IOException) {
@@ -152,10 +164,10 @@ object DataModel {
             return
         }
         try {
-            os.write("sid,start,stop\n".toByteArray())
+            os.write("sid,start,stop,rating\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
-                        sleep.stop.toString() + "\n"
+                        sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {

@@ -23,6 +23,9 @@ class Sleep {
 
     @ColumnInfo(name = "stop_date")
     var stop: Long = 0
+
+    @ColumnInfo(name = "rating")
+    var rating: Long = 0
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
