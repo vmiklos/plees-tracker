@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.0.0
 
 - Resolves: gh#28 it is now possible to rate sleeps
 - Resolves: gh#7 expand/collapse FAB on scroll
