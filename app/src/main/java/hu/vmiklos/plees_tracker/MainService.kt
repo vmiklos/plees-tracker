@@ -23,7 +23,8 @@ class MainService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, "channel",
+            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                    getString(R.string.notification_channel_name),
                     NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }

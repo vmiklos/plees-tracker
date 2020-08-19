@@ -35,4 +35,5 @@
     <string name="this_year">Este año</string>
     <string name="all_time">Todo el tiempo</string>
     <string name="stats">Estadísticas</string>
+    <string name="notification_channel_name">Tracker notifications</string>
 </resources>

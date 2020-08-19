@@ -37,4 +37,5 @@
     <string name="this_year">This year</string>
     <string name="all_time">All time</string>
     <string name="stats">Statistics</string>
+    <string name="notification_channel_name">Tracker notifications</string>
 </resources>
