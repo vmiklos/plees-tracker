@@ -84,6 +84,12 @@ class SleepsAdapter(
         val durationMS = sleep.stop - sleep.start
         val durationText = DataModel.formatDuration(durationMS / 1000)
         holder.duration.text = durationText
+        val nextSleepReferenceTime =
+                if (position == 0) System.currentTimeMillis()
+                else data[position - 1].start
+        val durationWakeMS = nextSleepReferenceTime - sleep.stop;
+        val durationWakeText = DataModel.formatDuration(durationWakeMS / 1000)
+        holder.durationWake.text = durationWakeText
         holder.rating.rating = sleep.rating.toFloat()
         holder.rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
     }
@@ -95,6 +101,7 @@ class SleepsAdapter(
         val start: TextView = view.findViewById(R.id.sleep_item_start)
         val stop: TextView = view.findViewById(R.id.sleep_item_stop)
         val duration: TextView = view.findViewById(R.id.sleep_item_duration)
+        val durationWake: TextView = view.findViewById(R.id.wake_item_duration)
         val rating: RatingBar = view.findViewById(R.id.sleep_item_rating)
     }
 }
