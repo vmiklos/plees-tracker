@@ -121,6 +121,41 @@
             tools:text="05:20" />
 
 
+        <ImageView
+            android:id="@+id/wake_time_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_play_green"
+            app:layout_constraintTop_toBottomOf="@id/sleep_time_image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/awake_for_label" />
+
+        <TextView
+            android:id="@+id/wake_time_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/awake_for_label"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/wake_time_image"
+            app:layout_constraintTop_toBottomOf="@id/wake_time_image"
+            app:layout_constraintStart_toEndOf="@id/wake_time_image" />
+
+
+        <TextView
+            android:id="@+id/wake_item_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/wake_time_image"
+            app:layout_constraintTop_toBottomOf="@id/wake_time_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="18:40" />
+
+
         <RatingBar
             android:id="@+id/sleep_item_rating"
             android:layout_width="wrap_content"
@@ -131,7 +166,7 @@
             android:numStars="5"
             android:stepSize="1"
             android:rating="0"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_time_image"
+            app:layout_constraintTop_toBottomOf="@id/wake_time_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

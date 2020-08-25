@@ -7,6 +7,7 @@
     <string name="stopped_on">Parou em</string>
     <string name="started_on">Iniciou em</string>
     <string name="slept_for_label">Dormiu por</string>
+    <string name="awake_for_label">Acordou atrás</string>
     <string name="sleeps">Sonos</string>
     <string name="status">Status</string>
     <string name="export_file_item">Exportar para um arquivo</string>
