@@ -216,6 +216,10 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         val intent = Intent(this, MainService::class.java)
         stopService(intent)
+        val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
+        recyclerView.findViewHolderForAdapterPosition(0)?.let {
+            recyclerView.adapter!!.onBindViewHolder(it, 0)
+        }
     }
 
     override fun onStop() {
