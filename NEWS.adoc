@@ -1,5 +1,10 @@
 = Version descriptions
 
+== 7.0.1
+
+- Fix missing localization of the notification channel's name
+- Updated appcompat, constraintlayout, material, junit and espress-core to latest versions
+
 == 7.0.0
 
 - Resolves: gh#28 it is now possible to rate sleeps
