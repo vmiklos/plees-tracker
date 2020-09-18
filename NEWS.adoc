@@ -1,5 +1,10 @@
 = Version descriptions
 
+== master
+
+- Tested on Android 11
+- Removed not needed custom fonts, now using default regular/bold fonts from the system
+
 == 7.0.1
 
 - Fix missing localization of the notification channel's name
