@@ -45,28 +45,37 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     /**
+     * Determines if x,y hits view or not.
+     */
+    private fun hitTest(view: View, x: Float, y: Float): Boolean {
+        val translationX = view.translationX
+        val translationY = view.translationY
+        if (x < view.left + translationX) {
+            return false
+        }
+        if (x > view.right + translationX) {
+            return false
+        }
+        if (y < view.top + translationY) {
+            return false
+        }
+        if (y > view.bottom + translationY) {
+            return false
+        }
+
+        return true
+    }
+
+    /**
      * If x,y is inside the rectangle of a child of parent, get that.
      */
     private fun findChildView(parent: ViewGroup, x: Float, y: Float): View? {
-        val count: Int = parent.getChildCount()
+        val count: Int = parent.childCount
         for (i in 0 until count) {
             val child: View = parent.getChildAt(i)
-            val translationX = child.translationX
-            val translationY = child.translationY
-            if (x < child.left + translationX) {
-                continue
+            if (hitTest(child, x, y)) {
+                return child
             }
-            if (x > child.right + translationX) {
-                continue
-            }
-            if (y < child.top + translationY) {
-                continue
-            }
-            if (y > child.bottom + translationY) {
-                continue
-            }
-
-            return child
         }
         return null
     }
