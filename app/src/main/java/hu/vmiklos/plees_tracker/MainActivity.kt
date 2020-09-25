@@ -14,10 +14,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -38,6 +43,57 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+
+    /**
+     * If x,y is inside the rectangle of a child of parent, get that.
+     */
+    private fun findChildView(parent: ViewGroup, x: Float, y: Float): View? {
+        val count: Int = parent.getChildCount()
+        for (i in 0 until count) {
+            val child: View = parent.getChildAt(i)
+            val translationX = child.translationX
+            val translationY = child.translationY
+            if (x < child.left + translationX) {
+                continue
+            }
+            if (x > child.right + translationX) {
+                continue
+            }
+            if (y < child.top + translationY) {
+                continue
+            }
+            if (y > child.bottom + translationY) {
+                continue
+            }
+
+            return child
+        }
+        return null
+    }
+
+    /**
+     * If there is a rating bar inside this recycler view, get that.
+     */
+    private fun findRatingBar(rv: RecyclerView, e: MotionEvent): AppCompatRatingBar? {
+        val cardView = rv.findChildViewUnder(e.x, e.y) ?: return null
+
+        if (cardView !is CardView) {
+            return null
+        }
+
+        val constraintLayout = findChildView(cardView, e.x, e.y) ?: return null
+
+        if (constraintLayout !is ConstraintLayout) {
+            return null
+        }
+
+        val child = findChildView(constraintLayout, e.x, e.y) ?: return null
+        if (child !is AppCompatRatingBar) {
+            return null
+        }
+
+        return child
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +136,25 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.scrollToPosition(positionStart)
                     }
                 })
+
+        // Swipe on the rating bar goes to the rating bar itself.
+        recyclerView.addOnItemTouchListener(
+                object : RecyclerView.SimpleOnItemTouchListener() {
+                    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                        return findRatingBar(rv, e) != null
+                    }
+
+                    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+                        val ratingBar = findRatingBar(rv, e) ?: return
+                        val x = e.x - (ratingBar.left + ratingBar.translationX)
+                        val y = e.y - (ratingBar.top + ratingBar.translationY)
+                        e.setLocation(x, y)
+                        ratingBar.onTouchEvent(e)
+                    }
+                }
+        )
+
+        // Otherwise swipe on a card view deletes it.
         val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(applicationContext,
                 viewModel, sleepsAdapter))
         itemTouchHelper.attachToRecyclerView(recyclerView)
