@@ -9,7 +9,6 @@ package hu.vmiklos.plees_tracker
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import java.util.Calendar
 
 /**
@@ -27,7 +26,7 @@ class StatsActivity : AppCompatActivity() {
         // Show a back button.
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        DataModel.sleepsLive.observe(this, Observer { sleeps ->
+        DataModel.sleepsLive.observe(this, { sleeps ->
             if (sleeps != null) {
                 val fragments = supportFragmentManager
 

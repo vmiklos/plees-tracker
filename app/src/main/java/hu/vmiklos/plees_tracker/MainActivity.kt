@@ -20,7 +20,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         DataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter(viewModel)
-        DataModel.sleepsLive.observe(this, Observer { sleeps ->
+        DataModel.sleepsLive.observe(this, { sleeps ->
             if (sleeps != null) {
                 val fragments = supportFragmentManager
                 val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
