@@ -16,13 +16,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatRatingBar
-import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -67,41 +63,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * If x,y is inside the rectangle of a child of parent, get that.
-     */
-    private fun findChildView(parent: ViewGroup, x: Float, y: Float): View? {
-        val count: Int = parent.childCount
-        for (i in 0 until count) {
-            val child: View = parent.getChildAt(i)
-            if (hitTest(child, x, y)) {
-                return child
-            }
-        }
-        return null
-    }
-
-    /**
      * If there is a rating bar inside this recycler view, get that.
      */
-    private fun findRatingBar(rv: RecyclerView, e: MotionEvent): AppCompatRatingBar? {
-        val cardView = rv.findChildViewUnder(e.x, e.y) ?: return null
-
-        if (cardView !is CardView) {
-            return null
+    private fun findRatingBar(rv: RecyclerView, e: MotionEvent): View? {
+        val sleepItem = rv.findChildViewUnder(e.x, e.y) ?: return null
+        val ratingBar = sleepItem.findViewById<View>(R.id.sleep_item_rating)
+        if (hitTest(ratingBar, e.x, e.y)) {
+            return ratingBar
         }
-
-        val constraintLayout = findChildView(cardView, e.x, e.y) ?: return null
-
-        if (constraintLayout !is ConstraintLayout) {
-            return null
-        }
-
-        val child = findChildView(constraintLayout, e.x, e.y) ?: return null
-        if (child !is AppCompatRatingBar) {
-            return null
-        }
-
-        return child
+        return null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
