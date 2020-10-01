@@ -1,0 +1,41 @@
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" translatable="false">Plees Tracker</string>
+    <string name="start">Iniciar</string>
+    <string name="stop">Parar</string>
+    <string name="start_again">Inciar novamente</string>
+    <string name="press_start">Pressione o botão abaixo para iniciar o rastreamento</string>
+    <string name="stopped_on">Parou em</string>
+    <string name="started_on">Iniciou em</string>
+    <string name="slept_for_label">Dormiu por</string>
+    <string name="sleeps">Sonos</string>
+    <string name="status">Status</string>
+    <string name="import_item">Importar</string>
+    <string name="export_item">Exportar</string>
+    <string name="import_success">Importação finalizada com sucesso</string>
+    <string name="export_success">Exportação finalizada com sucesso</string>
+    <string name="sleeping_since">Dormindo desde %s</string>
+    <string name="past">Últimos sonos</string>
+    <string name="tracking_stopped">O rastreamento foi parado</string>
+    <string name="deleted">Deletado</string>
+    <string name="undo">Desfazer</string>
+    <string name="about_item">Sobre</string>
+    <string name="about_toolbar">Sobre</string>
+    <string name="app_description">Um simples rastreador de sono para o Android</string>
+    <string name="sleep_id">Sono #%s</string>
+    <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
+    <string name="website">Site</string>
+    <string name="average_string">Média</string>
+    <string name="daily_average_string">Diariamente</string>
+    <string name="dashboard">Painel</string>
+    <string name="sleep_details">Detalhes do sono</string>
+    <string name="settings">Configurações</string>
+    <string name="settings_category_theme">Tema (É necessário reiniciar)</string>
+    <string name="settings_follow_system_theme">Seguir o tema do sistema</string>
+    <string name="settings_enable_dark_theme">Modo escuro</string>
+    <string name="last7days">Últimos 7 dias</string>
+    <string name="this_year">Este ano</string>
+    <string name="all_time">Todo o tempo</string>
+    <string name="stats">Estatísticas</string>
+    <string name="notification_channel_name">Notificações de rastreamento</string>
+</resources>
