@@ -13,10 +13,7 @@ before_script:
   - android-wait-for-emulator
 script:
   - ./gradlew build && ./gradlew test && ./gradlew connectedAndroidTest
-after_success:
-  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/vmiklos/plees-tracker/master/tools/travis-automerge"
-  - "chmod a+x /tmp/travis-automerge"
-  - "BRANCHES_TO_MERGE_REGEX='^ci/' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=vmiklos/plees-tracker /tmp/travis-automerge"
-env:
-  global:
-    secure: qgYLJB8EV/dzksxe9V6x3EtqSpUySQDbn07GyfqgloEmvD567LVDYP6f+cxehnTZNDL3t7SSj/UX45lw8oUJ10FeQMsjMpl1Y5JY2LdesWtyxkCb0RL6S2Cev0/SOCIJiK2F5425fY2FLmS8JEUHB9Xsv6Qd881v72s6jb4qBcS5RtlfvgZeW6931AZYNJSIPe7/9eXkHz2wtO4kH1ORohi/Avsz9xibuc3YbK89ONiVA3fCWUBVqkv4MrbbsfE0M3xLmYWd/poAfmnHzqeRHDAiWCgdVbF6e4jOy6ip87gXRh/a8xyDhgOi5o+i0wXW2UmljBpja9T22W5XUKGyNkvrxjs/Y80EavTV5mrducFzZwgRPY1493rgxo/oFa5xzPWx2nzzwKm889ZfL98fcCZN+m5pUps43Vjogorfm1ppGDKfVcoQHN95BwlOifOwY5Pzkxlg55SDpk6RQxFLaOzB2QYN4loAWqWaQmSzz5IessEO5GIumFXZv5v90tF8LH3vfakHpzBb2OC6AzgMPfYtpZAb5Ro0O7NFZl4mEr56NdCWUX3aCv8/6LwMqIseQ0gxZJKQ8bTGPrUl3AALRKtd8A8tJAFZSjmFfAZYGc6LDorUBUIgDsblzDU5j/EXiNvMzQCsOm7fchj8lzgOuDEey+sz3dVVos+RU5tvS4E=
+branches:
+  except:
+    # build e.g. master, but not private/vmiklos/master
+    - /private\/.*/
