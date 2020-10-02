@@ -2,6 +2,7 @@
 
 == master
 
+- Added PT-BR translation (fabianski7)
 - Tested on Android 11
 - Removed not needed custom fonts, now using default regular/bold fonts from the system
 - Resolves: gh#33 main activity: don't delete entry by swiping on the rating bar
