@@ -16,21 +16,21 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import java.io.File
-import java.util.Calendar
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.File
+import java.util.*
 
 /**
  * Instrumented tests for MainActivity.
@@ -39,8 +39,6 @@ import org.junit.runner.RunWith
 class MainActivityInstrumentedTest {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
-    @get:Rule
-    val intentsTestRule = IntentsTestRule(MainActivity::class.java)
 
     @Test
     fun testCountStat() = runBlocking {
@@ -65,6 +63,7 @@ class MainActivityInstrumentedTest {
         assertEquals(1, database.sleepDao().getAll().size)
 
         // Export.
+        Intents.init()
         val resultData = Intent()
         val file = File(context.filesDir, "sleeps.csv")
         resultData.data = Uri.fromFile(file)
@@ -78,6 +77,7 @@ class MainActivityInstrumentedTest {
         openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
         onView(withText(context.getString(R.string.import_item))).perform(click())
         assertEquals(2, database.sleepDao().getAll().size)
+        Intents.release()
     }
 }
 
