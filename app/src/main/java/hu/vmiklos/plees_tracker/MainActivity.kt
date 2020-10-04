@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             showUserCalendarPicker()
         } else {
             // Permission denied
-            Toast.makeText(this, "Calendar permission required", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.calendar_permission_required), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -380,7 +380,7 @@ class MainActivity : AppCompatActivity() {
         // Insert the list of Sleep into DB
         viewModel.insertSleep(sleepList)
 
-        Toast.makeText(this, "Imported ${sleepList.size} item(s)", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.imported_items, sleepList.size), Toast.LENGTH_SHORT).show()
     }
 
     private fun showNoCalendarsFoundDialog() {

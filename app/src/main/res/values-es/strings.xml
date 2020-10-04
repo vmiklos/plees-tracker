@@ -43,4 +43,6 @@
     <string name="dismiss">Descartar</string>
     <string name="import_dialog_error_message">No se encontraron calendarios</string>
     <string name="import_dialog_message">Seleccione el calendario para importar</string>
+    <string name="calendar_permission_required">Calendario permiso denegado</string>
+    <string name="imported_items">Importados %d artículos</string>
 </resources>
