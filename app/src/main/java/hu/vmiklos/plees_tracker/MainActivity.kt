@@ -352,6 +352,7 @@ class MainActivity : AppCompatActivity() {
         // No user calendars found, show dialog informing user
         if (calendars.isEmpty()) {
             showNoCalendarsFoundDialog()
+            return
         }
 
         // Get name of calendar(s)
