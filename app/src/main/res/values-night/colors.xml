@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBackground">#000000</color>
+    <color name="colorSurface">#1E1E1E</color>
 
     <!-- FAB color -->
     <color name="colorFabPrimary">#7f7f7f</color>

@@ -26,6 +26,9 @@ interface SleepDao {
     suspend fun getById(id: Int): Sleep
 
     @Insert
+    suspend fun insert(sleepList: List<Sleep>)
+
+    @Insert
     suspend fun insert(sleep: Sleep)
 
     @Update

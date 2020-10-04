@@ -6,7 +6,9 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Build
@@ -18,6 +20,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -26,9 +31,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
+import hu.vmiklos.plees_tracker.calendar.CalendarImport
+import hu.vmiklos.plees_tracker.calendar.UserCalendar
 import java.util.Calendar
 
 /**
@@ -38,6 +46,42 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+
+    private val permissionLauncher = registerForActivityResult(
+            RequestMultiplePermissions()
+    ) { permissions : Map<String, Boolean> ->
+        // Check all permissions are granted
+        if (permissions.all(Map.Entry<String, Boolean>::value)) {
+            // Start import from calendar
+            showUserCalendarPicker()
+        } else {
+            // Permission denied
+            Toast.makeText(this, "Calendar permission required", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private val importActivityResult =
+            registerForActivityResult(StartActivityForResult()) { result ->
+                try {
+                    result.data?.data?.let { uri ->
+                        viewModel.importData(applicationContext, contentResolver, uri)
+                        updateView()
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "onActivityResult: importData() failed")
+                }
+            }
+
+    private val exportActivityResult =
+            registerForActivityResult(StartActivityForResult()) { result ->
+                try {
+                    result.data?.data?.let { uri ->
+                        viewModel.exportData(applicationContext, contentResolver, uri)
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "onActivityResult: exportData() failed")
+                }
+            }
 
     /**
      * Determines if x,y hits view or not.
@@ -108,8 +152,8 @@ class MainActivity : AppCompatActivity() {
         sleepsAdapter.registerAdapterDataObserver(
                 object : RecyclerView.AdapterDataObserver() {
                     override fun onItemRangeInserted(
-                        positionStart: Int,
-                        itemCount: Int
+                            positionStart: Int,
+                            itemCount: Int
                     ) {
                         recyclerView.scrollToPosition(positionStart)
                     }
@@ -153,6 +197,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         updateView()
+
     }
 
     override fun onStart() {
@@ -186,45 +231,15 @@ class MainActivity : AppCompatActivity() {
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "text/csv"
         intent.putExtra(Intent.EXTRA_TITLE, "plees-tracker.csv")
-        startActivityForResult(intent, EXPORT_CODE)
+        exportActivityResult.launch(intent)
     }
 
-    private fun importData() {
+    private fun importFileData() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "text/*"
         val mimeTypes = arrayOf("text/csv", "text/comma-separated-values")
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        startActivityForResult(intent, IMPORT_CODE)
-    }
-
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
-        super.onActivityResult(requestCode, resultCode, data)
-        val cr = contentResolver
-        val uri = data?.data
-        if (uri == null) {
-            Log.e(TAG, "onActivityResult: null url")
-            return
-        }
-
-        if (requestCode == EXPORT_CODE) {
-            try {
-                viewModel.exportData(applicationContext, cr, uri)
-            } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: exportData() failed")
-            }
-        } else if (requestCode == IMPORT_CODE) {
-            try {
-                viewModel.importData(applicationContext, cr, uri)
-            } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: importData() failed")
-                return
-            }
-            updateView()
-        }
+        importActivityResult.launch(intent)
     }
 
     private fun createColorStateList(color: Int): ColorStateList {
@@ -275,8 +290,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.import_data -> {
-                importData()
+            R.id.import_calendar_data -> {
+                checkForCalendarPermission()
+                return true
+            }
+            R.id.import_file_data -> {
+                importFileData()
                 return true
             }
             R.id.export_data -> {
@@ -309,6 +328,68 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkForCalendarPermission() {
+        when (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)) {
+            PackageManager.PERMISSION_GRANTED -> showUserCalendarPicker()
+            else -> {
+                // Directly ask for the permission.
+                // The registered ActivityResultCallback gets the result of this request.
+                permissionLauncher.launch(
+                        arrayOf(
+                                Manifest.permission.READ_CALENDAR,
+                                Manifest.permission.WRITE_CALENDAR
+                        )
+                )
+            }
+        }
+    }
+
+    private fun showUserCalendarPicker() {
+
+        // Fetch calendar data
+        val calendars = CalendarImport.queryForCalendars(this)
+
+        // No user calendars found, show dialog informing user
+        if (calendars.isEmpty()) {
+            showNoCalendarsFoundDialog()
+        }
+
+        // Get name of calendar(s)
+        val titles = calendars.map(UserCalendar::name).toTypedArray()
+        var selectedItem = 0
+
+        // Show User Calendar picker
+        MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.import_dialog_title))
+                .setNeutralButton(getString(R.string.import_dialog_negative), null)
+                .setPositiveButton(getString(R.string.import_dialog_positive)) { _, _ ->
+                    // Import from selected UserCalendar
+                    importCalendarData(calendars[selectedItem])
+                }.setSingleChoiceItems(titles, selectedItem) { _, newSelection ->
+                    selectedItem = newSelection
+                }.show()
+    }
+
+    private fun importCalendarData(selectedItem: UserCalendar) {
+        // Query the calendar for events
+        val sleepList = CalendarImport.queryForEvents(
+                this, selectedItem.id
+        ).map(CalendarImport::mapEventToSleep)
+
+        // Insert the list of Sleep into DB
+        viewModel.insertSleep(sleepList)
+
+        Toast.makeText(this, "Imported ${sleepList.size} item(s)", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showNoCalendarsFoundDialog() {
+        MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.import_dialog_title))
+                .setMessage(getString(R.string.import_dialog_error_message))
+                .setNegativeButton(getString(R.string.dismiss), null)
+                .show()
+    }
+
     private fun open(link: Uri) {
         val intent = Intent(Intent.ACTION_VIEW, link)
         startActivity(intent)
@@ -316,8 +397,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val IMPORT_CODE = 1
-        private const val EXPORT_CODE = 2
     }
 }
 

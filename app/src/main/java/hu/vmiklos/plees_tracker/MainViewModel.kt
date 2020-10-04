@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
  * This is the view model of MainActivity, providing coroutine scopes.
  */
 class MainViewModel : ViewModel() {
+
     fun stopSleep() {
         viewModelScope.launch {
             DataModel.storeSleep()
@@ -41,6 +42,12 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun insertSleep(sleepList: List<Sleep>) {
+        viewModelScope.launch {
+            DataModel.insertSleep(sleepList)
+        }
+    }
+
     fun deleteSleep(sleep: Sleep) {
         viewModelScope.launch {
             DataModel.deleteSleep(sleep)
@@ -52,6 +59,7 @@ class MainViewModel : ViewModel() {
             DataModel.updateSleep(sleep)
         }
     }
+
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

@@ -9,7 +9,6 @@
     <string name="slept_for_label">Dormir para</string>
     <string name="sleeps">Dormidas</string>
     <string name="status">Estado</string>
-    <string name="import_item">Importar</string>
     <string name="export_item">Exportar</string>
     <string name="import_success">Importación finalizada con éxito</string>
     <string name="export_success">Exportación finalizada con éxito</string>
@@ -36,4 +35,12 @@
     <string name="all_time">Todo el tiempo</string>
     <string name="stats">Estadísticas</string>
     <string name="notification_channel_name">Notificaciones del rastreo</string>
+    <string name="import_file_item">Importar archivo</string>
+    <string name="import_calendar_item">Importar desde Calendario</string>
+    <string name="import_dialog_title">Importar Calendario</string>
+    <string name="import_dialog_positive">Importar</string>
+    <string name="import_dialog_negative">Cancelar</string>
+    <string name="dismiss">Descartar</string>
+    <string name="import_dialog_error_message">No se encontraron calendarios</string>
+    <string name="import_dialog_message">Seleccione el calendario para importar</string>
 </resources>

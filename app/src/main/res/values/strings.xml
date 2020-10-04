@@ -10,7 +10,8 @@
     <string name="slept_for_label">Slept for</string>
     <string name="sleeps">Sleeps</string>
     <string name="status">Status</string>
-    <string name="import_item">Import</string>
+    <string name="import_file_item">Import File</string>
+    <string name="import_calendar_item">Import from Calendar</string>
     <string name="export_item">Export</string>
     <string name="import_success">Import finished successfully</string>
     <string name="export_success">Export finished successfully</string>
@@ -38,4 +39,10 @@
     <string name="all_time">All time</string>
     <string name="stats">Statistics</string>
     <string name="notification_channel_name">Tracker notifications</string>
+    <string name="import_dialog_title">Import Calendar</string>
+    <string name="import_dialog_negative">Cancel</string>
+    <string name="import_dialog_positive">Import</string>
+    <string name="import_dialog_error_message">No calendars were found</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="import_dialog_message">Select calendar to import</string>
 </resources>

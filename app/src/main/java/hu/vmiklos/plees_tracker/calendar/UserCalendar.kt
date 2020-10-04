@@ -1,0 +1,49 @@
+package hu.vmiklos.plees_tracker.calendar
+
+import android.database.Cursor
+
+class UserCalendar {
+
+    val id: String
+    val name: String
+    val owner: String
+
+    constructor(id: String, name: String, owner: String){
+        this.id = id
+        this.name = name
+        this.owner = owner
+    }
+
+    constructor(cursor: Cursor) {
+        id = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ID)
+        name = cursor.getString(CalendarImport.CALENDAR_PROJECTION_DISPLAY_NAME)
+        owner = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ACCOUNT_NAME)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserCalendar
+
+        if (id != other.id) return false
+        if (name != other.name) return false
+        if (owner != other.owner) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + owner.hashCode()
+        return result
+    }
+
+    override fun toString(): String {
+        return "UserCalendar(id='$id', name='$name', owner='$owner')"
+    }
+
+}
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

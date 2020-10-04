@@ -25,8 +25,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import kotlin.collections.HashMap
-import kotlin.collections.List
 
 val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
@@ -92,6 +90,10 @@ object DataModel {
 
     suspend fun insertSleep(sleep: Sleep) {
         database.sleepDao().insert(sleep)
+    }
+
+    suspend fun insertSleep(sleepList: List<Sleep>) {
+        database.sleepDao().insert(sleepList)
     }
 
     suspend fun updateSleep(sleep: Sleep) {
