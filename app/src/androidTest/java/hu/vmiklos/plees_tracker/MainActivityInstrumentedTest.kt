@@ -26,6 +26,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,15 +38,22 @@ import java.util.*
  */
 @RunWith(AndroidJUnit4::class)
 class MainActivityInstrumentedTest {
+
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
+    private lateinit var database: AppDatabase
+    private lateinit var context: Context
+
+    @Before
+    fun setup() {
+        context = ApplicationProvider.getApplicationContext()
+        database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        DataModel.database = database
+    }
+
     @Test
     fun testCountStat() = runBlocking {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        DataModel.database = database
-
         onView(withId(R.id.start_stop)).perform(click())
         onView(withId(R.id.start_stop)).perform(click())
         assertEquals(1, database.sleepDao().getAll().size)
@@ -54,9 +62,6 @@ class MainActivityInstrumentedTest {
     @Test
     fun testImportExport() = runBlocking {
         // Create one sleep.
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        val database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        DataModel.database = database
         DataModel.start = Calendar.getInstance().time
         DataModel.stop = Calendar.getInstance().time
         DataModel.storeSleep()
@@ -75,7 +80,7 @@ class MainActivityInstrumentedTest {
         // Import.
         intending(hasAction(Intent.ACTION_GET_CONTENT)).respondWith(result)
         openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
-        onView(withText(context.getString(R.string.import_item))).perform(click())
+        onView(withText(context.getString(R.string.import_file_item))).perform(click())
         assertEquals(2, database.sleepDao().getAll().size)
         Intents.release()
     }

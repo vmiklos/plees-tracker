@@ -1,6 +1,5 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" translatable="false">Plees Tracker</string>
     <string name="start">Iniciar</string>
     <string name="stop">Parar</string>
     <string name="start_again">Inciar novamente</string>
@@ -10,7 +9,6 @@
     <string name="slept_for_label">Dormiu por</string>
     <string name="sleeps">Sonos</string>
     <string name="status">Status</string>
-    <string name="import_item">Importar</string>
     <string name="export_item">Exportar</string>
     <string name="import_success">Importação finalizada com sucesso</string>
     <string name="export_success">Exportação finalizada com sucesso</string>
@@ -23,7 +21,6 @@
     <string name="about_toolbar">Sobre</string>
     <string name="app_description">Um simples rastreador de sono para o Android</string>
     <string name="sleep_id">Sono #%s</string>
-    <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
     <string name="website">Site</string>
     <string name="average_string">Média</string>
     <string name="daily_average_string">Diariamente</string>
@@ -38,4 +35,12 @@
     <string name="all_time">Todo o tempo</string>
     <string name="stats">Estatísticas</string>
     <string name="notification_channel_name">Notificações de rastreamento</string>
+    <string name="import_file_item">Importar File</string>
+    <string name="import_calendar_item">Importar do Calendário</string>
+    <string name="import_dialog_title">Importar Calendário</string>
+    <string name="import_dialog_positive">Importar</string>
+    <string name="import_dialog_negative">Cancelar</string>
+    <string name="dismiss">Dispensar</string>
+    <string name="import_dialog_error_message">Nenhum calendário foi encontrado</string>
+    <string name="import_dialog_message">Selecione o calendário para importar</string>
 </resources>
