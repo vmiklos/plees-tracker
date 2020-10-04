@@ -45,4 +45,6 @@
     <string name="import_dialog_error_message">No calendars were found</string>
     <string name="dismiss">Dismiss</string>
     <string name="import_dialog_message">Select calendar to import</string>
+    <string name="calendar_permission_required">Calendar permission required</string>
+    <string name="imported_items">Imported %d item(s)</string>
 </resources>
