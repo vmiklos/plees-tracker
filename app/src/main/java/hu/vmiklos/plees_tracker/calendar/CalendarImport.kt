@@ -7,6 +7,9 @@ import android.provider.CalendarContract.Calendars
 import android.provider.CalendarContract.Events
 import hu.vmiklos.plees_tracker.Sleep
 
+/**
+ * Singleton helper for importing sleeps from a user's local calendars
+ */
 object CalendarImport {
 
     // Default event title to find within calendars
