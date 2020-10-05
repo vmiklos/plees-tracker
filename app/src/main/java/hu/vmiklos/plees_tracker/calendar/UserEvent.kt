@@ -2,6 +2,9 @@ package hu.vmiklos.plees_tracker.calendar
 
 import android.database.Cursor
 
+/**
+ * Represents a single event record, as found in a user's calendar
+ */
 class UserEvent {
 
     val id: String
