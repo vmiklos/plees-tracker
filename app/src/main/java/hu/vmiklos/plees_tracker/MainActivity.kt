@@ -21,7 +21,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -48,10 +48,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private val permissionLauncher = registerForActivityResult(
-            RequestMultiplePermissions()
-    ) { permissions : Map<String, Boolean> ->
-        // Check all permissions are granted
-        if (permissions.all(Map.Entry<String, Boolean>::value)) {
+            RequestPermission()
+    ) { granted: Boolean ->
+        // Check permission was granted
+        if (granted) {
             // Start import from calendar
             showUserCalendarPicker()
         } else {
@@ -335,10 +335,7 @@ class MainActivity : AppCompatActivity() {
                 // Directly ask for the permission.
                 // The registered ActivityResultCallback gets the result of this request.
                 permissionLauncher.launch(
-                        arrayOf(
-                                Manifest.permission.READ_CALENDAR,
-                                Manifest.permission.WRITE_CALENDAR
-                        )
+                        Manifest.permission.READ_CALENDAR
                 )
             }
         }
