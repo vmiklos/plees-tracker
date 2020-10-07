@@ -1,3 +1,9 @@
+/*
+ * Copyright 2020 Miklos Vajna. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
 package hu.vmiklos.plees_tracker.calendar
 
 import android.database.Cursor
@@ -13,7 +19,7 @@ class UserEvent {
     val start: Long
     val end: Long
 
-    constructor(id: String, calendarId: String, title: String, start: Long, end: Long){
+    constructor(id: String, calendarId: String, title: String, start: Long, end: Long) {
         this.id = id
         this.calendarId = calendarId
         this.title = title
@@ -54,9 +60,10 @@ class UserEvent {
     }
 
     override fun toString(): String {
-        return "UserEvent(id='$id', calendarId='$calendarId', title='$title', start='$start', end='$end')"
+        return """
+        UserEvent(id='$id', calendarId='$calendarId', title='$title', start='$start', end='$end')
+        """.trimIndent()
     }
-
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
