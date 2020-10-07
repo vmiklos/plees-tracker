@@ -1,3 +1,9 @@
+/*
+ * Copyright 2020 Miklos Vajna. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+
 package hu.vmiklos.plees_tracker.calendar
 
 import android.database.Cursor
@@ -11,7 +17,7 @@ class UserCalendar {
     val name: String
     val owner: String
 
-    constructor(id: String, name: String, owner: String){
+    constructor(id: String, name: String, owner: String) {
         this.id = id
         this.name = name
         this.owner = owner
@@ -46,7 +52,6 @@ class UserCalendar {
     override fun toString(): String {
         return "UserCalendar(id='$id', name='$name', owner='$owner')"
     }
-
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
