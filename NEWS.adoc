@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.0.2
 
 - Added PT-BR translation (fabianski7)
 - Tested on Android 11
