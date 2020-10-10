@@ -335,7 +335,10 @@ class MainActivity : AppCompatActivity() {
                 // Directly ask for the permission.
                 // The registered ActivityResultCallback gets the result of this request.
                 permissionLauncher.launch(
-                        Manifest.permission.READ_CALENDAR
+                        arrayOf(
+                                Manifest.permission.READ_CALENDAR,
+                                Manifest.permission.WRITE_CALENDAR
+                        )
                 )
             }
         }
