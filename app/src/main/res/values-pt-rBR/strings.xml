@@ -9,7 +9,7 @@
     <string name="slept_for_label">Dormiu por</string>
     <string name="sleeps">Sonos</string>
     <string name="status">Status</string>
-    <string name="export_item">Exportar</string>
+    <string name="export_file_item">Arquivo de exportação</string>
     <string name="import_success">Importação finalizada com sucesso</string>
     <string name="export_success">Exportação finalizada com sucesso</string>
     <string name="sleeping_since">Dormindo desde %s</string>
@@ -37,12 +37,14 @@
     <string name="notification_channel_name">Notificações de rastreamento</string>
     <string name="import_file_item">Importar File</string>
     <string name="import_calendar_item">Importar do Calendário</string>
-    <string name="import_dialog_title">Importar Calendário</string>
-    <string name="import_dialog_positive">Importar</string>
-    <string name="import_dialog_negative">Cancelar</string>
+    <string name="select_calendar_dialog_title">Selecione Calendário</string>
+    <string name="select_calendar_dialog_positive">Importar</string>
+    <string name="select_calendar_dialog_negative">Cancelar</string>
     <string name="dismiss">Dispensar</string>
     <string name="import_dialog_error_message">Nenhum calendário foi encontrado</string>
-    <string name="import_dialog_message">Selecione o calendário para importar</string>
     <string name="calendar_permission_required">Calendário permissão negada</string>
     <string name="imported_items">%d itens importados</string>
+    <string name="export_calendar_item">Exportar para Calendar</string>
+    <string name="exported_event_description">Exportado do Plees Tracker</string>
+    <string name="exported_items">Exportação completa</string>
 </resources>

@@ -24,9 +24,15 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun exportData(context: Context, cr: ContentResolver, uri: Uri) {
+    fun exportDataToFile(context: Context, cr: ContentResolver, uri: Uri) {
         viewModelScope.launch {
-            DataModel.exportData(context, cr, uri)
+            DataModel.exportDataToFile(context, cr, uri)
+        }
+    }
+
+    fun exportDataToCalendar(context: Context, calendarId: String) {
+        viewModelScope.launch {
+            DataModel.exportDataToCalendar(context, calendarId)
         }
     }
 
