@@ -13,7 +13,6 @@ import hu.vmiklos.plees_tracker.R
 import hu.vmiklos.plees_tracker.Sleep
 import java.util.TimeZone
 
-
 /**
  * Singleton helper for exporting sleeps to a user's local calendars
  */
@@ -28,7 +27,8 @@ object CalendarExport {
                 put(CalendarContract.Events.DTSTART, sleep.start)
                 put(CalendarContract.Events.DTEND, sleep.stop)
                 put(CalendarContract.Events.TITLE, context.getString(R.string.exported_event_title))
-                put(CalendarContract.Events.DESCRIPTION, context.getString(R.string.exported_event_description))
+                val description = context.getString(R.string.exported_event_description)
+                put(CalendarContract.Events.DESCRIPTION, description)
                 put(CalendarContract.Events.CALENDAR_ID, calendarId)
                 put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
             }
