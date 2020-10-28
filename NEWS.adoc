@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#41 ability to export events to your calendar (Ed George)
+
 == 7.0.2
 
 - Added PT-BR translation (fabianski7)
