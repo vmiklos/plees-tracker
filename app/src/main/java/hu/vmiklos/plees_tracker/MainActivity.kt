@@ -21,7 +21,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -47,17 +48,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
 
-    private val permissionLauncher = registerForActivityResult(
-            RequestPermission()
-    ) { granted: Boolean ->
-        // Check permission was granted
-        if (granted) {
-            // Start import from calendar
-            showUserCalendarPicker()
-        } else {
-            // Permission denied
-            Toast.makeText(this, getString(R.string.calendar_permission_required), Toast.LENGTH_LONG).show()
-        }
+    private val exportPermissionLauncher = registerForActivityResult(
+            RequestMultiplePermissions()
+    ) { permissions: Map<String, Boolean> ->
+        checkCalendarPermissionGranted(permissions, ::exportCalendarData)
+    }
+
+    private val importPermissionLauncher = registerForActivityResult(
+            RequestMultiplePermissions()
+    ) { permissions: Map<String, Boolean> ->
+        checkCalendarPermissionGranted(permissions, ::importCalendarData)
     }
 
     private val importActivityResult =
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             registerForActivityResult(StartActivityForResult()) { result ->
                 try {
                     result.data?.data?.let { uri ->
-                        viewModel.exportData(applicationContext, contentResolver, uri)
+                        viewModel.exportDataToFile(applicationContext, contentResolver, uri)
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "onActivityResult: exportData() failed")
@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity() {
         updateView()
     }
 
-    private fun exportData() {
+    private fun exportFileData() {
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "text/csv"
@@ -291,15 +291,19 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.import_calendar_data -> {
-                checkForCalendarPermission()
+                checkForCalendarPermission(importPermissionLauncher, ::importCalendarData)
                 return true
             }
             R.id.import_file_data -> {
                 importFileData()
                 return true
             }
-            R.id.export_data -> {
-                exportData()
+            R.id.export_file_data -> {
+                exportFileData()
+                return true
+            }
+            R.id.export_calendar_data -> {
+                checkForCalendarPermission(exportPermissionLauncher, ::exportCalendarData)
                 return true
             }
             R.id.about -> {
@@ -328,20 +332,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkForCalendarPermission() {
+    private fun checkCalendarPermissionGranted(granted: Map<String, Boolean>, onSuccess: (UserCalendar) -> Unit) {
+        // Check all permissions were granted
+        if (granted.values.all { it }) {
+            // Start picker for calendar
+            showUserCalendarPicker(onSuccess)
+        } else {
+            // Permission denied
+            Toast.makeText(this, getString(R.string.calendar_permission_required), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun checkForCalendarPermission(
+            permissionLauncher: ActivityResultLauncher<Array<String>>,
+            block: (UserCalendar) -> Unit
+    ) {
         when (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)) {
-            PackageManager.PERMISSION_GRANTED -> showUserCalendarPicker()
+            PackageManager.PERMISSION_GRANTED -> showUserCalendarPicker(block)
             else -> {
-                // Directly ask for the permission.
-                // The registered ActivityResultCallback gets the result of this request.
+                // Directly ask for the permissions
                 permissionLauncher.launch(
-                        Manifest.permission.READ_CALENDAR
+                        arrayOf(
+                                Manifest.permission.READ_CALENDAR,
+                                Manifest.permission.WRITE_CALENDAR
+                        )
                 )
             }
         }
     }
 
-    private fun showUserCalendarPicker() {
+    private inline fun showUserCalendarPicker(crossinline block: (cal: UserCalendar) -> Unit) {
 
         // Fetch calendar data
         val calendars = CalendarImport.queryForCalendars(this)
@@ -358,11 +378,10 @@ class MainActivity : AppCompatActivity() {
 
         // Show User Calendar picker
         MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.import_dialog_title))
-                .setNeutralButton(getString(R.string.import_dialog_negative), null)
-                .setPositiveButton(getString(R.string.import_dialog_positive)) { _, _ ->
-                    // Import from selected UserCalendar
-                    importCalendarData(calendars[selectedItem])
+                .setTitle(getString(R.string.select_calendar_dialog_title))
+                .setNeutralButton(getString(R.string.select_calendar_dialog_negative), null)
+                .setPositiveButton(getString(R.string.select_calendar_dialog_positive)) { _, _ ->
+                    block.invoke(calendars[selectedItem])
                 }.setSingleChoiceItems(titles, selectedItem) { _, newSelection ->
                     selectedItem = newSelection
                 }.show()
@@ -380,9 +399,14 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, getString(R.string.imported_items, sleepList.size), Toast.LENGTH_SHORT).show()
     }
 
+    private fun exportCalendarData(selectedItem: UserCalendar) {
+        viewModel.exportDataToCalendar(this, selectedItem.id)
+        Toast.makeText(this, getString(R.string.exported_items), Toast.LENGTH_SHORT).show()
+    }
+
     private fun showNoCalendarsFoundDialog() {
         MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.import_dialog_title))
+                .setTitle(getString(R.string.select_calendar_dialog_title))
                 .setMessage(getString(R.string.import_dialog_error_message))
                 .setNegativeButton(getString(R.string.dismiss), null)
                 .show()

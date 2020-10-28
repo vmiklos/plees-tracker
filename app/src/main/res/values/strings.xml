@@ -12,7 +12,8 @@
     <string name="status">Status</string>
     <string name="import_file_item">Import File</string>
     <string name="import_calendar_item">Import from Calendar</string>
-    <string name="export_item">Export</string>
+    <string name="export_file_item">Export to File</string>
+    <string name="export_calendar_item">Export to Calendar</string>
     <string name="import_success">Import finished successfully</string>
     <string name="export_success">Export finished successfully</string>
     <string name="sleeping_since">Sleeping since %s</string>
@@ -39,12 +40,14 @@
     <string name="all_time">All time</string>
     <string name="stats">Statistics</string>
     <string name="notification_channel_name">Tracker notifications</string>
-    <string name="import_dialog_title">Import Calendar</string>
-    <string name="import_dialog_negative">Cancel</string>
-    <string name="import_dialog_positive">Import</string>
+    <string name="select_calendar_dialog_title">Select Calendar</string>
+    <string name="select_calendar_dialog_negative">Cancel</string>
+    <string name="select_calendar_dialog_positive">Select</string>
     <string name="import_dialog_error_message">No calendars were found</string>
     <string name="dismiss">Dismiss</string>
-    <string name="import_dialog_message">Select calendar to import</string>
     <string name="calendar_permission_required">Calendar permission required</string>
     <string name="imported_items">Imported %d item(s)</string>
+    <string name="exported_event_description">Exported from Plees Tracker</string>
+    <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
+    <string name="exported_items">Export complete</string>
 </resources>

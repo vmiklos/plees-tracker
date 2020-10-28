@@ -75,7 +75,7 @@ class MainActivityInstrumentedTest {
         val result = ActivityResult(Activity.RESULT_OK, resultData)
         intending(hasAction(Intent.ACTION_CREATE_DOCUMENT)).respondWith(result)
         openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
-        onView(withText(context.getString(R.string.export_item))).perform(click())
+        onView(withText(context.getString(R.string.export_file_item))).perform(click())
 
         // Import.
         intending(hasAction(Intent.ACTION_GET_CONTENT)).respondWith(result)

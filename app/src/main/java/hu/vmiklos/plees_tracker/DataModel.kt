@@ -17,6 +17,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import hu.vmiklos.plees_tracker.calendar.CalendarExport
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -150,7 +151,12 @@ object DataModel {
         toast.show()
     }
 
-    suspend fun exportData(context: Context, cr: ContentResolver, uri: Uri) {
+    suspend fun exportDataToCalendar(context: Context, calendarId: String) {
+        val sleeps = database.sleepDao().getAll()
+        CalendarExport.exportSleep(context, calendarId, sleeps)
+    }
+
+    suspend fun exportDataToFile(context: Context, cr: ContentResolver, uri: Uri) {
         val sleeps = database.sleepDao().getAll()
 
         try {
