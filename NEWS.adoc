@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.0.3
 
 - Resolves: gh#41 ability to export events to your calendar (Ed George)
 
