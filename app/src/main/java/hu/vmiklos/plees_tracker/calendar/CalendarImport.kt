@@ -26,9 +26,9 @@ object CalendarImport {
     const val CALENDAR_PROJECTION_DISPLAY_NAME = 2
 
     private val CALENDAR_PROJECTION: Array<String> = arrayOf(
-            Calendars._ID,                     // 0
-            Calendars.ACCOUNT_NAME,            // 1
-            Calendars.CALENDAR_DISPLAY_NAME,   // 2
+        Calendars._ID, // 0
+        Calendars.ACCOUNT_NAME, // 1
+        Calendars.CALENDAR_DISPLAY_NAME, // 2
     )
 
     const val EVENT_PROJECTION_CAL_ID = 0
@@ -38,29 +38,33 @@ object CalendarImport {
     const val EVENT_PROJECTION_END = 4
 
     private val EVENT_PROJECTION: Array<String> = arrayOf(
-            Events.CALENDAR_ID,    // 0
-            Events.TITLE,          // 1
-            Events._ID,            // 2
-            Events.DTSTART,        // 3
-            Events.DTEND,          // 4
+        Events.CALENDAR_ID, // 0
+        Events.TITLE, // 1
+        Events._ID, // 2
+        Events.DTSTART, // 3
+        Events.DTEND, // 4
     )
 
     fun queryForCalendars(context: Context): List<UserCalendar> {
         val uri: Uri = Calendars.CONTENT_URI
         val contentResolver: ContentResolver = context.contentResolver
         contentResolver.query(
-                uri,
-                CALENDAR_PROJECTION,
-                null,
-                null,
-                null
+            uri,
+            CALENDAR_PROJECTION,
+            null,
+            null,
+            null
         ).use { cursor ->
             // Map to UserCalendar
             return cursor?.map(::UserCalendar).orEmpty()
         }
     }
 
-    fun queryForEvents(context: Context, calendarId: String, title: String = DEFAULT_EVENT_TITLE): List<UserEvent> {
+    fun queryForEvents(
+        context: Context,
+        calendarId: String,
+        title: String = DEFAULT_EVENT_TITLE
+    ): List<UserEvent> {
 
         val uri = Events.CONTENT_URI
         val contentResolver: ContentResolver = context.contentResolver
@@ -72,21 +76,20 @@ object CalendarImport {
             (${Events.TITLE} LIKE ? COLLATE NOCASE) AND 
             (${Events.DTSTART} IS NOT NULL) AND 
             (${Events.DTEND} IS NOT NULL AND ${Events.DTEND} != 0)
-            """.trimIndent()
+        """.trimIndent()
 
         val selectionArgs = arrayOf(calendarId, "%$title%")
 
         contentResolver.query(
-                uri,
-                EVENT_PROJECTION,
-                selection,
-                selectionArgs,
-                null
+            uri,
+            EVENT_PROJECTION,
+            selection,
+            selectionArgs,
+            null
         ).use { cursor ->
             // Map to UserEvent and avoid any 'all-day' events
             return cursor?.map(::UserEvent).orEmpty()
         }
-
     }
 
     fun mapEventToSleep(event: UserEvent): Sleep {
@@ -95,7 +98,6 @@ object CalendarImport {
             stop = event.end
         }
     }
-
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
