@@ -43,22 +43,28 @@ class SleepViewModel : ViewModel() {
                 } else {
                     Date(sleep.stop)
                 }
-            DatePickerDialog(activity,
-                    { _/*view*/, year, monthOfYear, dayOfMonth ->
-                dateTime.set(year, monthOfYear, dayOfMonth)
-                TimePickerDialog(activity,
+            DatePickerDialog(
+                activity,
+                { _/*view*/, year, monthOfYear, dayOfMonth ->
+                    dateTime.set(year, monthOfYear, dayOfMonth)
+                    TimePickerDialog(
+                        activity,
                         { _/*view*/, hourOfDay, minute ->
-                    dateTime[Calendar.HOUR_OF_DAY] = hourOfDay
-                    dateTime[Calendar.MINUTE] = minute
-                    if (isStart) {
-                        sleep.start = dateTime.time.time
-                    } else {
-                        sleep.stop = dateTime.time.time
-                    }
-                    updateSleep(activity, sleep)
-                }, dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE],
-                        /*is24HourView=*/DateFormat.is24HourFormat(activity)).show()
-            }, dateTime[Calendar.YEAR], dateTime[Calendar.MONTH], dateTime[Calendar.DATE]).show()
+                            dateTime[Calendar.HOUR_OF_DAY] = hourOfDay
+                            dateTime[Calendar.MINUTE] = minute
+                            if (isStart) {
+                                sleep.start = dateTime.time.time
+                            } else {
+                                sleep.stop = dateTime.time.time
+                            }
+                            updateSleep(activity, sleep)
+                        },
+                        dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE],
+                        /*is24HourView=*/DateFormat.is24HourFormat(activity)
+                    ).show()
+                },
+                dateTime[Calendar.YEAR], dateTime[Calendar.MONTH], dateTime[Calendar.DATE]
+            ).show()
         }
     }
 
