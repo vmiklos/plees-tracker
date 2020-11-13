@@ -55,8 +55,10 @@ class DataModelUnitTest {
         sleep.stop = 30000
         sleeps.add(sleep)
 
-        assertEquals("0:00:15",
-                DataModel.getSleepDurationStat(sleeps))
+        assertEquals(
+            "0:00:15",
+            DataModel.getSleepDurationStat(sleeps)
+        )
     }
 
     @Test
@@ -94,8 +96,10 @@ class DataModelUnitTest {
         sleeps.add(sleep)
 
         // Note how this is 11, not 5.5.
-        assertEquals("0:00:11",
-                DataModel.getSleepDurationDailyStat(sleeps))
+        assertEquals(
+            "0:00:11",
+            DataModel.getSleepDurationDailyStat(sleeps)
+        )
     }
 
     @Test
@@ -121,8 +125,10 @@ class DataModelUnitTest {
         sleeps.add(sleep)
 
         // Note how this is 8 hours per day, not 12.
-        assertEquals("8:00:00",
-                DataModel.getSleepDurationDailyStat(sleeps))
+        assertEquals(
+            "8:00:00",
+            DataModel.getSleepDurationDailyStat(sleeps)
+        )
     }
 
     @Test
