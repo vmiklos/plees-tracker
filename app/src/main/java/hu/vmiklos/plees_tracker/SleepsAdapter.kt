@@ -70,7 +70,7 @@ class SleepsAdapter(
         viewType: Int
     ): SleepViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.layout_sleep_item, parent, false)
+            .inflate(R.layout.layout_sleep_item, parent, false)
         clickCallback?.let {
             view.setOnClickListener(it)
         }
