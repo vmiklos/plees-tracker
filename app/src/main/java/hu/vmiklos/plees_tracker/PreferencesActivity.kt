@@ -13,9 +13,9 @@ class PreferencesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.settings_container, Preferences())
-                .commit()
+            .beginTransaction()
+            .replace(R.id.settings_container, Preferences())
+            .commit()
         setContentView(R.layout.settings)
     }
 }
