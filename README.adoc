@@ -1,6 +1,6 @@
 = plees-tracker
 
-image:https://travis-ci.com/vmiklos/plees-tracker.svg?branch=master["Build Status", link="https://travis-ci.com/vmiklos/plees-tracker"]
+image:https://github.com/vmiklos/plees-tracker/workflows/tests/badge.svg["Build Status", link="https://github.com/vmiklos/plees-tracker/actions"]
 
 Plees Tracker is a simple sleep tracker for your Android phone.
 
