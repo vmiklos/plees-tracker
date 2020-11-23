@@ -49,39 +49,39 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
 
     private val exportPermissionLauncher = registerForActivityResult(
-            RequestMultiplePermissions()
+        RequestMultiplePermissions()
     ) { permissions: Map<String, Boolean> ->
         checkCalendarPermissionGranted(permissions, ::exportCalendarData)
     }
 
     private val importPermissionLauncher = registerForActivityResult(
-            RequestMultiplePermissions()
+        RequestMultiplePermissions()
     ) { permissions: Map<String, Boolean> ->
         checkCalendarPermissionGranted(permissions, ::importCalendarData)
     }
 
     private val importActivityResult =
-            registerForActivityResult(StartActivityForResult()) { result ->
-                try {
-                    result.data?.data?.let { uri ->
-                        viewModel.importData(applicationContext, contentResolver, uri)
-                        updateView()
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "onActivityResult: importData() failed")
+        registerForActivityResult(StartActivityForResult()) { result ->
+            try {
+                result.data?.data?.let { uri ->
+                    viewModel.importData(applicationContext, contentResolver, uri)
+                    updateView()
                 }
+            } catch (e: Exception) {
+                Log.e(TAG, "onActivityResult: importData() failed")
             }
+        }
 
     private val exportActivityResult =
-            registerForActivityResult(StartActivityForResult()) { result ->
-                try {
-                    result.data?.data?.let { uri ->
-                        viewModel.exportDataToFile(applicationContext, contentResolver, uri)
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "onActivityResult: exportData() failed")
+        registerForActivityResult(StartActivityForResult()) { result ->
+            try {
+                result.data?.data?.let { uri ->
+                    viewModel.exportDataToFile(applicationContext, contentResolver, uri)
                 }
+            } catch (e: Exception) {
+                Log.e(TAG, "onActivityResult: exportData() failed")
             }
+        }
 
     /**
      * Determines if x,y hits view or not.
@@ -130,19 +130,22 @@ class MainActivity : AppCompatActivity() {
         DataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter(viewModel)
-        DataModel.sleepsLive.observe(this, { sleeps ->
-            if (sleeps != null) {
-                val fragments = supportFragmentManager
-                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
-                val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
-                countStat?.text = DataModel.getSleepCountStat(sleeps)
-                val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
-                durationStat?.text = DataModel.getSleepDurationStat(sleeps)
-                val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
-                durationDailyStat?.text = DataModel.getSleepDurationDailyStat(sleeps)
-                sleepsAdapter.data = sleeps
+        DataModel.sleepsLive.observe(
+            this,
+            { sleeps ->
+                if (sleeps != null) {
+                    val fragments = supportFragmentManager
+                    val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
+                    val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
+                    countStat?.text = DataModel.getSleepCountStat(sleeps)
+                    val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
+                    durationStat?.text = DataModel.getSleepDurationStat(sleeps)
+                    val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
+                    durationDailyStat?.text = DataModel.getSleepDurationDailyStat(sleeps)
+                    sleepsAdapter.data = sleeps
+                }
             }
-        })
+        )
 
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -150,35 +153,39 @@ class MainActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = sleepsAdapter
         sleepsAdapter.registerAdapterDataObserver(
-                object : RecyclerView.AdapterDataObserver() {
-                    override fun onItemRangeInserted(
-                            positionStart: Int,
-                            itemCount: Int
-                    ) {
-                        recyclerView.scrollToPosition(positionStart)
-                    }
-                })
+            object : RecyclerView.AdapterDataObserver() {
+                override fun onItemRangeInserted(
+                    positionStart: Int,
+                    itemCount: Int
+                ) {
+                    recyclerView.scrollToPosition(positionStart)
+                }
+            })
 
         // Swipe on the rating bar goes to the rating bar itself.
         recyclerView.addOnItemTouchListener(
-                object : RecyclerView.SimpleOnItemTouchListener() {
-                    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                        return findRatingBar(rv, e) != null
-                    }
-
-                    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                        val ratingBar = findRatingBar(rv, e) ?: return
-                        val x = e.x - (ratingBar.left + ratingBar.translationX)
-                        val y = e.y - (ratingBar.top + ratingBar.translationY)
-                        e.setLocation(x, y)
-                        ratingBar.onTouchEvent(e)
-                    }
+            object : RecyclerView.SimpleOnItemTouchListener() {
+                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                    return findRatingBar(rv, e) != null
                 }
+
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+                    val ratingBar = findRatingBar(rv, e) ?: return
+                    val x = e.x - (ratingBar.left + ratingBar.translationX)
+                    val y = e.y - (ratingBar.top + ratingBar.translationY)
+                    e.setLocation(x, y)
+                    ratingBar.onTouchEvent(e)
+                }
+            }
         )
 
         // Otherwise swipe on a card view deletes it.
-        val itemTouchHelper = ItemTouchHelper(SleepTouchCallback(applicationContext,
-                viewModel, sleepsAdapter))
+        val itemTouchHelper = ItemTouchHelper(
+            SleepTouchCallback(
+                applicationContext,
+                viewModel, sleepsAdapter
+            )
+        )
         itemTouchHelper.attachToRecyclerView(recyclerView)
         val sleepClickCallback = SleepClickCallback(this, sleepsAdapter, recyclerView)
         sleepsAdapter.clickCallback = sleepClickCallback
@@ -197,7 +204,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         updateView()
-
     }
 
     override fun onStart() {
@@ -265,8 +271,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
         DataModel.start?.let { start ->
-            status.text = String.format(getString(R.string.sleeping_since),
-                    DataModel.formatTimestamp(start))
+            status.text = String.format(
+                getString(R.string.sleeping_since),
+                DataModel.formatTimestamp(start)
+            )
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)
             startStopText.text = getString(R.string.stop)
@@ -308,11 +316,11 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.about -> {
                 LibsBuilder()
-                        .withActivityTitle(getString(R.string.about_toolbar))
-                        .withAboutAppName(getString(R.string.app_name))
-                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                        .withAboutDescription(getString(R.string.app_description))
-                        .start(this)
+                    .withActivityTitle(getString(R.string.about_toolbar))
+                    .withAboutAppName(getString(R.string.app_name))
+                    .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                    .withAboutDescription(getString(R.string.app_description))
+                    .start(this)
                 return true
             }
             R.id.website -> {
@@ -332,30 +340,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkCalendarPermissionGranted(granted: Map<String, Boolean>, onSuccess: (UserCalendar) -> Unit) {
+    private fun checkCalendarPermissionGranted(
+        granted: Map<String, Boolean>,
+        onSuccess: (UserCalendar) -> Unit
+    ) {
         // Check all permissions were granted
         if (granted.values.all { it }) {
             // Start picker for calendar
             showUserCalendarPicker(onSuccess)
         } else {
             // Permission denied
-            Toast.makeText(this, getString(R.string.calendar_permission_required), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this, getString(R.string.calendar_permission_required), Toast.LENGTH_LONG
+            ).show()
         }
     }
 
     private fun checkForCalendarPermission(
-            permissionLauncher: ActivityResultLauncher<Array<String>>,
-            block: (UserCalendar) -> Unit
+        permissionLauncher: ActivityResultLauncher<Array<String>>,
+        block: (UserCalendar) -> Unit
     ) {
         when (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR)) {
             PackageManager.PERMISSION_GRANTED -> showUserCalendarPicker(block)
             else -> {
                 // Directly ask for the permissions
                 permissionLauncher.launch(
-                        arrayOf(
-                                Manifest.permission.READ_CALENDAR,
-                                Manifest.permission.WRITE_CALENDAR
-                        )
+                    arrayOf(
+                        Manifest.permission.READ_CALENDAR,
+                        Manifest.permission.WRITE_CALENDAR
+                    )
                 )
             }
         }
@@ -378,25 +391,27 @@ class MainActivity : AppCompatActivity() {
 
         // Show User Calendar picker
         MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.select_calendar_dialog_title))
-                .setNeutralButton(getString(R.string.select_calendar_dialog_negative), null)
-                .setPositiveButton(getString(R.string.select_calendar_dialog_positive)) { _, _ ->
-                    block.invoke(calendars[selectedItem])
-                }.setSingleChoiceItems(titles, selectedItem) { _, newSelection ->
-                    selectedItem = newSelection
-                }.show()
+            .setTitle(getString(R.string.select_calendar_dialog_title))
+            .setNeutralButton(getString(R.string.select_calendar_dialog_negative), null)
+            .setPositiveButton(getString(R.string.select_calendar_dialog_positive)) { _, _ ->
+                block.invoke(calendars[selectedItem])
+            }.setSingleChoiceItems(titles, selectedItem) { _, newSelection ->
+                selectedItem = newSelection
+            }.show()
     }
 
     private fun importCalendarData(selectedItem: UserCalendar) {
         // Query the calendar for events
         val sleepList = CalendarImport.queryForEvents(
-                this, selectedItem.id
+            this, selectedItem.id
         ).map(CalendarImport::mapEventToSleep)
 
         // Insert the list of Sleep into DB
         viewModel.insertSleep(sleepList)
 
-        Toast.makeText(this, getString(R.string.imported_items, sleepList.size), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            this, getString(R.string.imported_items, sleepList.size), Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun exportCalendarData(selectedItem: UserCalendar) {
@@ -406,10 +421,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showNoCalendarsFoundDialog() {
         MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.select_calendar_dialog_title))
-                .setMessage(getString(R.string.import_dialog_error_message))
-                .setNegativeButton(getString(R.string.dismiss), null)
-                .show()
+            .setTitle(getString(R.string.select_calendar_dialog_title))
+            .setMessage(getString(R.string.import_dialog_error_message))
+            .setNegativeButton(getString(R.string.dismiss), null)
+            .show()
     }
 
     private fun open(link: Uri) {
