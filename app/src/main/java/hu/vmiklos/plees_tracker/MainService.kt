@@ -23,9 +23,11 @@ class MainService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
-                    getString(R.string.notification_channel_name),
-                    NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(
+                NOTIFICATION_CHANNEL_ID,
+                getString(R.string.notification_channel_name),
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             notificationManager.createNotificationChannel(channel)
         }
 
@@ -34,14 +36,16 @@ class MainService : Service() {
 
         var contentText = ""
         DataModel.start?.let { start ->
-            contentText = String.format(getString(R.string.sleeping_since),
-                    DataModel.formatTimestamp(start))
+            contentText = String.format(
+                getString(R.string.sleeping_since),
+                DataModel.formatTimestamp(start)
+            )
         }
         val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setContentText(contentText)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentIntent(pendingIntent)
-                .build()
+            .setContentText(contentText)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(pendingIntent)
+            .build()
 
         startForeground(NOTIFICATION_CODE, notification)
 
