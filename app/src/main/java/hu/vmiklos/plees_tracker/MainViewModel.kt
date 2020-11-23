@@ -65,7 +65,6 @@ class MainViewModel : ViewModel() {
             DataModel.updateSleep(sleep)
         }
     }
-
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
