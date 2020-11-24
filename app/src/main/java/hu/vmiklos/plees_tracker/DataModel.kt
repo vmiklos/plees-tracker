@@ -69,8 +69,8 @@ object DataModel {
             this.start = Date(start)
         }
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
-                .addMigrations(MIGRATION_1_2)
-                .build()
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     suspend fun storeSleep() {
@@ -161,7 +161,8 @@ object DataModel {
 
         try {
             cr.takePersistableUriPermission(
-                    uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
         } catch (e: SecurityException) {
             Log.e(TAG, "exportData: takePersistableUriPermission() failed for write")
         }
@@ -175,7 +176,7 @@ object DataModel {
             os.write("sid,start,stop,rating\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
-                        sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
+                    sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {
@@ -269,9 +270,11 @@ object DataModel {
     }
 
     fun formatDuration(seconds: Long): String {
-        return String.format(Locale.getDefault(), "%d:%02d:%02d",
-                seconds / 3600, seconds % 3600 / 60,
-                seconds % 60)
+        return String.format(
+            Locale.getDefault(), "%d:%02d:%02d",
+            seconds / 3600, seconds % 3600 / 60,
+            seconds % 60
+        )
     }
 
     fun formatTimestamp(date: Date): String {
