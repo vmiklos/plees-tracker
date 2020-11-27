@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Much faster mass-import of sleeps from a previous export result
+
 == 7.0.3
 
 - Resolves: gh#41 ability to export events to your calendar (Ed George)

@@ -93,7 +93,7 @@ object DataModel {
         database.sleepDao().insert(sleep)
     }
 
-    suspend fun insertSleep(sleepList: List<Sleep>) {
+    suspend fun insertSleeps(sleepList: List<Sleep>) {
         database.sleepDao().insert(sleepList)
     }
 
@@ -112,6 +112,11 @@ object DataModel {
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
         val inputStream = cr.openInputStream(uri)
         val br = BufferedReader(InputStreamReader(inputStream))
+        // We have a speed vs memory usage trade-off here. Pay the cost of keeping all sleeps in
+        // memory: the benefit is that inserting all of them once triggers a single notification of
+        // observers. This means that importing 100s of sleeps is still ~instant, while it used to
+        // take ~forever.
+        var sleeps = mutableListOf<Sleep>()
         try {
             var first = true
             while (true) {
@@ -131,8 +136,9 @@ object DataModel {
                 if (cells.size >= 4) {
                     sleep.rating = cells[3].toLong()
                 }
-                database.sleepDao().insert(sleep)
+                sleeps.add(sleep)
             }
+            database.sleepDao().insert(sleeps)
         } catch (e: IOException) {
             Log.e(TAG, "importData: readLine() failed")
             return

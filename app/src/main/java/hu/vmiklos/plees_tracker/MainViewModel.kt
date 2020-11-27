@@ -48,9 +48,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun insertSleep(sleepList: List<Sleep>) {
+    fun insertSleeps(sleepList: List<Sleep>) {
         viewModelScope.launch {
-            DataModel.insertSleep(sleepList)
+            DataModel.insertSleeps(sleepList)
         }
     }
 
