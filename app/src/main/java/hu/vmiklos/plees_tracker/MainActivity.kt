@@ -407,7 +407,7 @@ class MainActivity : AppCompatActivity() {
         ).map(CalendarImport::mapEventToSleep)
 
         // Insert the list of Sleep into DB
-        viewModel.insertSleep(sleepList)
+        viewModel.insertSleeps(sleepList)
 
         Toast.makeText(
             this, getString(R.string.imported_items, sleepList.size), Toast.LENGTH_SHORT
