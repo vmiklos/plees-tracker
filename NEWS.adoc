@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.0.4
 
 - Much faster mass-import of sleeps from a previous export result
 
