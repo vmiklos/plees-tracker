@@ -28,6 +28,11 @@ class MainService : Service() {
                 getString(R.string.notification_channel_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             )
+
+            // Avoid unwanted vibration.
+            channel.vibrationPattern = longArrayOf(0)
+            channel.enableVibration(true)
+
             notificationManager.createNotificationChannel(channel)
         }
 

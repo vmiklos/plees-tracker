@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Avoid vibration when the sleep notification is created
+
 == 7.0.4
 
 - Much faster mass-import of sleeps from a previous export result
