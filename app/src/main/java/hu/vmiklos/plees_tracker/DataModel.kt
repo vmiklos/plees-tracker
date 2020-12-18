@@ -116,7 +116,7 @@ object DataModel {
         // memory: the benefit is that inserting all of them once triggers a single notification of
         // observers. This means that importing 100s of sleeps is still ~instant, while it used to
         // take ~forever.
-        var sleeps = mutableListOf<Sleep>()
+        val sleeps = mutableListOf<Sleep>()
         try {
             var first = true
             while (true) {
