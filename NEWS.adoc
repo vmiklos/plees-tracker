@@ -3,6 +3,8 @@
 == master
 
 - Avoid vibration when the sleep notification is created
+- Resolves: gh#32 ability to automatically backup to a storage folder, to be used with e.g.
+  Nextcloud
 
 == 7.0.4
 

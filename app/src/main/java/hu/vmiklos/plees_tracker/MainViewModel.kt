@@ -24,9 +24,9 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun exportDataToFile(context: Context, cr: ContentResolver, uri: Uri) {
+    fun exportDataToFile(context: Context, cr: ContentResolver, uri: Uri, showToast: Boolean) {
         viewModelScope.launch {
-            DataModel.exportDataToFile(context, cr, uri)
+            DataModel.exportDataToFile(context, cr, uri, showToast)
         }
     }
 

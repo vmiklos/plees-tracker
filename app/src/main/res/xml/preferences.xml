@@ -15,5 +15,12 @@
             android:title="@string/settings_enable_dark_theme" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/settings_category_backup">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="auto_backup"
+            android:title="@string/settings_automatic_backup" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
 

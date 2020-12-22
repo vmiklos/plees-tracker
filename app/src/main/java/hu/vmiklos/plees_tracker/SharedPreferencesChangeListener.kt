@@ -7,11 +7,36 @@
 package hu.vmiklos.plees_tracker
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 
-class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChangeListener {
+class SharedPreferencesChangeListener() : SharedPreferences.OnSharedPreferenceChangeListener {
+    companion object {
+        private const val TAG = "SPChangeListener"
+    }
+
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        if (key == "auto_backup") {
+            val autoBackup = sharedPreferences.getBoolean("auto_backup", false)
+            val autoBackupPath = sharedPreferences.getString("auto_backup_path", "")
+            if (autoBackup) {
+                if (autoBackupPath == null || autoBackupPath.isEmpty()) {
+                    val preferencesActivity = DataModel.preferencesActivity
+                    if (preferencesActivity != null) {
+                        Log.i(TAG, "onSharedPreferenceChanged: setting new backup path")
+                        preferencesActivity.openFolderChooser()
+                    }
+                }
+            } else {
+                // Forget old path, so it's possible to set a different one later.
+                Log.i(TAG, "onSharedPreferenceChanged: clearing old backup path")
+                val editor = DataModel.preferences.edit()
+                editor.remove("auto_backup_path")
+                editor.apply()
+            }
+            return
+        }
+
         applyTheme(sharedPreferences)
     }
 
