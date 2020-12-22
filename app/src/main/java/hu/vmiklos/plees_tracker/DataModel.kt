@@ -39,9 +39,9 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
  */
 object DataModel {
 
-    public lateinit var preferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
 
-    public var preferencesActivity: PreferencesActivity? = null
+    var preferencesActivity: PreferencesActivity? = null
 
     var start: Date? = null
         set(start) {
