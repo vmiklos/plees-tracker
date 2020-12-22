@@ -47,4 +47,6 @@
     <string name="export_calendar_item">Exportar para Calendar</string>
     <string name="exported_event_description">Exportado do Plees Tracker</string>
     <string name="exported_items">Exportação completa</string>
+    <string name="settings_category_backup">Backup</string>
+    <string name="settings_automatic_backup">Automatic backup</string>
 </resources>

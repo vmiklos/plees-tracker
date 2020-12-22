@@ -39,7 +39,9 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
  */
 object DataModel {
 
-    private lateinit var preferences: SharedPreferences
+    public lateinit var preferences: SharedPreferences
+
+    public var preferencesActivity: PreferencesActivity? = null
 
     var start: Date? = null
         set(start) {
@@ -162,7 +164,12 @@ object DataModel {
         CalendarExport.exportSleep(context, calendarId, sleeps)
     }
 
-    suspend fun exportDataToFile(context: Context, cr: ContentResolver, uri: Uri) {
+    suspend fun exportDataToFile(
+        context: Context,
+        cr: ContentResolver,
+        uri: Uri,
+        showToast: Boolean
+    ) {
         val sleeps = database.sleepDao().getAll()
 
         try {
@@ -195,6 +202,9 @@ object DataModel {
             }
         }
 
+        if (!showToast) {
+            return
+        }
         val text = context.getString(R.string.export_success)
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)

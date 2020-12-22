@@ -26,6 +26,7 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestMultiple
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -47,6 +48,9 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+
+    // SharedPreferences keeps listeners in a WeakHashMap, so keep this as a member.
+    private val sharedPreferenceListener = SharedPreferencesChangeListener()
 
     private val exportPermissionLauncher = registerForActivityResult(
         RequestMultiplePermissions()
@@ -76,7 +80,9 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(StartActivityForResult()) { result ->
             try {
                 result.data?.data?.let { uri ->
-                    viewModel.exportDataToFile(applicationContext, contentResolver, uri)
+                    viewModel.exportDataToFile(
+                        applicationContext, contentResolver, uri, showToast = true
+                    )
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: exportData() failed")
@@ -120,13 +126,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPreferenceListener = SharedPreferencesChangeListener()
         sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
 
         viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        preferences.registerOnSharedPreferenceChangeListener(sharedPreferenceListener)
         DataModel.init(applicationContext, preferences)
 
         val sleepsAdapter = SleepsAdapter(viewModel)
@@ -225,11 +231,40 @@ class MainActivity : AppCompatActivity() {
         if (DataModel.start != null && DataModel.stop == null) {
             DataModel.stop = Calendar.getInstance().time
             viewModel.stopSleep()
+            backupSleeps()
         } else {
             DataModel.start = Calendar.getInstance().time
             DataModel.stop = null
         }
         updateView()
+    }
+
+    private fun backupSleeps() {
+        val preferences = DataModel.preferences
+        val autoBackup = preferences.getBoolean("auto_backup", false)
+        val autoBackupPath = preferences.getString("auto_backup_path", "")
+        if (!autoBackup || autoBackupPath == null || autoBackupPath.isEmpty()) {
+            return
+        }
+
+        val folder = DocumentFile.fromTreeUri(applicationContext, Uri.parse(autoBackupPath))
+        if (folder == null) {
+            return
+        }
+
+        // Make sure that we don't create "backup (1).csv", etc.
+        val oldBackup = folder.findFile("backup.csv")
+        if (oldBackup != null && oldBackup.exists()) {
+            oldBackup.delete()
+        }
+
+        val backup = folder.createFile("text/csv", "backup.csv")
+        if (backup == null) {
+            return
+        }
+        viewModel.exportDataToFile(
+            applicationContext, contentResolver, backup.uri, showToast = false
+        )
     }
 
     private fun exportFileData() {
