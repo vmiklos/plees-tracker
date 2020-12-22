@@ -48,7 +48,7 @@ class PreferencesActivity : AppCompatActivity() {
             }
         }
 
-    public fun openFolderChooser() {
+    fun openFolderChooser() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         backupActivityResult.launch(intent)
     }
