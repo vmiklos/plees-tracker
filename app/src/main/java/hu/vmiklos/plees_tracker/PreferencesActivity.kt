@@ -34,10 +34,13 @@ class PreferencesActivity : AppCompatActivity() {
 
     private val backupActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             try {
                 result.data?.data?.let { uri ->
                     contentResolver.takePersistableUriPermission(
-                        uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        uri,
+                        flags
                     )
                     val editor = DataModel.preferences.edit()
                     editor.putString("auto_backup_path", uri.toString())
