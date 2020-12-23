@@ -10,7 +10,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 
-class SharedPreferencesChangeListener() : SharedPreferences.OnSharedPreferenceChangeListener {
+class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChangeListener {
     companion object {
         private const val TAG = "SPChangeListener"
     }
