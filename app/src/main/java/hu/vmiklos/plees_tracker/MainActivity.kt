@@ -248,9 +248,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val folder = DocumentFile.fromTreeUri(applicationContext, Uri.parse(autoBackupPath))
-        if (folder == null) {
-            return
-        }
+            ?: return
 
         // Make sure that we don't create "backup (1).csv", etc.
         val oldBackup = folder.findFile("backup.csv")
@@ -258,10 +256,7 @@ class MainActivity : AppCompatActivity() {
             oldBackup.delete()
         }
 
-        val backup = folder.createFile("text/csv", "backup.csv")
-        if (backup == null) {
-            return
-        }
+        val backup = folder.createFile("text/csv", "backup.csv") ?: return
         viewModel.exportDataToFile(
             applicationContext, contentResolver, backup.uri, showToast = false
         )
