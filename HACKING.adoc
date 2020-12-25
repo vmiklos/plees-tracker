@@ -37,3 +37,10 @@ Check for formatting problems in case ktlint hook was not installed during commi
 ----
 git ls-files| grep '\.kt[s"]\?$' | xargs ktlint --android --relative .
 ----
+
+== Kotlin
+
+If you are used to Java, then not spelling out type names all over the place is confusing in Kotlin.
+See
+<https://stackoverflow.com/questions/54851861/how-do-i-activate-type-annotations-hints-in-kotlin-like-depicted>
+on how to let Android Studio show these types for you without polluting the code.
