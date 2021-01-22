@@ -49,4 +49,5 @@
     <string name="exported_items">Exportación completa</string>
     <string name="settings_category_backup">Backup</string>
     <string name="settings_automatic_backup">Automatic backup</string>
+    <string name="settings_backup_path">Backup path</string>
 </resources>
