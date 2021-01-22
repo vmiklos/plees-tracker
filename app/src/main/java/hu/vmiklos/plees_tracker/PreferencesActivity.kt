@@ -34,6 +34,7 @@ class PreferencesActivity : AppCompatActivity() {
 
     private val backupActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            var success = false
             val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             try {
@@ -45,7 +46,21 @@ class PreferencesActivity : AppCompatActivity() {
                     val editor = DataModel.preferences.edit()
                     editor.putString("auto_backup_path", uri.toString())
                     editor.apply()
+                    success = true
                 }
+
+                if (!success) {
+                    // Disable the bool setting when the user picked no folder.
+                    val editor = DataModel.preferences.edit()
+                    editor.putBoolean("auto_backup", false)
+                    editor.apply()
+                }
+
+                // Refresh the view in case auto_backup or auto_backup_path changed.
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.settings_container, Preferences())
+                    .commit()
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: setting backup path failed")
             }

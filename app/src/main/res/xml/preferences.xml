@@ -20,6 +20,9 @@
             android:defaultValue="false"
             android:key="auto_backup"
             android:title="@string/settings_automatic_backup" />
+        <Preference
+            android:key="auto_backup_path"
+            android:title="@string/settings_backup_path"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

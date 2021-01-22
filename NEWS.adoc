@@ -1,5 +1,10 @@
 = Version descriptions
 
+== master
+
+- Resolves gh#90 disable auto-backup bool setting when the user refuses to pick an auto-backup
+  folder
+
 == 7.0.5
 
 - Avoid vibration when the sleep notification is created
