@@ -218,7 +218,10 @@ class MainActivity : AppCompatActivity() {
         stopService(intent)
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         recyclerView.findViewHolderForAdapterPosition(0)?.let {
-            recyclerView.adapter!!.onBindViewHolder(it, 0)
+            // Since the adapter unconditionally gets assigned in `onCreate()`
+            // it shouldn't be necessary to consider fixing it here.
+            // If it is null at this point a lot more must have gone wrong as well.
+            recyclerView.adapter?.onBindViewHolder(it, 0)
         }
     }
 
