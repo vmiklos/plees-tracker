@@ -6,6 +6,9 @@ on:
   pull_request:
     branches-ignore:
       - 'private/**'
+  create:
+    branches-ignore:
+      - 'private/**'
 jobs:
   build:
     runs-on: macos-latest
