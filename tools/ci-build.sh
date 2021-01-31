@@ -14,6 +14,6 @@
 ./gradlew connectedAndroidTest
 
 mkdir dist
-cp $(find . -name *.apk) dist/
+cp app/build/outputs/apk/release/app-release-unsigned.apk dist/
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab:
