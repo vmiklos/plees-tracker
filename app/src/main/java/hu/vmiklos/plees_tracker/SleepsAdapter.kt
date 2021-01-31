@@ -84,9 +84,11 @@ class SleepsAdapter(
         val durationMS = sleep.stop - sleep.start
         val durationText = DataModel.formatDuration(durationMS / 1000)
         holder.duration.text = durationText
-        val nextSleepReferenceTime =
-                if (position == 0) System.currentTimeMillis()
-                else data[position - 1].start
+        val nextSleepReferenceTime = if (position == 0) {
+                    System.currentTimeMillis()
+                } else {
+                    data[position - 1].start
+                }
         val durationWakeMS = nextSleepReferenceTime - sleep.stop;
         val durationWakeText = DataModel.formatDuration(durationWakeMS / 1000)
         holder.durationWake.text = durationWakeText
