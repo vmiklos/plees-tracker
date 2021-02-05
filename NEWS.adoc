@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.1.0
 
 - Resolves gh#90 disable auto-backup bool setting when the user refuses to pick an auto-backup
   folder
