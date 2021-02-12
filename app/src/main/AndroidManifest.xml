@@ -32,6 +32,17 @@
         </activity>
         <activity android:name=".PreferencesActivity" />
         <service android:name=".MainService"/>
+        <receiver
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_start_stop"
+            android:name=".ToggleWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_toggle" />
+        </receiver>
     </application>
 
 </manifest>

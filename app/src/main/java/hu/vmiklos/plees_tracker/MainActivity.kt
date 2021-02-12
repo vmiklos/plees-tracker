@@ -209,6 +209,13 @@ class MainActivity : AppCompatActivity() {
             recyclerView.setOnScrollChangeListener(listener)
         }
 
+        // See if the activity is triggered from the widget. If so, toggle the start/stop state.
+        intent?.let {
+            if (it.getBooleanExtra("startStop", false)) {
+                startStop(findViewById(R.id.start_stop))
+            }
+        }
+
         updateView()
     }
 

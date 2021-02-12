@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Reolsves gh#92 add a widget to start/stop tracking with a single stap from the home screen
+
 == 7.1.0
 
 - Resolves gh#90 disable auto-backup bool setting when the user refuses to pick an auto-backup
