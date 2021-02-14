@@ -1,3 +1,70 @@
+= Using plees-tracker
+
+== Main activity
+
+Plees tracker is essentially a stopwatch application. It intentionally requires you to manually
+track your sleep with explicitly starting and ending a tracked sleep. This has the benefit that it's
+simple: causing no battery drain, nor any privacy problems.
+
+This activity allows:
+
+- Seeing the status of the tracking: not yet started, in progress and finished
+
+- Dashboard: the number of all tracked sleeps, average of sleep durations and a daily average (in
+  case you sleep multiple times a day or you sometimes skip a whole day).
+
+- A list of past sleeps: start/stop time for each sleep, awake time and duration counted from these
+  and a rating you can manually specify after the tracking stopped. The awake time of the latest
+  sleep depends on the current time, so it'll increase if you restart plees-tracker.
+
+- Swiping a sleep left/right will remove the sleep.
+
+- Tapping on a sleep allows getting to a dedicated sleep activity for a single sleep.
+
+- A floating action bottom at the bottom right corner allows to actually start / stop the tracking.
+
+The menu of this activity allows:
+
+- Import/export your sleeps to CSV. The start and stop columns are UNIX timestamps in milliseconds.
+
+- Import/export your sleeps to calendar.
+
+- See more stats on your sleeps (see the sleep activity below).
+
+- Customize settings (see the preferences activity below).
+
+== Toggle widget
+
+A widget can be added to your home screen. This allows starting or stopping the tracking with a
+single tap: i.e. it's the same as opening the app and tapping on the start/stop button.
+
+== Preferences activity
+
+This allows manually setting the dark mode for plees-tracker. This is useful on Android versions <=
+9, where there is no system-provided dark mode. This works out of the box on newer Android versions.
+
+Backup settings allow you to automatically back up your sleeps after a tracking stopped. This is
+useful in case you selected a path which is then implicitly synchronized to some external server,
+e.g. Nextcloud.
+
+== Sleep activity
+
+The sleep activity allows modifying the start or stop time of a single recorded sleep, which is
+useful if you want to update the recorded timestamps to better match reality.
+
+== Stats activity
+
+The main activity considers all sleeps when counting the sleeps or when calculating the 2 kind of
+averages for your sleeps. The stats activity provides more flavors of the stats:
+
+- last week
+
+- from the beginning of the current year
+
+- all time (same as the main activity)
+
+== Credits
+
 Icons made by https://www.flaticon.com/authors/dave-gandy[Dave Gandy] and
 https://www.flaticon.com/authors/freepik[Freepik] from
 https://www.flaticon.com/[Flaticon].
