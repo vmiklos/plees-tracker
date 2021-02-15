@@ -111,6 +111,10 @@ object DataModel {
         return database.sleepDao().getById(sid)
     }
 
+    fun getSleepsAfterLive(after: Date): LiveData<List<Sleep>> {
+        return database.sleepDao().getAfterLive(after.time)
+    }
+
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
         val inputStream = cr.openInputStream(uri)
         val br = BufferedReader(InputStreamReader(inputStream))
@@ -269,11 +273,6 @@ object DataModel {
             }
         }
 
-        var sum: Long = 0
-        for (value in sums.values) {
-            sum += value
-        }
-
         if (sums.size == 0) {
             return ""
         }
@@ -282,7 +281,7 @@ object DataModel {
         // can be more, in case a whole 24h period was left out.
         val msPerDay = 86400 * 1000
         val count = (maxKey - minKey) / msPerDay + 1
-        return formatDuration(sum / count)
+        return formatDuration(sums.values.sum() / count)
     }
 
     fun formatDuration(seconds: Long): String {
@@ -302,13 +301,7 @@ object DataModel {
      * Returns the subset of [sleeps] which stop after [after].
      */
     fun filterSleeps(sleeps: List<Sleep>, after: Date): List<Sleep> {
-        val ret = mutableListOf<Sleep>()
-        for (sleep in sleeps) {
-            if (sleep.stop > after.time) {
-                ret.add(sleep)
-            }
-        }
-        return ret
+        return sleeps.filter { it.stop > after.time }
     }
 }
 

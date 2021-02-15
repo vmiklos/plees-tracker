@@ -9,6 +9,7 @@ package hu.vmiklos.plees_tracker
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import java.util.Calendar
 
 /**
@@ -32,47 +33,50 @@ class StatsActivity : AppCompatActivity() {
                 if (sleeps != null) {
                     val fragments = supportFragmentManager
 
-                    // Last 7 days
-                    val sevenDaysAgo = Calendar.getInstance()
-                    sevenDaysAgo.add(Calendar.DATE, -7)
-                    val last7days = DataModel.filterSleeps(sleeps, sevenDaysAgo.time)
+                    // Last week
+                    val lastWeek = Calendar.getInstance()
+                    lastWeek.add(Calendar.DATE, -7)
+                    val lastWeekSleeps = DataModel.filterSleeps(sleeps, lastWeek.time)
+                    val lastWeekFragment = fragments.findFragmentById(R.id.last_week_body)
+                    populateFragment(lastWeekFragment, lastWeekSleeps)
 
-                    val last7daysFragment = fragments.findFragmentById(R.id.last7days_body)?.view
-                    var count = last7daysFragment?.findViewById<TextView>(
-                        R.id.fragment_stats_sleeps
-                    )
-                    count?.text = DataModel.getSleepCountStat(last7days)
-                    var average = last7daysFragment?.findViewById<TextView>(
-                        R.id.fragment_stats_average
-                    )
-                    average?.text = DataModel.getSleepDurationStat(last7days)
-                    var daily = last7daysFragment?.findViewById<TextView>(R.id.fragment_stats_daily)
-                    daily?.text = DataModel.getSleepDurationDailyStat(last7days)
+                    // Last two weeks
+                    val lastTwoWeeks = Calendar.getInstance()
+                    lastTwoWeeks.add(Calendar.DATE, -14)
+                    val lastTwoWeekSleeps = DataModel.filterSleeps(sleeps, lastTwoWeeks.time)
+                    val lastTwoWeeksFragment = fragments.findFragmentById(R.id.last_two_weeks_body)
+                    populateFragment(lastTwoWeeksFragment, lastTwoWeekSleeps)
 
-                    // This year
-                    val startOfYear = Calendar.getInstance()
-                    startOfYear.set(Calendar.DAY_OF_YEAR, 1)
-                    val thisYear = DataModel.filterSleeps(sleeps, startOfYear.time)
+                    // Last month
+                    val lastMonth = Calendar.getInstance()
+                    lastMonth.add(Calendar.DATE, -30)
+                    val lastMonthSleeps = DataModel.filterSleeps(sleeps, lastMonth.time)
+                    val lastMonthFragments = fragments.findFragmentById(R.id.last_month_body)
+                    populateFragment(lastMonthFragments, lastMonthSleeps)
 
-                    val thisyearFragment = fragments.findFragmentById(R.id.thisyear_body)?.view
-                    count = thisyearFragment?.findViewById(R.id.fragment_stats_sleeps)
-                    count?.text = DataModel.getSleepCountStat(thisYear)
-                    average = thisyearFragment?.findViewById(R.id.fragment_stats_average)
-                    average?.text = DataModel.getSleepDurationStat(thisYear)
-                    daily = thisyearFragment?.findViewById(R.id.fragment_stats_daily)
-                    daily?.text = DataModel.getSleepDurationDailyStat(thisYear)
+                    // Last year
+                    val lastYear = Calendar.getInstance()
+                    lastYear.add(Calendar.DATE, -365)
+                    val lastYearSleeps = DataModel.filterSleeps(sleeps, lastYear.time)
+                    val lastYearFragment = fragments.findFragmentById(R.id.last_year_body)
+                    populateFragment(lastYearFragment, lastYearSleeps)
 
                     // All time, i.e. no filter
-                    val alltimeFragment = fragments.findFragmentById(R.id.alltime_body)?.view
-                    count = alltimeFragment?.findViewById(R.id.fragment_stats_sleeps)
-                    count?.text = DataModel.getSleepCountStat(sleeps)
-                    average = alltimeFragment?.findViewById(R.id.fragment_stats_average)
-                    average?.text = DataModel.getSleepDurationStat(sleeps)
-                    daily = alltimeFragment?.findViewById(R.id.fragment_stats_daily)
-                    daily?.text = DataModel.getSleepDurationDailyStat(sleeps)
+                    val allTimeFragment = fragments.findFragmentById(R.id.all_time_body)
+                    populateFragment(allTimeFragment, sleeps)
                 }
             }
         )
+    }
+
+    private fun populateFragment(fragment: Fragment?, sleeps: List<Sleep>) {
+        val view = fragment?.view
+        val count = view?.findViewById<TextView>(R.id.fragment_stats_sleeps)
+        count?.text = DataModel.getSleepCountStat(sleeps)
+        val average = view?.findViewById<TextView>(R.id.fragment_stats_average)
+        average?.text = DataModel.getSleepDurationStat(sleeps)
+        val daily = view?.findViewById<TextView>(R.id.fragment_stats_daily)
+        daily?.text = DataModel.getSleepDurationDailyStat(sleeps)
     }
 }
 

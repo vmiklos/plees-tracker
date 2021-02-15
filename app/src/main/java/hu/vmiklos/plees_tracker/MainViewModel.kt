@@ -6,17 +6,39 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
+import java.util.Calendar
+import java.util.Date
 import kotlinx.coroutines.launch
 
 /**
  * This is the view model of MainActivity, providing coroutine scopes.
  */
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val preferences = PreferenceManager.getDefaultSharedPreferences(application)
+
+    val durationSleepsLive: LiveData<List<Sleep>> =
+        Transformations.switchMap(preferences.liveData("dashboard_duration", "0")) {
+            durationStr ->
+            val duration = durationStr?.toInt() ?: 0
+            val date = if (duration == 0) {
+                Date(0)
+            } else {
+                val cal = Calendar.getInstance()
+                cal.add(Calendar.DATE, duration)
+                cal.time
+            }
+            DataModel.getSleepsAfterLive(date)
+        }
 
     fun stopSleep() {
         viewModelScope.launch {

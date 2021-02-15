@@ -123,20 +123,37 @@ class MainActivity : AppCompatActivity() {
         return null
     }
 
+    private fun setDashboardText(durationStr: String) {
+        var index = resources.getStringArray(R.array.duration_entry_values).indexOf(durationStr)
+        val durations = resources.getStringArray(R.array.duration_entries)
+        if (index == -1) {
+            index = durations.size - 1 // indexOf may return -1, which will out of bounds.
+        }
+        val durationHeaderStr = resources.getStringArray(R.array.duration_entries)[index]
+        findViewById<TextView>(R.id.dashboard_header)?.text =
+            getString(R.string.dashboard, durationHeaderStr)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
 
-        viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory(application)
+            .create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         preferences.registerOnSharedPreferenceChangeListener(sharedPreferenceListener)
         DataModel.init(applicationContext, preferences)
 
+        preferences.liveData("dashboard_duration", "0").observe(
+            this,
+            { setDashboardText(it ?: "0") }
+        )
+
         val sleepsAdapter = SleepsAdapter(viewModel)
-        DataModel.sleepsLive.observe(
+        viewModel.durationSleepsLive.observe(
             this,
             { sleeps ->
                 if (sleeps != null) {
