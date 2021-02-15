@@ -22,7 +22,17 @@
             android:title="@string/settings_automatic_backup" />
         <Preference
             android:key="auto_backup_path"
-            android:title="@string/settings_backup_path"/>
+            android:title="@string/settings_backup_path" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_category_dashboard">
+        <ListPreference
+            android:key="dashboard_duration"
+            android:title="@string/settings_dashboard_duration"
+            android:entries="@array/duration_entries"
+            android:entryValues="@array/duration_entry_values"
+            android:defaultValue="0"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

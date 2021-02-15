@@ -25,15 +25,12 @@
     <string name="website">Site</string>
     <string name="average_string">Média</string>
     <string name="daily_average_string">Diariamente</string>
-    <string name="dashboard">Painel</string>
+    <string name="dashboard">Painel (%s)</string>
     <string name="sleep_details">Detalhes do sono</string>
     <string name="settings">Configurações</string>
     <string name="settings_category_theme">Tema (É necessário reiniciar)</string>
     <string name="settings_follow_system_theme">Seguir o tema do sistema</string>
     <string name="settings_enable_dark_theme">Modo escuro</string>
-    <string name="last7days">Últimos 7 dias</string>
-    <string name="this_year">Este ano</string>
-    <string name="all_time">Todo o tempo</string>
     <string name="stats">Estatísticas</string>
     <string name="notification_channel_name">Notificações de rastreamento</string>
     <string name="import_file_item">Importar arquivo</string>
@@ -51,4 +48,11 @@
     <string name="settings_category_backup">Backup</string>
     <string name="settings_automatic_backup">Backup automático</string>
     <string name="settings_backup_path">Local do backup</string>
+    <string name="settings_category_dashboard">Dashboard</string>
+    <string name="settings_dashboard_duration">Duration</string>
+    <string name="last_week">Last week</string>
+    <string name="last_two_weeks">Last two weeks</string>
+    <string name="last_month">Last month</string>
+    <string name="last_year">Last year</string>
+    <string name="all_time">Todo o tempo</string>
 </resources>

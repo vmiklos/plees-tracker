@@ -8,20 +8,22 @@ simple: causing no battery drain, nor any privacy problems.
 
 This activity allows:
 
-- Seeing the status of the tracking: not yet started, in progress and finished
+- Seeing the status of the tracking: not yet started, in progress and finished.
 
 - Dashboard: the number of all tracked sleeps, average of sleep durations and a daily average (in
-  case you sleep multiple times a day or you sometimes skip a whole day).
+  case you sleep multiple times a day or you sometimes skip a whole day) for a customizable
+  duration (see the preferences activity below).
 
-- A list of past sleeps: start/stop time for each sleep, awake time and duration counted from these
-  and a rating you can manually specify after the tracking stopped. The awake time of the latest
-  sleep depends on the current time, so it'll increase if you restart plees-tracker.
+- A list of past sleeps for the chosen duration: start/stop time for each sleep, awake time and
+  duration counted from these and a rating you can manually specify after the tracking stopped.
+  The awake time of the latest sleep depends on the current time, so it'll increase if you restart
+  plees-tracker.
 
 - Swiping a sleep left/right will remove the sleep.
 
 - Tapping on a sleep allows getting to a dedicated sleep activity for a single sleep.
 
-- A floating action bottom at the bottom right corner allows to actually start / stop the tracking.
+- A floating action button at the bottom right corner allows to actually start / stop the tracking.
 
 The menu of this activity allows:
 
@@ -47,6 +49,9 @@ Backup settings allow you to automatically back up your sleeps after a tracking 
 useful in case you selected a path which is then implicitly synchronized to some external server,
 e.g. Nextcloud.
 
+You can also customize the dashboard duration, which limits the sleeps and sleep statistics on the
+dashboard to the time period selected in the main activity.
+
 == Sleep activity
 
 The sleep activity allows modifying the start or stop time of a single recorded sleep, which is
@@ -54,12 +59,17 @@ useful if you want to update the recorded timestamps to better match reality.
 
 == Stats activity
 
-The main activity considers all sleeps when counting the sleeps or when calculating the 2 kind of
-averages for your sleeps. The stats activity provides more flavors of the stats:
+The main activity considers all sleeps for the selected duration when counting the sleeps or when
+calculating the 2 kind of averages for your sleeps. The stats activity provides more flavors of the
+stats:
 
 - last week
 
-- from the beginning of the current year
+- last two weeks
+
+- last month
+
+- last year
 
 - all time (same as the main activity)
 

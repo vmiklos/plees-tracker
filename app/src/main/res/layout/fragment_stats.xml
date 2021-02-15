@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/last7days_body"
+    android:id="@+id/last_week_body"
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:orientation="horizontal"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/last7days_header">
+    app:layout_constraintTop_toBottomOf="@+id/last_week_header">
 
     <LinearLayout
         android:layout_width="0dp"
