@@ -52,12 +52,8 @@ dependencies {
     implementation "com.mikepenz:aboutlibraries:7.1.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    // TODO: Update to latest stable version when available
-    implementation "androidx.activity:activity-ktx:1.2.0-beta01"
-    // TODO: Update to latest stable version when available
-    implementation ("androidx.fragment:fragment-ktx:1.3.0-beta01") {
-        because "Required for enhanced permission flow as activities inherit from FragmentActivity"
-    }
+    implementation "androidx.activity:activity-ktx:1.2.0"
+    implementation ("androidx.fragment:fragment-ktx:1.3.0")
 }
 repositories {
     mavenCentral()
