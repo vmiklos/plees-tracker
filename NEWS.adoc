@@ -2,8 +2,9 @@
 
 == master
 
-- Reolsves gh#92 add a widget to start/stop tracking with a single stap from the home screen
+- Resolves: gh#92 add a widget to start/stop tracking with a single stap from the home screen
 - Display time awake after a sleep on the main screen (Sebastian Zeller)
+- Resolves: gh#88 Add dashboard duration setting (usashiki)
 
 == 7.1.0
 
