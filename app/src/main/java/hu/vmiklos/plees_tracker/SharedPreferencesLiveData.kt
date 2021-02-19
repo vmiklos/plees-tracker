@@ -35,20 +35,7 @@ private class SharedPreferenceLiveData<T>(
     private fun updateIfChanged() = with(getPreferenceValue()) { if (value != this) value = this }
 }
 
-fun SharedPreferences.liveData(key: String, default: Int): LiveData<Int> =
-    SharedPreferenceLiveData(this, key) { getInt(key, default) }
-
-fun SharedPreferences.liveData(key: String, default: Long): LiveData<Long> =
-    SharedPreferenceLiveData(this, key) { getLong(key, default) }
-
-fun SharedPreferences.liveData(key: String, default: Boolean): LiveData<Boolean> =
-    SharedPreferenceLiveData(this, key) { getBoolean(key, default) }
-
-fun SharedPreferences.liveData(key: String, default: Float): LiveData<Float> =
-    SharedPreferenceLiveData(this, key) { getFloat(key, default) }
-
 fun SharedPreferences.liveData(key: String, default: String?): LiveData<String?> =
     SharedPreferenceLiveData(this, key) { getString(key, default) }
 
-fun SharedPreferences.liveData(key: String, default: Set<String>?): LiveData<Set<String>?> =
-    SharedPreferenceLiveData(this, key) { getStringSet(key, default) }
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
