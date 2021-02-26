@@ -23,15 +23,27 @@ class ToggleWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
-        for (appWidgetId in appWidgetIds!!) {
+        if (context == null) {
+            return
+        }
+
+        if (appWidgetManager == null) {
+            return
+        }
+
+        if (appWidgetIds == null) {
+            return
+        }
+
+        for (appWidgetId in appWidgetIds) {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra("startStop", true)
             val pendingIntent = PendingIntent.getActivity(
                 context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
             )
-            val remoteViews = RemoteViews(context!!.packageName, R.layout.widget_layout_toggle)
+            val remoteViews = RemoteViews(context.packageName, R.layout.widget_layout_toggle)
             remoteViews.setOnClickPendingIntent(R.id.widget_toggle, pendingIntent)
-            appWidgetManager!!.updateAppWidget(appWidgetId, remoteViews)
+            appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
         }
     }
 }
