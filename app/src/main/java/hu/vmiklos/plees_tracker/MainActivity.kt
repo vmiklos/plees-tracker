@@ -397,6 +397,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, StatsActivity::class.java))
                 return true
             }
+            R.id.graphs -> {
+                startActivity(Intent(this, GraphsActivity::class.java))
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
