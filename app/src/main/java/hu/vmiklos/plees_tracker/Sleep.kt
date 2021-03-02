@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.text.format.DateUtils
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -26,6 +27,12 @@ class Sleep {
 
     @ColumnInfo(name = "rating")
     var rating: Long = 0
+
+    val lengthMs
+        get() = stop - start
+
+    val lengthHours
+        get() = lengthMs.toFloat() / DateUtils.HOUR_IN_MILLIS
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

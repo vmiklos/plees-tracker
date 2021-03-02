@@ -73,4 +73,93 @@
         <item>"-365"</item>
         <item>"0"</item>
     </string-array>
+    <string name="graphs">Graphs</string>
+    <string name="graph_deficit">Deficit/surplus</string>
+    <string name="graph_length">Length</string>
+    <string name="graph_start">Start time</string>
+    <string name="graph_rating">Rating</string>
+    <string name="graph_average">Average</string>
+    <string name="graph_total">Total</string>
+    <string name="graph_hours">Hours</string>
+    <string name="graph_ideal">Ideal</string>
+    <string name="settings_ideal_sleep_length">Ideal sleep length</string>
+    <string name="hours_2">"2 hours"</string>
+    <string name="hours_2_30">"2 hours 30 minutes"</string>
+    <string name="hours_3">"3 hours"</string>
+    <string name="hours_3_30">"3 hours 30 minutes"</string>
+    <string name="hours_4">"4 hours"</string>
+    <string name="hours_4_30">"4 hours 30 minutes"</string>
+    <string name="hours_5">"5 hours"</string>
+    <string name="hours_5_30">"5 hours 30 minutes"</string>
+    <string name="hours_6">"6 hours"</string>
+    <string name="hours_6_30">"6 hours 30 minutes"</string>
+    <string name="hours_7">"7 hours"</string>
+    <string name="hours_7_30">"7 hours 30 minutes"</string>
+    <string name="hours_8">"8 hours"</string>
+    <string name="hours_8_30">"8 hours 30 minutes"</string>
+    <string name="hours_9">"9 hours"</string>
+    <string name="hours_9_30">"9 hours 30 minutes"</string>
+    <string name="hours_10">"10 hours"</string>
+    <string name="hours_10_30">"10 hours 30 minutes"</string>
+    <string name="hours_11">"11 hours"</string>
+    <string name="hours_11_30">"11 hours 30 minutes"</string>
+    <string name="hours_12">"12 hours"</string>
+    <string name="hours_12_30">"12 hours 30 minutes"</string>
+    <string name="hours_13">"13 hours"</string>
+    <string name="hours_13_30">"13 hours 30 minutes"</string>
+    <string name="hours_14">"14 hours"</string>
+    <string-array name="ideal_sleep_entries">
+        <item>@string/hours_2</item>
+        <item>@string/hours_2_30</item>
+        <item>@string/hours_3</item>
+        <item>@string/hours_3_30</item>
+        <item>@string/hours_4</item>
+        <item>@string/hours_4_30</item>
+        <item>@string/hours_5</item>
+        <item>@string/hours_5_30</item>
+        <item>@string/hours_6</item>
+        <item>@string/hours_6_30</item>
+        <item>@string/hours_7</item>
+        <item>@string/hours_7_30</item>
+        <item>@string/hours_8</item>
+        <item>@string/hours_8_30</item>
+        <item>@string/hours_9</item>
+        <item>@string/hours_9_30</item>
+        <item>@string/hours_10</item>
+        <item>@string/hours_10_30</item>
+        <item>@string/hours_11</item>
+        <item>@string/hours_11_30</item>
+        <item>@string/hours_12</item>
+        <item>@string/hours_12_30</item>
+        <item>@string/hours_13</item>
+        <item>@string/hours_13_30</item>
+        <item>@string/hours_14</item>
+    </string-array>
+    <string-array name="ideal_sleep_entry_values">
+        <item>"2.0"</item>
+        <item>"2.5"</item>
+        <item>"3.0"</item>
+        <item>"3.5"</item>
+        <item>"4.0"</item>
+        <item>"4.5"</item>
+        <item>"5.0"</item>
+        <item>"5.5"</item>
+        <item>"6.0"</item>
+        <item>"6.5"</item>
+        <item>"7.0"</item>
+        <item>"7.5"</item>
+        <item>"8.0"</item>
+        <item>"8.5"</item>
+        <item>"9.0"</item>
+        <item>"9.5"</item>
+        <item>"10.0"</item>
+        <item>"10.5"</item>
+        <item>"11.0"</item>
+        <item>"11.5"</item>
+        <item>"12.0"</item>
+        <item>"12.5"</item>
+        <item>"13.0"</item>
+        <item>"13.5"</item>
+        <item>"14.0"</item>
+    </string-array>
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/graph_deficit" android:title="@string/graph_deficit"/>
+    <item android:id="@+id/graph_length" android:title="@string/graph_length"/>
+    <item android:id="@+id/graph_start" android:title="@string/graph_start"/>
+    <item android:id="@+id/graph_rating" android:title="@string/graph_rating"/>
+</menu>

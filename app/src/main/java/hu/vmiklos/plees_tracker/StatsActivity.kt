@@ -14,7 +14,7 @@ import java.util.Calendar
 
 /**
  * This activity provides additional stats for a limited period of time. This is in contrast with
- * the main activity, which considers all sleeps.
+ * the main activity, which considers all sleeps within the specified duration.
  */
 class StatsActivity : AppCompatActivity() {
 

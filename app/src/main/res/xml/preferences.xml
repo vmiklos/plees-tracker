@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/settings_category_theme">
-
         <SwitchPreference
             android:defaultValue="true"
             android:disableDependentsState="true"
@@ -32,6 +31,13 @@
             android:entries="@array/duration_entries"
             android:entryValues="@array/duration_entry_values"
             android:defaultValue="0"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:key="ideal_sleep_length"
+            android:title="@string/settings_ideal_sleep_length"
+            android:entries="@array/ideal_sleep_entries"
+            android:entryValues="@array/ideal_sleep_entry_values"
+            android:defaultValue="8.0"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 

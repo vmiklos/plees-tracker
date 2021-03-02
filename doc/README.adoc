@@ -50,7 +50,10 @@ useful in case you selected a path which is then implicitly synchronized to some
 e.g. Nextcloud.
 
 You can also customize the dashboard duration, which limits the sleeps and sleep statistics on the
-dashboard to the time period selected in the main activity.
+dashboard and graphs to the time period selected in the main activity.
+
+There is also an option to define your ideal sleep length, which is used for some of the graphs (see
+Graphs activity below).
 
 == Sleep activity
 
@@ -60,8 +63,8 @@ useful if you want to update the recorded timestamps to better match reality.
 == Stats activity
 
 The main activity considers all sleeps for the selected duration when counting the sleeps or when
-calculating the 2 kind of averages for your sleeps. The stats activity provides more flavors of the
-stats:
+calculating the 2 kind of averages for your sleeps. The stats activity provides the same stats for
+all possible durations, specifically:
 
 - last week
 
@@ -71,7 +74,26 @@ stats:
 
 - last year
 
-- all time (same as the main activity)
+- all time
+
+== Graphs activity
+
+The graphs activity provides an alternative way to analyze your sleep data. Currently, the following
+graphs are provided (select the graph via the menu in the upper right):
+
+- Deficit/surplus: This graph shows the difference between the ideal sleep length (as customized in
+  settings) versus the actual hours slept per day - positive is surplus, negative is deficit - along
+  with a cumulative total.
+
+- Length: This graph shows the hours slept per day, along with a cumulative moving average.
+
+- Start time: This graph shows the start time of the first sleep per day (where day is based on the
+  date of the sleep's ending time), along with a cumulative moving average.
+
+- Rating: This graph shows the user-provided rating of the sleeps per day, along with a cumulative
+  moving average. Note that no rating counts as 0.
+
+The graphs are generated based on sleeps within the selected dashboard duration.
 
 == Credits
 
