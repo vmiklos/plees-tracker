@@ -17,6 +17,8 @@ curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.40.0/ktlint
 chmod a+x ktlint
 git ls-files| grep '\.kt[s"]\?$' | xargs ./ktlint --android --relative .
 
+tools/license-check.sh
+
 mkdir dist
 cp app/build/outputs/apk/release/app-release-unsigned.apk dist/
 
