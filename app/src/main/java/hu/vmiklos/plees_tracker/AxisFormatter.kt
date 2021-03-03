@@ -14,6 +14,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
+/** [ValueFormatter] for showing dates on the axis of a graph. */
 class DateAxisFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -21,6 +22,7 @@ class DateAxisFormatter : ValueFormatter() {
     }
 }
 
+/** [ValueFormatter] for showing times on the axis of a graph, converted to UTC. */
 class TimeAxisFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
         val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -29,6 +31,7 @@ class TimeAxisFormatter : ValueFormatter() {
     }
 }
 
+/** [ValueFormatter] for showing float numbers on the axis of a graph, up to one decimal place. */
 class FloatAxisFormatter : ValueFormatter() {
     private val decimalFormat = DecimalFormat("0.#")
         .apply { isDecimalSeparatorAlwaysShown = false }

@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import java.util.Calendar
 import java.util.Date
 
+/** This activity provides graphs of sleep data, filtered by the selected dashboard duration. */
 class GraphsActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private lateinit var viewModel: MainViewModel
@@ -260,26 +261,6 @@ class GraphsActivity : AppCompatActivity() {
         }
     }
 
-    /** Generates a cumulative moving average list of the provided day-value points. */
-    private fun List<Pair<Number, Number>>.cumulativeAverage(): List<Pair<Number, Number>> {
-        return mutableListOf(first()).also {
-            subList(1, size).forEach { (day, value) ->
-                val oldAvg = it.last().second.toFloat()
-                val newAvg = ((oldAvg * it.size) + value.toFloat()) / (it.size + 1)
-                it.add(day to newAvg)
-            }
-        }
-    }
-
-    /** Generates a cumulative sum list of the provided day-value points. */
-    private fun List<Pair<Number, Number>>.cumulativeSum(): List<Pair<Number, Number>> {
-        return mutableListOf(first()).also {
-            subList(1, size).forEach { (day, value) ->
-                it.add(day to value.toFloat() + it.last().second.toFloat())
-            }
-        }
-    }
-
     /** Given a list of sleeps, returns list of day-rating pairs, sorted by day. */
     private fun List<Sleep>.ratingByDay(): List<Pair<Long, Float>> {
         return groupSleepsByDay()
@@ -308,8 +289,8 @@ class GraphsActivity : AppCompatActivity() {
 
     /** Given a list of sleeps, returns the start time of the earliest sleep. */
     private fun List<Sleep>.earliestSleep(): Sleep {
-        // run on output of groupBy (groupSleepsByDay) so by definition not empty
-        return minByOrNull { it.start }!!
+        // Run only on output of groupBy (groupSleepsByDay) so should not be empty.
+        return minByOrNull { it.start } ?: Sleep()
     }
 
     /** Given a list of sleeps, returns the sum of length slept. */
@@ -321,20 +302,40 @@ class GraphsActivity : AppCompatActivity() {
     private fun List<Sleep>.groupSleepsByDay(): Map<Long, List<Sleep>> {
         return groupBy { it.stop.stripTime() }
     }
+}
 
-    /** Strips the time from a UNIX epoch timestamp (ms). */
-    private fun Long.stripTime(): Long = Date(this).stripTime().time
-
-    /** Strips the time from a [Date], leaving only the date. */
-    private fun Date.stripTime(): Date {
-        return Calendar.getInstance().apply {
-            time = this@stripTime
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
+/** Generates a cumulative moving average list of the provided day-value points. */
+fun List<Pair<Number, Number>>.cumulativeAverage(): List<Pair<Number, Number>> {
+    return mutableListOf(first()).also {
+        subList(1, size).forEach { (day, value) ->
+            val oldAvg = it.last().second.toFloat()
+            val newAvg = ((oldAvg * it.size) + value.toFloat()) / (it.size + 1)
+            it.add(day to newAvg)
+        }
     }
+}
+
+/** Generates a cumulative sum list of the provided day-value points. */
+fun List<Pair<Number, Number>>.cumulativeSum(): List<Pair<Number, Number>> {
+    return mutableListOf(first()).also {
+        subList(1, size).forEach { (day, value) ->
+            it.add(day to value.toFloat() + it.last().second.toFloat())
+        }
+    }
+}
+
+/** Strips the time from a UNIX epoch timestamp (ms). */
+fun Long.stripTime(): Long = Date(this).stripTime().time
+
+/** Strips the time from a [Date], leaving only the date. */
+fun Date.stripTime(): Date {
+    return Calendar.getInstance().apply {
+        time = this@stripTime
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.time
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

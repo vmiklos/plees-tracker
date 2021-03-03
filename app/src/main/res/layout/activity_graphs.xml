@@ -9,8 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_margin="8dp"
-        android:gravity="center_vertical"
-        >
+        android:gravity="center_vertical" >
 
         <TextView
             android:id="@+id/chart_axis_left_label"
