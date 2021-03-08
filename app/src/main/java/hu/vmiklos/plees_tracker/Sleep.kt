@@ -28,7 +28,7 @@ class Sleep {
     @ColumnInfo(name = "rating")
     var rating: Long = 0
 
-    val lengthMs
+    private val lengthMs
         get() = stop - start
 
     val lengthHours
