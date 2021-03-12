@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.1.1
 
 - Resolves: gh#51 add a graphs menu item and activity to chart various stats over time (usashiki)
 - Resolves: gh#92 add a widget to start/stop tracking with a single stap from the home screen
