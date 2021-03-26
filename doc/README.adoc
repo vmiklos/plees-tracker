@@ -50,7 +50,8 @@ useful in case you selected a path which is then implicitly synchronized to some
 e.g. Nextcloud.
 
 You can also customize the dashboard duration, which limits the sleeps and sleep statistics on the
-dashboard and graphs to the time period selected in the main activity.
+dashboard and graphs to the time period selected in the main activity. The default is to only show
+the past week.
 
 There is also an option to define your ideal sleep length, which is used for some of the graphs (see
 Graphs activity below).
