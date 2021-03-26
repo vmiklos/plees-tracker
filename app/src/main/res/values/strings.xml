@@ -108,6 +108,9 @@
     <string name="hours_13">"13 hours"</string>
     <string name="hours_13_30">"13 hours 30 minutes"</string>
     <string name="hours_14">"14 hours"</string>
+    <string name="show_rating">Show rating</string>
+    <string name="show_awake_duration">Show awake duration</string>
+    <string name="past_sleeps">Past sleeps</string>
     <string-array name="ideal_sleep_entries">
         <item>@string/hours_2</item>
         <item>@string/hours_2_30</item>

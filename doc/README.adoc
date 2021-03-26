@@ -55,6 +55,15 @@ dashboard and graphs to the time period selected in the main activity.
 There is also an option to define your ideal sleep length, which is used for some of the graphs (see
 Graphs activity below).
 
+The past sleeps section allow configuring the contents of the individual sleep cards:
+
+- awake time is hidden by default
+
+- rating is hidden by default
+
+The sleep cards are not re-created when changing settings, so you need to restart plees-tracker to
+see the effect.
+
 == Sleep activity
 
 The sleep activity allows modifying the start or stop time of a single recorded sleep, which is

@@ -41,5 +41,15 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/past_sleeps">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_awake_for"
+            android:title="@string/show_awake_duration" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_rating"
+            android:title="@string/show_rating" />
+    </PreferenceCategory>
 </PreferenceScreen>
 
