@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
             { setDashboardText(it ?: "0") }
         )
 
-        val sleepsAdapter = SleepsAdapter(viewModel)
+        val sleepsAdapter = SleepsAdapter(viewModel, preferences)
         viewModel.durationSleepsLive.observe(
             this,
             { sleeps ->
@@ -186,21 +186,23 @@ class MainActivity : AppCompatActivity() {
             })
 
         // Swipe on the rating bar goes to the rating bar itself.
-        recyclerView.addOnItemTouchListener(
-            object : RecyclerView.SimpleOnItemTouchListener() {
-                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                    return findRatingBar(rv, e) != null
-                }
+        if (preferences.getBoolean("show_rating", false)) {
+            recyclerView.addOnItemTouchListener(
+                object : RecyclerView.SimpleOnItemTouchListener() {
+                    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                        return findRatingBar(rv, e) != null
+                    }
 
-                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                    val ratingBar = findRatingBar(rv, e) ?: return
-                    val x = e.x - (ratingBar.left + ratingBar.translationX)
-                    val y = e.y - (ratingBar.top + ratingBar.translationY)
-                    e.setLocation(x, y)
-                    ratingBar.onTouchEvent(e)
+                    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+                        val ratingBar = findRatingBar(rv, e) ?: return
+                        val x = e.x - (ratingBar.left + ratingBar.translationX)
+                        val y = e.y - (ratingBar.top + ratingBar.translationY)
+                        e.setLocation(x, y)
+                        ratingBar.onTouchEvent(e)
+                    }
                 }
-            }
-        )
+            )
+        }
 
         // Otherwise swipe on a card view deletes it.
         val itemTouchHelper = ItemTouchHelper(

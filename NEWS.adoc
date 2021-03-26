@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Awake-for and rating property of the sleep card is now hidden by default
+
 == 7.1.1
 
 - Resolves: gh#51 add a graphs menu item and activity to chart various stats over time (usashiki)

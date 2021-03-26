@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,8 @@ import java.util.Date
  * This is the adapter between RecyclerView and SleepDao.
  */
 class SleepsAdapter(
-    private val viewModel: MainViewModel
+    private val viewModel: MainViewModel,
+    private val preferences: SharedPreferences
 ) : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
     var data: List<Sleep> = ArrayList()
         set(newData) {
@@ -84,16 +86,28 @@ class SleepsAdapter(
         val durationMS = sleep.stop - sleep.start
         val durationText = DataModel.formatDuration(durationMS / 1000)
         holder.duration.text = durationText
-        val nextSleepReferenceTime = if (position == 0) {
-            System.currentTimeMillis()
+
+        if (preferences.getBoolean("show_awake_for", false)) {
+            val nextSleepReferenceTime = if (position == 0) {
+                System.currentTimeMillis()
+            } else {
+                data[position - 1].start
+            }
+            val durationWakeMS = nextSleepReferenceTime - sleep.stop
+            val durationWakeText = DataModel.formatDuration(durationWakeMS / 1000)
+            holder.durationWake.text = durationWakeText
         } else {
-            data[position - 1].start
+            holder.durationWakeImage.visibility = View.GONE
+            holder.durationWakeHeader.visibility = View.GONE
+            holder.durationWakeImage.visibility = View.GONE
         }
-        val durationWakeMS = nextSleepReferenceTime - sleep.stop
-        val durationWakeText = DataModel.formatDuration(durationWakeMS / 1000)
-        holder.durationWake.text = durationWakeText
-        holder.rating.rating = sleep.rating.toFloat()
-        holder.rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
+
+        if (preferences.getBoolean("show_rating", false)) {
+            holder.rating.rating = sleep.rating.toFloat()
+            holder.rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
+        } else {
+            holder.rating.visibility = View.GONE
+        }
     }
 
     /**
@@ -103,7 +117,11 @@ class SleepsAdapter(
         val start: TextView = view.findViewById(R.id.sleep_item_start)
         val stop: TextView = view.findViewById(R.id.sleep_item_stop)
         val duration: TextView = view.findViewById(R.id.sleep_item_duration)
+
+        val durationWakeImage: View = view.findViewById(R.id.wake_time_image)
+        val durationWakeHeader: View = view.findViewById(R.id.wake_time_header)
         val durationWake: TextView = view.findViewById(R.id.wake_item_duration)
+
         val rating: RatingBar = view.findViewById(R.id.sleep_item_rating)
     }
 }
