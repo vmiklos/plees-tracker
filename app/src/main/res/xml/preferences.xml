@@ -30,7 +30,7 @@
             android:title="@string/settings_dashboard_duration"
             android:entries="@array/duration_entries"
             android:entryValues="@array/duration_entry_values"
-            android:defaultValue="0"
+            android:defaultValue="-7"
             app:useSimpleSummaryProvider="true" />
         <ListPreference
             android:key="ideal_sleep_length"
