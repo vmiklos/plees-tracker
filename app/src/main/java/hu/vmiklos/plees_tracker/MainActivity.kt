@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         preferences.registerOnSharedPreferenceChangeListener(sharedPreferenceListener)
         DataModel.init(applicationContext, preferences)
 
-        preferences.liveData("dashboard_duration", "0").observe(
+        preferences.liveData("dashboard_duration", "-7").observe(
             this,
             { setDashboardText(it ?: "0") }
         )
