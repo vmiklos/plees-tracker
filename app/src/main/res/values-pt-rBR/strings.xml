@@ -7,7 +7,7 @@
     <string name="stopped_on">Parou em</string>
     <string name="started_on">Iniciou em</string>
     <string name="slept_for_label">Dormiu por</string>
-    <string name="awake_for_label">Acordou atrás</string>
+    <string name="awake_for_label">Acordado por</string>
     <string name="sleeps">Sonos</string>
     <string name="status">Status</string>
     <string name="export_file_item">Exportar para um arquivo</string>
@@ -90,4 +90,7 @@
     <string name="hours_13">"13 horas"</string>
     <string name="hours_13_30">"13 horas e 30 minutos"</string>
     <string name="hours_14">"14 horas"</string>
+    <string name="show_rating">Mostrar avaliação</string>
+    <string name="show_awake_duration">Mostrar tempo acordado</string>
+    <string name="past_sleeps">Sonos recentes</string>
 </resources>
