@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.1.2
 
 - Awake-for and rating property of the sleep card is now hidden by default
 
