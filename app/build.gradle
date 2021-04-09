@@ -9,8 +9,8 @@ android {
         applicationId "hu.vmiklos.plees_tracker"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 17
-        versionName "7.1.1"
+        versionCode 18
+        versionName "7.1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
