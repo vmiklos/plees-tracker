@@ -17,12 +17,6 @@ class UserCalendar {
     val name: String
     val owner: String
 
-    constructor(id: String, name: String, owner: String) {
-        this.id = id
-        this.name = name
-        this.owner = owner
-    }
-
     constructor(cursor: Cursor) {
         id = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ID)
         name = cursor.getString(CalendarImport.CALENDAR_PROJECTION_DISPLAY_NAME)
