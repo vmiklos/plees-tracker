@@ -19,14 +19,6 @@ class UserEvent {
     val start: Long
     val end: Long
 
-    constructor(id: String, calendarId: String, title: String, start: Long, end: Long) {
-        this.id = id
-        this.calendarId = calendarId
-        this.title = title
-        this.start = start
-        this.end = end
-    }
-
     constructor(cursor: Cursor) {
         id = cursor.getString(CalendarImport.EVENT_PROJECTION_ID)
         calendarId = cursor.getString(CalendarImport.EVENT_PROJECTION_CAL_ID)
