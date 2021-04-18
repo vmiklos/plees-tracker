@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#94 Add quick settings tile to start/stop tracking
+
 == 7.1.2
 
 - Awake-for and rating property of the sleep card is now hidden by default

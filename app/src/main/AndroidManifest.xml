@@ -37,6 +37,16 @@
         </activity>
         <activity android:name=".PreferencesActivity" />
         <service android:name=".MainService"/>
+        <service
+            android:name=".TileService"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:label="@string/widget_start_stop"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
         <receiver
             android:icon="@mipmap/ic_launcher"
             android:label="@string/widget_start_stop"

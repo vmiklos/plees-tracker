@@ -61,7 +61,13 @@ object DataModel {
     val sleepsLive: LiveData<List<Sleep>>
         get() = database.sleepDao().getAllLive()
 
+    var initialized: Boolean = false
+
     fun init(context: Context, preferences: SharedPreferences) {
+        if (initialized) {
+            return
+        }
+
         this.preferences = preferences
 
         val start = preferences.getLong("start", 0)
@@ -73,6 +79,7 @@ object DataModel {
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
             .addMigrations(MIGRATION_1_2)
             .build()
+        initialized = true
     }
 
     suspend fun storeSleep() {
