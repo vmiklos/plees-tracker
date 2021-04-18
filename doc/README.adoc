@@ -40,6 +40,11 @@ The menu of this activity allows:
 A widget can be added to your home screen. This allows starting or stopping the tracking with a
 single tap: i.e. it's the same as opening the app and tapping on the start/stop button.
 
+== Quick settings tile
+
+A quick settings tile can be added to your panel. This allows starting or stopping the tracking with
+a single tap: i.e. it's the same as opening the app and tapping on the start/stop button.
+
 == Preferences activity
 
 This allows manually setting the dark mode for plees-tracker. This is useful on Android versions <=
