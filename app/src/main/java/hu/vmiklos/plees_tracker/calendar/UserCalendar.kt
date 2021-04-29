@@ -11,13 +11,13 @@ import android.database.Cursor
 /**
  * Represents a single calendar record, as found within the user's connected calendar
  */
-class UserCalendar {
+class UserCalendar(cursor: Cursor) {
 
     val id: String
     val name: String
     val owner: String
 
-    constructor(cursor: Cursor) {
+    init {
         id = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ID)
         name = cursor.getString(CalendarImport.CALENDAR_PROJECTION_DISPLAY_NAME)
         owner = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ACCOUNT_NAME)
