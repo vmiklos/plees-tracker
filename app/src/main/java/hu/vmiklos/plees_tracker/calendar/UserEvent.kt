@@ -11,7 +11,7 @@ import android.database.Cursor
 /**
  * Represents a single event record, as found in a user's calendar
  */
-class UserEvent {
+class UserEvent(cursor: Cursor) {
 
     val id: String
     val calendarId: String
@@ -19,7 +19,7 @@ class UserEvent {
     val start: Long
     val end: Long
 
-    constructor(cursor: Cursor) {
+    init {
         id = cursor.getString(CalendarImport.EVENT_PROJECTION_ID)
         calendarId = cursor.getString(CalendarImport.EVENT_PROJECTION_CAL_ID)
         title = cursor.getString(CalendarImport.EVENT_PROJECTION_TITLE)
