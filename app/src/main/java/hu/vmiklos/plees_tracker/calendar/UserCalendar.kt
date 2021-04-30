@@ -13,15 +13,9 @@ import android.database.Cursor
  */
 class UserCalendar(cursor: Cursor) {
 
-    val id: String
-    val name: String
-    val owner: String
-
-    init {
-        id = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ID)
-        name = cursor.getString(CalendarImport.CALENDAR_PROJECTION_DISPLAY_NAME)
-        owner = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ACCOUNT_NAME)
-    }
+    val id: String = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ID)
+    val name: String = cursor.getString(CalendarImport.CALENDAR_PROJECTION_DISPLAY_NAME)
+    val owner: String = cursor.getString(CalendarImport.CALENDAR_PROJECTION_ACCOUNT_NAME)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

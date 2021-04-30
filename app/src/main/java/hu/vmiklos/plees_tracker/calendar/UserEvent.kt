@@ -13,19 +13,11 @@ import android.database.Cursor
  */
 class UserEvent(cursor: Cursor) {
 
-    val id: String
-    val calendarId: String
-    val title: String
-    val start: Long
-    val end: Long
-
-    init {
-        id = cursor.getString(CalendarImport.EVENT_PROJECTION_ID)
-        calendarId = cursor.getString(CalendarImport.EVENT_PROJECTION_CAL_ID)
-        title = cursor.getString(CalendarImport.EVENT_PROJECTION_TITLE)
-        start = cursor.getLong(CalendarImport.EVENT_PROJECTION_START)
-        end = cursor.getLong(CalendarImport.EVENT_PROJECTION_END)
-    }
+    val id: String = cursor.getString(CalendarImport.EVENT_PROJECTION_ID)
+    val calendarId: String = cursor.getString(CalendarImport.EVENT_PROJECTION_CAL_ID)
+    val title: String = cursor.getString(CalendarImport.EVENT_PROJECTION_TITLE)
+    val start: Long = cursor.getLong(CalendarImport.EVENT_PROJECTION_START)
+    val end: Long = cursor.getLong(CalendarImport.EVENT_PROJECTION_END)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
