@@ -77,9 +77,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteSleep(sleep: Sleep) {
+    fun deleteSleep(sleep: Sleep, context: Context, cr: ContentResolver) {
         viewModelScope.launch {
             DataModel.deleteSleep(sleep)
+            DataModel.backupSleeps(context, cr)
         }
     }
 
