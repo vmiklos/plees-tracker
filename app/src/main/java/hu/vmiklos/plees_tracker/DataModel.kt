@@ -13,6 +13,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import androidx.room.migration.Migration
@@ -173,6 +174,28 @@ object DataModel {
     suspend fun exportDataToCalendar(context: Context, calendarId: String) {
         val sleeps = database.sleepDao().getAll()
         CalendarExport.exportSleep(context, calendarId, sleeps)
+    }
+
+    suspend fun backupSleeps(context: Context, cr: ContentResolver) {
+        val autoBackup = preferences.getBoolean("auto_backup", false)
+        val autoBackupPath = preferences.getString("auto_backup_path", "")
+        if (!autoBackup || autoBackupPath == null || autoBackupPath.isEmpty()) {
+            return
+        }
+
+        val folder = DocumentFile.fromTreeUri(context, Uri.parse(autoBackupPath))
+            ?: return
+
+        // Make sure that we don't create "backup (1).csv", etc.
+        val oldBackup = folder.findFile("backup.csv")
+        if (oldBackup != null && oldBackup.exists()) {
+            oldBackup.delete()
+        }
+
+        val backup = folder.createFile("text/csv", "backup.csv") ?: return
+        exportDataToFile(
+            context, cr, backup.uri, showToast = false
+        )
     }
 
     suspend fun exportDataToFile(

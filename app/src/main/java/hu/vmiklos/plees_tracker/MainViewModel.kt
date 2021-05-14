@@ -40,9 +40,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             DataModel.getSleepsAfterLive(date)
         }
 
-    fun stopSleep() {
+    fun stopSleep(context: Context, cr: ContentResolver) {
         viewModelScope.launch {
             DataModel.storeSleep()
+            DataModel.backupSleeps(context, cr)
         }
     }
 
