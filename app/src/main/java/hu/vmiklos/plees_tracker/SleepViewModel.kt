@@ -8,6 +8,8 @@ package hu.vmiklos.plees_tracker
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentResolver
+import android.content.Context
 import android.text.format.DateFormat
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
@@ -32,7 +34,13 @@ class SleepViewModel : ViewModel() {
         }
     }
 
-    fun editSleep(activity: SleepActivity, sid: Int, isStart: Boolean) {
+    fun editSleep(
+        activity: SleepActivity,
+        sid: Int,
+        isStart: Boolean,
+        context: Context,
+        cr: ContentResolver
+    ) {
         viewModelScope.launch {
             val sleep = DataModel.getSleepById(sid)
 
@@ -57,7 +65,7 @@ class SleepViewModel : ViewModel() {
                             } else {
                                 sleep.stop = dateTime.time.time
                             }
-                            updateSleep(activity, sleep)
+                            updateSleep(activity, sleep, context, cr)
                         },
                         dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE],
                         /*is24HourView=*/DateFormat.is24HourFormat(activity)
@@ -68,9 +76,15 @@ class SleepViewModel : ViewModel() {
         }
     }
 
-    private fun updateSleep(activity: SleepActivity, sleep: Sleep) {
+    private fun updateSleep(
+        activity: SleepActivity,
+        sleep: Sleep,
+        context: Context,
+        cr: ContentResolver
+    ) {
         viewModelScope.launch {
             DataModel.updateSleep(sleep)
+            DataModel.backupSleeps(context, cr)
             showSleep(activity, sleep.sid)
         }
     }
