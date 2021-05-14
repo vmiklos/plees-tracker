@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.content.ContentResolver
 import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
  */
 class SleepTouchCallback(
     private val context: Context,
+    private val contentResolver: ContentResolver,
     private val viewModel: MainViewModel,
     private val adapter: SleepsAdapter
 ) :
@@ -34,7 +36,7 @@ class SleepTouchCallback(
         direction: Int
     ) {
         val sleep = adapter.data[viewHolder.adapterPosition]
-        viewModel.deleteSleep(sleep)
+        viewModel.deleteSleep(sleep, context, contentResolver)
 
         val view = viewHolder.itemView
         val snackbar = Snackbar.make(view, R.string.deleted, Snackbar.LENGTH_LONG)
