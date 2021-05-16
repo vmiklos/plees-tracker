@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#138 sleed edit / delete: handle automatic backup
+
 == 7.1.3
 
 - Resolves: gh#94 Add quick settings tile to start/stop tracking
