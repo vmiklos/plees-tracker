@@ -2,7 +2,7 @@
 
 == master
 
-- Resolves: gh#138 sleed edit / delete: handle automatic backup
+- Resolves: gh#138 sleep edit / delete: handle automatic backup
 
 == 7.1.3
 
