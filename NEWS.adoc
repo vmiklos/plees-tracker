@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.1.4
 
 - Resolves: gh#138 sleep edit / delete: handle automatic backup
 

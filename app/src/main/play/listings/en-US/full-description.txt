@@ -11,3 +11,7 @@ Features:
 - Exports/imports sleep data to/from CSV.
 
 - Can show past sleeps, can selectively edit and delete individual sleeps.
+
+New in 7.1.4:
+
+- Resolves: gh#138 sleep edit / delete: handle automatic backup
