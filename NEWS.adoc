@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#157 hint that swiping the sleep will delete it
+
 == 7.1.4
 
 - Resolves: gh#138 sleep edit / delete: handle automatic backup

@@ -8,6 +8,7 @@ package hu.vmiklos.plees_tracker
 
 import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -45,6 +46,29 @@ class SleepTouchCallback(
         }
 
         snackbar.show()
+    }
+
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        if (viewHolder is SleepsAdapter.SleepViewHolder) {
+            viewHolder.showSwipeDelete(dX > 0)
+            getDefaultUIUtil().onDraw(
+                c, recyclerView, viewHolder.swipeable, dX, dY, actionState, isCurrentlyActive
+            )
+        }
+    }
+
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        if (viewHolder is SleepsAdapter.SleepViewHolder) {
+            getDefaultUIUtil().clearView(viewHolder.swipeable)
+        }
     }
 }
 
