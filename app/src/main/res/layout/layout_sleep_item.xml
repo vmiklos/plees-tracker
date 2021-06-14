@@ -1,177 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="3dp">
+    android:background="@color/theme_accent">
 
+    <ImageView
+        android:id="@+id/sleep_delete_left"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_delete" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/card_relative_layout"
+    <ImageView
+        android:id="@+id/sleep_delete_right"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_delete" />
+
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+        android:layout_height="wrap_content"
+        android:id="@+id/sleep_swipeable">
 
 
-        <ImageView
-            android:id="@+id/start_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_play_green"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/started_on" />
-
-        <TextView
-            android:id="@+id/started_on_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/started_on"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/start_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/start_image"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground">
 
 
-        <TextView
-            android:id="@+id/sleep_item_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/start_image"
-            tools:text="10:50:38" />
+            <ImageView
+                android:id="@+id/start_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/started_on"
+                android:src="@drawable/ic_play_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/stop_red_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_stop_red"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_image"
-            android:contentDescription="@string/stopped_on" />
-
-        <TextView
-            android:id="@+id/stopped_on_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/stopped_on"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/stop_red_image"
-            app:layout_constraintTop_toTopOf="@+id/stop_red_image"
-            app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"/>
+            <TextView
+                android:id="@+id/started_on_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/started_on"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/start_image"
+                app:layout_constraintStart_toEndOf="@+id/start_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        <TextView
-            android:id="@+id/sleep_item_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/stop_red_image"
-            app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"
-            tools:text="10:50:38" />
+            <TextView
+                android:id="@+id/sleep_item_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/start_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10:50:38" />
+
+            <ImageView
+                android:id="@+id/stop_red_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/stopped_on"
+                android:src="@drawable/ic_stop_red"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/start_image" />
+
+            <TextView
+                android:id="@+id/stopped_on_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/stopped_on"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"
+                app:layout_constraintStart_toEndOf="@+id/stop_red_image"
+                app:layout_constraintTop_toTopOf="@+id/stop_red_image" />
 
 
-        <ImageView
-            android:id="@+id/sleep_time_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_sleep_icon"
-            app:layout_constraintTop_toBottomOf="@+id/stop_red_image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/slept_for_label" />
-
-        <TextView
-            android:id="@+id/sleep_time_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/slept_for_label"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@+id/sleep_time_image"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_time_image"
-            app:layout_constraintStart_toEndOf="@+id/sleep_time_image" />
+            <TextView
+                android:id="@+id/sleep_item_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/stop_red_image"
+                tools:text="10:50:38" />
 
 
-        <TextView
-            android:id="@+id/sleep_item_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@id/sleep_time_image"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_time_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="05:20" />
+            <ImageView
+                android:id="@+id/sleep_time_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/slept_for_label"
+                android:src="@drawable/ic_sleep_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stop_red_image" />
+
+            <TextView
+                android:id="@+id/sleep_time_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/slept_for_label"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/sleep_time_image"
+                app:layout_constraintTop_toBottomOf="@+id/sleep_time_image"
+                app:layout_constraintTop_toTopOf="@+id/sleep_time_image" />
 
 
-        <ImageView
-            android:id="@+id/wake_time_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_play_green"
-            app:layout_constraintTop_toBottomOf="@id/sleep_time_image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/awake_for_label" />
-
-        <TextView
-            android:id="@+id/wake_time_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/awake_for_label"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@id/wake_time_image"
-            app:layout_constraintTop_toBottomOf="@id/wake_time_image"
-            app:layout_constraintStart_toEndOf="@id/wake_time_image" />
+            <TextView
+                android:id="@+id/sleep_item_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sleep_time_image"
+                app:layout_constraintTop_toTopOf="@id/sleep_time_image"
+                tools:text="05:20" />
 
 
-        <TextView
-            android:id="@+id/wake_item_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@id/wake_time_image"
-            app:layout_constraintTop_toBottomOf="@id/wake_time_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="18:40" />
+            <ImageView
+                android:id="@+id/wake_time_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/awake_for_label"
+                android:src="@drawable/ic_play_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sleep_time_image" />
+
+            <TextView
+                android:id="@+id/wake_time_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/awake_for_label"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/wake_time_image"
+                app:layout_constraintTop_toBottomOf="@id/wake_time_image"
+                app:layout_constraintTop_toTopOf="@id/wake_time_image" />
 
 
-        <RatingBar
-            android:id="@+id/sleep_item_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:numStars="5"
-            android:stepSize="1"
-            android:rating="0"
-            app:layout_constraintTop_toBottomOf="@id/wake_time_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <TextView
+                android:id="@+id/wake_item_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wake_time_image"
+                app:layout_constraintTop_toTopOf="@id/wake_time_image"
+                tools:text="18:40" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <RatingBar
+                android:id="@+id/sleep_item_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wake_time_image" />
 
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

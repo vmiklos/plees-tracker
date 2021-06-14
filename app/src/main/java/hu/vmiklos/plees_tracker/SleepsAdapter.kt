@@ -10,6 +10,7 @@ import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -123,6 +124,15 @@ class SleepsAdapter(
         val durationWake: TextView = view.findViewById(R.id.wake_item_duration)
 
         val rating: RatingBar = view.findViewById(R.id.sleep_item_rating)
+
+        val swipeable: View = view.findViewById(R.id.sleep_swipeable)
+        val deleteLeft: ImageView = view.findViewById(R.id.sleep_delete_left)
+        val deleteRight: ImageView = view.findViewById(R.id.sleep_delete_right)
+
+        fun showSwipeDelete(left: Boolean) {
+            deleteLeft.setVisibility(if (left) View.VISIBLE else View.INVISIBLE)
+            deleteRight.setVisibility(if (left) View.INVISIBLE else View.VISIBLE)
+        }
     }
 }
 
