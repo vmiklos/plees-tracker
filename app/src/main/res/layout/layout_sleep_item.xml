@@ -8,7 +8,7 @@
         android:id="@+id/sleep_delete_left"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_delete" />
 
@@ -16,7 +16,7 @@
         android:id="@+id/sleep_delete_right"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginRight="10dp"
         android:src="@drawable/ic_delete" />
 
