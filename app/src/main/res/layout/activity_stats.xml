@@ -9,128 +9,126 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:colorBackground">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorBackground"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/last_week_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/last_week"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/last_week_body"
-                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_week_header" />
-
-                <TextView
-                    android:id="@+id/last_two_weeks_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/last_two_weeks"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_week_body" />
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/last_two_weeks_body"
-                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_two_weeks_header" />
-
-                <TextView
-                    android:id="@+id/last_month_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/last_month"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_two_weeks_body" />
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/last_month_body"
-                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_month_header" />
-
-                <TextView
-                    android:id="@+id/last_year_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/last_year"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_month_body" />
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/last_year_body"
-                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_year_header" />
-
-                <TextView
-                    android:id="@+id/all_time_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="bold"
-                    android:text="@string/all_time"
-                    android:textColor="@color/textColor"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/last_year_body" />
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:id="@+id/all_time_body"
-                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/all_time_header" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/last_week_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/last_week"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/last_week_body"
+                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_week_header" />
+
+            <TextView
+                android:id="@+id/last_two_weeks_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/last_two_weeks"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_week_body" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/last_two_weeks_body"
+                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_two_weeks_header" />
+
+            <TextView
+                android:id="@+id/last_month_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/last_month"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_two_weeks_body" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/last_month_body"
+                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_month_header" />
+
+            <TextView
+                android:id="@+id/last_year_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/last_year"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_month_body" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/last_year_body"
+                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_year_header" />
+
+            <TextView
+                android:id="@+id/all_time_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/all_time"
+                android:textColor="@color/textColor"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/last_year_body" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/all_time_body"
+                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:paddingBottom="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/all_time_header" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
