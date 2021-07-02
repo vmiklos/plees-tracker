@@ -12,6 +12,7 @@ Features:
 
 - Can show past sleeps, can selectively edit and delete individual sleeps.
 
-New in 7.1.4:
+New in 7.1.5:
 
-- Resolves: gh#138 sleep edit / delete: handle automatic backup
+- Resolves: gh#157 hint that swiping the sleep will delete it
+- Resolves: gh#162 avoid empty screen when scrolling down in the stats activity (usashiki)
