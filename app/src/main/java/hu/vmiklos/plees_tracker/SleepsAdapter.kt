@@ -105,7 +105,6 @@ class SleepsAdapter(
 
         if (preferences.getBoolean("show_rating", false)) {
             holder.rating.rating = sleep.rating.toFloat()
-            holder.rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
         } else {
             holder.rating.visibility = View.GONE
         }

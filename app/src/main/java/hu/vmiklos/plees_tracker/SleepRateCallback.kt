@@ -12,7 +12,8 @@ import android.widget.RatingBar
  * This callback handles the rating of an individual sleep.
  */
 class SleepRateCallback(
-    private val viewModel: MainViewModel,
+    private val activity: SleepActivity,
+    private val viewModel: SleepViewModel,
     private val sleep: Sleep
 ) : RatingBar.OnRatingBarChangeListener {
     override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
@@ -20,6 +21,6 @@ class SleepRateCallback(
             return
         }
         sleep.rating = rating.toLong()
-        viewModel.updateSleep(sleep)
+        viewModel.updateSleep(activity, sleep)
     }
 }

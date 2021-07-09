@@ -16,7 +16,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -88,40 +87,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    /**
-     * Determines if x,y hits view or not.
-     */
-    private fun hitTest(view: View, x: Float, y: Float): Boolean {
-        val translationX = view.translationX
-        val translationY = view.translationY
-        if (x < view.left + translationX) {
-            return false
-        }
-        if (x > view.right + translationX) {
-            return false
-        }
-        if (y < view.top + translationY) {
-            return false
-        }
-        if (y > view.bottom + translationY) {
-            return false
-        }
-
-        return true
-    }
-
-    /**
-     * If there is a rating bar inside this recycler view, get that.
-     */
-    private fun findRatingBar(rv: RecyclerView, e: MotionEvent): View? {
-        val sleepItem = rv.findChildViewUnder(e.x, e.y) ?: return null
-        val ratingBar = sleepItem.findViewById<View>(R.id.sleep_item_rating)
-        if (hitTest(ratingBar, e.x, e.y)) {
-            return ratingBar
-        }
-        return null
-    }
-
     private fun setDashboardText(durationStr: String) {
         var index = resources.getStringArray(R.array.duration_entry_values).indexOf(durationStr)
         val durations = resources.getStringArray(R.array.duration_entries)
@@ -183,25 +148,6 @@ class MainActivity : AppCompatActivity() {
                     recyclerView.scrollToPosition(positionStart)
                 }
             })
-
-        // Swipe on the rating bar goes to the rating bar itself.
-        if (preferences.getBoolean("show_rating", false)) {
-            recyclerView.addOnItemTouchListener(
-                object : RecyclerView.SimpleOnItemTouchListener() {
-                    override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-                        return findRatingBar(rv, e) != null
-                    }
-
-                    override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-                        val ratingBar = findRatingBar(rv, e) ?: return
-                        val x = e.x - (ratingBar.left + ratingBar.translationX)
-                        val y = e.y - (ratingBar.top + ratingBar.translationY)
-                        e.setLocation(x, y)
-                        ratingBar.onTouchEvent(e)
-                    }
-                }
-            )
-        }
 
         // Otherwise swipe on a card view deletes it.
         val itemTouchHelper = ItemTouchHelper(
