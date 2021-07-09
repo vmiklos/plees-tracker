@@ -11,6 +11,7 @@ import android.app.TimePickerDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.text.format.DateFormat
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,9 +22,10 @@ import kotlinx.coroutines.launch
 /**
  * This is the view model of SleepActivity, providing coroutine scopes.
  */
-class SleepViewModel : ViewModel() {
+class SleepViewModel() : ViewModel() {
 
     fun showSleep(activity: SleepActivity, sid: Int) {
+        val viewModel = this
         viewModelScope.launch {
             val sleep = DataModel.getSleepById(sid)
 
@@ -31,6 +33,9 @@ class SleepViewModel : ViewModel() {
             start.text = DataModel.formatTimestamp(Date(sleep.start))
             val stop = activity.findViewById<TextView>(R.id.sleep_stop)
             stop.text = DataModel.formatTimestamp(Date(sleep.stop))
+            val rating = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
+            rating.rating = sleep.rating.toFloat()
+            rating.onRatingBarChangeListener = SleepRateCallback(activity, viewModel, sleep)
         }
     }
 
@@ -85,6 +90,13 @@ class SleepViewModel : ViewModel() {
         viewModelScope.launch {
             DataModel.updateSleep(sleep)
             DataModel.backupSleeps(context, cr)
+            showSleep(activity, sleep.sid)
+        }
+    }
+
+    fun updateSleep(activity: SleepActivity, sleep: Sleep) {
+        viewModelScope.launch {
+            DataModel.updateSleep(sleep)
             showSleep(activity, sleep.sid)
         }
     }

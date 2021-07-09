@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#161 main activity: make the rating widget read-only
+
 == 7.1.5
 
 - Resolves: gh#157 hint that swiping the sleep will delete it

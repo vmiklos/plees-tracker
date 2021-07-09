@@ -65,15 +65,16 @@ The past sleeps section allow configuring the contents of the individual sleep c
 
 - awake time is hidden by default
 
-- rating is hidden by default
+- the read-only rating is hidden by default on the main activity, the read-write rating is always
+  visible in the sleep activity
 
 The sleep cards are not re-created when changing settings, so you need to restart plees-tracker to
 see the effect.
 
 == Sleep activity
 
-The sleep activity allows modifying the start or stop time of a single recorded sleep, which is
-useful if you want to update the recorded timestamps to better match reality.
+The sleep activity allows modifying the start,  stop time or rating of a single recorded sleep,
+which is useful if you want to update the recorded timestamps to better match reality.
 
 == Stats activity
 
