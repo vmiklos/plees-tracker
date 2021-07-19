@@ -18,7 +18,7 @@ jobs:
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 29
+        api-level: 27
         script: tools/ci-build.sh
     - uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
