@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 /**
  * This is the view model of SleepActivity, providing coroutine scopes.
  */
-class SleepViewModel() : ViewModel() {
+class SleepViewModel : ViewModel() {
 
     fun showSleep(activity: SleepActivity, sid: Int) {
         val viewModel = this
