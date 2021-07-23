@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             { setDashboardText(it ?: "0") }
         )
 
-        val sleepsAdapter = SleepsAdapter(viewModel, preferences)
+        val sleepsAdapter = SleepsAdapter(preferences)
         viewModel.durationSleepsLive.observe(
             this,
             { sleeps ->

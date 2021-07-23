@@ -22,7 +22,6 @@ import java.util.Date
  * This is the adapter between RecyclerView and SleepDao.
  */
 class SleepsAdapter(
-    private val viewModel: MainViewModel,
     private val preferences: SharedPreferences
 ) : RecyclerView.Adapter<SleepsAdapter.SleepViewHolder>() {
     var data: List<Sleep> = ArrayList()
