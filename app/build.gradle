@@ -29,6 +29,8 @@ android {
     }
     lintOptions {
         disable 'MissingTranslation'
+        // TODO get rid of this
+        disable 'UsingOnClickInXml'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
