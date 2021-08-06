@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.2.0
 
 - Resolves: gh#161 main activity: make the rating widget read-only
 
