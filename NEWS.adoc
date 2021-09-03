@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.2.1
 
 - Resolves: gh#184 fixed overlapped and blocked texts on main page (yuhuitech)
 
