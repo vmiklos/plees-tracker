@@ -13,6 +13,7 @@ import android.content.Context
 import android.text.format.DateFormat
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import java.util.Calendar
@@ -70,7 +71,14 @@ class SleepViewModel : ViewModel() {
                             } else {
                                 sleep.stop = dateTime.time.time
                             }
-                            updateSleep(activity, sleep, context, cr)
+                            if (sleep.start < sleep.stop) {
+                                updateSleep(activity, sleep, context, cr)
+                            } else {
+                                val text = context.getString(R.string.negative_duration)
+                                val duration = Toast.LENGTH_SHORT
+                                val toast = Toast.makeText(context, text, duration)
+                                toast.show()
+                            }
                         },
                         dateTime[Calendar.HOUR_OF_DAY], dateTime[Calendar.MINUTE],
                         /*is24HourView=*/DateFormat.is24HourFormat(activity)
