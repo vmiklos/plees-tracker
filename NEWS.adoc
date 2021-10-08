@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.2.2
 
 - Resolves: gh#178 prevent negative sleep durations
 

@@ -12,6 +12,6 @@ Features:
 
 - Can show past sleeps, can selectively edit and delete individual sleeps.
 
-New in 7.2.1:
+New in 7.2.2:
 
-- Resolves: gh#184 fixed overlapped and blocked texts on main page (yuhuitech)
+- Resolves: gh#178 prevent negative sleep durations
