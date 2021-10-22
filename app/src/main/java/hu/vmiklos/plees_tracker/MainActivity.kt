@@ -406,7 +406,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun exportCalendarData(selectedItem: UserCalendar) {
         viewModel.exportDataToCalendar(this, selectedItem.id)
-        Toast.makeText(this, getString(R.string.exported_items), Toast.LENGTH_SHORT).show()
     }
 
     private fun showNoCalendarsFoundDialog() {
