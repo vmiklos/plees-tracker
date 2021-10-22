@@ -83,12 +83,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             DataModel.backupSleeps(context, cr)
         }
     }
-
-    fun updateSleep(sleep: Sleep) {
-        viewModelScope.launch {
-            DataModel.updateSleep(sleep)
-        }
-    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
