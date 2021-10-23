@@ -44,7 +44,7 @@
     <string name="imported_items">Importados %d elementos</string>
     <string name="export_calendar_item">Exportar a Calendario</string>
     <string name="exported_event_description">Exportado desde Plees Tracker</string>
-    <string name="exported_items">Exportación completa</string>
+    <string name="exported_items">Exportado %s sueños</string>
     <string name="settings_category_backup">Respaldo</string>
     <string name="settings_automatic_backup">Respaldo automático</string>
     <string name="settings_backup_path">Ruta de respaldo</string>
@@ -90,4 +90,8 @@
     <string name="hours_13">"13 horas"</string>
     <string name="hours_13_30">"13 horas 30 minutos"</string>
     <string name="hours_14">"14 horas"</string>
+    <string name="show_rating">Mostrar índice</string>
+    <string name="show_awake_duration">Mostrar duración despierto</string>
+    <string name="past_sleeps">Sueños pasados</string>
+    <string name="negative_duration">El sueño no está actualizando, detenlo si no se inicia luego.</string>
 </resources>
