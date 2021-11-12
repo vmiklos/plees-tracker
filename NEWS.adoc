@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.2.3
 
 - Resolves: gh#150 avoid duplicate entries when exportinging to calendar multiple times
 
