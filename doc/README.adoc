@@ -28,6 +28,8 @@ This activity allows:
 The menu of this activity allows:
 
 - Import/export your sleeps to CSV. The start and stop columns are UNIX timestamps in milliseconds.
+  The import is incremental, i.e. it remembers what items are imported and the next time only newer
+  items will be imported.
 
 - Import/export your sleeps to calendar. The export is incremental, i.e. it remembers what items are
   exported, and the next time only newer items will be exported.
