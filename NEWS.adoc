@@ -1,8 +1,12 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#207 avoid duplicate entries when importing from calendar multiple times
+
 == 7.2.3
 
-- Resolves: gh#150 avoid duplicate entries when exportinging to calendar multiple times
+- Resolves: gh#150 avoid duplicate entries when exporting to calendar multiple times
 
 == 7.2.2
 
