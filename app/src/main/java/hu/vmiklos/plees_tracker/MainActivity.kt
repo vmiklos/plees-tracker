@@ -43,7 +43,7 @@ import java.util.Calendar
  * The activity is the primary UI of the app: allows starting and stopping the
  * tracking.
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var viewModel: MainViewModel
 
@@ -107,6 +107,9 @@ class MainActivity : AppCompatActivity() {
             .create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
+        val startStop = findViewById<LinearLayout>(R.id.start_stop_layout)
+        startStop.setOnClickListener(this)
+
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         preferences.registerOnSharedPreferenceChangeListener(sharedPreferenceListener)
         DataModel.init(applicationContext, preferences)
@@ -178,7 +181,7 @@ class MainActivity : AppCompatActivity() {
         // See if the activity is triggered from the widget. If so, toggle the start/stop state.
         intent?.let {
             if (it.getBooleanExtra("startStop", false)) {
-                startStop(findViewById(R.id.start_stop))
+                onClick(findViewById(R.id.start_stop_layout))
             }
         }
 
@@ -206,16 +209,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Used from layout XML.
-    fun startStop(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (DataModel.start != null && DataModel.stop == null) {
-            DataModel.stop = Calendar.getInstance().time
-            viewModel.stopSleep(applicationContext, contentResolver)
-        } else {
-            DataModel.start = Calendar.getInstance().time
-            DataModel.stop = null
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.start_stop_layout -> {
+                if (DataModel.start != null && DataModel.stop == null) {
+                    DataModel.stop = Calendar.getInstance().time
+                    viewModel.stopSleep(applicationContext, contentResolver)
+                } else {
+                    DataModel.start = Calendar.getInstance().time
+                    DataModel.stop = null
+                }
+                updateView()
+            }
         }
-        updateView()
     }
 
     private fun exportFileData() {

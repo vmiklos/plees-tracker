@@ -118,8 +118,7 @@
         android:layout_margin="16dp"
         android:animateLayoutChanges="true"
         android:background="@drawable/fab_btn_corner"
-        android:gravity="center_vertical"
-        android:onClick="startStop">
+        android:gravity="center_vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/start_stop"
