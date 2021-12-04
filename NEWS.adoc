@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.2.4
 
 - Resolves: gh#207 avoid duplicate entries when importing from calendar multiple times
 
