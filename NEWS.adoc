@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#208 add separators between sleep items in the main activity
+
 == 7.2.4
 
 - Resolves: gh#207 avoid duplicate entries when importing from calendar multiple times
