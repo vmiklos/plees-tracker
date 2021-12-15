@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -138,10 +139,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         )
 
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val recyclerViewLayout = LinearLayoutManager(this)
+        recyclerView.layoutManager = recyclerViewLayout
         recyclerView.setHasFixedSize(true)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.adapter = sleepsAdapter
+
+        // Enable separators between sleep items.
+        val dividerItemDecoration = DividerItemDecoration(
+            recyclerView.context,
+            recyclerViewLayout.orientation
+        )
+        recyclerView.addItemDecoration(dividerItemDecoration)
+
         sleepsAdapter.registerAdapterDataObserver(
             object : RecyclerView.AdapterDataObserver() {
                 override fun onItemRangeInserted(
