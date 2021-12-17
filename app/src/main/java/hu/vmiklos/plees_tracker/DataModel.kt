@@ -130,7 +130,7 @@ object DataModel {
         // memory: the benefit is that inserting all of them once triggers a single notification of
         // observers. This means that importing 100s of sleeps is still ~instant, while it used to
         // take ~forever.
-        val sleeps = mutableListOf<Sleep>()
+        val importedSleeps = mutableListOf<Sleep>()
         try {
             var first = true
             while (true) {
@@ -150,9 +150,11 @@ object DataModel {
                 if (cells.size >= 4) {
                     sleep.rating = cells[3].toLong()
                 }
-                sleeps.add(sleep)
+                importedSleeps.add(sleep)
             }
-            database.sleepDao().insert(sleeps)
+            val oldSleeps = database.sleepDao().getAll()
+            val newSleeps = importedSleeps.subtract(oldSleeps)
+            database.sleepDao().insert(newSleeps.toList())
         } catch (e: IOException) {
             Log.e(TAG, "importData: readLine() failed")
             return
@@ -238,7 +240,7 @@ object DataModel {
             os.write("sid,start,stop,rating\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
-                    sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
+                        sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {
