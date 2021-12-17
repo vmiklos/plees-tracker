@@ -33,6 +33,17 @@ class Sleep {
 
     val lengthHours
         get() = lengthMs.toFloat() / DateUtils.HOUR_IN_MILLIS
+
+    override fun equals(other: Any?): Boolean =
+        other is Sleep &&
+                other.start == start &&
+                other.stop == stop
+
+    override fun hashCode(): Int {
+        var result = start.hashCode()
+        result = 31 * result + stop.hashCode()
+        return result
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
