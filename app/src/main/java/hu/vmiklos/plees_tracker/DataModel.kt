@@ -175,26 +175,18 @@ object DataModel {
     }
 
     suspend fun importDataFromCalendar(context: Context, calendarId: String) {
-        // Get all sleeps after the last import, or all of them if there was no previous import.
-        val now = Calendar.getInstance().time
-        var lastCalendarImport = preferences.getLong("last_calendar_import", 0)
-
         // Query the calendar for events
-        var sleepList = CalendarImport.queryForEvents(
+        var importedSleeps = CalendarImport.queryForEvents(
             context, calendarId
         ).map(CalendarImport::mapEventToSleep)
-        sleepList = sleepList.filter { it.stop > lastCalendarImport }
+        val oldSleeps = database.sleepDao().getAll()
+        val newSleeps = importedSleeps.subtract(oldSleeps)
 
         // Insert the list of Sleep into DB
-        insertSleeps(sleepList)
-
-        // Remember the current time for the last import.
-        val editor = preferences.edit()
-        editor.putLong("last_calendar_import", now.time)
-        editor.apply()
+        insertSleeps(newSleeps.toList())
 
         // Show how many sleeps were imported.
-        val text = String.format(context.getString(R.string.imported_items), sleepList.size)
+        val text = String.format(context.getString(R.string.imported_items), newSleeps.size)
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)
         toast.show()
