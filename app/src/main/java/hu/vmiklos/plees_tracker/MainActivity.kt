@@ -407,28 +407,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun importCalendarData(selectedItem: UserCalendar) {
-        // Get all sleeps after the last import, or all of them if there was no previous import.
-        val now = Calendar.getInstance().time
-        var lastCalendarImport = DataModel.preferences.getLong("last_calendar_import", 0)
-
-        // Query the calendar for events
-        var sleepList = CalendarImport.queryForEvents(
-            this, selectedItem.id
-        ).map(CalendarImport::mapEventToSleep)
-        sleepList = sleepList.filter { it.stop > lastCalendarImport }
-
-        // Insert the list of Sleep into DB
-        viewModel.insertSleeps(sleepList)
-
-        // Remember the current time for the last import.
-        val editor = DataModel.preferences.edit()
-        editor.putLong("last_calendar_import", now.time)
-        editor.apply()
-
-        // Show how many sleeps were imported.
-        Toast.makeText(
-            this, getString(R.string.imported_items, sleepList.size), Toast.LENGTH_SHORT
-        ).show()
+        viewModel.importDataFromCalendar(this, selectedItem.id)
     }
 
     private fun exportCalendarData(selectedItem: UserCalendar) {

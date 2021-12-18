@@ -53,6 +53,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun importDataFromCalendar(context: Context, calendarId: String) {
+        viewModelScope.launch {
+            DataModel.importDataFromCalendar(context, calendarId)
+        }
+    }
+
     fun exportDataToCalendar(context: Context, calendarId: String) {
         viewModelScope.launch {
             DataModel.exportDataToCalendar(context, calendarId)
