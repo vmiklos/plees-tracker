@@ -193,20 +193,16 @@ object DataModel {
     }
 
     suspend fun exportDataToCalendar(context: Context, calendarId: String) {
-        // Get all sleeps after the last export, or all of them if there was no previous export.
-        val now = Calendar.getInstance().time
-        var lastCalendarExport = preferences.getLong("last_calendar_export", 0)
-        val sleeps = database.sleepDao().getAfter(lastCalendarExport)
+        val calendarSleeps = CalendarImport.queryForEvents(
+            context, calendarId
+        ).map(CalendarImport::mapEventToSleep)
+        val sleeps = database.sleepDao().getAll()
+        val exportedSleeps = sleeps.subtract(calendarSleeps)
 
-        CalendarExport.exportSleep(context, calendarId, sleeps)
-
-        // Remember the current time for the last export.
-        val editor = preferences.edit()
-        editor.putLong("last_calendar_export", now.time)
-        editor.apply()
+        CalendarExport.exportSleep(context, calendarId, exportedSleeps.toList())
 
         // Show how many sleeps were exported.
-        val text = String.format(context.getString(R.string.exported_items), sleeps.size)
+        val text = String.format(context.getString(R.string.exported_items), exportedSleeps.size)
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)
         toast.show()
