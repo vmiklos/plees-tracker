@@ -27,11 +27,14 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import java.io.File
 import java.util.Calendar
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
+import java.time.Duration
 
 /**
  * Instrumented tests for MainActivity.
@@ -42,14 +45,26 @@ class MainActivityInstrumentedTest {
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
+    @get:Rule
+    var tempFolder = TemporaryFolder()
+
+    private lateinit var exportFile: File
     private lateinit var database: AppDatabase
     private lateinit var context: Context
 
     @Before
     fun setup() {
+        exportFile = tempFolder.newFile("sleeps.csv")
         context = ApplicationProvider.getApplicationContext()
         database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         DataModel.database = database
+        Intents.init()
+    }
+
+    @After
+    fun cleanup() {
+        database.close()
+        Intents.release()
     }
 
     @Test
@@ -62,27 +77,57 @@ class MainActivityInstrumentedTest {
     @Test
     fun testImportExport() = runBlocking {
         // Create one sleep.
-        DataModel.start = Calendar.getInstance().time
-        DataModel.stop = Calendar.getInstance().time
-        DataModel.storeSleep()
+        val sleep = Sleep()
+        sleep.start = Calendar.getInstance().timeInMillis - Duration.ofHours(1).toMillis()
+        sleep.stop = Calendar.getInstance().timeInMillis
+        database.sleepDao().insert(sleep)
         assertEquals(1, database.sleepDao().getAll().size)
 
         // Export.
-        Intents.init()
-        val resultData = Intent()
-        val file = File(context.filesDir, "sleeps.csv")
-        resultData.data = Uri.fromFile(file)
-        val result = ActivityResult(Activity.RESULT_OK, resultData)
+        exportToFile()
+
+        // Clear the database.
+        database.clearAllTables()
+        assertEquals(0, database.sleepDao().getAll().size)
+
+        // Import.
+        importFromFile()
+        assertEquals(1, database.sleepDao().getAll().size)
+    }
+
+    @Test
+    fun testDoesNotImportDuplicate() = runBlocking {
+        // Create one sleep.
+        val sleep = Sleep()
+        sleep.start = Calendar.getInstance().timeInMillis
+        sleep.stop = Calendar.getInstance().timeInMillis + Duration.ofHours(1).toMillis()
+        database.sleepDao().insert(sleep)
+        assertEquals(1, database.sleepDao().getAll().size)
+
+        // Export.
+        exportToFile()
+
+        // Import.
+        importFromFile()
+        assertEquals(1, database.sleepDao().getAll().size)
+    }
+
+    private fun exportToFile() {
+        val intent = Intent()
+        intent.data = Uri.fromFile(exportFile)
+        val result = ActivityResult(Activity.RESULT_OK, intent)
         intending(hasAction(Intent.ACTION_CREATE_DOCUMENT)).respondWith(result)
         openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
         onView(withText(context.getString(R.string.export_file_item))).perform(click())
+    }
 
-        // Import.
+    private fun importFromFile() {
+        val intent = Intent()
+        intent.data = Uri.fromFile(exportFile)
+        val result = ActivityResult(Activity.RESULT_OK, intent)
         intending(hasAction(Intent.ACTION_GET_CONTENT)).respondWith(result)
         openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
         onView(withText(context.getString(R.string.import_file_item))).perform(click())
-        assertEquals(2, database.sleepDao().getAll().size)
-        Intents.release()
     }
 }
 
