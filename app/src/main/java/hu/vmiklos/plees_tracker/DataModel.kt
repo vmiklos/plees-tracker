@@ -255,7 +255,7 @@ object DataModel {
             os.write("sid,start,stop,rating\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
-                        sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
+                    sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {
