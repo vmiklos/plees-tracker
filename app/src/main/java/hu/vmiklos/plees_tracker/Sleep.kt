@@ -36,8 +36,8 @@ class Sleep {
 
     override fun equals(other: Any?): Boolean =
         other is Sleep &&
-                other.start == start &&
-                other.stop == stop
+            other.start == start &&
+            other.stop == stop
 
     override fun hashCode(): Int {
         var result = start.hashCode()
