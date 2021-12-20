@@ -16,9 +16,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
+import kotlinx.coroutines.launch
 
 /**
  * This is the view model of SleepActivity, providing coroutine scopes.
