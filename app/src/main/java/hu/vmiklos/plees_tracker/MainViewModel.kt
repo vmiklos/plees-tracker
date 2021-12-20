@@ -15,9 +15,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
-import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
+import kotlinx.coroutines.launch
 
 /**
  * This is the view model of MainActivity, providing coroutine scopes.
