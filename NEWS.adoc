@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.2.5
 
 - Resolves: gh#208 add separators between sleep items in the main activity
 - Resolves: gh#209 improved duplicate filtering in the calendar import/export (Jesper Lillqvist)

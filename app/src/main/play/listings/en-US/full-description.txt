@@ -12,6 +12,7 @@ Features:
 
 - Can show past sleeps, can selectively edit and delete individual sleeps.
 
-New in 7.2.4:
+New in 7.2.5:
 
-- Resolves: gh#207 avoid duplicate entries when importing from calendar multiple times
+- Resolves: gh#208 add separators between sleep items in the main activity
+- Resolves: gh#209 improved duplicate filtering in the calendar import/export (Jesper Lillqvist)
