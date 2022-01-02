@@ -41,10 +41,8 @@
     <string name="dismiss">Dispensar</string>
     <string name="import_dialog_error_message">Nenhum calendário foi encontrado</string>
     <string name="calendar_permission_required">A permissão do calendário é necessária</string>
-    <string name="imported_items">%d itens importados</string>
     <string name="export_calendar_item">Exportar para o calendário</string>
     <string name="exported_event_description">Exportado do Plees Tracker</string>
-    <string name="exported_items">%s sono(s) exportado(s)</string>
     <string name="settings_category_backup">Backup</string>
     <string name="settings_automatic_backup">Backup automático</string>
     <string name="settings_backup_path">Local do backup</string>

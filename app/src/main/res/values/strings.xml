@@ -44,10 +44,16 @@
     <string name="import_dialog_error_message">No calendars were found</string>
     <string name="dismiss">Dismiss</string>
     <string name="calendar_permission_required">Calendar permission required</string>
-    <string name="imported_items">Imported %d item(s)</string>
+    <plurals name="imported_items">
+      <item quantity="one">Imported %d item</item>
+      <item quantity="other">Imported %d items</item>
+    </plurals>
     <string name="exported_event_description">Exported from Plees Tracker</string>
     <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
-    <string name="exported_items">Exported %s sleeps</string>
+    <plurals name="exported_items">
+        <item quantity="one">Exported %d item</item>
+        <item quantity="other">Exported %d items</item>
+    </plurals>
     <string name="settings_category_backup">Backup</string>
     <string name="settings_automatic_backup">Automatic backup</string>
     <string name="settings_backup_path">Backup path</string>

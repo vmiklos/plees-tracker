@@ -186,7 +186,11 @@ object DataModel {
         insertSleeps(newSleeps.toList())
 
         // Show how many sleeps were imported.
-        val text = String.format(context.getString(R.string.imported_items), newSleeps.size)
+        val text = context.resources.getQuantityString(
+            R.plurals.imported_items,
+            newSleeps.size,
+            newSleeps.size
+        )
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)
         toast.show()
@@ -202,7 +206,11 @@ object DataModel {
         CalendarExport.exportSleep(context, calendarId, exportedSleeps.toList())
 
         // Show how many sleeps were exported.
-        val text = String.format(context.getString(R.string.exported_items), exportedSleeps.size)
+        val text = context.resources.getQuantityString(
+            R.plurals.exported_items,
+            exportedSleeps.size,
+            exportedSleeps.size
+        )
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)
         toast.show()
