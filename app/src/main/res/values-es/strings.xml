@@ -41,10 +41,8 @@
     <string name="dismiss">Descartar</string>
     <string name="import_dialog_error_message">No se encontraron calendarios</string>
     <string name="calendar_permission_required">Permiso de Calendario denegado</string>
-    <string name="imported_items">Importados %d elementos</string>
     <string name="export_calendar_item">Exportar a Calendario</string>
     <string name="exported_event_description">Exportado desde Plees Tracker</string>
-    <string name="exported_items">Exportado %s sueños</string>
     <string name="settings_category_backup">Respaldo</string>
     <string name="settings_automatic_backup">Respaldo automático</string>
     <string name="settings_backup_path">Ruta de respaldo</string>
