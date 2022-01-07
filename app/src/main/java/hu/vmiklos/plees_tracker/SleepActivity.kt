@@ -34,7 +34,7 @@ class SleepActivity : AppCompatActivity() {
         viewModel.showSleep(this, sid)
     }
 
-    fun editDateTime(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun editDateTime(view: View) {
         val isStart = view == findViewById(R.id.sleep_start)
         viewModel.editSleep(this, sid, isStart, applicationContext, contentResolver)
     }
