@@ -154,7 +154,7 @@ object DataModel {
                 importedSleeps.add(sleep)
             }
             val oldSleeps = database.sleepDao().getAll()
-            val newSleeps = importedSleeps.subtract(oldSleeps)
+            val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
             database.sleepDao().insert(newSleeps.toList())
         } catch (e: IOException) {
             Log.e(TAG, "importData: readLine() failed")
@@ -180,7 +180,7 @@ object DataModel {
             context, calendarId
         ).map(CalendarImport::mapEventToSleep)
         val oldSleeps = database.sleepDao().getAll()
-        val newSleeps = importedSleeps.subtract(oldSleeps)
+        val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
 
         // Insert the list of Sleep into DB
         insertSleeps(newSleeps.toList())
@@ -201,7 +201,7 @@ object DataModel {
             context, calendarId
         ).map(CalendarImport::mapEventToSleep)
         val sleeps = database.sleepDao().getAll()
-        val exportedSleeps = sleeps.subtract(calendarSleeps)
+        val exportedSleeps = sleeps.subtract(calendarSleeps.toSet())
 
         CalendarExport.exportSleep(context, calendarId, exportedSleeps.toList())
 
