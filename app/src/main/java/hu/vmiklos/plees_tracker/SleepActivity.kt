@@ -8,13 +8,14 @@ package hu.vmiklos.plees_tracker
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 
 /**
  * The activity is the editing UI of a single sleep.
  */
-class SleepActivity : AppCompatActivity() {
+class SleepActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var viewModel: SleepViewModel
     private var sid: Int = 0
 
@@ -23,6 +24,10 @@ class SleepActivity : AppCompatActivity() {
         viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
 
         setContentView(R.layout.activity_sleep)
+        val start = findViewById<TextView>(R.id.sleep_start)
+        start.setOnClickListener(this)
+        val stop = findViewById<TextView>(R.id.sleep_stop)
+        stop.setOnClickListener(this)
 
         val bundle = intent.extras ?: return
         sid = bundle.getInt("sid")
@@ -34,7 +39,7 @@ class SleepActivity : AppCompatActivity() {
         viewModel.showSleep(this, sid)
     }
 
-    fun editDateTime(view: View) {
+    override fun onClick(view: View?) {
         val isStart = view == findViewById(R.id.sleep_start)
         viewModel.editSleep(this, sid, isStart, applicationContext, contentResolver)
     }
