@@ -125,13 +125,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/stop_red_image" />
 
+            <TextView
+                android:id="@+id/sleep_item_comment_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/sleep_notes"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sleep_item_rating" />
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/sleep_item_comment"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:inputType="textAutoCorrect"
+                app:layout_constraintStart_toEndOf="@id/sleep_item_comment_label"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sleep_item_rating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
