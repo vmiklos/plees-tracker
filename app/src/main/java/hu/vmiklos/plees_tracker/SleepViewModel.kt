@@ -14,6 +14,7 @@ import android.text.format.DateFormat
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import java.util.Calendar
@@ -37,6 +38,9 @@ class SleepViewModel : ViewModel() {
             val rating = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
             rating.rating = sleep.rating.toFloat()
             rating.onRatingBarChangeListener = SleepRateCallback(activity, viewModel, sleep)
+            val comment = activity.findViewById<AppCompatEditText>(R.id.sleep_item_comment)
+            comment.setText(sleep.comment)
+            comment.addTextChangedListener(SleepCommentCallback(activity, viewModel, sleep))
         }
     }
 
@@ -102,10 +106,13 @@ class SleepViewModel : ViewModel() {
         }
     }
 
-    fun updateSleep(activity: SleepActivity, sleep: Sleep) {
+    fun updateSleep(activity: SleepActivity, sleep: Sleep, fromUI: Boolean) {
         viewModelScope.launch {
             DataModel.updateSleep(sleep)
-            showSleep(activity, sleep.sid)
+            if (!fromUI) {
+                // TODO we should probably never do this
+                showSleep(activity, sleep.sid)
+            }
         }
     }
 }

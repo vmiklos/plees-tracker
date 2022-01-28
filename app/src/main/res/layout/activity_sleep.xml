@@ -125,6 +125,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/stop_red_image" />
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/sleep_item_comment"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="textAutoCorrect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sleep_item_rating" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
