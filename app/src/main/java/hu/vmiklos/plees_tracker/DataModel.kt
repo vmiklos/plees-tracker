@@ -18,12 +18,14 @@ import androidx.lifecycle.LiveData
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.opencsv.CSVReader
+import com.opencsv.CSVWriter
 import hu.vmiklos.plees_tracker.calendar.CalendarExport
 import hu.vmiklos.plees_tracker.calendar.CalendarImport
-import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.OutputStream
+import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -133,7 +135,7 @@ object DataModel {
 
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
         val inputStream = cr.openInputStream(uri)
-        val br = BufferedReader(InputStreamReader(inputStream))
+        val reader = CSVReader(InputStreamReader(inputStream))
         // We have a speed vs memory usage trade-off here. Pay the cost of keeping all sleeps in
         // memory: the benefit is that inserting all of them once triggers a single notification of
         // observers. This means that importing 100s of sleeps is still ~instant, while it used to
@@ -142,24 +144,23 @@ object DataModel {
         try {
             var first = true
             while (true) {
-                val line = br.readLine() ?: break
+                val cells = reader.readNext() ?: break
                 if (first) {
                     // Ignore the header.
                     first = false
                     continue
                 }
-                val cells = line.split(",")
                 if (cells.size < 3) {
                     continue
                 }
                 val sleep = Sleep()
-                sleep.start = cells[1].toLong()
-                sleep.stop = cells[2].toLong()
+                sleep.start = cells[1].replace("^\"|\"$", "").toLong()
+                sleep.stop = cells[2].replace("^\"|\"$", "").toLong()
                 if (cells.size >= 4) {
-                    sleep.rating = cells[3].toLong()
+                    sleep.rating = cells[3].replace("^\"|\"$", "").toLong()
                 }
                 if (cells.size >= 5) {
-                    sleep.comment = cells[4]
+                    sleep.comment = cells[4].replace("^\"|\"$", "")
                 }
                 importedSleeps.add(sleep)
             }
@@ -270,13 +271,19 @@ object DataModel {
             return
         }
         try {
-            os.write("sid,start,stop,rating,comment\n".toByteArray())
+            val writer = CSVWriter(OutputStreamWriter(os, "UTF-8"))
+            writer.writeNext(listOf("sid", "start", "stop", "rating", "comment").toTypedArray())
             for (sleep in sleeps) {
-                val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
-                    sleep.stop.toString() + "," + sleep.rating.toString() + "," +
-                    sleep.comment + "\n"
-                os.write(row.toByteArray())
+                val row = listOf(
+                    sleep.sid.toString(),
+                    sleep.start.toString(),
+                    sleep.stop.toString(),
+                    sleep.rating.toString(),
+                    sleep.comment
+                )
+                writer.writeNext(row.toTypedArray())
             }
+            writer.close()
         } catch (e: IOException) {
             Log.e(TAG, "exportData: write() failed")
             return
