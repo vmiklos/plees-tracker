@@ -21,6 +21,6 @@ class SleepRateCallback(
             return
         }
         sleep.rating = rating.toLong()
-        viewModel.updateSleep(activity, sleep)
+        viewModel.updateSleep(activity, sleep, false)
     }
 }
