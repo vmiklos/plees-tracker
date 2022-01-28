@@ -28,6 +28,9 @@ class Sleep {
     @ColumnInfo(name = "rating")
     var rating: Long = 0
 
+    @ColumnInfo(name = "comment")
+    var comment: String = ""
+
     private val lengthMs
         get() = stop - start
 

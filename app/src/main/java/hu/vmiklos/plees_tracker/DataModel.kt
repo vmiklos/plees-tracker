@@ -35,6 +35,12 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
     }
 }
 
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE sleep ADD COLUMN comment TEXT NOT NULL DEFAULT ''")
+    }
+}
+
 /**
  * Data model is the singleton shared state between the activity and the
  * service.
@@ -80,6 +86,7 @@ object DataModel {
         }
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
             .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_2_3)
             .build()
         initialized = true
     }
@@ -150,6 +157,9 @@ object DataModel {
                 sleep.stop = cells[2].toLong()
                 if (cells.size >= 4) {
                     sleep.rating = cells[3].toLong()
+                }
+                if (cells.size >= 5) {
+                    sleep.comment = cells[4]
                 }
                 importedSleeps.add(sleep)
             }
@@ -260,10 +270,11 @@ object DataModel {
             return
         }
         try {
-            os.write("sid,start,stop,rating\n".toByteArray())
+            os.write("sid,start,stop,rating,comment\n".toByteArray())
             for (sleep in sleeps) {
                 val row = sleep.sid.toString() + "," + sleep.start.toString() + "," +
-                    sleep.stop.toString() + "," + sleep.rating.toString() + "\n"
+                    sleep.stop.toString() + "," + sleep.rating.toString() + "," +
+                    sleep.comment + "\n"
                 os.write(row.toByteArray())
             }
         } catch (e: IOException) {
