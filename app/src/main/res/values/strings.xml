@@ -172,4 +172,5 @@
         <item>"14.0"</item>
     </string-array>
     <string name="negative_duration">Not updating the sleep, stop is not after start.</string>
+    <string name="sleep_notes">Notes:</string>
 </resources>
