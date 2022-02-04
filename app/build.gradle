@@ -27,14 +27,13 @@ android {
     buildFeatures {
         viewBinding true
     }
-    lintOptions {
-        disable 'MissingTranslation'
-        // TODO file opencsv bugreport
-        disable 'DuplicatePlatformClasses'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        // TODO file opencsv bugreport for DuplicatePlatformClasses
+        disable 'MissingTranslation', 'DuplicatePlatformClasses'
     }
 }
 
