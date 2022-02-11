@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.3.0
 
 - Resolves: gh#239 it is now possible to comment sleeps
 - No longer using `android:onClick`, which is broken on older versions of Android
