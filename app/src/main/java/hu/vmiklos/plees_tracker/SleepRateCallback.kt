@@ -20,7 +20,9 @@ class SleepRateCallback(
         if (!fromUser) {
             return
         }
-        sleep.rating = rating.toLong()
-        viewModel.updateSleep(activity, sleep, false)
+        if (sleep.rating != rating.toLong()) {
+            sleep.rating = rating.toLong()
+            viewModel.updateSleep(activity, sleep, false)
+        }
     }
 }
