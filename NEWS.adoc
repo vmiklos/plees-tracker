@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#253 fixed sleep activity to allow sleep edits again (Mael Lacour)
+
 == 7.3.0
 
 - Resolves: gh#239 it is now possible to comment sleeps

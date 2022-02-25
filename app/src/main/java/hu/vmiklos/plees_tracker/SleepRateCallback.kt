@@ -17,12 +17,9 @@ class SleepRateCallback(
     private val sleep: Sleep
 ) : RatingBar.OnRatingBarChangeListener {
     override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
-        if (!fromUser) {
-            return
-        }
         if (sleep.rating != rating.toLong()) {
             sleep.rating = rating.toLong()
-            viewModel.updateSleep(activity, sleep, false)
+            viewModel.updateSleep(sleep)
         }
     }
 }
