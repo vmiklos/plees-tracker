@@ -26,7 +26,7 @@ class SleepCommentCallback(
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         if (sleep.comment != s.toString()) {
             sleep.comment = s.toString()
-            viewModel.updateSleep(activity, sleep, true)
+            viewModel.updateSleep(sleep)
         }
     }
 }

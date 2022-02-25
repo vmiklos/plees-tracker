@@ -26,6 +26,8 @@ import kotlinx.coroutines.launch
  */
 class SleepViewModel : ViewModel() {
 
+    var sleepCommentCallback: SleepCommentCallback? = null
+
     fun showSleep(activity: SleepActivity, sid: Int) {
         val viewModel = this
         viewModelScope.launch {
@@ -39,8 +41,12 @@ class SleepViewModel : ViewModel() {
             rating.rating = sleep.rating.toFloat()
             rating.onRatingBarChangeListener = SleepRateCallback(activity, viewModel, sleep)
             val comment = activity.findViewById<AppCompatEditText>(R.id.sleep_item_comment)
+            viewModel.sleepCommentCallback?.let {
+                comment.removeTextChangedListener(it)
+            }
             comment.setText(sleep.comment)
-            comment.addTextChangedListener(SleepCommentCallback(activity, viewModel, sleep))
+            viewModel.sleepCommentCallback = SleepCommentCallback(activity, viewModel, sleep)
+            comment.addTextChangedListener(viewModel.sleepCommentCallback)
         }
     }
 
@@ -106,13 +112,9 @@ class SleepViewModel : ViewModel() {
         }
     }
 
-    fun updateSleep(activity: SleepActivity, sleep: Sleep, fromUI: Boolean) {
+    fun updateSleep(sleep: Sleep) {
         viewModelScope.launch {
             DataModel.updateSleep(sleep)
-            if (!fromUI) {
-                // TODO we should probably never do this
-                showSleep(activity, sleep.sid)
-            }
         }
     }
 }
