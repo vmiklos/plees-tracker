@@ -39,13 +39,13 @@ class SleepViewModel : ViewModel() {
             stop.text = DataModel.formatTimestamp(Date(sleep.stop))
             val rating = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
             rating.rating = sleep.rating.toFloat()
-            rating.onRatingBarChangeListener = SleepRateCallback(activity, viewModel, sleep)
+            rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
             val comment = activity.findViewById<AppCompatEditText>(R.id.sleep_item_comment)
             viewModel.sleepCommentCallback?.let {
                 comment.removeTextChangedListener(it)
             }
             comment.setText(sleep.comment)
-            viewModel.sleepCommentCallback = SleepCommentCallback(activity, viewModel, sleep)
+            viewModel.sleepCommentCallback = SleepCommentCallback(viewModel, sleep)
             comment.addTextChangedListener(viewModel.sleepCommentCallback)
         }
     }

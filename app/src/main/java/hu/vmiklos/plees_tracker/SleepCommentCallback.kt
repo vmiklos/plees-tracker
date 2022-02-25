@@ -13,7 +13,6 @@ import android.text.TextWatcher
  * This callback handles the comment of an individual sleep.
  */
 class SleepCommentCallback(
-    private val activity: SleepActivity,
     private val viewModel: SleepViewModel,
     private val sleep: Sleep
 ) : TextWatcher {

@@ -12,7 +12,6 @@ import android.widget.RatingBar
  * This callback handles the rating of an individual sleep.
  */
 class SleepRateCallback(
-    private val activity: SleepActivity,
     private val viewModel: SleepViewModel,
     private val sleep: Sleep
 ) : RatingBar.OnRatingBarChangeListener {
