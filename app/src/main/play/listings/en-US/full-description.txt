@@ -12,7 +12,6 @@ Features:
 
 - Can show past sleeps, can selectively edit and delete individual sleeps.
 
-New in 7.3.0:
+New in 7.3.1:
 
-- Resolves: gh#239 it is now possible to comment sleeps
-- No longer using `android:onClick`, which is broken on older versions of Android
+- Resolves: gh#253 fixed sleep activity to allow sleep edits again (Mael Lacour)

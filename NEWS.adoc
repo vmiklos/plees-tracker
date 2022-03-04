@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.3.1
 
 - Resolves: gh#253 fixed sleep activity to allow sleep edits again (Mael Lacour)
 
