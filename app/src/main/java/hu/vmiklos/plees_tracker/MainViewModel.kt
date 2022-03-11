@@ -76,12 +76,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun insertSleeps(sleepList: List<Sleep>) {
-        viewModelScope.launch {
-            DataModel.insertSleeps(sleepList)
-        }
-    }
-
     fun deleteSleep(sleep: Sleep, context: Context, cr: ContentResolver) {
         viewModelScope.launch {
             DataModel.deleteSleep(sleep)
