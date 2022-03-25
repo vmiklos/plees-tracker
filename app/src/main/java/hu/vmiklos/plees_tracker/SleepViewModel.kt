@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
  */
 class SleepViewModel : ViewModel() {
 
-    var sleepCommentCallback: SleepCommentCallback? = null
+    private var sleepCommentCallback: SleepCommentCallback? = null
 
     fun showSleep(activity: SleepActivity, sid: Int) {
         val viewModel = this

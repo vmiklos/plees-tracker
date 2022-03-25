@@ -124,8 +124,8 @@ class SleepsAdapter(
         val rating: RatingBar = view.findViewById(R.id.sleep_item_rating)
 
         val swipeable: View = view.findViewById(R.id.sleep_swipeable)
-        val deleteLeft: ImageView = view.findViewById(R.id.sleep_delete_left)
-        val deleteRight: ImageView = view.findViewById(R.id.sleep_delete_right)
+        private val deleteLeft: ImageView = view.findViewById(R.id.sleep_delete_left)
+        private val deleteRight: ImageView = view.findViewById(R.id.sleep_delete_right)
 
         fun showSwipeDelete(left: Boolean) {
             deleteLeft.setVisibility(if (left) View.VISIBLE else View.INVISIBLE)
