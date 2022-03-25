@@ -72,7 +72,7 @@ object DataModel {
     val sleepsLive: LiveData<List<Sleep>>
         get() = database.sleepDao().getAllLive()
 
-    var initialized: Boolean = false
+    private var initialized: Boolean = false
 
     fun init(context: Context, preferences: SharedPreferences) {
         if (initialized) {
@@ -114,7 +114,7 @@ object DataModel {
         database.sleepDao().insert(sleep)
     }
 
-    suspend fun insertSleeps(sleepList: List<Sleep>) {
+    private suspend fun insertSleeps(sleepList: List<Sleep>) {
         database.sleepDao().insert(sleepList)
     }
 
