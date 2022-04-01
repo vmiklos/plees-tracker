@@ -371,7 +371,7 @@ object DataModel {
     }
 
     fun formatTimestamp(date: Date): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX", Locale.getDefault())
         return sdf.format(date)
     }
 
