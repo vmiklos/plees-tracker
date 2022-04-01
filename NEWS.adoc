@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.3.2
 
 - Show timezone at sleep start/stop timestamps
 - Runtime baseline is now API 24 (Android 7.0), still covering more than 80% of devices
