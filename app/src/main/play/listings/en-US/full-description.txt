@@ -14,4 +14,5 @@ Features:
 
 New in 7.3.1:
 
-- Resolves: gh#253 fixed sleep activity to allow sleep edits again (Mael Lacour)
+- Show timezone at sleep start/stop timestamps
+- Runtime baseline is now API 24 (Android 7.0), still covering more than 80% of devices
