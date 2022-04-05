@@ -11,7 +11,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -184,9 +183,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 fabText.visibility = View.VISIBLE
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            recyclerView.setOnScrollChangeListener(listener)
-        }
+        recyclerView.setOnScrollChangeListener(listener)
 
         // See if the activity is triggered from the widget. If so, toggle the start/stop state.
         intent?.let {
