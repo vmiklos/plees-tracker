@@ -128,8 +128,8 @@ class SleepsAdapter(
         private val deleteRight: ImageView = view.findViewById(R.id.sleep_delete_right)
 
         fun showSwipeDelete(left: Boolean) {
-            deleteLeft.setVisibility(if (left) View.VISIBLE else View.INVISIBLE)
-            deleteRight.setVisibility(if (left) View.INVISIBLE else View.VISIBLE)
+            deleteLeft.visibility = if (left) View.VISIBLE else View.INVISIBLE
+            deleteRight.visibility = if (left) View.INVISIBLE else View.VISIBLE
         }
     }
 }
