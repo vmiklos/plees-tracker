@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#277 sleep activity: allow multi-line notes
+
 == 7.3.2
 
 - Show timezone at sleep start/stop timestamps
