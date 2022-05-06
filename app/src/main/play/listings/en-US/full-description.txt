@@ -12,7 +12,6 @@ Features:
 
 - Can show past sleeps, can selectively edit and delete individual sleeps.
 
-New in 7.3.1:
+New in 7.3.3:
 
-- Show timezone at sleep start/stop timestamps
-- Runtime baseline is now API 24 (Android 7.0), still covering more than 80% of devices
+- Resolves: gh#277 sleep activity: allow multi-line notes

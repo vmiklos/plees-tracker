@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.3.3
 
 - Resolves: gh#277 sleep activity: allow multi-line notes
 
