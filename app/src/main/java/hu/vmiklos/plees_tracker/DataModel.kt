@@ -126,6 +126,10 @@ object DataModel {
         database.sleepDao().delete(sleep)
     }
 
+    suspend fun deleteAllSleep() {
+        database.sleepDao().deleteAll()
+    }
+
     suspend fun getSleepById(sid: Int): Sleep {
         return database.sleepDao().getById(sid)
     }

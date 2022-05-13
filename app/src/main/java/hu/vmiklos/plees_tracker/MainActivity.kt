@@ -331,6 +331,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, PreferencesActivity::class.java))
                 return true
             }
+            R.id.delete_all_sleep -> {
+                viewModel.deleteAllSleep()
+                return true
+            }
             R.id.stats -> {
                 startActivity(Intent(this, StatsActivity::class.java))
                 return true
