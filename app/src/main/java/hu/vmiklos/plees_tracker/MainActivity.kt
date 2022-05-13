@@ -10,6 +10,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -26,26 +30,35 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import hu.vmiklos.plees_tracker.calendar.CalendarImport
 import hu.vmiklos.plees_tracker.calendar.UserCalendar
-import java.util.Calendar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.*
+
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
  * tracking.
  */
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListener {
 
     private lateinit var viewModel: MainViewModel
+
+
+    //test
+    private var sensorMan: SensorManager? = null
+    private var accelerometer: Sensor? = null
+    private var mGravity: FloatArray? = null
+    private var mAccel = 0.0
+    private var mAccelCurrent = 0.0
+    private var mAccelLast = 0.0
 
     // SharedPreferences keeps listeners in a WeakHashMap, so keep this as a member.
     private val sharedPreferenceListener = SharedPreferencesChangeListener()
@@ -100,6 +113,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //test
+        sensorMan = getSystemService(SENSOR_SERVICE) as SensorManager
+        accelerometer = sensorMan!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        mAccel = 0.00
+        mAccelCurrent = SensorManager.GRAVITY_EARTH.toDouble()
+        mAccelLast = SensorManager.GRAVITY_EARTH.toDouble()
+
 
         sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
 
@@ -195,10 +216,53 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         updateView()
     }
 
+//test
+    override fun onResume() {
+        super.onResume()
+        sensorMan?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorMan?.unregisterListener(this)
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+            mGravity = event.values.clone()
+            // Shake detection
+            val x = mGravity!!.get(0).toDouble()
+            val y = mGravity!!.get(1).toDouble()
+            val z = mGravity!!.get(2).toDouble()
+            mAccelLast = mAccelCurrent
+            mAccelCurrent = Math.sqrt(x * x + y * y + z * z)
+            val delta = mAccelCurrent - mAccelLast
+            mAccel = mAccel * 0.9f + delta
+            // Make this higher or lower according to how much
+            // motion you want to detect
+            //stop recording sleep if phone is moved//
+            if (mAccel > 9.3) {
+                Log.i("plees tracker", "movement: " + mAccel.toString())
+                if (DataModel.start != null && DataModel.stop == null) {
+                    DataModel.stop = Calendar.getInstance().time
+                    viewModel.stopSleep(applicationContext, contentResolver)
+                    updateView()
+                    Log.i("plees tracker", "sleep tracking STOPPED!!! at " + mAccel.toString())
+                }
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        // required method
+    }
+
+
     override fun onStart() {
         super.onStart()
         val intent = Intent(this, MainService::class.java)
         stopService(intent)
+        Log.i("plees tracker", "onStart() STARTED!!!")
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         recyclerView.findViewHolderForAdapterPosition(0)?.let {
             // Since the adapter unconditionally gets assigned in `onCreate()`
@@ -213,6 +277,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, MainService::class.java)
         if (DataModel.start != null && DataModel.stop == null) {
             startService(intent)
+            Log.i("plees tracker", "onStop() STOPPED!!!")
         }
     }
 
@@ -220,9 +285,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.start_stop_layout -> {
                 if (DataModel.start != null && DataModel.stop == null) {
+                    Log.i("plees tracker", "onClick() STOPPED!!!")
                     DataModel.stop = Calendar.getInstance().time
                     viewModel.stopSleep(applicationContext, contentResolver)
                 } else {
+                    Log.i("plees tracker", "onClick() STARTED!!!")
                     DataModel.start = Calendar.getInstance().time
                     DataModel.stop = null
                 }
@@ -331,6 +398,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, PreferencesActivity::class.java))
                 return true
             }
+            R.id.deleteallsleep -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    DataModel.deleteAllSleep()
+                }
+                return true
+            }
             R.id.stats -> {
                 startActivity(Intent(this, StatsActivity::class.java))
                 return true
@@ -427,6 +500,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         private const val TAG = "MainActivity"
     }
+
+
+
+
+
+
+
 }
+
+
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

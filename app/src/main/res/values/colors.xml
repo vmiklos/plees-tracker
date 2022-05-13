@@ -3,13 +3,13 @@
     <color name="textColor">#000</color>
     <color name="colorPrimary">#5E35B1</color>
     <color name="colorPrimaryDark">#5E35B1</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#0000FF</color>
     <color name="colorBackground">#ffffff</color>
     <color name="colorSurface">#ffffff</color>
 
     <!-- FAB color -->
     <color name="colorFabPrimary">#5E35B1</color>
-    <color name="colorFabAccent">#D81B60</color>
+    <color name="colorFabAccent">#0000FF</color>
     <color name="colorFabText">#ffffff</color>
 
     <!-- Dashboard  color-->

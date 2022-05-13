@@ -7,6 +7,8 @@
     <item android:id="@+id/stats" android:title="@string/stats" />
     <item android:id="@+id/graphs" android:title="@string/graphs" />
     <item android:id="@+id/settings" android:title="@string/settings" />
+    <item android:id="@+id/deleteallsleep" android:title="@string/deleteallsleep" />
     <item android:id="@+id/website" android:title="@string/website"/>
     <item android:id="@+id/about" android:title="@string/about_item"/>
+
 </menu>
