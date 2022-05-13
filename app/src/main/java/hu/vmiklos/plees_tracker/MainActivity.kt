@@ -241,7 +241,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             // Make this higher or lower according to how much
             // motion you want to detect
             //stop recording sleep if phone is moved//
-            if (mAccel > 9.3) {
+            //TODO set this in prefs settings....
+            if (mAccel > 3.6) {
                 Log.i("plees tracker", "movement: " + mAccel.toString())
                 if (DataModel.start != null && DataModel.stop == null) {
                     DataModel.stop = Calendar.getInstance().time

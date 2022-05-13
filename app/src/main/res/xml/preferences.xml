@@ -51,5 +51,6 @@
             android:key="show_rating"
             android:title="@string/show_rating" />
     </PreferenceCategory>
+
 </PreferenceScreen>
 
