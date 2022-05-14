@@ -39,6 +39,15 @@
             android:entryValues="@array/ideal_sleep_entry_values"
             android:defaultValue="8.0"
             app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:key="phone_movement_weight"
+            android:title="@string/settings_phone_movement_weight"
+            android:entries="@array/ideal_sleep_entry_values"
+            android:entryValues="@array/ideal_sleep_entry_values"
+            android:defaultValue="3.5"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">

@@ -16,6 +16,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.Global.getInt
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -29,6 +30,7 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -40,6 +42,7 @@ import hu.vmiklos.plees_tracker.calendar.UserCalendar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.reflect.Array.getInt
 import java.util.*
 
 
@@ -241,8 +244,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             // Make this higher or lower according to how much
             // motion you want to detect
             //stop recording sleep if phone is moved//
-            //TODO set this in prefs settings....
-            if (mAccel > 3.6) {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+            val sensitive = preferences.getString("phone_movement_weight", "6.3")
+            val sensitivef = sensitive!!.toFloat()
+            //Log.i("plees tracker", "phone movement is set at " + sensitivef)
+            if (mAccel > sensitivef) {
                 Log.i("plees tracker", "movement: " + mAccel.toString())
                 if (DataModel.start != null && DataModel.stop == null) {
                     DataModel.stop = Calendar.getInstance().time
