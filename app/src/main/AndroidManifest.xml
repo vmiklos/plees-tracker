@@ -38,6 +38,7 @@
         </activity>
         <activity android:name=".PreferencesActivity" />
         <service android:name=".MainService"/>
+        <service android:name=".SleepService"/>
         <service
             android:name=".TileService"
             android:icon="@drawable/ic_launcher_foreground"

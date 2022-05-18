@@ -16,7 +16,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings.Global.getInt
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -30,19 +29,18 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
+import hu.vmiklos.plees_tracker.DataModel.preferences
 import hu.vmiklos.plees_tracker.calendar.CalendarImport
 import hu.vmiklos.plees_tracker.calendar.UserCalendar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.reflect.Array.getInt
 import java.util.*
 
 
@@ -124,11 +122,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         mAccelCurrent = SensorManager.GRAVITY_EARTH.toDouble()
         mAccelLast = SensorManager.GRAVITY_EARTH.toDouble()
 
-
         sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
 
-        viewModel = ViewModelProvider.AndroidViewModelFactory(application)
-            .create(MainViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory(application).create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
         val startStop = findViewById<LinearLayout>(R.id.start_stop_layout)
@@ -217,12 +213,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         }
 
         updateView()
+
+
+        val sleepService = Intent(this, SleepService::class.java)
+        //Start Service
+        startService(sleepService)
+
+
+
     }
 
-//test
     override fun onResume() {
         super.onResume()
         sensorMan?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val sleeptrack = preferences.getBoolean("sleeptrack", false)
+        Log.i("plees tracker", "onResume() sleeptrack: "+sleeptrack)
+        if (sleeptrack == false) {
+            Log.i("plees tracker", "onResume() forcing button update...")
+            DataModel.stop = Calendar.getInstance().time
+            viewModel.stopSleep(applicationContext, contentResolver)
+            updateView()
+        }
+
+
+        updateView()
     }
 
     override fun onPause() {
@@ -253,8 +268,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
                 if (DataModel.start != null && DataModel.stop == null) {
                     DataModel.stop = Calendar.getInstance().time
                     viewModel.stopSleep(applicationContext, contentResolver)
-                    updateView()
                     Log.i("plees tracker", "sleep tracking STOPPED!!! at " + mAccel.toString())
+                    val editor = DataModel.preferences.edit()
+                    editor.putBoolean("sleeptrack", false)
+                    editor.apply()
+                    updateView()
                 }
             }
         }
@@ -295,10 +313,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
                     Log.i("plees tracker", "onClick() STOPPED!!!")
                     DataModel.stop = Calendar.getInstance().time
                     viewModel.stopSleep(applicationContext, contentResolver)
+                    val editor = DataModel.preferences.edit()
+                    editor.putBoolean("sleeptrack", false)
+                    editor.apply()
                 } else {
                     Log.i("plees tracker", "onClick() STARTED!!!")
                     DataModel.start = Calendar.getInstance().time
                     DataModel.stop = null
+                    val editor = DataModel.preferences.edit()
+                    editor.putBoolean("sleeptrack", true)
+                    editor.apply()
                 }
                 updateView()
             }
@@ -331,7 +355,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
         val startStopText = findViewById<TextView>(R.id.start_stop_text)
 
-        if (DataModel.start != null && DataModel.stop != null) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val sleeptrack = preferences.getBoolean("sleeptrack", false)
+        Log.i("plees tracker", "sleeptrack: "+sleeptrack)
+
+
+        if (DataModel.start != null && DataModel.stop != null && sleeptrack == false) {
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
@@ -344,10 +373,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             return
         }
         DataModel.start?.let { start ->
-            status.text = String.format(
-                getString(R.string.sleeping_since),
-                DataModel.formatTimestamp(start)
-            )
+            status.text = String.format(getString(R.string.sleeping_since), DataModel.formatTimestamp(start))
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)
             startStopText.text = getString(R.string.stop)
@@ -518,4 +544,3 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
 
 
-/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
