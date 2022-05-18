@@ -32,6 +32,7 @@ android {
     lint {
         disable 'MissingTranslation'
     }
+    namespace 'hu.vmiklos.plees_tracker'
 }
 
 dependencies {
