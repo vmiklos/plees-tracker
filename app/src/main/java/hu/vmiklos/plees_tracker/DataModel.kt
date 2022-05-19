@@ -184,7 +184,7 @@ object DataModel {
 
     suspend fun importDataFromCalendar(context: Context, calendarId: String) {
         // Query the calendar for events
-        var importedSleeps = CalendarImport.queryForEvents(
+        val importedSleeps = CalendarImport.queryForEvents(
             context, calendarId
         ).map(CalendarImport::mapEventToSleep)
         val oldSleeps = database.sleepDao().getAll()
