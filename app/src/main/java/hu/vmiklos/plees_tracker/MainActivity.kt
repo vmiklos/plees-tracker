@@ -215,10 +215,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         updateView()
 
 
-        val sleepService = Intent(this, SleepService::class.java)
-        //Start Service
-        startService(sleepService)
-
+        val isDetectionEnabled = preferences.getBoolean("enable_phone_movement_detection", false)
+        //Start Service - if enabled in prefernces.
+        if (isDetectionEnabled) {
+            val sleepService = Intent(this, SleepService::class.java)
+            startService(sleepService)
+        }
 
 
     }
@@ -259,6 +261,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             // Make this higher or lower according to how much
             // motion you want to detect
             //stop recording sleep if phone is moved//
+
+            val isDetectionEnabled = preferences.getBoolean("enable_phone_movement_detection", false)
+            //Start detection - if enabled in prefernces.
+            if (isDetectionEnabled) {
             val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
             val sensitive = preferences.getString("phone_movement_weight", "6.3")
             val sensitivef = sensitive!!.toFloat()
@@ -275,6 +281,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
                     updateView()
                 }
             }
+        }
         }
     }
 

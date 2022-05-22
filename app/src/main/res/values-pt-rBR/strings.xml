@@ -94,4 +94,5 @@
     <string name="past_sleeps">Sonos recentes</string>
     <string name="negative_duration">O sono não será atualizado. Os dados inseridos são incorretos.</string>
     <string name="settings_phone_movement_weight">Quão sensível você deseja que o telefone detecte movimento? Baixa mais sensível</string>
+    <string name="enable_phone_movement_detection">Ative a detecção de movimento do telefone para parar automaticamente o rastreamento do sono</string>
 </resources>

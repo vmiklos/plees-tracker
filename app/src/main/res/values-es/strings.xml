@@ -94,4 +94,5 @@
     <string name="past_sleeps">Sueños pasados</string>
     <string name="negative_duration">El sueño no está actualizando, detenlo si no se inicia luego.</string>
     <string name="settings_phone_movement_weight">¿Qué tan sensible quieres que el teléfono detecte movimiento? Más bajo más sensible</string>
+    <string name="enable_phone_movement_detection">Habilite la detección de movimiento del teléfono para detener automáticamente el seguimiento del sueño</string>
 </resources>

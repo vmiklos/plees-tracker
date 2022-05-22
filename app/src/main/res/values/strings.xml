@@ -173,6 +173,7 @@
         <item>"14.0"</item>
     </string-array>
     <string name="settings_phone_movement_weight">How Sensitive you want the phone to detect movement? Lower more sensitive</string>
+    <string name="enable_phone_movement_detection">Enable Phone Movement detection to auto stop sleep tracking</string>
     <string name="negative_duration">Not updating the sleep, stop is not after start.</string>
     <string name="sleep_notes">Notes:</string>
 </resources>

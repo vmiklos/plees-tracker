@@ -48,6 +48,11 @@
             android:defaultValue="3.5"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_phone_movement_detection"
+            android:title="@string/enable_phone_movement_detection" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">
