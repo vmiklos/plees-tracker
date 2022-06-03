@@ -3,6 +3,7 @@
 == master
 
 - Add menu item to delete all sleeps (Ely M)
+- Resolves: gh#285 main service: fix crash on Android 12
 
 == 7.3.3
 
