@@ -174,4 +174,7 @@
     </string-array>
     <string name="negative_duration">Not updating the sleep, stop is not after start.</string>
     <string name="sleep_notes">Notes:</string>
+    <string name="delete_all_message">"Are you sure you want to delete all sleeps?"</string>
+    <string name="delete_all_positive">Yes</string>
+    <string name="delete_all_negative">No</string>
 </resources>

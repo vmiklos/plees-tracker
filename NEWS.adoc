@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- delete all sleep now confirms before erasing starts
+
 == 7.3.4
 
 - Add menu item to delete all sleeps (Ely M)
