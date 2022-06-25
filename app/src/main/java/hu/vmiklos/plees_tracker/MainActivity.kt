@@ -22,6 +22,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -332,7 +333,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 return true
             }
             R.id.delete_all_sleep -> {
-                viewModel.deleteAllSleep()
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage(getString(R.string.delete_all_message))
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.delete_all_positive)) { _, _ ->
+                        viewModel.deleteAllSleep()
+                    }
+                    .setNegativeButton(getString(R.string.delete_all_negative)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                val alert = builder.create()
+                alert.show()
                 return true
             }
             R.id.stats -> {
