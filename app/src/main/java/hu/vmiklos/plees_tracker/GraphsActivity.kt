@@ -92,35 +92,34 @@ class GraphsActivity : AppCompatActivity() {
         title = getString(R.string.graph_deficit)
 
         viewModel.durationSleepsLive.observe(
-            this,
-            { sleeps ->
-                if (sleeps != null && sleeps.isNotEmpty()) {
-                    val deficitByDay = sleeps.lengthPerDay()
-                        .map { (day, length) -> day to length - getIdealSleep() }
-                    val deficitSum = deficitByDay.cumulativeSum()
+            this
+        ) { sleeps ->
+            if (sleeps != null && sleeps.isNotEmpty()) {
+                val deficitByDay = sleeps.lengthPerDay()
+                    .map { (day, length) -> day to length - getIdealSleep() }
+                val deficitSum = deficitByDay.cumulativeSum()
 
-                    val deficitDataSet = deficitByDay.toDataSet(
-                        R.string.graph_deficit,
-                        ContextCompat.getColor(this, R.color.dash_daily)
-                    )
-                    val deficitSumDataSet = deficitSum.toDataSet(
-                        R.string.graph_total,
-                        ContextCompat.getColor(this, R.color.dash_average)
-                    )
-                    deficitSumDataSet.setDrawFilled(true)
-                    deficitSumDataSet.fillColor =
-                        ContextCompat.getColor(this, R.color.dash_average)
-                    deficitSumDataSet.fillAlpha = 65
+                val deficitDataSet = deficitByDay.toDataSet(
+                    R.string.graph_deficit,
+                    ContextCompat.getColor(this, R.color.dash_daily)
+                )
+                val deficitSumDataSet = deficitSum.toDataSet(
+                    R.string.graph_total,
+                    ContextCompat.getColor(this, R.color.dash_average)
+                )
+                deficitSumDataSet.setDrawFilled(true)
+                deficitSumDataSet.fillColor =
+                    ContextCompat.getColor(this, R.color.dash_average)
+                deficitSumDataSet.fillAlpha = 65
 
-                    renderChart {
-                        chart.axisLeft.valueFormatter = FloatAxisFormatter()
-                        chart.axisLeft.granularity = 0.2f
-                        setChartAxisLeftLabel(getString(R.string.graph_hours))
-                        chart.data = LineData(deficitDataSet, deficitSumDataSet)
-                    }
+                renderChart {
+                    chart.axisLeft.valueFormatter = FloatAxisFormatter()
+                    chart.axisLeft.granularity = 0.2f
+                    setChartAxisLeftLabel(getString(R.string.graph_hours))
+                    chart.data = LineData(deficitDataSet, deficitSumDataSet)
                 }
             }
-        )
+        }
         return true
     }
 
@@ -128,30 +127,29 @@ class GraphsActivity : AppCompatActivity() {
         title = getString(R.string.graph_length)
 
         viewModel.durationSleepsLive.observe(
-            this,
-            { sleeps ->
-                if (sleeps != null && sleeps.isNotEmpty()) {
-                    val lengthPerDay = sleeps.lengthPerDay()
-                    val lengthAvg = lengthPerDay.cumulativeAverage()
+            this
+        ) { sleeps ->
+            if (sleeps != null && sleeps.isNotEmpty()) {
+                val lengthPerDay = sleeps.lengthPerDay()
+                val lengthAvg = lengthPerDay.cumulativeAverage()
 
-                    val lengthDataSet = lengthPerDay.toDataSet(
-                        R.string.graph_length,
-                        ContextCompat.getColor(this, R.color.dash_daily)
-                    )
-                    val lengthAvgDataSet = lengthAvg.toDataSet(
-                        R.string.graph_average,
-                        ContextCompat.getColor(this, R.color.dash_average)
-                    )
+                val lengthDataSet = lengthPerDay.toDataSet(
+                    R.string.graph_length,
+                    ContextCompat.getColor(this, R.color.dash_daily)
+                )
+                val lengthAvgDataSet = lengthAvg.toDataSet(
+                    R.string.graph_average,
+                    ContextCompat.getColor(this, R.color.dash_average)
+                )
 
-                    renderChart {
-                        chart.axisLeft.valueFormatter = FloatAxisFormatter()
-                        chart.axisLeft.granularity = 0.2f
-                        setChartAxisLeftLabel(getString(R.string.graph_hours))
-                        chart.data = LineData(lengthDataSet, lengthAvgDataSet)
-                    }
+                renderChart {
+                    chart.axisLeft.valueFormatter = FloatAxisFormatter()
+                    chart.axisLeft.granularity = 0.2f
+                    setChartAxisLeftLabel(getString(R.string.graph_hours))
+                    chart.data = LineData(lengthDataSet, lengthAvgDataSet)
                 }
             }
-        )
+        }
         return true
     }
 
@@ -159,29 +157,28 @@ class GraphsActivity : AppCompatActivity() {
         title = getString(R.string.graph_start)
 
         viewModel.durationSleepsLive.observe(
-            this,
-            { sleeps ->
-                if (sleeps != null && sleeps.isNotEmpty()) {
-                    val startByDay = sleeps.startOfSleepByDay()
-                    val startAvg = startByDay.cumulativeAverage()
+            this
+        ) { sleeps ->
+            if (sleeps != null && sleeps.isNotEmpty()) {
+                val startByDay = sleeps.startOfSleepByDay()
+                val startAvg = startByDay.cumulativeAverage()
 
-                    val startDataSet = startByDay.toDataSet(
-                        R.string.graph_start,
-                        ContextCompat.getColor(this, R.color.dash_daily)
-                    )
-                    val startAvgDataSet = startAvg.toDataSet(
-                        R.string.graph_average,
-                        ContextCompat.getColor(this, R.color.dash_average)
-                    )
+                val startDataSet = startByDay.toDataSet(
+                    R.string.graph_start,
+                    ContextCompat.getColor(this, R.color.dash_daily)
+                )
+                val startAvgDataSet = startAvg.toDataSet(
+                    R.string.graph_average,
+                    ContextCompat.getColor(this, R.color.dash_average)
+                )
 
-                    renderChart {
-                        chart.axisLeft.valueFormatter = TimeAxisFormatter()
-                        setChartAxisLeftLabel(null)
-                        chart.data = LineData(startDataSet, startAvgDataSet)
-                    }
+                renderChart {
+                    chart.axisLeft.valueFormatter = TimeAxisFormatter()
+                    setChartAxisLeftLabel(null)
+                    chart.data = LineData(startDataSet, startAvgDataSet)
                 }
             }
-        )
+        }
         return true
     }
 
@@ -189,32 +186,31 @@ class GraphsActivity : AppCompatActivity() {
         title = getString(R.string.graph_rating)
 
         viewModel.durationSleepsLive.observe(
-            this,
-            { sleeps ->
-                if (sleeps != null && sleeps.isNotEmpty()) {
-                    val ratingByDay = sleeps.ratingByDay()
-                    val ratingAvg = ratingByDay.cumulativeAverage()
+            this
+        ) { sleeps ->
+            if (sleeps != null && sleeps.isNotEmpty()) {
+                val ratingByDay = sleeps.ratingByDay()
+                val ratingAvg = ratingByDay.cumulativeAverage()
 
-                    val ratingDataSet = ratingByDay.toDataSet(
-                        R.string.graph_rating,
-                        ContextCompat.getColor(this, R.color.dash_daily)
-                    )
-                    val ratingAvgDataSet = ratingAvg.toDataSet(
-                        R.string.graph_average,
-                        ContextCompat.getColor(this, R.color.dash_average)
-                    )
+                val ratingDataSet = ratingByDay.toDataSet(
+                    R.string.graph_rating,
+                    ContextCompat.getColor(this, R.color.dash_daily)
+                )
+                val ratingAvgDataSet = ratingAvg.toDataSet(
+                    R.string.graph_average,
+                    ContextCompat.getColor(this, R.color.dash_average)
+                )
 
-                    renderChart {
-                        chart.axisLeft.valueFormatter = FloatAxisFormatter()
-                        chart.axisLeft.granularity = 0.1f
-                        chart.axisLeft.axisMinimum = 0f
-                        chart.axisLeft.axisMaximum = 5f
-                        setChartAxisLeftLabel(null)
-                        chart.data = LineData(ratingDataSet, ratingAvgDataSet)
-                    }
+                renderChart {
+                    chart.axisLeft.valueFormatter = FloatAxisFormatter()
+                    chart.axisLeft.granularity = 0.1f
+                    chart.axisLeft.axisMinimum = 0f
+                    chart.axisLeft.axisMaximum = 5f
+                    setChartAxisLeftLabel(null)
+                    chart.data = LineData(ratingDataSet, ratingAvgDataSet)
                 }
             }
-        )
+        }
         return true
     }
 
