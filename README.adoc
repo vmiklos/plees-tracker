@@ -4,7 +4,7 @@ image:https://github.com/vmiklos/plees-tracker/workflows/tests/badge.svg["Build 
 
 Plees Tracker is a simple sleep tracker for your Android phone.
 
-The latest version is v7.3.4, released on 2022-06-03.  See the
+The latest version is v7.3.5, released on 2022-07-01.  See the
 https://github.com/vmiklos/plees-tracker/blob/master/NEWS.adoc[release notes] and the
 https://github.com/vmiklos/plees-tracker/blob/master/doc/README.adoc[documentation].
 

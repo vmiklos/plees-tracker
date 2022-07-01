@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.3.5
 
 - delete all sleep now confirms before erasing starts
 
