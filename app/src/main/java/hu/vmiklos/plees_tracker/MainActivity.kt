@@ -30,7 +30,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.mikepenz.aboutlibraries.Libs
@@ -38,11 +42,11 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import hu.vmiklos.plees_tracker.DataModel.preferences
 import hu.vmiklos.plees_tracker.calendar.CalendarImport
 import hu.vmiklos.plees_tracker.calendar.UserCalendar
+import java.util.Calendar
+import kotlin.math.sqrt
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
-
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -52,8 +56,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
     private lateinit var viewModel: MainViewModel
 
-
-    //test
     private var sensorMan: SensorManager? = null
     private var accelerometer: Sensor? = null
     private var mGravity: FloatArray? = null
@@ -115,7 +117,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //test
         sensorMan = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorMan!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         mAccel = 0.00
@@ -124,7 +125,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
         sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
 
-        viewModel = ViewModelProvider.AndroidViewModelFactory(application).create(MainViewModel::class.java)
+        viewModel = ViewModelProvider.AndroidViewModelFactory(application)
+            .create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
         val startStop = findViewById<LinearLayout>(R.id.start_stop_layout)
@@ -214,32 +216,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
         updateView()
 
-
         val isDetectionEnabled = preferences.getBoolean("enable_phone_movement_detection", false)
-        //Start Service - if enabled in prefernces.
+        // Start Service - if enabled in prefernces.
         if (isDetectionEnabled) {
             val sleepService = Intent(this, SleepService::class.java)
             startService(sleepService)
         }
-
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sensorMan?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI)
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val sleeptrack = preferences.getBoolean("sleeptrack", false)
-        Log.i("plees tracker", "onResume() sleeptrack: "+sleeptrack)
-        if (sleeptrack == false) {
-            Log.i("plees tracker", "onResume() forcing button update...")
-            DataModel.stop = Calendar.getInstance().time
-            viewModel.stopSleep(applicationContext, contentResolver)
-            updateView()
-        }
-
-
-        updateView()
     }
 
     override fun onPause() {
@@ -255,33 +237,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             val y = mGravity!!.get(1).toDouble()
             val z = mGravity!!.get(2).toDouble()
             mAccelLast = mAccelCurrent
-            mAccelCurrent = Math.sqrt(x * x + y * y + z * z)
+            mAccelCurrent = sqrt(x * x + y * y + z * z)
             val delta = mAccelCurrent - mAccelLast
             mAccel = mAccel * 0.9f + delta
             // Make this higher or lower according to how much
             // motion you want to detect
-            //stop recording sleep if phone is moved//
+            // stop recording sleep if phone is moved//
 
-            val isDetectionEnabled = preferences.getBoolean("enable_phone_movement_detection", false)
-            //Start detection - if enabled in prefernces.
+            val isDetectionEnabled = preferences.getBoolean(
+                "enable_phone_movement_detection", false
+            )
+            // Start detection - if enabled in prefernces.
             if (isDetectionEnabled) {
-            val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            val sensitive = preferences.getString("phone_movement_weight", "6.3")
-            val sensitivef = sensitive!!.toFloat()
-            //Log.i("plees tracker", "phone movement is set at " + sensitivef)
-            if (mAccel > sensitivef) {
-                Log.i("plees tracker", "movement: " + mAccel.toString())
-                if (DataModel.start != null && DataModel.stop == null) {
-                    DataModel.stop = Calendar.getInstance().time
-                    viewModel.stopSleep(applicationContext, contentResolver)
-                    Log.i("plees tracker", "sleep tracking STOPPED!!! at " + mAccel.toString())
-                    val editor = DataModel.preferences.edit()
-                    editor.putBoolean("sleeptrack", false)
-                    editor.apply()
-                    updateView()
+                val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                val sensitive = preferences.getString("phone_movement_weight", "6.3")
+                val sensitivef = sensitive!!.toFloat()
+                // Log.i("pleestracker", "phone movement is set at " + sensitivef)
+                if (mAccel > sensitivef) {
+                    Log.i("pleestracker", "movement: " + mAccel.toString())
+                    if (DataModel.start != null && DataModel.stop == null) {
+                        DataModel.stop = Calendar.getInstance().time
+                        viewModel.stopSleep(applicationContext, contentResolver)
+                        Log.i("pleestracker", "sleep tracking STOPPED!!! at " + mAccel.toString())
+                        val editor = DataModel.preferences.edit()
+                        editor.putBoolean("sleeptrack", false)
+                        editor.apply()
+                        updateView()
+                    }
                 }
             }
-        }
         }
     }
 
@@ -289,12 +273,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         // required method
     }
 
-
     override fun onStart() {
         super.onStart()
         val intent = Intent(this, MainService::class.java)
         stopService(intent)
-        Log.i("plees tracker", "onStart() STARTED!!!")
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         recyclerView.findViewHolderForAdapterPosition(0)?.let {
             // Since the adapter unconditionally gets assigned in `onCreate()`
@@ -302,6 +284,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             // If it is null at this point a lot more must have gone wrong as well.
             recyclerView.adapter?.onBindViewHolder(it, 0)
         }
+        Log.i("pleestracker", "onStart() run...")
+        sensorMan?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI)
+        updateView()
     }
 
     override fun onStop() {
@@ -309,25 +294,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         val intent = Intent(this, MainService::class.java)
         if (DataModel.start != null && DataModel.stop == null) {
             startService(intent)
-            Log.i("plees tracker", "onStop() STOPPED!!!")
         }
     }
 
     override fun onClick(view: View?) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        val sleeptrack = preferences.getBoolean("sleeptrack", false)
+        Log.i("pleestracker", "sleeptrack: " + sleeptrack)
         when (view?.id) {
             R.id.start_stop_layout -> {
                 if (DataModel.start != null && DataModel.stop == null) {
-                    Log.i("plees tracker", "onClick() STOPPED!!!")
                     DataModel.stop = Calendar.getInstance().time
                     viewModel.stopSleep(applicationContext, contentResolver)
-                    val editor = DataModel.preferences.edit()
+                    val editor = preferences.edit()
                     editor.putBoolean("sleeptrack", false)
                     editor.apply()
                 } else {
-                    Log.i("plees tracker", "onClick() STARTED!!!")
                     DataModel.start = Calendar.getInstance().time
                     DataModel.stop = null
-                    val editor = DataModel.preferences.edit()
+                    val editor = preferences.edit()
                     editor.putBoolean("sleeptrack", true)
                     editor.apply()
                 }
@@ -364,10 +349,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val sleeptrack = preferences.getBoolean("sleeptrack", false)
-        Log.i("plees tracker", "sleeptrack: "+sleeptrack)
+        Log.i("pleestracker", "updateView() sleeptrack: " + sleeptrack)
 
-
-        if (DataModel.start != null && DataModel.stop != null && sleeptrack == false) {
+        if (DataModel.start != null && DataModel.stop != null && !sleeptrack) {
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
@@ -380,7 +364,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             return
         }
         DataModel.start?.let { start ->
-            status.text = String.format(getString(R.string.sleeping_since), DataModel.formatTimestamp(start))
+            status.text = String.format(
+                getString(R.string.sleeping_since),
+                DataModel.formatTimestamp(start)
+            )
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)
             startStopText.text = getString(R.string.stop)
@@ -540,14 +527,4 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     companion object {
         private const val TAG = "MainActivity"
     }
-
-
-
-
-
-
-
 }
-
-
-

@@ -44,5 +44,4 @@ interface SleepDao {
 
     @Query("delete from sleep")
     fun deleteall(): Int
-
 }

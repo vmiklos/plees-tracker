@@ -37,7 +37,9 @@ class MainService : Service() {
         }
 
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE
+        )
 
         var contentText = ""
         DataModel.start?.let { start ->

@@ -386,4 +386,3 @@ object DataModel {
         return sleeps.filter { it.stop > after.time }
     }
 }
-

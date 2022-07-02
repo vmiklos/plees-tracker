@@ -1,5 +1,6 @@
 *.iml
 .gradle
+git.txt
 !files/
 !files
 /!files/
