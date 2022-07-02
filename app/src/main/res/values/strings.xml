@@ -37,7 +37,7 @@
     <string name="settings_follow_system_theme">Follow System Theme</string>
     <string name="settings_enable_dark_theme">Dark Mode</string>
     <string name="stats">Statistics</string>
-    <string name="deleteallsleep">Delete All Sleep Data</string>
+    <string name="delete_all_sleep">Delete All Sleep</string>
     <string name="notification_channel_name">Tracker notifications</string>
     <string name="select_calendar_dialog_title">Select Calendar</string>
     <string name="select_calendar_dialog_negative">Cancel</string>
@@ -176,4 +176,7 @@
     <string name="enable_phone_movement_detection">Enable Phone Movement detection to auto stop sleep tracking</string>
     <string name="negative_duration">Not updating the sleep, stop is not after start.</string>
     <string name="sleep_notes">Notes:</string>
+    <string name="delete_all_message">"Are you sure you want to delete all sleeps?"</string>
+    <string name="delete_all_positive">Yes</string>
+    <string name="delete_all_negative">No</string>
 </resources>

@@ -82,6 +82,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             DataModel.backupSleeps(context, cr)
         }
     }
+
+    fun deleteAllSleep() {
+        viewModelScope.launch {
+            DataModel.deleteAllSleep()
+        }
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

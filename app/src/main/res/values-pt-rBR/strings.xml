@@ -32,7 +32,7 @@
     <string name="settings_follow_system_theme">Seguir o tema do sistema</string>
     <string name="settings_enable_dark_theme">Modo escuro</string>
     <string name="stats">Estatísticas</string>
-    <string name="deleteallsleep">Excluir todos os dados de sono</string>
+    <string name="delete_all_sleep">Excluir todos os dados de sono</string>
     <string name="notification_channel_name">Notificações de rastreamento</string>
     <string name="import_file_item">Importar arquivo</string>
     <string name="import_calendar_item">Importar do Calendário</string>

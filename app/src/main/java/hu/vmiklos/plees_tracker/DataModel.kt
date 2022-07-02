@@ -126,8 +126,8 @@ object DataModel {
         database.sleepDao().delete(sleep)
     }
 
-    fun deleteAllSleep() {
-        database.sleepDao().deleteall()
+    suspend fun deleteAllSleep() {
+        database.sleepDao().deleteAll()
     }
 
     suspend fun getSleepById(sid: Int): Sleep {
@@ -386,3 +386,5 @@ object DataModel {
         return sleeps.filter { it.stop > after.time }
     }
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */

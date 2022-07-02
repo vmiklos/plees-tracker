@@ -43,5 +43,7 @@ interface SleepDao {
     suspend fun delete(sleep: Sleep)
 
     @Query("delete from sleep")
-    fun deleteall(): Int
+    suspend fun deleteAll()
 }
+
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
