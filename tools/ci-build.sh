@@ -9,6 +9,9 @@
 # This script runs all the tests for CI purposes.
 #
 
+mkdir -p app/keystore/
+echo $KEYSTORE | base64 -d > app/keystore/plees_keystore.jks
+
 ./gradlew build
 ./gradlew test
 ./gradlew connectedAndroidTest
@@ -20,6 +23,6 @@ git ls-files| grep '\.kt[s"]\?$' | xargs ./ktlint --android --relative .
 tools/license-check.sh
 
 mkdir dist
-cp app/build/outputs/apk/release/app-release-unsigned.apk dist/
+cp app/build/outputs/apk/release/app-release.apk dist/
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab:
