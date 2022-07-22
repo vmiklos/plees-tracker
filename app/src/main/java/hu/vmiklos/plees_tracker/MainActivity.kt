@@ -116,27 +116,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         DataModel.init(applicationContext, preferences)
 
         preferences.liveData("dashboard_duration", "-7").observe(
-            this,
-            { setDashboardText(it ?: "0") }
-        )
+            this
+        ) { setDashboardText(it ?: "0") }
 
         val sleepsAdapter = SleepsAdapter(preferences)
         viewModel.durationSleepsLive.observe(
-            this,
-            { sleeps ->
-                if (sleeps != null) {
-                    val fragments = supportFragmentManager
-                    val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
-                    val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
-                    countStat?.text = DataModel.getSleepCountStat(sleeps)
-                    val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
-                    durationStat?.text = DataModel.getSleepDurationStat(sleeps)
-                    val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
-                    durationDailyStat?.text = DataModel.getSleepDurationDailyStat(sleeps)
-                    sleepsAdapter.data = sleeps
-                }
+            this
+        ) { sleeps ->
+            if (sleeps != null) {
+                val fragments = supportFragmentManager
+                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
+                val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
+                countStat?.text = DataModel.getSleepCountStat(sleeps)
+                val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
+                durationStat?.text = DataModel.getSleepDurationStat(sleeps)
+                val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
+                durationDailyStat?.text = DataModel.getSleepDurationDailyStat(sleeps)
+                sleepsAdapter.data = sleeps
             }
-        )
+        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         val recyclerViewLayout = LinearLayoutManager(this)
