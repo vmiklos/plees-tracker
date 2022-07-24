@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#298 release builds are now signed even outside F-Droid
+
 == 7.3.5
 
 - delete all sleep now confirms before erasing starts
