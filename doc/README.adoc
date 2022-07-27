@@ -64,6 +64,10 @@ the past week.
 There is also an option to define your ideal sleep length, which is used for some of the graphs (see
 Graphs activity below).
 
+The other setting influencing the sleep stats is a sleep start delay. Assuming that one presses
+start, followed by 8 hours, then stop, in case a sleep delay of 15 minutes is set, the recorded
+sleep length will be 7:45, not 8:00, by increasing the sleep start timestamp.
+
 The past sleeps section allow configuring the contents of the individual sleep cards:
 
 - awake time is hidden by default
