@@ -94,6 +94,11 @@ object DataModel {
         initialized = true
     }
 
+    private fun getStartDelay(): Int {
+        val startDelayStr = preferences.getString("sleep_start_delta", "0") ?: "0"
+        return startDelayStr.toIntOrNull() ?: 0
+    }
+
     suspend fun storeSleep() {
         val sleep = Sleep()
         start?.let {
@@ -102,6 +107,14 @@ object DataModel {
         stop?.let {
             sleep.stop = it.time
         }
+
+        val startDelayMS = getStartDelay() * 60 * 1000
+        if (sleep.start + startDelayMS > sleep.stop) {
+            sleep.start = sleep.stop
+        } else {
+            sleep.start += startDelayMS
+        }
+
         database.sleepDao().insert(sleep)
 
         // Drop start timestamp from preferences, it's in the database now.

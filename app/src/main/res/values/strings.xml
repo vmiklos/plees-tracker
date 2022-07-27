@@ -115,6 +115,12 @@
     <string name="hours_13">"13 hours"</string>
     <string name="hours_13_30">"13 hours 30 minutes"</string>
     <string name="hours_14">"14 hours"</string>
+    <string name="settings_sleep_start_delta">Start time delay</string>
+    <string name="minutes_0">0 minutes</string>
+    <string name="minute_1">1 minute</string>
+    <string name="minutes_5">5 minutes</string>
+    <string name="minutes_10">10 minutes</string>
+    <string name="minutes_15">15 minutes</string>
     <string name="show_rating">Show rating</string>
     <string name="show_awake_duration">Show awake duration</string>
     <string name="past_sleeps">Past sleeps</string>
@@ -171,6 +177,20 @@
         <item>"13.0"</item>
         <item>"13.5"</item>
         <item>"14.0"</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entries">
+        <item>@string/minutes_0</item>
+        <item>@string/minute_1</item>
+        <item>@string/minutes_5</item>
+        <item>@string/minutes_10</item>
+        <item>@string/minutes_15</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entry_values">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
     </string-array>
     <string name="negative_duration">Not updating the sleep, stop is not after start.</string>
     <string name="sleep_notes">Notes:</string>

@@ -39,6 +39,13 @@
             android:entryValues="@array/ideal_sleep_entry_values"
             android:defaultValue="8.0"
             app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:key="sleep_start_delta"
+            android:title="@string/settings_sleep_start_delta"
+            android:entries="@array/sleep_start_delay_entries"
+            android:entryValues="@array/sleep_start_delay_entry_values"
+            android:defaultValue="0.0"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">
