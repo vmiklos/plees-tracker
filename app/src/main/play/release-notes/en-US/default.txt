@@ -1,1 +1,2 @@
-- delete all sleep now confirms before erasing starts
+- Resolves: gh#274 add a start time offset
+- Resolves: gh#298 release builds are now signed even outside F-Droid
