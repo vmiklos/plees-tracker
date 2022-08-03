@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.4.0
 
 - Resolves: gh#274 add a start time offset
 - Resolves: gh#298 release builds are now signed even outside F-Droid
