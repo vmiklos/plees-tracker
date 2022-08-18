@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
-        minSdkVersion 24
+        minSdkVersion 23
         targetSdkVersion 31
         versionCode 34
         versionName "7.4.0"

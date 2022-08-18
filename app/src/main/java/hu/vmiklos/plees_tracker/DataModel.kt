@@ -388,7 +388,12 @@ object DataModel {
     }
 
     fun formatTimestamp(date: Date): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX", Locale.getDefault())
+        val sdf = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            // The pattern character 'X' requires API level 24
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX", Locale.getDefault())
+        } else {
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        }
         return sdf.format(date)
     }
 
