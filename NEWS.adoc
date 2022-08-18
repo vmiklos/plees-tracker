@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#282 lower baseline to API 23 (Android 6.0), covering about 97.4% of devices
+
 == 7.4.0
 
 - Resolves: gh#274 add a start time offset
