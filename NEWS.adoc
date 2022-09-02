@@ -1,6 +1,6 @@
 = Version descriptions
 
-== master
+== 7.4.1
 
 - Resolves: gh#282 lower baseline to API 23 (Android 6.0), covering about 97.4% of devices
 
