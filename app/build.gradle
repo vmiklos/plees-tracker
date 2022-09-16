@@ -64,7 +64,7 @@ dependencies {
     implementation 'javax.annotation:jsr250-api:1.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "com.mikepenz:aboutlibraries:7.1.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
