@@ -99,6 +99,10 @@ object DataModel {
         return startDelayStr.toIntOrNull() ?: 0
     }
 
+    private fun getCompactView(): Boolean {
+        return preferences.getBoolean("compact_view", false)
+    }
+
     suspend fun storeSleep() {
         val sleep = Sleep()
         start?.let {
@@ -380,6 +384,13 @@ object DataModel {
     }
 
     fun formatDuration(seconds: Long): String {
+        if (getCompactView()) {
+            return String.format(
+                Locale.getDefault(), "%d:%02d",
+                seconds / 3600, seconds % 3600 / 60
+            )
+        }
+
         return String.format(
             Locale.getDefault(), "%d:%02d:%02d",
             seconds / 3600, seconds % 3600 / 60,
@@ -388,7 +399,9 @@ object DataModel {
     }
 
     fun formatTimestamp(date: Date): String {
-        val sdf = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        val sdf = if (getCompactView()) {
+            SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             // The pattern character 'X' requires API level 24
             SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX", Locale.getDefault())
         } else {

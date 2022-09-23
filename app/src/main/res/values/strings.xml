@@ -57,6 +57,7 @@
     </plurals>
     <string name="settings_category_backup">Backup</string>
     <string name="settings_automatic_backup">Automatic backup</string>
+    <string name="settings_compact_view">Compact view: no seconds and timezone</string>
     <string name="settings_backup_path">Backup path</string>
     <string name="widget_start_stop">Toggle tracking</string>
     <string name="settings_category_dashboard">Dashboard</string>

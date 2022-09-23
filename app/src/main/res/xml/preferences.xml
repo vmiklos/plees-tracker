@@ -46,6 +46,10 @@
             android:entryValues="@array/sleep_start_delay_entry_values"
             android:defaultValue="0.0"
             app:useSimpleSummaryProvider="true" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="compact_view"
+            android:title="@string/settings_compact_view" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">
