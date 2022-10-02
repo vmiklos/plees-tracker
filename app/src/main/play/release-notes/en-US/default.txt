@@ -1,1 +1,1 @@
-- Resolves: gh#282 lower baseline to API 23 (Android 6.0), covering about 97.4% of devices
+- Resolves: gh#309 dashboard: hide seconds & timezone by default on the dashboard
