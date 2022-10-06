@@ -99,7 +99,7 @@ object DataModel {
         return startDelayStr.toIntOrNull() ?: 0
     }
 
-    private fun getCompactView(): Boolean {
+    fun getCompactView(): Boolean {
         return preferences.getBoolean("compact_view", false)
     }
 
@@ -323,7 +323,7 @@ object DataModel {
     /**
      * Calculates the avg of sleeps.
      */
-    fun getSleepDurationStat(sleeps: List<Sleep>): String {
+    fun getSleepDurationStat(sleeps: List<Sleep>, compactView: Boolean): String {
         var sum: Long = 0
         for (sleep in sleeps) {
             var diff = sleep.stop - sleep.start
@@ -333,13 +333,13 @@ object DataModel {
         val count = sleeps.size
         return if (count == 0) {
             ""
-        } else formatDuration(sum / count)
+        } else formatDuration(sum / count, compactView)
     }
 
     /**
      * Sums up sleeps per day, and then calculate the avg of those sums.
      */
-    fun getSleepDurationDailyStat(sleeps: List<Sleep>): String {
+    fun getSleepDurationDailyStat(sleeps: List<Sleep>, compactView: Boolean): String {
         // Day -> sum (in seconds) map.
         val sums = HashMap<Long, Long>()
         var minKey: Long = Long.MAX_VALUE
@@ -380,11 +380,11 @@ object DataModel {
         // can be more, in case a whole 24h period was left out.
         val msPerDay = 86400 * 1000
         val count = (maxKey - minKey) / msPerDay + 1
-        return formatDuration(sums.values.sum() / count)
+        return formatDuration(sums.values.sum() / count, compactView)
     }
 
-    fun formatDuration(seconds: Long): String {
-        if (getCompactView()) {
+    fun formatDuration(seconds: Long, compactView: Boolean): String {
+        if (compactView) {
             return String.format(
                 Locale.getDefault(), "%d:%02d",
                 seconds / 3600, seconds % 3600 / 60
@@ -398,8 +398,8 @@ object DataModel {
         )
     }
 
-    fun formatTimestamp(date: Date): String {
-        val sdf = if (getCompactView()) {
+    fun formatTimestamp(date: Date, compactView: Boolean): String {
+        val sdf = if (compactView) {
             SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             // The pattern character 'X' requires API level 24

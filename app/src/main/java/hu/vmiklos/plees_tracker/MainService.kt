@@ -44,7 +44,7 @@ class MainService : Service() {
         DataModel.start?.let { start ->
             contentText = String.format(
                 getString(R.string.sleeping_since),
-                DataModel.formatTimestamp(start)
+                DataModel.formatTimestamp(start, DataModel.getCompactView())
             )
         }
         val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)

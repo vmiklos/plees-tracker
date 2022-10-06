@@ -17,15 +17,15 @@ import org.junit.Test
  * Unit tests for DataModel.
  */
 class DataModelUnitTest {
-    // FIXME no preferences during unit tests @Test
+    @Test
     fun testFormatDuration() {
-        val actual = DataModel.formatDuration(61)
+        val actual = DataModel.formatDuration(61, false)
         assertEquals("0:01:01", actual)
     }
 
-    // FIXME no preferences during unit tests @Test
+    @Test
     fun testFormatTimestamp() {
-        val actual = DataModel.formatTimestamp(Date(0))
+        val actual = DataModel.formatTimestamp(Date(0), false)
         assertTrue(actual.startsWith("1970-01-01"))
     }
 
@@ -40,7 +40,7 @@ class DataModelUnitTest {
         assertEquals("2", DataModel.getSleepCountStat(sleeps))
     }
 
-    // FIXME no preferences during unit tests @Test
+    @Test
     fun testGetSleepDurationStat() {
         val sleeps = ArrayList<Sleep>()
         // 10 seconds.
@@ -57,11 +57,11 @@ class DataModelUnitTest {
 
         assertEquals(
             "0:00:15",
-            DataModel.getSleepDurationStat(sleeps)
+            DataModel.getSleepDurationStat(sleeps, false)
         )
     }
 
-    // FIXME no preferences during unit tests @Test
+    @Test
     fun testGetSleepDurationDailyStat() {
         val sleeps = ArrayList<Sleep>()
         val calendar = Calendar.getInstance()
@@ -98,11 +98,11 @@ class DataModelUnitTest {
         // Note how this is 11, not 5.5.
         assertEquals(
             "0:00:11",
-            DataModel.getSleepDurationDailyStat(sleeps)
+            DataModel.getSleepDurationDailyStat(sleeps, false)
         )
     }
 
-    // FIXME no preferences during unit tests @Test
+    @Test
     fun testGetSleepDurationDailyStatEmptyDays() {
         val sleeps = ArrayList<Sleep>()
         val calendar = Calendar.getInstance()
@@ -127,7 +127,7 @@ class DataModelUnitTest {
         // Note how this is 8 hours per day, not 12.
         assertEquals(
             "8:00:00",
-            DataModel.getSleepDurationDailyStat(sleeps)
+            DataModel.getSleepDurationDailyStat(sleeps, false)
         )
     }
 

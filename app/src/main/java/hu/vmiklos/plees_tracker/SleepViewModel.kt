@@ -34,9 +34,9 @@ class SleepViewModel : ViewModel() {
             val sleep = DataModel.getSleepById(sid)
 
             val start = activity.findViewById<TextView>(R.id.sleep_start)
-            start.text = DataModel.formatTimestamp(Date(sleep.start))
+            start.text = DataModel.formatTimestamp(Date(sleep.start), DataModel.getCompactView())
             val stop = activity.findViewById<TextView>(R.id.sleep_stop)
-            stop.text = DataModel.formatTimestamp(Date(sleep.stop))
+            stop.text = DataModel.formatTimestamp(Date(sleep.stop), DataModel.getCompactView())
             val rating = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
             rating.rating = sleep.rating.toFloat()
             rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
