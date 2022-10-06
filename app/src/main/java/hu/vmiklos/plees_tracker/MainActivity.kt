@@ -129,9 +129,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
                 countStat?.text = DataModel.getSleepCountStat(sleeps)
                 val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
-                durationStat?.text = DataModel.getSleepDurationStat(sleeps)
+                durationStat?.text = DataModel.getSleepDurationStat(
+                    sleeps,
+                    DataModel.getCompactView()
+                )
                 val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
-                durationDailyStat?.text = DataModel.getSleepDurationDailyStat(sleeps)
+                durationDailyStat?.text = DataModel.getSleepDurationDailyStat(
+                    sleeps,
+                    DataModel.getCompactView()
+                )
                 sleepsAdapter.data = sleeps
             }
         }
@@ -271,7 +277,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         DataModel.start?.let { start ->
             status.text = String.format(
                 getString(R.string.sleeping_since),
-                DataModel.formatTimestamp(start)
+                DataModel.formatTimestamp(start, DataModel.getCompactView())
             )
             startStop.contentDescription = getString(R.string.stop)
             startStop.setImageResource(R.drawable.ic_stop)

@@ -81,10 +81,10 @@ class SleepsAdapter(
 
     override fun onBindViewHolder(holder: SleepViewHolder, position: Int) {
         val sleep = data[position]
-        holder.start.text = DataModel.formatTimestamp(Date(sleep.start))
-        holder.stop.text = DataModel.formatTimestamp(Date(sleep.stop))
+        holder.start.text = DataModel.formatTimestamp(Date(sleep.start), DataModel.getCompactView())
+        holder.stop.text = DataModel.formatTimestamp(Date(sleep.stop), DataModel.getCompactView())
         val durationMS = sleep.stop - sleep.start
-        val durationText = DataModel.formatDuration(durationMS / 1000)
+        val durationText = DataModel.formatDuration(durationMS / 1000, DataModel.getCompactView())
         holder.duration.text = durationText
 
         if (preferences.getBoolean("show_awake_for", false)) {
@@ -94,7 +94,10 @@ class SleepsAdapter(
                 data[position - 1].start
             }
             val durationWakeMS = nextSleepReferenceTime - sleep.stop
-            val durationWakeText = DataModel.formatDuration(durationWakeMS / 1000)
+            val durationWakeText = DataModel.formatDuration(
+                durationWakeMS / 1000,
+                DataModel.getCompactView()
+            )
             holder.durationWake.text = durationWakeText
         } else {
             holder.durationWakeImage.visibility = View.GONE
