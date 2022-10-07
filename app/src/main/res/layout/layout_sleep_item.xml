@@ -147,7 +147,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:contentDescription="@string/awake_for_label"
-                android:src="@drawable/ic_play_green"
+                android:src="@drawable/ic_awake_for"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sleep_time_image" />
 

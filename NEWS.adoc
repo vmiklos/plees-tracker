@@ -1,5 +1,9 @@
 = Version descriptions
 
+== master
+
+- Resolves: gh#275 sleep item layout: add dedicated icon for the 'awake for' row
+
 == 7.4.2
 
 - Resolves: gh#309 dashboard: hide seconds & timezone by default on the dashboard
