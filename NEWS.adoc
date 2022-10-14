@@ -3,6 +3,7 @@
 == master
 
 - Resolves: gh#275 sleep item layout: add dedicated icon for the 'awake for' row
+- Fixed the tracking notification to work with Android 13
 
 == 7.4.2
 
