@@ -1,1 +1,2 @@
-- Resolves: gh#309 dashboard: hide seconds & timezone by default on the dashboard
+- Resolves: gh#275 sleep item layout: add dedicated icon for the 'awake for' row
+- Fixed the tracking notification to work with Android 13
