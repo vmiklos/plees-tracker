@@ -1,4 +1,4 @@
-= Coding style
+# Coding style
 
 - Prefer initializing properties inline over spelling them out in a separate `init {` block.
 
@@ -11,7 +11,7 @@
 
 - Prefer constructs like `foo?.let {` over non-null assertions (`!!`).
 
-== Complex parts of the app
+## Complex parts of the app
 
 The app code is quite simple, this is just fancy stopwatch after all. But some parts are nontrivial:
 
@@ -24,21 +24,7 @@ The app code is quite simple, this is just fancy stopwatch after all. But some p
 - The recycler view was tricky to set up: most examples are overcomplicated, when really what was
   needed here is just an adapter and a holder class.
 
-== Checks which are not part of CI
-
-Missing license headers:
-
-----
-for i in $(git ls-files| grep '\.kt[s"]\?$'); do grep -q LICENSE $i && continue; echo $i; done
-----
-
-Check for formatting problems in case ktlint hook was not installed during commit:
-
-----
-git ls-files| grep '\.kt[s"]\?$' | xargs ktlint --android --relative .
-----
-
-== Kotlin
+## Kotlin
 
 If you are used to Java, then not spelling out type names all over the place is confusing in Kotlin.
 See
