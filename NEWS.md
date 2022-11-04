@@ -1,5 +1,9 @@
 # Version descriptions
 
+## master
+
+- Resolves: gh#330 main activity: add placeholder text when there are no sleeps
+
 ## 7.4.3
 
 - Resolves: gh#275 sleep item layout: add dedicated icon for the 'awake for' row

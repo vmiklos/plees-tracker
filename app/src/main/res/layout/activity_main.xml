@@ -108,6 +108,15 @@
             android:layout_margin="10dp"
             android:scrollbars="vertical"
             tools:listitem="@layout/layout_sleep_item" />
+        <TextView
+            android:id="@+id/no_sleeps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:text="@string/no_sleeps"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:visibility="gone" />
     </FrameLayout>
 
     <LinearLayout
