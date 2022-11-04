@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         ) { setDashboardText(it ?: "0") }
 
         val sleepsAdapter = SleepsAdapter(preferences)
+        val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         viewModel.durationSleepsLive.observe(
             this
         ) { sleeps ->
@@ -139,10 +140,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     DataModel.getCompactView()
                 )
                 sleepsAdapter.data = sleeps
+
+                // Set up placeholder text if there are no sleeps.
+                val noSleepsView = findViewById<TextView>(R.id.no_sleeps)
+                if (sleeps.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    noSleepsView.visibility = View.VISIBLE
+                } else {
+                    recyclerView.visibility = View.VISIBLE
+                    noSleepsView.visibility = View.GONE
+                }
             }
         }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         val recyclerViewLayout = LinearLayoutManager(this)
         recyclerView.layoutManager = recyclerViewLayout
         recyclerView.setHasFixedSize(true)
