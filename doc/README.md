@@ -1,6 +1,6 @@
-= Using plees-tracker
+# Using plees-tracker
 
-== Main activity
+## Main activity
 
 Plees tracker is essentially a stopwatch application. It intentionally requires you to manually
 track your sleep with explicitly starting and ending a tracked sleep. This has the benefit that it's
@@ -38,17 +38,17 @@ The menu of this activity allows:
 
 - Customize settings (see the preferences activity below).
 
-== Toggle widget
+## Toggle widget
 
 A widget can be added to your home screen. This allows starting or stopping the tracking with a
 single tap: i.e. it's the same as opening the app and tapping on the start/stop button.
 
-== Quick settings tile
+## Quick settings tile
 
 A quick settings tile can be added to your panel. This allows starting or stopping the tracking with
 a single tap: i.e. it's the same as opening the app and tapping on the start/stop button.
 
-== Preferences activity
+## Preferences activity
 
 This allows manually setting the dark mode for plees-tracker. This is useful on Android versions <=
 9, where there is no system-provided dark mode. This works out of the box on newer Android versions.
@@ -78,14 +78,14 @@ The past sleeps section allow configuring the contents of the individual sleep c
 The sleep cards are not re-created when changing settings, so you need to restart plees-tracker to
 see the effect.
 
-== Sleep activity
+## Sleep activity
 
 The sleep activity allows modifying the start,  stop time or rating of a single recorded sleep,
 which is useful if you want to update the recorded timestamps to better match reality.
 
 You can also take a one-liner plain text note for the sleep there.
 
-== Stats activity
+## Stats activity
 
 The main activity considers all sleeps for the selected duration when counting the sleeps or when
 calculating the 2 kind of averages for your sleeps. The stats activity provides the same stats for
@@ -101,7 +101,7 @@ all possible durations, specifically:
 
 - all time
 
-== Graphs activity
+## Graphs activity
 
 The graphs activity provides an alternative way to analyze your sleep data. Currently, the following
 graphs are provided (select the graph via the menu in the upper right):
@@ -120,8 +120,8 @@ graphs are provided (select the graph via the menu in the upper right):
 
 The graphs are generated based on sleeps within the selected dashboard duration.
 
-== Credits
+## Credits
 
-Icons made by https://www.flaticon.com/authors/dave-gandy[Dave Gandy] and
-https://www.flaticon.com/authors/freepik[Freepik] from
-https://www.flaticon.com/[Flaticon].
+Icons made by [Dave Gandy](https://www.flaticon.com/authors/dave-gandy) and
+[Freepik](https://www.flaticon.com/authors/freepik) from
+[Flaticon](https://www.flaticon.com/).
