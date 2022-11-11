@@ -3,3 +3,4 @@ title = "plees-tracker user guide"
 
 [output.html]
 edit-url-template = "https://github.com/vmiklos/plees-tracker/edit/master/guide/{path}"
+additional-js = ["matomo.js"]
