@@ -1,4 +1,4 @@
-# Using plees-tracker
+# Usage
 
 ## Main activity
 
