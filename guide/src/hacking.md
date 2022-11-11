@@ -1,4 +1,6 @@
-# Coding style
+# Development notes
+
+## Coding style
 
 - Prefer initializing properties inline over spelling them out in a separate `init {` block.
 
