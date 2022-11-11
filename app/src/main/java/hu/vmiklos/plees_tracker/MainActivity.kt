@@ -337,7 +337,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     .start(this)
                 return true
             }
-            R.id.website -> {
+            R.id.documentation -> {
                 val website = getString(R.string.website_link)
                 open(Uri.parse(website))
                 return true

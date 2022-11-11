@@ -22,7 +22,6 @@
     <string name="about_toolbar">Acerca de</string>
     <string name="app_description">Un simple rastreador de sueño para Android.</string>
     <string name="sleep_id">Sueño #%s</string>
-    <string name="website">Sitio web</string>
     <string name="average_string">Promedio</string>
     <string name="daily_average_string">Diario</string>
     <string name="dashboard">Control (%s)</string>
