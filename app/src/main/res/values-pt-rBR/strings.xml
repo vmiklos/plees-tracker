@@ -22,7 +22,6 @@
     <string name="about_toolbar">Sobre</string>
     <string name="app_description">Um simples rastreador de sono para o Android</string>
     <string name="sleep_id">Sono #%s</string>
-    <string name="website">Site</string>
     <string name="average_string">Média</string>
     <string name="daily_average_string">Diariamente</string>
     <string name="dashboard">Painel (%s)</string>

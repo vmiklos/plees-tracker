@@ -27,7 +27,7 @@
     <string name="app_description">A simple sleep tracker for Android.</string>
     <string name="sleep_id">Sleep #%s</string>
     <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
-    <string name="website">Website</string>
+    <string name="documentation">Documentation</string>
     <string name="average_string">Average</string>
     <string name="daily_average_string">Daily</string>
     <string name="dashboard">Dashboard (%s)</string>
@@ -198,5 +198,5 @@
     <string name="delete_all_message">"Are you sure you want to delete all sleeps?"</string>
     <string name="delete_all_positive">Yes</string>
     <string name="delete_all_negative">No</string>
-    <string name="no_sleeps">Your tracked sleeps will appear here. Press Start to create a sleep, tap on a sleep to edit it and swipe away a sleep to delete it. For more info, see the Website menu item.</string>
+    <string name="no_sleeps">Your tracked sleeps will appear here. Press Start to create a sleep, tap on a sleep to edit it and swipe away a sleep to delete it. For more info, see the Documentation menu item.</string>
 </resources>
