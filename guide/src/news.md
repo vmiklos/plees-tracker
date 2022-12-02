@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.4.4
 
 - Resolves: gh#330 main activity: add placeholder text when there are no sleeps
 

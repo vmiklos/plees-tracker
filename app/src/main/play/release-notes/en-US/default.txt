@@ -1,2 +1,1 @@
-- Resolves: gh#275 sleep item layout: add dedicated icon for the 'awake for' row
-- Fixed the tracking notification to work with Android 13
+- Resolves: gh#330 main activity: add placeholder text when there are no sleeps
