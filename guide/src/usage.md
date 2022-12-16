@@ -83,7 +83,7 @@ see the effect.
 The sleep activity allows modifying the start,  stop time or rating of a single recorded sleep,
 which is useful if you want to update the recorded timestamps to better match reality.
 
-You can also take a one-liner plain text note for the sleep there.
+You can also take a multi-line plain text note for the sleep there.
 
 ## Stats activity
 
