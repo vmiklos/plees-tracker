@@ -192,7 +192,7 @@ object DataModel {
             if (inputStream != null) {
                 try {
                     inputStream.close()
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                 }
             }
         }
@@ -301,7 +301,7 @@ object DataModel {
         } finally {
             try {
                 os.close()
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
         }
 
