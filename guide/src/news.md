@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#292 fix lack of toggle from the notification drawer when app is already foreground
+
 ## 7.4.4
 
 - Resolves: gh#330 main activity: add placeholder text when there are no sleeps
