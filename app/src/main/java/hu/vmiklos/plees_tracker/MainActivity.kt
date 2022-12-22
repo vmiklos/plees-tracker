@@ -99,6 +99,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             getString(R.string.dashboard, durationHeaderStr)
     }
 
+    fun handleIntent(intent: Intent?) {
+        intent?.let {
+            if (it.getBooleanExtra("startStop", false)) {
+                onClick(findViewById(R.id.start_stop_layout))
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -201,11 +214,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView.setOnScrollChangeListener(listener)
 
         // See if the activity is triggered from the widget. If so, toggle the start/stop state.
-        intent?.let {
-            if (it.getBooleanExtra("startStop", false)) {
-                onClick(findViewById(R.id.start_stop_layout))
-            }
-        }
+        handleIntent(intent)
 
         updateView()
     }
