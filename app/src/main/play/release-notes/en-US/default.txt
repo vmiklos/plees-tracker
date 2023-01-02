@@ -1,1 +1,1 @@
-- Resolves: gh#330 main activity: add placeholder text when there are no sleeps
+- Resolves: gh#292 fix lack of toggle from the notification drawer when app is already foreground
