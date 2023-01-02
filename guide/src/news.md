@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.4.5
 
 - Resolves: gh#292 fix lack of toggle from the notification drawer when app is already foreground
 
