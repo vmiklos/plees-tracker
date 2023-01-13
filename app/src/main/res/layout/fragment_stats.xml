@@ -47,6 +47,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/fragment_stats_average_layout"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="10dp"
@@ -84,6 +85,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/fragment_stats_daily_layout"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_margin="10dp"

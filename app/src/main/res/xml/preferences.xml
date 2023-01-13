@@ -50,6 +50,14 @@
             android:defaultValue="true"
             android:key="compact_view"
             android:title="@string/settings_compact_view" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_average_sleep_durations"
+            android:title="@string/show_average_of_sleep_duration" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="show_average_daily_sums"
+            android:title="@string/show_averege_of_daily_sums" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">

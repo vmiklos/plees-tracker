@@ -10,9 +10,9 @@ This activity allows:
 
 - Seeing the status of the tracking: not yet started, in progress and finished.
 
-- Dashboard: the number of all tracked sleeps, average of sleep durations and a daily average (in
-  case you sleep multiple times a day or you sometimes skip a whole day) for a customizable
-  duration (see the preferences activity below).
+- Dashboard: the number of all tracked sleeps, average of sleep durations (disabled by default) and
+  a daily average (in case you sleep multiple times a day or you sometimes skip a whole day) for a
+  customizable duration (see the preferences activity below).
 
 - A list of past sleeps for the chosen duration: start/stop time for each sleep, awake time and
   duration counted from these and a rating you can manually specify after the tracking stopped.
@@ -50,12 +50,18 @@ a single tap: i.e. it's the same as opening the app and tapping on the start/sto
 
 ## Preferences activity
 
+### Theme
+
 This allows manually setting the dark mode for plees-tracker. This is useful on Android versions <=
 9, where there is no system-provided dark mode. This works out of the box on newer Android versions.
+
+### Backup
 
 Backup settings allow you to automatically back up your sleeps after a tracking stopped. This is
 useful in case you selected a path which is then implicitly synchronized to some external server,
 e.g. Nextcloud.
+
+### Dashboard
 
 You can also customize the dashboard duration, which limits the sleeps and sleep statistics on the
 dashboard and graphs to the time period selected in the main activity. The default is to only show
@@ -67,6 +73,16 @@ Graphs activity below).
 The other setting influencing the sleep stats is a sleep start delay. Assuming that one presses
 start, followed by 8 hours, then stop, in case a sleep delay of 15 minutes is set, the recorded
 sleep length will be 7:45, not 8:00, by increasing the sleep start timestamp.
+
+The 'Show average of sleeps duration' setting is disabled by default and is useful if you always
+sleep once a day, but sometimes you forget to track your sleep, still you're interested in the
+average of your sleeps.
+
+The 'Show average of daily sums' setting is enabled by default and is useful if you always track
+your sleeps, but you may sleep multiple times a day. This will first count the sum of your sleeps
+within a day, and count the average of those sums.
+
+### Past sleeps
 
 The past sleeps section allow configuring the contents of the individual sleep cards:
 
