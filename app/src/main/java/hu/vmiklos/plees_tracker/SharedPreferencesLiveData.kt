@@ -38,4 +38,7 @@ private class SharedPreferenceLiveData<T>(
 fun SharedPreferences.liveData(key: String, default: String?): LiveData<String?> =
     SharedPreferenceLiveData(this, key) { getString(key, default) }
 
+fun SharedPreferences.liveDataBoolean(key: String, default: Boolean): LiveData<Boolean?> =
+    SharedPreferenceLiveData(this, key) { getBoolean(key, default) }
+
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

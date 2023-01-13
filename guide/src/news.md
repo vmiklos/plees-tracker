@@ -1,5 +1,9 @@
 # Changelog
 
+## main
+
+- Resolves: gh#308 main activity: default to showing average of daily sums only
+
 ## 7.4.5
 
 - Resolves: gh#292 fix lack of toggle from the notification drawer when app is already foreground

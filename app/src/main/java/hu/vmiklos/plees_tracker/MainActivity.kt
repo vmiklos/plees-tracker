@@ -132,6 +132,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             this
         ) { setDashboardText(it ?: "0") }
 
+        // Hide plain avg and avg(daily sum) if requested:
+        preferences.liveDataBoolean("show_average_sleep_durations", false).observe(
+            this
+        ) {
+            it?.let {
+                val fragments = supportFragmentManager
+                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
+                val layout = stats?.findViewById<LinearLayout>(R.id.fragment_stats_average_layout)
+                if (it) {
+                    layout?.visibility = View.VISIBLE
+                } else {
+                    layout?.visibility = View.GONE
+                }
+            }
+        }
+        preferences.liveDataBoolean("show_average_daily_sums", true).observe(
+            this
+        ) {
+            it?.let {
+                val fragments = supportFragmentManager
+                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
+                val layout = stats?.findViewById<LinearLayout>(R.id.fragment_stats_daily_layout)
+                if (it) {
+                    layout?.visibility = View.VISIBLE
+                } else {
+                    layout?.visibility = View.GONE
+                }
+            }
+        }
+
         val sleepsAdapter = SleepsAdapter(preferences)
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
         viewModel.durationSleepsLive.observe(
