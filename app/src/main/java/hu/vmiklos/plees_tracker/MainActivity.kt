@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             getString(R.string.dashboard, durationHeaderStr)
     }
 
-    fun handleIntent(intent: Intent?) {
+    private fun handleIntent(intent: Intent?) {
         intent?.let {
             if (it.getBooleanExtra("startStop", false)) {
                 onClick(findViewById(R.id.start_stop_layout))
