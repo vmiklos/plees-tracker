@@ -2,7 +2,7 @@
 
 Plees Tracker is a simple sleep tracker for your Android phone.
 
-The latest version is v7.4.5, released on 2023-01-02.
+The latest version is v7.5.0, released on 2023-02-02.
 
 ## Description
 
