@@ -1,6 +1,6 @@
 # Changelog
 
-## main
+## 7.5.0
 
 - Resolves: gh#308 main activity: default to showing average of daily sums only
 
