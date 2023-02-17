@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#359 fix the widget to start/stop tracking to work on Android 12+
+
 ## 7.5.0
 
 - Resolves: gh#308 main activity: default to showing average of daily sums only
