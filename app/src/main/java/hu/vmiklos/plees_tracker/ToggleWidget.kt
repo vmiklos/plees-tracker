@@ -11,6 +11,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.RemoteViews
 
 /**
@@ -23,6 +24,7 @@ class ToggleWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager?,
         appWidgetIds: IntArray?
     ) {
+        Log.d(TAG, "ToggleWidget.onUpdate")
         if (context == null) {
             return
         }
@@ -38,13 +40,21 @@ class ToggleWidget : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             val intent = Intent(context, MainActivity::class.java)
             intent.putExtra("startStop", true)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            var flags = PendingIntent.FLAG_UPDATE_CURRENT
+            // Needed for Android 12+
+            flags = flags or PendingIntent.FLAG_IMMUTABLE
             val pendingIntent = PendingIntent.getActivity(
-                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+                context, 0, intent, flags
             )
             val remoteViews = RemoteViews(context.packageName, R.layout.widget_layout_toggle)
             remoteViews.setOnClickPendingIntent(R.id.widget_toggle, pendingIntent)
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
         }
+    }
+
+    companion object {
+        private const val TAG = "ToggleWidget"
     }
 }
 
