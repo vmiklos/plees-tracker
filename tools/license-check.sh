@@ -1,8 +1,8 @@
 #!/bin/bash -e
 #
-# Copyright 2021 Miklos Vajna. All rights reserved.
-# Use of this source code is governed by a BSD-style license that can be
-# found in the LICENSE file.
+# Copyright 2023 Miklos Vajna
+#
+# SPDX-License-Identifier: MIT
 #
 
 #
@@ -13,7 +13,7 @@ RC=0
 
 for file in $(git ls-files|grep '\.kt$')
 do
-    if ! grep -q LICENSE $file; then
+    if ! grep -q SPDX-License-Identifier: $file; then
         echo "Missing license header in $file"
         RC=1
     fi
