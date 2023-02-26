@@ -11,7 +11,7 @@ on:
       - 'private/**'
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
     - name: checkout
       uses: actions/checkout@v2
