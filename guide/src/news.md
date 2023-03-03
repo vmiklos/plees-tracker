@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.5.1
 
 - Resolves: gh#359 fix the widget to start/stop tracking to work on Android 12+
 
