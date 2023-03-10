@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         intent?.let {
             if (it.getBooleanExtra("startStop", false)) {
                 onClick(findViewById(R.id.start_stop_layout))
+                it.removeExtra("startStop")
             }
         }
     }
