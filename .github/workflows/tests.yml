@@ -22,7 +22,7 @@ jobs:
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2.27.0
       with:
-        api-level: 27
+        api-level: 29
         script: tools/ci-build.sh
       env:
         KEYSTORE: ${{ secrets.KEYSTORE }}

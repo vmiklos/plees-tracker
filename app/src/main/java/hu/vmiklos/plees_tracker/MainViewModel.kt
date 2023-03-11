@@ -12,7 +12,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import java.util.Calendar
@@ -27,7 +27,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val preferences = PreferenceManager.getDefaultSharedPreferences(application)
 
     val durationSleepsLive: LiveData<List<Sleep>> =
-        Transformations.switchMap(preferences.liveData("dashboard_duration", "0")) { durationStr ->
+        preferences.liveData("dashboard_duration", "0").switchMap { durationStr ->
             val duration = durationStr?.toInt() ?: 0
             val date = if (duration == 0) {
                 Date(0)
