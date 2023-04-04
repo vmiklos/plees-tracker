@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.5.2
 
 - Resolves: gh#365 don't toggle tracking state on rotation (quick settings tile)
 
