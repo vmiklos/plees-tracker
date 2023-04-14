@@ -41,6 +41,7 @@ class GraphsActivity : AppCompatActivity() {
             R.id.graph_deficit -> renderDeficitChart()
             R.id.graph_length -> renderLengthChart()
             R.id.graph_start -> renderStartChart()
+            R.id.graph_stop -> renderStopChart()
             R.id.graph_rating -> renderRatingChart()
             else -> super.onOptionsItemSelected(item)
         }
@@ -181,6 +182,34 @@ class GraphsActivity : AppCompatActivity() {
         }
         return true
     }
+    private fun renderStopChart(): Boolean {
+        title = getString(R.string.graph_stop)
+
+        viewModel.durationSleepsLive.observe(
+            this
+        ) { sleeps ->
+            if (sleeps != null && sleeps.isNotEmpty()) {
+                val stopByDay = sleeps.stopOfSleepByDay()
+                val stopAvg = stopByDay.cumulativeAverage()
+
+                val stopDataSet = stopByDay.toDataSet(
+                    R.string.graph_stop,
+                    ContextCompat.getColor(this, R.color.dash_daily)
+                )
+                val stopAvgDataSet = stopAvg.toDataSet(
+                    R.string.graph_average,
+                    ContextCompat.getColor(this, R.color.dash_average)
+                )
+
+                renderChart {
+                    chart.axisLeft.valueFormatter = TimeAxisFormatter()
+                    setChartAxisLeftLabel(null)
+                    chart.data = LineData(stopDataSet, stopAvgDataSet)
+                }
+            }
+        }
+        return true
+    }
 
     private fun renderRatingChart(): Boolean {
         title = getString(R.string.graph_rating)
@@ -271,6 +300,13 @@ class GraphsActivity : AppCompatActivity() {
             .sortedBy { it.first }
     }
 
+    /** Given a list of sleeps, returns list of day -> stpp of sleep pairs, sorted by day. */
+    private fun List<Sleep>.stopOfSleepByDay(): List<Pair<Long, Long>> {
+        return groupSleepsByDay()
+            .map { (day, daySleeps) -> day to daySleeps.latestSleep().stop - day }
+            .sortedBy { it.first }
+    }
+
     /** Given a list of sleeps, returns list of day-sleep length pairs, sorted by day. */
     private fun List<Sleep>.lengthPerDay(): List<Pair<Long, Float>> {
         return groupSleepsByDay()
@@ -287,6 +323,11 @@ class GraphsActivity : AppCompatActivity() {
     private fun List<Sleep>.earliestSleep(): Sleep {
         // Run only on output of groupBy (groupSleepsByDay) so should not be empty.
         return minByOrNull { it.start } ?: Sleep()
+    }
+
+    /** Given a list of sleeps, returns the stop time of the latest sleep. */
+    private fun List<Sleep>.latestSleep(): Sleep {
+        return maxByOrNull { it.stop } ?: Sleep()
     }
 
     /** Given a list of sleeps, returns the sum of length slept. */

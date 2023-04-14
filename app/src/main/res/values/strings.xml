@@ -85,6 +85,7 @@
     <string name="graph_deficit">Deficit/surplus</string>
     <string name="graph_length">Length</string>
     <string name="graph_start">Start time</string>
+    <string name="graph_stop">Stop time</string>
     <string name="graph_rating">Rating</string>
     <string name="graph_average">Average</string>
     <string name="graph_total">Total</string>
