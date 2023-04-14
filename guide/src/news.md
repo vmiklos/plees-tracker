@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#358 graphs: add a stop time graph
+
 ## 7.5.2
 
 - Resolves: gh#365 don't toggle tracking state on rotation (quick settings tile)
