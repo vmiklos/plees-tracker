@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.5.3
 
 - Resolves: gh#358 graphs: add a stop time graph
 

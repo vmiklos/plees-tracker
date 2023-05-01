@@ -1,1 +1,1 @@
-- Resolves: gh#365 don't toggle tracking state on rotation (quick settings tile)
+- Resolves: gh#358 graphs: add a stop time graph
