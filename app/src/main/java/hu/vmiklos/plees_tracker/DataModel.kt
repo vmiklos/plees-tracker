@@ -410,6 +410,15 @@ object DataModel {
         return sdf.format(date)
     }
 
+    fun formatDateTime(date: Date, asTime: Boolean): String {
+        val sdf = if (asTime) {
+            SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        } else {
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        }
+        return sdf.format(date)
+    }
+
     /**
      * Returns the subset of [sleeps] which stop after [after].
      */

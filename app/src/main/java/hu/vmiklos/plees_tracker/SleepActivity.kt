@@ -24,10 +24,14 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
 
         setContentView(R.layout.activity_sleep)
-        val start = findViewById<TextView>(R.id.sleep_start)
-        start.setOnClickListener(this)
-        val stop = findViewById<TextView>(R.id.sleep_stop)
-        stop.setOnClickListener(this)
+        val startDate = findViewById<TextView>(R.id.sleep_start_date)
+        startDate.setOnClickListener(this)
+        val startTime = findViewById<TextView>(R.id.sleep_start_time)
+        startTime.setOnClickListener(this)
+        val stopDate = findViewById<TextView>(R.id.sleep_stop_date)
+        stopDate.setOnClickListener(this)
+        val stopTime = findViewById<TextView>(R.id.sleep_stop_time)
+        stopTime.setOnClickListener(this)
 
         val bundle = intent.extras ?: return
         sid = bundle.getInt("sid")
@@ -40,8 +44,17 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        val isStart = view == findViewById(R.id.sleep_start)
-        viewModel.editSleep(this, sid, isStart, applicationContext, contentResolver)
+        when {
+            view == findViewById(R.id.sleep_start_date) ->
+                viewModel.editSleepDate(this, sid, true, applicationContext, contentResolver)
+            view == findViewById(R.id.sleep_start_time) ->
+                viewModel.editSleepTime(this, sid, true, applicationContext, contentResolver)
+            view == findViewById(R.id.sleep_stop_date) ->
+                viewModel.editSleepDate(this, sid, false, applicationContext, contentResolver)
+            view == findViewById(R.id.sleep_stop_time) ->
+                viewModel.editSleepTime(this, sid, false, applicationContext, contentResolver)
+            else -> {}
+        }
     }
 }
 
