@@ -13,5 +13,6 @@ shout-out to them!
 - martiandolphin <https://github.com/martiandolphin>
 - ELY M. <https://github.com/ELY3M>
 - Mael Lacour <https://github.com/Eyap53>
+- phiiil <https://github.com/phiiil>
 
 If you feel you're missing from this list, feel free to add yourself in a PR.
