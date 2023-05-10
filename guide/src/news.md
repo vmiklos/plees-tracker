@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#373 enable editing start and end date+time of a sleep separately (phiiil)
+
 ## 7.5.3
 
 - Resolves: gh#358 graphs: add a stop time graph
