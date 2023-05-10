@@ -2,7 +2,7 @@
 
 ## Main activity
 
-Plees tracker is essentially a stopwatch application. It intentionally requires you to manually
+plees-tracker is essentially a stopwatch application. It intentionally requires you to manually
 track your sleep with explicitly starting and ending a tracked sleep. This has the benefit that it's
 simple: causing no battery drain, nor any privacy problems.
 
