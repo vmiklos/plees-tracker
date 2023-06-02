@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.5.4
 
 - Resolves: gh#373 enable editing start and end date+time of a sleep separately (phiiil)
 
