@@ -8,6 +8,6 @@
     <color name="colorSurface">#1E1E1E</color>
 
     <!-- FAB color -->
-    <color name="colorFabPrimary">#7f7f7f</color>
-    <color name="colorFabAccent">#7f7f7f</color>
+    <color name="colorFabPrimary">#613583</color>
+    <color name="colorFabAccent">#463A31</color>
 </resources>
