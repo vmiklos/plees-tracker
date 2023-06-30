@@ -28,45 +28,44 @@ class StatsActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         DataModel.sleepsLive.observe(
-            this,
-            { sleeps ->
-                if (sleeps != null) {
-                    val fragments = supportFragmentManager
+            this
+        ) { sleeps ->
+            if (sleeps != null) {
+                val fragments = supportFragmentManager
 
-                    // Last week
-                    val lastWeek = Calendar.getInstance()
-                    lastWeek.add(Calendar.DATE, -7)
-                    val lastWeekSleeps = DataModel.filterSleeps(sleeps, lastWeek.time)
-                    val lastWeekFragment = fragments.findFragmentById(R.id.last_week_body)
-                    populateFragment(lastWeekFragment, lastWeekSleeps)
+                // Last week
+                val lastWeek = Calendar.getInstance()
+                lastWeek.add(Calendar.DATE, -7)
+                val lastWeekSleeps = DataModel.filterSleeps(sleeps, lastWeek.time)
+                val lastWeekFragment = fragments.findFragmentById(R.id.last_week_body)
+                populateFragment(lastWeekFragment, lastWeekSleeps)
 
-                    // Last two weeks
-                    val lastTwoWeeks = Calendar.getInstance()
-                    lastTwoWeeks.add(Calendar.DATE, -14)
-                    val lastTwoWeekSleeps = DataModel.filterSleeps(sleeps, lastTwoWeeks.time)
-                    val lastTwoWeeksFragment = fragments.findFragmentById(R.id.last_two_weeks_body)
-                    populateFragment(lastTwoWeeksFragment, lastTwoWeekSleeps)
+                // Last two weeks
+                val lastTwoWeeks = Calendar.getInstance()
+                lastTwoWeeks.add(Calendar.DATE, -14)
+                val lastTwoWeekSleeps = DataModel.filterSleeps(sleeps, lastTwoWeeks.time)
+                val lastTwoWeeksFragment = fragments.findFragmentById(R.id.last_two_weeks_body)
+                populateFragment(lastTwoWeeksFragment, lastTwoWeekSleeps)
 
-                    // Last month
-                    val lastMonth = Calendar.getInstance()
-                    lastMonth.add(Calendar.DATE, -30)
-                    val lastMonthSleeps = DataModel.filterSleeps(sleeps, lastMonth.time)
-                    val lastMonthFragments = fragments.findFragmentById(R.id.last_month_body)
-                    populateFragment(lastMonthFragments, lastMonthSleeps)
+                // Last month
+                val lastMonth = Calendar.getInstance()
+                lastMonth.add(Calendar.DATE, -30)
+                val lastMonthSleeps = DataModel.filterSleeps(sleeps, lastMonth.time)
+                val lastMonthFragments = fragments.findFragmentById(R.id.last_month_body)
+                populateFragment(lastMonthFragments, lastMonthSleeps)
 
-                    // Last year
-                    val lastYear = Calendar.getInstance()
-                    lastYear.add(Calendar.DATE, -365)
-                    val lastYearSleeps = DataModel.filterSleeps(sleeps, lastYear.time)
-                    val lastYearFragment = fragments.findFragmentById(R.id.last_year_body)
-                    populateFragment(lastYearFragment, lastYearSleeps)
+                // Last year
+                val lastYear = Calendar.getInstance()
+                lastYear.add(Calendar.DATE, -365)
+                val lastYearSleeps = DataModel.filterSleeps(sleeps, lastYear.time)
+                val lastYearFragment = fragments.findFragmentById(R.id.last_year_body)
+                populateFragment(lastYearFragment, lastYearSleeps)
 
-                    // All time, i.e. no filter
-                    val allTimeFragment = fragments.findFragmentById(R.id.all_time_body)
-                    populateFragment(allTimeFragment, sleeps)
-                }
+                // All time, i.e. no filter
+                val allTimeFragment = fragments.findFragmentById(R.id.all_time_body)
+                populateFragment(allTimeFragment, sleeps)
             }
-        )
+        }
     }
 
     private fun populateFragment(fragment: Fragment?, sleeps: List<Sleep>) {
