@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.5.5
 
 - Resolves: gh#387 dark mode now also uses different colors for the start/stop button
 
