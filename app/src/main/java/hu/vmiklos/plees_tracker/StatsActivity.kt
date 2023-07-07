@@ -75,7 +75,11 @@ class StatsActivity : AppCompatActivity() {
         val average = view?.findViewById<TextView>(R.id.fragment_stats_average)
         average?.text = DataModel.getSleepDurationStat(sleeps, DataModel.getCompactView())
         val daily = view?.findViewById<TextView>(R.id.fragment_stats_daily)
-        daily?.text = DataModel.getSleepDurationDailyStat(sleeps, DataModel.getCompactView())
+        daily?.text = DataModel.getSleepDurationDailyStat(
+            sleeps,
+            DataModel.getCompactView(),
+            DataModel.getIgnoreEmptyDays()
+        )
     }
 }
 

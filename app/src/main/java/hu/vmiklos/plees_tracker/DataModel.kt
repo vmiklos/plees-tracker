@@ -103,6 +103,10 @@ object DataModel {
         return preferences.getBoolean("compact_view", false)
     }
 
+    fun getIgnoreEmptyDays(): Boolean {
+        return preferences.getBoolean("ignore_empty_days", true)
+    }
+
     suspend fun storeSleep() {
         val sleep = Sleep()
         start?.let {
@@ -339,7 +343,11 @@ object DataModel {
     /**
      * Sums up sleeps per day, and then calculate the avg of those sums.
      */
-    fun getSleepDurationDailyStat(sleeps: List<Sleep>, compactView: Boolean): String {
+    fun getSleepDurationDailyStat(
+        sleeps: List<Sleep>,
+        compactView: Boolean,
+        ignoreEmptyDays: Boolean
+    ): String {
         // Day -> sum (in seconds) map.
         val sums = HashMap<Long, Long>()
         var minKey: Long = Long.MAX_VALUE
@@ -379,7 +387,10 @@ object DataModel {
         // Now determine the number of covered days. This is usually just the number of keys, but it
         // can be more, in case a whole 24h period was left out.
         val msPerDay = 86400 * 1000
-        val count = (maxKey - minKey) / msPerDay + 1
+        var count = (maxKey - minKey) / msPerDay + 1
+        if (ignoreEmptyDays) {
+            count = sums.keys.size.toLong()
+        }
         return formatDuration(sums.values.sum() / count, compactView)
     }
 
