@@ -202,5 +202,5 @@
     <string name="no_sleeps">Your tracked sleeps will appear here. Press Start to create a sleep, tap on a sleep to edit it and swipe away a sleep to delete it. For more info, see the Documentation menu item.</string>
     <string name="show_average_of_sleep_duration">Show average of sleep durations</string>
     <string name="show_averege_of_daily_sums">Show average of daily sums</string>
-    <string name="ignore_empty_days">Ignore empty days when show average of daily sums</string>
+    <string name="ignore_empty_days">Ignore empty days when showing average of daily sums</string>
 </resources>
