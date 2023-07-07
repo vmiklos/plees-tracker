@@ -181,7 +181,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
                 durationDailyStat?.text = DataModel.getSleepDurationDailyStat(
                     sleeps,
-                    DataModel.getCompactView()
+                    DataModel.getCompactView(),
+                    DataModel.getIgnoreEmptyDays()
                 )
                 sleepsAdapter.data = sleeps
 

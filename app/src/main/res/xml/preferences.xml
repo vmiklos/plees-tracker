@@ -58,6 +58,10 @@
             android:defaultValue="true"
             android:key="show_average_daily_sums"
             android:title="@string/show_averege_of_daily_sums" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ignore_empty_days"
+            android:title="@string/ignore_empty_days" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">

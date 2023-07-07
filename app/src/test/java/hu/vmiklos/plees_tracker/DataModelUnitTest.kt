@@ -98,7 +98,7 @@ class DataModelUnitTest {
         // Note how this is 11, not 5.5.
         assertEquals(
             "0:00:11",
-            DataModel.getSleepDurationDailyStat(sleeps, false)
+            DataModel.getSleepDurationDailyStat(sleeps, false, false)
         )
     }
 
@@ -127,7 +127,42 @@ class DataModelUnitTest {
         // Note how this is 8 hours per day, not 12.
         assertEquals(
             "8:00:00",
-            DataModel.getSleepDurationDailyStat(sleeps, false)
+            DataModel.getSleepDurationDailyStat(sleeps, false, false)
+        )
+    }
+
+    @Test
+    fun testAvgOfDailySumsIgnoreEmptyDays() {
+        val sleeps = ArrayList<Sleep>()
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = 0
+
+        // 5+1 hours on 12th
+        var sleep = Sleep()
+        calendar.set(2020, 2, 12, 0, 0, 0)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 5, 0, 0)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+        sleep = Sleep()
+        calendar.set(2020, 2, 12, 6, 0, 0)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 7, 0, 0)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // 7 hours on 14th
+        sleep = Sleep()
+        calendar.set(2020, 2, 14, 0, 0, 0)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 14, 7, 0, 0)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // Note how this is 6.5 hours per day, not 4.33.
+        assertEquals(
+            "6:30:00",
+            DataModel.getSleepDurationDailyStat(sleeps, false, true)
         )
     }
 
