@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#366 ignore empty days when counting average of daily sums
+
 ## 7.5.5
 
 - Resolves: gh#387 dark mode now also uses different colors for the start/stop button
