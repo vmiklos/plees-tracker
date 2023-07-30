@@ -82,10 +82,10 @@ The 'Show average of daily sums' setting is enabled by default and is useful if 
 your sleeps, but you may sleep multiple times a day. This will first count the sum of your sleeps
 within a day, and count the average of those sums.
 
-The 'Ignore empty days when showing average of daily sums' setting by default ignores empty days when
-counting the average of daily sums, assuming that you probably just forgot to track your sleep(s) on
-that day. If this is not the case and you in fact sometimes skip an entire day, then disable this
-setting.
+The 'Ignore empty days when showing average of daily sums' setting is enabled by default and ignores
+empty days when counting the average of daily sums, assuming that you probably just forgot to track
+your sleep(s) on that day. If this is not the case and you in fact sometimes skip an entire day,
+then disable this setting.
 
 ### Past sleeps
 
