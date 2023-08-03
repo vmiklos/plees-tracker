@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.6.0
 
 - Resolves: gh#366 ignore empty days when counting average of daily sums
 
