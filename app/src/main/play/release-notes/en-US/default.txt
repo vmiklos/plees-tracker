@@ -1,1 +1,1 @@
-- Resolves: gh#387 dark mode now also uses different colors for the start/stop button
+- Resolves: gh#366 ignore empty days when counting average of daily sums
