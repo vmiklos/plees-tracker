@@ -3,7 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 33
+    kotlinOptions {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+    compileSdk 33
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
@@ -71,17 +74,11 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation "androidx.activity:activity-ktx:1.7.2"
-    implementation "androidx.fragment:fragment-ktx:1.6.0"
+    implementation "androidx.fragment:fragment-ktx:1.6.1"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'org.apache.commons:commons-csv:1.9.0'
 }
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        kotlinOptions.allWarningsAsErrors = true
-    }
 }
