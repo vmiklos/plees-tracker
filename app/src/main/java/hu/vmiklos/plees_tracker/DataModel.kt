@@ -287,24 +287,32 @@ object DataModel {
             Log.e(TAG, "exportData: takePersistableUriPermission() failed for write")
         }
 
-        val os: OutputStream? = cr.openOutputStream(uri)
-        if (os == null) {
-            Log.e(TAG, "exportData: openOutputStream() failed")
-            return
-        }
+        var os: OutputStream? = null
         try {
+            os = cr.openOutputStream(uri)
+            if (os == null) {
+                Log.e(TAG, "exportData: openOutputStream() failed")
+                return
+            }
             val writer = CSVPrinter(OutputStreamWriter(os, "UTF-8"), CSVFormat.DEFAULT)
             writer.printRecord("sid", "start", "stop", "rating", "comment")
             for (sleep in sleeps) {
                 writer.printRecord(sleep.sid, sleep.start, sleep.stop, sleep.rating, sleep.comment)
             }
             writer.close()
-        } catch (e: IOException) {
-            Log.e(TAG, "exportData: write() failed")
+        } catch (e: Exception) {
+            if (showToast) {
+                val text = String.format(context.getString(R.string.export_failure), e)
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(context, text, duration)
+                toast.show()
+            } else {
+                Log.e(TAG, "exportDataToFile, failed: $e")
+            }
             return
         } finally {
             try {
-                os.close()
+                os?.close()
             } catch (_: Exception) {
             }
         }
