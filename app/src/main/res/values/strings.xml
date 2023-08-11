@@ -17,6 +17,7 @@
     <string name="export_calendar_item">Export to Calendar</string>
     <string name="import_success">Import finished successfully</string>
     <string name="export_success">Export finished successfully</string>
+    <string name="export_failure">Export failed: %s</string>
     <string name="sleeping_since">Sleeping since %s</string>
     <string name="past">Past sleeps</string>
     <string name="tracking_stopped">Tracking stopped</string>
