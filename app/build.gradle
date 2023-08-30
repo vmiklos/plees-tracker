@@ -7,7 +7,7 @@ android {
         kotlinOptions.allWarningsAsErrors = true
     }
     compileSdk 33
-    buildToolsVersion "30.0.3"
+
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
         minSdkVersion 23
@@ -30,6 +30,9 @@ android {
         }
     }
     buildTypes {
+        debug {
+            applicationIdSuffix = ".debug"
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
