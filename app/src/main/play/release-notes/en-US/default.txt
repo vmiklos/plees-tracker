@@ -1,1 +1,1 @@
-- Resolves: gh#366 ignore empty days when counting average of daily sums
+- Resolves: gh#406 export to file: avoid reporting success in toast on failure

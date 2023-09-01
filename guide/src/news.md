@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.6.1
 
 - Resolves: gh#406 export to file: avoid reporting success in toast on failure
 
