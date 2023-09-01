@@ -5,4 +5,5 @@
     <item android:id="@+id/graph_start" android:title="@string/graph_start"/>
     <item android:id="@+id/graph_stop" android:title="@string/graph_stop"/>
     <item android:id="@+id/graph_rating" android:title="@string/graph_rating"/>
+    <item android:id="@+id/graph_variance" android:title="@string/graph_variance"/>
 </menu>

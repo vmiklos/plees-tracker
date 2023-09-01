@@ -89,6 +89,8 @@
     <string name="graph_stop">Stop time</string>
     <string name="graph_rating">Rating</string>
     <string name="graph_average">Average</string>
+    <string name="graph_variance">Variance</string>
+    <string name="graph_deviation">Standard deviation</string>
     <string name="graph_total">Total</string>
     <string name="graph_hours">Hours</string>
     <string name="graph_ideal">Ideal</string>

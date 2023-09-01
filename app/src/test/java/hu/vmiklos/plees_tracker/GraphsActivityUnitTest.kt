@@ -58,4 +58,19 @@ class GraphsActivityUnitTest {
         assertEquals(dateWithoutTime, dateWithDate.stripTime())
         assertEquals(dateWithoutTime.time, dateWithDate.time.stripTime())
     }
+
+    @Test
+    fun `test variance()`() {
+        // The formulas are written explicitly
+        // so the test does not have to care about the float precision
+        val expected = listOf(
+            0 to 0f,
+            1 to (1f * 1f) / 2 - (1f).div(2).let { it * it },
+            2 to (1f * 1f + 2f * 2f) / 3 - (1f + 2f).div(3).let { it * it },
+            3 to (1f * 1f + 2f * 2f + 3f * 3f) / 4 - (1f + 2f + 3f).div(4).let { it * it },
+            4 to (1f * 1f + 2f * 2f + 3f * 3f + 4f * 4f) / 5 -
+                (1f + 2f + 3f + 4f).div(5).let { it * it },
+        )
+        assertEquals(expected, data.asSequence().cumulativeVariance().toList())
+    }
 }
