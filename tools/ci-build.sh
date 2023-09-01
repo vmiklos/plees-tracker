@@ -10,7 +10,9 @@
 #
 
 mkdir -p app/keystore/
-echo $KEYSTORE | base64 -d > app/keystore/plees_keystore.jks
+if [ -n "$KEYSTORE" ]; then
+    echo $KEYSTORE | base64 -d > app/keystore/plees_keystore.jks
+fi
 
 ./gradlew build
 ./gradlew test
@@ -22,7 +24,9 @@ git ls-files| grep '\.kt[s"]\?$' | xargs ./ktlint --android --relative .
 
 tools/license-check.sh
 
-mkdir dist
-cp app/build/outputs/apk/release/app-release.apk dist/
+if [ -e app/build/outputs/apk/release/app-release.apk ]; then
+    mkdir dist
+    cp app/build/outputs/apk/release/app-release.apk dist/
+fi
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab:
