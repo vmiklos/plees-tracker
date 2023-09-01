@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#406 export to file: avoid reporting success in toast on failure
+
 ## 7.6.0
 
 - Resolves: gh#366 ignore empty days when counting average of daily sums
