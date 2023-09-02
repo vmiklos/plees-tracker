@@ -139,6 +139,10 @@ graphs are provided (select the graph via the menu in the upper right):
 - Rating: This graph shows the user-provided rating of the sleeps per day, along with a cumulative
   moving average. Note that no rating counts as 0.
 
+- Variance: This graph shows the statistical variance and standard deviation of your daily sleep
+  lengths. The more similar sleep lengths you get, the lower the variance will be. The variance
+  units are hours squared and the standard deviation units are hours.
+
 The graphs are generated based on sleeps within the selected dashboard duration.
 
 ## Credits
