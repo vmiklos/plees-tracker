@@ -1,1 +1,1 @@
-- Resolves: gh#406 export to file: avoid reporting success in toast on failure
+- Resolves: gh#388 add variance and standard deviation graphs (Lastaapps)

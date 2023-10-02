@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 7.6.2
 
 - Resolves: gh#388 add variance and standard deviation graphs (Lastaapps)
 
