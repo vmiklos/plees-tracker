@@ -261,7 +261,7 @@ object DataModel {
     suspend fun backupSleeps(context: Context, cr: ContentResolver) {
         val autoBackup = preferences.getBoolean("auto_backup", false)
         val autoBackupPath = preferences.getString("auto_backup_path", "")
-        if (!autoBackup || autoBackupPath == null || autoBackupPath.isEmpty()) {
+        if (!autoBackup || autoBackupPath.isNullOrEmpty()) {
             return
         }
 
