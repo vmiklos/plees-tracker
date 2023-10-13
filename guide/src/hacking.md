@@ -32,3 +32,15 @@ If you are used to Java, then not spelling out type names all over the place is 
 See
 <https://stackoverflow.com/questions/54851861/how-do-i-activate-type-annotations-hints-in-kotlin-like-depicted>
 on how to let Android Studio show these types for you without polluting the code.
+
+## Debugging
+
+You are supposed to go via the Android logging framework, one possible (temporary, local) debug
+printf:
+
+```kotlin
+Log.e(TAG, "debug, myFunc: myVar is " + myVar)
+```
+
+This way it stands out from the stock debug messages when you filter for `package:mine` in the
+Logcat tab in Android Studio.
