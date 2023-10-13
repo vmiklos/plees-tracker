@@ -20,7 +20,7 @@ class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChan
             val autoBackup = sharedPreferences.getBoolean("auto_backup", false)
             val autoBackupPath = sharedPreferences.getString("auto_backup_path", "")
             if (autoBackup) {
-                if (autoBackupPath == null || autoBackupPath.isEmpty()) {
+                if (autoBackupPath.isNullOrEmpty()) {
                     val preferencesActivity = DataModel.preferencesActivity
                     if (preferencesActivity != null) {
                         Log.i(TAG, "onSharedPreferenceChanged: setting new backup path")
