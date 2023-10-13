@@ -28,6 +28,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVPrinter
 import org.apache.commons.csv.CSVRecord
@@ -160,51 +162,58 @@ object DataModel {
     }
 
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
-        val inputStream = cr.openInputStream(uri)
-        val records: Iterable<CSVRecord> = CSVFormat.DEFAULT.parse(InputStreamReader(inputStream))
-        // We have a speed vs memory usage trade-off here. Pay the cost of keeping all sleeps in
-        // memory: the benefit is that inserting all of them once triggers a single notification of
-        // observers. This means that importing 100s of sleeps is still ~instant, while it used to
-        // take ~forever.
-        val importedSleeps = mutableListOf<Sleep>()
-        try {
-            var first = true
-            for (cells in records) {
-                if (first) {
-                    // Ignore the header.
-                    first = false
-                    continue
+        var ret = false
+        withContext(Dispatchers.IO) {
+            val inputStream = cr.openInputStream(uri)
+            val records: Iterable<CSVRecord> =
+                CSVFormat.DEFAULT.parse(InputStreamReader(inputStream))
+            // We have a speed vs memory usage trade-off here. Pay the cost of keeping all sleeps in
+            // memory: the benefit is that inserting all of them once triggers a single notification of
+            // observers. This means that importing 100s of sleeps is still ~instant, while it used to
+            // take ~forever.
+            val importedSleeps = mutableListOf<Sleep>()
+            try {
+                var first = true
+                for (cells in records) {
+                    if (first) {
+                        // Ignore the header.
+                        first = false
+                        continue
+                    }
+                    val sleep = Sleep()
+                    sleep.start = cells[1].toLong()
+                    sleep.stop = cells[2].toLong()
+                    if (cells.isSet(3)) {
+                        sleep.rating = cells[3].toLong()
+                    }
+                    if (cells.isSet(4)) {
+                        sleep.comment = cells[4]
+                    }
+                    importedSleeps.add(sleep)
                 }
-                val sleep = Sleep()
-                sleep.start = cells[1].toLong()
-                sleep.stop = cells[2].toLong()
-                if (cells.isSet(3)) {
-                    sleep.rating = cells[3].toLong()
-                }
-                if (cells.isSet(4)) {
-                    sleep.comment = cells[4]
-                }
-                importedSleeps.add(sleep)
-            }
-            val oldSleeps = database.sleepDao().getAll()
-            val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
-            database.sleepDao().insert(newSleeps.toList())
-        } catch (e: IOException) {
-            Log.e(TAG, "importData: readLine() failed")
-            return
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close()
-                } catch (_: Exception) {
+                val oldSleeps = database.sleepDao().getAll()
+                val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
+                Log.e(TAG, "debug, importData: newSleeps.size is " + newSleeps.size)
+                database.sleepDao().insert(newSleeps.toList())
+                ret = true
+            } catch (e: IOException) {
+                Log.e(TAG, "importData: readLine() failed")
+            } finally {
+                if (inputStream != null) {
+                    try {
+                        inputStream.close()
+                    } catch (_: Exception) {
+                    }
                 }
             }
         }
 
-        val text = context.getString(R.string.import_success)
-        val duration = Toast.LENGTH_SHORT
-        val toast = Toast.makeText(context, text, duration)
-        toast.show()
+        if (ret) {
+            val text = context.getString(R.string.import_success)
+            val duration = Toast.LENGTH_SHORT
+            val toast = Toast.makeText(context, text, duration)
+            toast.show()
+        }
     }
 
     suspend fun importDataFromCalendar(context: Context, calendarId: String) {
