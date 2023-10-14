@@ -1,5 +1,10 @@
 # Changelog
 
+## master
+
+- Resolves: gh#407 fix NetworkOnMainThreadException while importing data from a file, backed by
+  cloud storage
+
 ## 7.6.2
 
 - Resolves: gh#388 add variance and standard deviation graphs (Lastaapps)
