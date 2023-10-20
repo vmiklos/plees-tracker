@@ -6,7 +6,7 @@ android {
     kotlinOptions {
         kotlinOptions.allWarningsAsErrors = true
     }
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
