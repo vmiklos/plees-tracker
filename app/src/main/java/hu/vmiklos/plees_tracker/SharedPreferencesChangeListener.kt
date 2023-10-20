@@ -15,7 +15,7 @@ class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChan
         private const val TAG = "SPChangeListener"
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (key == "auto_backup") {
             val autoBackup = sharedPreferences.getBoolean("auto_backup", false)
             val autoBackupPath = sharedPreferences.getString("auto_backup_path", "")

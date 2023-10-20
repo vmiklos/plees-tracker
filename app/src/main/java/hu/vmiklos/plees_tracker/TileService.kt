@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.service.quicksettings.Tile
@@ -54,7 +55,14 @@ class TileService : android.service.quicksettings.TileService() {
             val intent = Intent(applicationContext, MainActivity::class.java)
             intent.putExtra("startStop", true)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivityAndCollapse(intent)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                val flags = PendingIntent.FLAG_IMMUTABLE
+                val activity = PendingIntent.getActivity(this, 0, intent, flags)
+                startActivityAndCollapse(activity)
+            } else {
+                @Suppress("DEPRECATION")
+                startActivityAndCollapse(intent)
+            }
         } catch (e: Exception) {
             Log.e(TAG, "onClick: uncaught exception: $e")
         }
