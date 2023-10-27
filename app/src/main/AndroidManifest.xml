@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
@@ -38,7 +39,13 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".PreferencesActivity" />
-        <service android:name=".MainService"/>
+        <service
+            android:name=".MainService"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Used to notify the user that tracking is in progress"/>
+        </service>
         <service
             android:name=".TileService"
             android:icon="@drawable/ic_launcher_foreground"
