@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Target Android 14
+
 ## 7.6.3
 
 - Resolves: gh#407 fix NetworkOnMainThreadException while importing data from a file, backed by
