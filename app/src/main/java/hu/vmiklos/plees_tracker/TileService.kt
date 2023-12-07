@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
@@ -43,6 +44,7 @@ class TileService : android.service.quicksettings.TileService() {
         qsTile.updateTile()
     }
 
+    @SuppressLint("StartActivityAndCollapseDeprecated")
     override fun onClick() {
         try {
             if (qsTile.state == Tile.STATE_ACTIVE) {
