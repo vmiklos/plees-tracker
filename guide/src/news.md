@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Fix no action on pressing the back button on the action bar
+
 ## 7.6.4
 
 - Target Android 14
