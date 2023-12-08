@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -80,6 +81,14 @@ class StatsActivity : AppCompatActivity() {
             DataModel.getCompactView(),
             DataModel.getIgnoreEmptyDays()
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            this.finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 

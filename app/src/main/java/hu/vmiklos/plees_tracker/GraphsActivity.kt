@@ -45,6 +45,10 @@ class GraphsActivity : AppCompatActivity() {
             R.id.graph_stop -> renderStopChart()
             R.id.graph_rating -> renderRatingChart()
             R.id.graph_variance -> renderVarianceChart()
+            android.R.id.home -> {
+                this.finish()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

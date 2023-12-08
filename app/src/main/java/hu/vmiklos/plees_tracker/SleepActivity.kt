@@ -7,6 +7,7 @@
 package hu.vmiklos.plees_tracker
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,14 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
                 viewModel.editSleepTime(this, sid, false, applicationContext, contentResolver)
             else -> {}
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            this.finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
 
