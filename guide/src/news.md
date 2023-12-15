@@ -3,6 +3,7 @@
 ## master
 
 - Fix no action on pressing the back button on the action bar
+- Added Themed / Monochrome Launcher icon support for devices that support it (Sébastien Delord)
 
 ## 7.6.4
 
