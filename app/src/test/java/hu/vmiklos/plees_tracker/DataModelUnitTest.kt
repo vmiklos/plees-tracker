@@ -30,6 +30,24 @@ class DataModelUnitTest {
     }
 
     @Test
+    fun testFormatDateTimeDate() {
+        val actual = DataModel.formatDateTime(Date(0), false, false)
+        assertEquals("1970-01-01", actual)
+    }
+
+    @Test
+    fun testFormatDateTimeTimeCompactYes() {
+        val actual = DataModel.formatDateTime(Date(60 * 1000), true, true)
+        assertTrue(actual.endsWith(":01"))
+    }
+
+    @Test
+    fun testFormatDateTimeTimeCompactNo() {
+        val actual = DataModel.formatDateTime(Date(60 * 1000), true, false)
+        assertTrue(actual.endsWith(":01:00"))
+    }
+
+    @Test
     fun testGetSleepCountStat() {
         val sleeps = ArrayList<Sleep>()
         val sleep = Sleep()
