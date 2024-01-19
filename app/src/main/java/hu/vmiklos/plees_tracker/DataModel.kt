@@ -438,9 +438,13 @@ object DataModel {
         return sdf.format(date)
     }
 
-    fun formatDateTime(date: Date, asTime: Boolean): String {
+    fun formatDateTime(date: Date, asTime: Boolean, compactView: Boolean): String {
         val sdf = if (asTime) {
-            SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+            if (compactView) {
+                SimpleDateFormat("HH:mm", Locale.getDefault())
+            } else {
+                SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+            }
         } else {
             SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         }
