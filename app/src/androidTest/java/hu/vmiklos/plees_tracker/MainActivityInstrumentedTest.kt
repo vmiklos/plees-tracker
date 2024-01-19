@@ -16,6 +16,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
+// import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intending
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
@@ -42,7 +43,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityInstrumentedTest {
 
-    @get:Rule
+    @JvmField
+    @Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @get:Rule
@@ -68,10 +70,18 @@ class MainActivityInstrumentedTest {
     }
 
     @Test
-    fun testCountStat() = runBlocking {
-        onView(withId(R.id.start_stop)).perform(click())
-        onView(withId(R.id.start_stop)).perform(click())
+    fun testCountStat(): Unit = runBlocking {
+        val startStop = onView(withId(R.id.start_stop_layout))
+        // Start.
+        startStop.perform(click())
+        // Stop.
+        startStop.perform(click())
+
+        // Read number of created sleeps.
         assertEquals(1, database.sleepDao().getAll().size)
+        // FIXME UI is not yet updated, how to wait for this?
+        // val sleepsCount = onView(withId(R.id.fragment_stats_sleeps))
+        // sleepsCount.check(matches(withText("1")))
     }
 
     @Test
