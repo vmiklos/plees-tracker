@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- sleep activity: handle the 'compact view' setting
+
 ## 7.6.5
 
 - Fix no action on pressing the back button on the action bar
