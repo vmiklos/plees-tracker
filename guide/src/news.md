@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 24.2.0
 
 - sleep activity: handle the 'compact view' setting
 
