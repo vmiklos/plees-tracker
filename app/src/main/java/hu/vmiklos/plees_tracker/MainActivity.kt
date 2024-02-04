@@ -118,16 +118,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         sharedPreferenceListener.applyTheme(PreferenceManager.getDefaultSharedPreferences(this))
 
+        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        preferences.registerOnSharedPreferenceChangeListener(sharedPreferenceListener)
+        DataModel.init(applicationContext, preferences)
+
         viewModel = ViewModelProvider.AndroidViewModelFactory(application)
             .create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
         val startStop = findViewById<LinearLayout>(R.id.start_stop_layout)
         startStop.setOnClickListener(this)
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        preferences.registerOnSharedPreferenceChangeListener(sharedPreferenceListener)
-        DataModel.init(applicationContext, preferences)
 
         preferences.liveData("dashboard_duration", "-7").observe(
             this
