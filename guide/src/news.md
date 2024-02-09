@@ -3,6 +3,7 @@
 ## 24.2.0
 
 - sleep activity: handle the 'compact view' setting
+- switched version scheme to [CalVer](https://calver.org/) to match reality
 
 ## 7.6.5
 
