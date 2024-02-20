@@ -323,7 +323,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             // When user stops tracking sleep
             if (dndManager.isNotificationPolicyAccessGranted and dndEnabled) {
                 // Restore Do Not Disturb status when user started tracking
-                dndManager.setInterruptionFilter(preferences.getInt("current_dnd", NotificationManager.INTERRUPTION_FILTER_ALL))
+                dndManager.setInterruptionFilter(preferences.getInt("current_dnd",
+                    NotificationManager.INTERRUPTION_FILTER_ALL))
             } else {
                 Log.w(TAG, "Failed to disable DND, permissions not enabled")
             }
