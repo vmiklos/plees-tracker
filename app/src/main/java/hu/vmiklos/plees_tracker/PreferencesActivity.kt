@@ -6,15 +6,11 @@
 
 package hu.vmiklos.plees_tracker
 
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import android.provider.Settings
-import androidx.activity.result.ActivityResultLauncher
 
 class PreferencesActivity : AppCompatActivity() {
     companion object {
