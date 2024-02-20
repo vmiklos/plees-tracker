@@ -7,11 +7,14 @@
 package hu.vmiklos.plees_tracker
 
 import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -313,7 +316,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
         val startStopText = findViewById<TextView>(R.id.start_stop_text)
 
+        val dndManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         if (DataModel.start != null && DataModel.stop != null) {
+            // When user stops tracking sleep
+            if (dndManager.isNotificationPolicyAccessGranted) {
+                dndManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
+            } else {
+                Log.w(TAG, "Failed to disable DND, permissions not enabled")
+            }
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
@@ -326,6 +337,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
         DataModel.start?.let { start ->
+            // When user starts tracking sleep
+            if (dndManager.isNotificationPolicyAccessGranted) {
+                dndManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+            } else {
+                val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                startActivity(intent)
+                Log.w(TAG, "Failed to enable DND, permissions not enabled")
+            }
             status.text = String.format(
                 getString(R.string.sleeping_since),
                 DataModel.formatTimestamp(start, DataModel.getCompactView())
