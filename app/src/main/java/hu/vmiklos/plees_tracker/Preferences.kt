@@ -38,7 +38,8 @@ class Preferences : PreferenceFragmentCompat() {
             if (sharedPreferences != null) {
                 if (sharedPreferences.getBoolean("enable_dnd", false)) {
                     val activity = activity ?: return super.onPreferenceTreeClick(preference)
-                    val dndManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    val dndManager = activity.getSystemService(Context.NOTIFICATION_SERVICE)
+                            as NotificationManager
                     val hasPermission = dndManager.isNotificationPolicyAccessGranted
 
                     if (!hasPermission) {
@@ -46,11 +47,14 @@ class Preferences : PreferenceFragmentCompat() {
                         AlertDialog.Builder(context)
                             .setTitle(R.string.settings_enable_dnd_question_title)
                             .setMessage(R.string.settings_enable_dnd_question_message)
-                            .setPositiveButton(R.string.settings_enable_dnd_question_ok) { _, _ ->
-                                val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                            .setPositiveButton(
+                                R.string.settings_enable_dnd_question_ok) { _, _ ->
+                                val intent = Intent(
+                                    Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
                                 startActivity(intent)
                             }
-                            .setNegativeButton(R.string.settings_enable_dnd_question_cancel) { _, _ ->
+                            .setNegativeButton(
+                                R.string.settings_enable_dnd_question_cancel) { _, _ ->
                                 val editor = sharedPreferences.edit()
                                 if (editor != null) {
                                     editor.putBoolean("enable_dnd", false)
@@ -78,7 +82,8 @@ class Preferences : PreferenceFragmentCompat() {
 
     fun checkDnd() {
         val activity = activity ?: return
-        val dndManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val dndManager = activity.getSystemService(Context.NOTIFICATION_SERVICE)
+                as NotificationManager
         val hasPermission = dndManager.isNotificationPolicyAccessGranted
 
         val sharedPreferences = context?.let { PreferenceManager.getDefaultSharedPreferences(it) }
