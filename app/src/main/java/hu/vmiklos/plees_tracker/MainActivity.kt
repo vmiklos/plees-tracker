@@ -341,8 +341,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (dndManager.isNotificationPolicyAccessGranted) {
                 dndManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
             } else {
-                val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                startActivity(intent)
                 Log.w(TAG, "Failed to enable DND, permissions not enabled")
             }
             status.text = String.format(
