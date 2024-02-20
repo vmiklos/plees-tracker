@@ -65,10 +65,10 @@
     <string name="settings_dashboard_duration">Duration</string>
     <string name="settings_etc">Miscellaneous</string>
     <string name="settings_enable_dnd">Do not disturb when tracking</string>
-    <string name="settings_enable_dnd_question_title">Permissions Required</string>
-    <string name="settings_enable_dnd_question_message">Please allow Do Not Disturb permissions for this app on the next screen.</string>
-    <string name="settings_enable_dnd_question_ok">OK</string>
-    <string name="settings_enable_dnd_question_cancel">Cancel</string>
+    <string name="settings_enable_dnd_q_title">Permissions Required</string>
+    <string name="settings_enable_dnd_q_message">Please allow Do Not Disturb permissions for this app on the next screen.</string>
+    <string name="settings_enable_dnd_q_ok">OK</string>
+    <string name="settings_enable_dnd_q_cancel">Cancel</string>
     <string name="last_week">Last week</string>
     <string name="last_two_weeks">Last two weeks</string>
     <string name="last_month">Last month</string>
