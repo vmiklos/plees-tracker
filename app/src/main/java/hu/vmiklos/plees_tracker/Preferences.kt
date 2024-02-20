@@ -9,13 +9,10 @@ package hu.vmiklos.plees_tracker
 import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -93,8 +90,8 @@ class Preferences : PreferenceFragmentCompat() {
                 editor.apply()
                 Log.d(TAG, "Set enable_dnd to false!")
                 // Refresh screen, not the "cleanest way" but it works
-                preferenceScreen.removeAll();
-                addPreferencesFromResource(R.xml.preferences);
+                preferenceScreen.removeAll()
+                addPreferencesFromResource(R.xml.preferences)
             } else {
                 Log.wtf(TAG, "editor is null")
             }
