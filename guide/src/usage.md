@@ -99,6 +99,12 @@ The past sleeps section allow configuring the contents of the individual sleep c
 The sleep cards are not re-created when changing settings, so you need to restart plees-tracker to
 see the effect.
 
+### Do not disturb when tracking
+
+This option enables automatic activation of DND (Do Not Disturb) mode when you start tracking your sleep. When toggled on for the first time, you will be prompted to grant Plees Tracker permissions to modify DND settings.
+
+Upon ceasing sleep tracking, the DND setting you had enabled prior to initiating the tracking will be restored.
+
 ## Sleep activity
 
 The sleep activity allows modifying the start,  stop time or rating of a single recorded sleep,
