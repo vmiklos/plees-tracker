@@ -74,5 +74,14 @@
             android:key="show_rating"
             android:title="@string/show_rating" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/settings_etc">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="enable_dnd"
+            android:title="@string/settings_enable_dnd" />
+    </PreferenceCategory>
 </PreferenceScreen>
 
