@@ -14,5 +14,6 @@ shout-out to them!
 - ELY M. <https://github.com/ELY3M>
 - Mael Lacour <https://github.com/Eyap53>
 - phiiil <https://github.com/phiiil>
+- Mason Fisher <https://github.com/MachineThing>
 
 If you feel you're missing from this list, feel free to add yourself in a PR.
