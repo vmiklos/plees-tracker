@@ -321,10 +321,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         if (DataModel.start != null && DataModel.stop != null) {
             // When user stops tracking sleep
-            if (dndManager.isNotificationPolicyAccessGranted and dndEnabled) {
-                // Restore Do Not Disturb status when user started tracking
-                val filterAll = NotificationManager.INTERRUPTION_FILTER_ALL
-                dndManager.setInterruptionFilter(preferences.getInt("current_dnd", filterAll))
+            if (dndManager.isNotificationPolicyAccessGranted) {
+                if (dndEnabled) {
+                    // Restore Do Not Disturb status when user started tracking
+                    val filterAll = NotificationManager.INTERRUPTION_FILTER_ALL
+                    dndManager.setInterruptionFilter(preferences.getInt("current_dnd", filterAll))
+                }
             } else {
                 Log.w(TAG, "Failed to disable DND, permissions not enabled")
             }
@@ -346,8 +348,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             preferences.edit()
                 .putInt("current_dnd", dndManager.currentInterruptionFilter)
                 .apply() // Saves current Do Not Disturb status
-            if (dndManager.isNotificationPolicyAccessGranted and dndEnabled) {
-                dndManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY)
+            if (dndManager.isNotificationPolicyAccessGranted) {
+                if (dndEnabled) {
+                    val filterPri = NotificationManager.INTERRUPTION_FILTER_PRIORITY
+                    dndManager.setInterruptionFilter(filterPri)
+                }
             } else {
                 Log.w(TAG, "Failed to enable DND, permissions not enabled")
             }
