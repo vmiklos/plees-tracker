@@ -321,14 +321,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         if (DataModel.start != null && DataModel.stop != null) {
             // When user stops tracking sleep
-            if (dndManager.isNotificationPolicyAccessGranted) {
-                if (dndEnabled) {
-                    // Restore Do Not Disturb status when user started tracking
-                    val filterAll = NotificationManager.INTERRUPTION_FILTER_ALL
-                    dndManager.setInterruptionFilter(preferences.getInt("current_dnd", filterAll))
-                }
-            } else {
-                Log.w(TAG, "Failed to disable DND, permissions not enabled")
+            if (dndEnabled && dndManager.isNotificationPolicyAccessGranted) {
+                // Restore Do Not Disturb status when user started tracking
+                val filterAll = NotificationManager.INTERRUPTION_FILTER_ALL
+                dndManager.setInterruptionFilter(preferences.getInt("current_dnd", filterAll))
             }
 
             status.text = getString(R.string.tracking_stopped)
@@ -348,13 +344,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             preferences.edit()
                 .putInt("current_dnd", dndManager.currentInterruptionFilter)
                 .apply() // Saves current Do Not Disturb status
-            if (dndManager.isNotificationPolicyAccessGranted) {
-                if (dndEnabled) {
-                    val filterPri = NotificationManager.INTERRUPTION_FILTER_PRIORITY
-                    dndManager.setInterruptionFilter(filterPri)
-                }
-            } else {
-                Log.w(TAG, "Failed to enable DND, permissions not enabled")
+            if (dndEnabled && dndManager.isNotificationPolicyAccessGranted) {
+                val filterPri = NotificationManager.INTERRUPTION_FILTER_PRIORITY
+                dndManager.setInterruptionFilter(filterPri)
             }
             status.text = String.format(
                 getString(R.string.sleeping_since),
