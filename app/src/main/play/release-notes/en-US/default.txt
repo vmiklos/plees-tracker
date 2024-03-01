@@ -1,1 +1,1 @@
-- sleep activity: handle the 'compact view' setting
+- Resolves: gh#419 add optional do not disturb mode integration (Mason Fisher)
