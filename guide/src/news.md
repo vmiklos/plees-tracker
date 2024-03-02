@@ -1,6 +1,6 @@
 # Changelog
 
-## 24.1.0
+## 24.2.1
 
 - Resolves: gh#419 add optional do not disturb mode integration (Mason Fisher)
 
