@@ -46,6 +46,7 @@ class Sleep {
     override fun hashCode(): Int {
         var result = start.hashCode()
         result = 31 * result + stop.hashCode()
+        result = 31 * result + rating.hashCode()
         return result
     }
 }
