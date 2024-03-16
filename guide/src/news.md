@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#455 main activity: fix missing update after changing the rating of a sleep
+
 ## 24.2.1
 
 - Resolves: gh#419 add optional do not disturb mode integration (Mason Fisher)
