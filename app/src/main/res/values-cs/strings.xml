@@ -1,0 +1,224 @@
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" translatable="false">Plees Tracker</string>
+    <string name="start">Spustit</string>
+    <string name="stop">Zastavit</string>
+    <string name="start_again">Spustit znovu</string>
+    <string name="press_start">Stisknutím tlačítka níže zahájíte sledování</string>
+    <string name="stopped_on">Zastaveno v</string>
+    <string name="started_on">Spuštěno v</string>
+    <string name="slept_for_label">Doba spánku</string>
+    <string name="awake_for_label">Od probuzení</string>
+    <string name="sleeps">Spánky</string>
+    <string name="status">Status</string>
+    <string name="import_file_item">Importovat ze souboru</string>
+    <string name="import_calendar_item">Importovat z kalendáře</string>
+    <string name="export_file_item">Exportovat do souboru</string>
+    <string name="export_calendar_item">Exportovat do kalendáře</string>
+    <string name="import_success">Import probéhl úspéšné</string>
+    <string name="export_success">Export probéhl úspéšné</string>
+    <string name="export_failure">Chyba exportu: %s</string>
+    <string name="sleeping_since">Spánek od %s</string>
+    <string name="past">Minulé spánky</string>
+    <string name="tracking_stopped">Sledování zastaveno</string>
+    <string name="deleted">Smazáno</string>
+    <string name="undo">Vrátit</string>
+    <string name="about_item">O aplikaci</string>
+    <string name="about_toolbar">O aplikaci</string>
+    <string name="app_description">Jednoduchý sledovač spánku pro Android.</string>
+    <string name="sleep_id">Spánek #%s</string>
+    <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
+    <string name="documentation">Dokumentace</string>
+    <string name="average_string">Průměrný</string>
+    <string name="daily_average_string">Denní</string>
+    <string name="dashboard">Nástěnka (%s)</string>
+    <string name="sleep_details">Podrobnosti spánku</string>
+    <string name="settings">Nastavení</string>
+    <string name="settings_category_theme">Motiv (může vyžadovat restart)</string>
+    <string name="settings_follow_system_theme">Podle systému</string>
+    <string name="settings_enable_dark_theme">Tmavý režim</string>
+    <string name="stats">Statistika</string>
+    <string name="delete_all_sleep">Smazat všechny spánky</string>
+    <string name="notification_channel_name">Oznámení o sledování</string>
+    <string name="select_calendar_dialog_title">Výběr kalendáře</string>
+    <string name="select_calendar_dialog_negative">Zrušít</string>
+    <string name="select_calendar_dialog_positive">Vybrat</string>
+    <string name="import_dialog_error_message">Kalendář nenalezen</string>
+    <string name="dismiss">Odmítnout</string>
+    <string name="calendar_permission_required">Vyžadováno oprávnění kalendáře</string>
+    <plurals name="imported_items">
+      <item quantity="one">Imported %d item</item>
+      <item quantity="other">Imported %d items</item>
+    </plurals>
+    <string name="exported_event_description">Exportováno z Plees Tracker</string>
+    <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
+    <plurals name="exported_items">
+        <item quantity="one">Exported %d item</item>
+        <item quantity="other">Exported %d items</item>
+    </plurals>
+    <string name="settings_category_backup">Záloha</string>
+    <string name="settings_automatic_backup">Automaticky zálohovat</string>
+    <string name="settings_compact_view">Kompaktní zobrazení: bez vteřin a časového pásma</string>
+    <string name="settings_backup_path">Cesta pro zálohu</string>
+    <string name="widget_start_stop">Přepnout sledování</string>
+    <string name="settings_category_dashboard">Nástěnka</string>
+    <string name="settings_dashboard_duration">Doba trvání</string>
+    <string name="settings_etc">Různé</string>
+    <string name="settings_enable_dnd">Při sledování aktivovat režim Nerušit</string>
+    <string name="settings_enable_dnd_q_title">Vyžadováno oprávnění</string>
+    <string name="settings_enable_dnd_q_message">Na další obrazovce prosím povolte této aplikaci oprávnění režim Nerušit.</string>
+    <string name="settings_enable_dnd_q_ok">OK</string>
+    <string name="settings_enable_dnd_q_cancel">Zrušit</string>
+    <string name="last_week">Poslední týden</string>
+    <string name="last_two_weeks">Poslední 2 týdny</string>
+    <string name="last_month">Poslední měsíc</string>
+    <string name="last_year">Poslední rok</string>
+    <string name="all_time">Celou dobu</string>
+    <string-array name="duration_entries">
+        <item>@string/last_week</item>
+        <item>@string/last_two_weeks</item>
+        <item>@string/last_month</item>
+        <item>@string/last_year</item>
+        <item>@string/all_time</item>
+    </string-array>
+    <string-array name="duration_entry_values">
+        <item>"-7"</item>
+        <item>"-14"</item>
+        <item>"-30"</item>
+        <item>"-365"</item>
+        <item>"0"</item>
+    </string-array>
+    <string name="graphs">Grafy</string>
+    <string name="graph_deficit">Deficit/přebytek</string>
+    <string name="graph_length">Délka</string>
+    <string name="graph_start">Čas spuštění</string>
+    <string name="graph_stop">Čas zastavení</string>
+    <string name="graph_rating">Hodnocení</string>
+    <string name="graph_average">Průměr</string>
+    <string name="graph_variance">Rozptyl</string>
+    <string name="graph_deviation">Standardní odchylka</string>
+    <string name="graph_total">Celkem</string>
+    <string name="graph_hours">Hodin</string>
+    <string name="graph_ideal">Idealní</string>
+    <string name="settings_ideal_sleep_length">Ideální doba spánku</string>
+    <string name="hours_2">2 hodiny</string>
+    <string name="hours_2_30">2 hodiny 30 minut</string>
+    <string name="hours_3">3 hodiny</string>
+    <string name="hours_3_30">3 hodiny 30 minut</string>
+    <string name="hours_4">4 hodiny</string>
+    <string name="hours_4_30">4 hodiny 30 minut</string>
+    <string name="hours_5">5 hodin</string>
+    <string name="hours_5_30">5 hodin 30 minut</string>
+    <string name="hours_6">6 hodin</string>
+    <string name="hours_6_30">6 hodin 30 minut</string>
+    <string name="hours_7">7 hodin</string>
+    <string name="hours_7_30">7 hodin 30 minut</string>
+    <string name="hours_8">8 hodin</string>
+    <string name="hours_8_30">8 hodin 30 minut</string>
+    <string name="hours_9">9 hodin</string>
+    <string name="hours_9_30">9 hodin 30 minut</string>
+    <string name="hours_10">10 hodin</string>
+    <string name="hours_10_30">10 hodin 30 minut</string>
+    <string name="hours_11">11 hodin</string>
+    <string name="hours_11_30">11 hodin 30 minut</string>
+    <string name="hours_12">12 hodin</string>
+    <string name="hours_12_30">12 hodin 30 minut</string>
+    <string name="hours_13">13 hodin</string>
+    <string name="hours_13_30">13 hodin 30 minut</string>
+    <string name="hours_14">14 hodin</string>
+    <string name="settings_sleep_start_delta">Čas spuštění odložit o</string>
+    <string name="minutes_0">0 minut</string>
+    <string name="minute_1">1 minuta</string>
+    <string name="minutes_5">5 minut</string>
+    <string name="minutes_10">10 minut</string>
+    <string name="minutes_15">15 minut</string>
+    <string name="minutes_30">30 minut</string>
+    <string name="minutes_45">45 minut</string>
+    <string name="minutes_60">60 minut</string>
+    <string name="show_rating">Zobrazit hodnocení</string>
+    <string name="show_awake_duration">Zobrazit dobu bdění</string>
+    <string name="past_sleeps">Minulé spánky</string>
+    <string-array name="ideal_sleep_entries">
+        <item>@string/hours_2</item>
+        <item>@string/hours_2_30</item>
+        <item>@string/hours_3</item>
+        <item>@string/hours_3_30</item>
+        <item>@string/hours_4</item>
+        <item>@string/hours_4_30</item>
+        <item>@string/hours_5</item>
+        <item>@string/hours_5_30</item>
+        <item>@string/hours_6</item>
+        <item>@string/hours_6_30</item>
+        <item>@string/hours_7</item>
+        <item>@string/hours_7_30</item>
+        <item>@string/hours_8</item>
+        <item>@string/hours_8_30</item>
+        <item>@string/hours_9</item>
+        <item>@string/hours_9_30</item>
+        <item>@string/hours_10</item>
+        <item>@string/hours_10_30</item>
+        <item>@string/hours_11</item>
+        <item>@string/hours_11_30</item>
+        <item>@string/hours_12</item>
+        <item>@string/hours_12_30</item>
+        <item>@string/hours_13</item>
+        <item>@string/hours_13_30</item>
+        <item>@string/hours_14</item>
+    </string-array>
+    <string-array name="ideal_sleep_entry_values">
+        <item>"2.0"</item>
+        <item>"2.5"</item>
+        <item>"3.0"</item>
+        <item>"3.5"</item>
+        <item>"4.0"</item>
+        <item>"4.5"</item>
+        <item>"5.0"</item>
+        <item>"5.5"</item>
+        <item>"6.0"</item>
+        <item>"6.5"</item>
+        <item>"7.0"</item>
+        <item>"7.5"</item>
+        <item>"8.0"</item>
+        <item>"8.5"</item>
+        <item>"9.0"</item>
+        <item>"9.5"</item>
+        <item>"10.0"</item>
+        <item>"10.5"</item>
+        <item>"11.0"</item>
+        <item>"11.5"</item>
+        <item>"12.0"</item>
+        <item>"12.5"</item>
+        <item>"13.0"</item>
+        <item>"13.5"</item>
+        <item>"14.0"</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entries">
+        <item>@string/minutes_0</item>
+        <item>@string/minute_1</item>
+        <item>@string/minutes_5</item>
+        <item>@string/minutes_10</item>
+        <item>@string/minutes_15</item>
+        <item>@string/minutes_30</item>
+        <item>@string/minutes_45</item>
+        <item>@string/minutes_60</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entry_values">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+    </string-array>
+    <string name="negative_duration">Spánek nebyl aktualizován, zastavení není po času spuštění.</string>
+    <string name="sleep_notes">Poznámky:</string>
+    <string name="delete_all_message">Opravdu chcete smazat všechny spánky?</string>
+    <string name="delete_all_positive">Ano</string>
+    <string name="delete_all_negative">Ne</string>
+    <string name="no_sleeps">Zde se zobrazí vaše sledované spánky. Stisknutím Spustit vytvoříte spánek, klepnutím na spánek jej upravíte a přejetím prstem spánek odstraníte. Další informace naleznete v položce nabídky Dokumentace.</string>
+    <string name="show_average_of_sleep_duration">Zobrazit průměrnou dobu spánku</string>
+    <string name="show_averege_of_daily_sums">Zobrazit průměr denních součtů</string>
+    <string name="ignore_empty_days">"Při zobrazení průměru denního součtu ignorovat prázdné dny "</string>
+</resources>
