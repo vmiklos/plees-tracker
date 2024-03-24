@@ -47,14 +47,18 @@
     <string name="dismiss">Odmítnout</string>
     <string name="calendar_permission_required">Vyžadováno oprávnění kalendáře</string>
     <plurals name="imported_items">
-      <item quantity="one">Imported %d item</item>
-      <item quantity="other">Imported %d items</item>
+        <item quantity="one">Importována %d položka</item>
+        <item quantity="few">Importovány %d položky</item>
+        <item quantity="many">Importováno %d položek</item>
+        <item quantity="other">Importováno %d položek</item>
     </plurals>
     <string name="exported_event_description">Exportováno z Plees Tracker</string>
     <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
     <plurals name="exported_items">
-        <item quantity="one">Exported %d item</item>
-        <item quantity="other">Exported %d items</item>
+        <item quantity="one">Exportována %d položka</item>
+        <item quantity="few">Exportovány %d položky</item>
+        <item quantity="many">Exportováno %d položek</item>
+        <item quantity="other">Exportováno %d položek</item>
     </plurals>
     <string name="settings_category_backup">Záloha</string>
     <string name="settings_automatic_backup">Automaticky zálohovat</string>
