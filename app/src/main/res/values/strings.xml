@@ -132,6 +132,9 @@
     <string name="minutes_5">5 minutes</string>
     <string name="minutes_10">10 minutes</string>
     <string name="minutes_15">15 minutes</string>
+    <string name="minutes_30">30 minutes</string>
+    <string name="minutes_45">45 minutes</string>
+    <string name="minutes_60">60 minutes</string>
     <string name="show_rating">Show rating</string>
     <string name="show_awake_duration">Show awake duration</string>
     <string name="past_sleeps">Past sleeps</string>
@@ -195,6 +198,9 @@
         <item>@string/minutes_5</item>
         <item>@string/minutes_10</item>
         <item>@string/minutes_15</item>
+        <item>@string/minutes_30</item>
+        <item>@string/minutes_45</item>
+        <item>@string/minutes_60</item>
     </string-array>
     <string-array name="sleep_start_delay_entry_values">
         <item>"0"</item>
@@ -202,6 +208,9 @@
         <item>"5"</item>
         <item>"10"</item>
         <item>"15"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
     </string-array>
     <string name="negative_duration">Not updating the sleep, stop is not after start.</string>
     <string name="sleep_notes">Notes:</string>
