@@ -3,6 +3,8 @@
 ## master
 
 - Resolves: gh#455 main activity: fix missing update after changing the rating of a sleep
+- add 30/45/60minutes to "Start time delay" option (k3dar)
+- Czech localization added (k3dar)
 
 ## 24.2.1
 
