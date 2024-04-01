@@ -1,1 +1,3 @@
-- Resolves: gh#419 add optional do not disturb mode integration (Mason Fisher)
+- Resolves: gh#455 main activity: fix missing update after changing the rating of a sleep
+- add 30/45/60minutes to "Start time delay" option (k3dar)
+- Czech localization added (k3dar)
