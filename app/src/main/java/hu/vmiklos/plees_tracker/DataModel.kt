@@ -398,7 +398,7 @@ object DataModel {
         }
 
         if (sums.size == 0) {
-            return ""
+            return formatDuration(0, compactView)
         }
 
         // Now determine the number of covered days. This is usually just the number of keys, but it
