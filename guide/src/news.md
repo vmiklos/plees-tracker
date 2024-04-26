@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#436 show zero time instead of empty text without sleeps
+
 ## 24.2.2
 
 - Resolves: gh#455 main activity: fix missing update after changing the rating of a sleep
