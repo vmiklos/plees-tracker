@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 24.2.3
 
 - Resolves: gh#436 show zero time instead of empty text without sleeps
 
