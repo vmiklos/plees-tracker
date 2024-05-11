@@ -37,7 +37,7 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
         val bundle = intent.extras ?: return
         sid = bundle.getInt("sid")
 
-        title = String.format(getString(R.string.sleep_id), sid)
+        title = String.format(getString(R.string.sleep_id), sid.toString())
         // Show a back button.
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
