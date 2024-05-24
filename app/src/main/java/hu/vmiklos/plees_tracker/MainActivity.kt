@@ -184,7 +184,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 durationDailyStat?.text = DataModel.getSleepDurationDailyStat(
                     sleeps,
                     DataModel.getCompactView(),
-                    DataModel.getIgnoreEmptyDays()
+                    DataModel.getIgnoreEmptyDays(),
+                    DataModel.getStatFunction()
                 )
                 sleepsAdapter.data = sleeps
 

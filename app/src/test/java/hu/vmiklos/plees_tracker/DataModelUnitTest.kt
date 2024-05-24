@@ -114,9 +114,10 @@ class DataModelUnitTest {
         sleeps.add(sleep)
 
         // Note how this is 11, not 5.5.
+        val func = DataModel.StatFunction.AVERAGE
         assertEquals(
             "0:00:11",
-            DataModel.getSleepDurationDailyStat(sleeps, false, false)
+            DataModel.getSleepDurationDailyStat(sleeps, false, false, func)
         )
     }
 
@@ -143,9 +144,47 @@ class DataModelUnitTest {
         sleeps.add(sleep)
 
         // Note how this is 8 hours per day, not 12.
+        val func = DataModel.StatFunction.AVERAGE
         assertEquals(
             "8:00:00",
-            DataModel.getSleepDurationDailyStat(sleeps, false, false)
+            DataModel.getSleepDurationDailyStat(sleeps, false, false, func)
+        )
+    }
+
+    @Test
+    fun testMedianOfDailySums() {
+        val sleeps = ArrayList<Sleep>()
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = 0
+
+        // 5 hours on 12th
+        var sleep = Sleep()
+        calendar.set(2020, 2, 12, 0, 0, 0)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 12, 5, 0, 0)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // 8 hours on 13th
+        sleep = Sleep()
+        calendar.set(2020, 2, 13, 0, 0, 0)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 13, 8, 0, 0)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // 9 hours on 14th
+        sleep = Sleep()
+        calendar.set(2020, 2, 14, 0, 0, 0)
+        sleep.start = calendar.timeInMillis
+        calendar.set(2020, 2, 14, 9, 0, 0)
+        sleep.stop = calendar.timeInMillis
+        sleeps.add(sleep)
+
+        // Note how this is 8, not 7 hours.
+        assertEquals(
+            "8:00:00",
+            DataModel.getSleepDurationDailyStat(sleeps, false, true, DataModel.StatFunction.MEDIAN)
         )
     }
 
@@ -180,7 +219,7 @@ class DataModelUnitTest {
         // Note how this is 6.5 hours per day, not 4.33.
         assertEquals(
             "6:30:00",
-            DataModel.getSleepDurationDailyStat(sleeps, false, true)
+            DataModel.getSleepDurationDailyStat(sleeps, false, true, DataModel.StatFunction.AVERAGE)
         )
     }
 

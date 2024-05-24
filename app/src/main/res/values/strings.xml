@@ -221,4 +221,5 @@
     <string name="show_average_of_sleep_duration">Show average of sleep durations</string>
     <string name="show_averege_of_daily_sums">Show average of daily sums</string>
     <string name="ignore_empty_days">Ignore empty days when showing average of daily sums</string>
+    <string name="use_median">Use median instead of average when counting the daily duration</string>
 </resources>
