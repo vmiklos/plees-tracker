@@ -87,6 +87,11 @@ empty days when counting the average of daily sums, assuming that you probably j
 your sleep(s) on that day. If this is not the case and you in fact sometimes skip an entire day,
 then disable this setting.
 
+The 'Use median instead of average when counting the daily duration' setting is disabled by default
+and uses median instead of average when showing a single duration for the daily sum of several days.
+This is less expected, but can be useful in case you filter out e.g. sick days where one may
+undersleep or oversleep.
+
 ### Past sleeps
 
 The past sleeps section allow configuring the contents of the individual sleep cards:

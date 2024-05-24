@@ -79,7 +79,8 @@ class StatsActivity : AppCompatActivity() {
         daily?.text = DataModel.getSleepDurationDailyStat(
             sleeps,
             DataModel.getCompactView(),
-            DataModel.getIgnoreEmptyDays()
+            DataModel.getIgnoreEmptyDays(),
+            DataModel.getStatFunction()
         )
     }
 

@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToLong
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.commons.csv.CSVFormat
@@ -107,6 +108,14 @@ object DataModel {
 
     fun getIgnoreEmptyDays(): Boolean {
         return preferences.getBoolean("ignore_empty_days", true)
+    }
+
+    fun getStatFunction(): StatFunction {
+        if (preferences.getBoolean("use_median", false)) {
+            return StatFunction.MEDIAN
+        } else {
+            return StatFunction.AVERAGE
+        }
     }
 
     suspend fun storeSleep() {
@@ -357,13 +366,18 @@ object DataModel {
         } else formatDuration(sum / count, compactView)
     }
 
+    enum class StatFunction {
+        AVERAGE, MEDIAN
+    }
+
     /**
      * Sums up sleeps per day, and then calculate the avg of those sums.
      */
     fun getSleepDurationDailyStat(
         sleeps: List<Sleep>,
         compactView: Boolean,
-        ignoreEmptyDays: Boolean
+        ignoreEmptyDays: Boolean,
+        statFunction: StatFunction
     ): String {
         // Day -> sum (in seconds) map.
         val sums = HashMap<Long, Long>()
@@ -408,7 +422,12 @@ object DataModel {
         if (ignoreEmptyDays) {
             count = sums.keys.size.toLong()
         }
-        return formatDuration(sums.values.sum() / count, compactView)
+        val duration: Long = when (statFunction) {
+            StatFunction.AVERAGE -> sums.values.sum() / count
+            StatFunction.MEDIAN -> median(sums.values.toLongArray()).roundToLong()
+        }
+
+        return formatDuration(duration, compactView)
     }
 
     fun formatDuration(seconds: Long, compactView: Boolean): String {

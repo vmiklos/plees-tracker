@@ -62,6 +62,10 @@
             android:defaultValue="true"
             android:key="ignore_empty_days"
             android:title="@string/ignore_empty_days" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="use_median"
+            android:title="@string/use_median" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/past_sleeps">
