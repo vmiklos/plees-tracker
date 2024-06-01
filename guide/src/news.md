@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 24.2.4
 
 - Resolves: gh#437 add option to use median instead of average
 

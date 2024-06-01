@@ -1,1 +1,1 @@
-- Resolves: gh#436 show zero time instead of empty text without sleeps
+- Resolves: gh#437 add option to use median instead of average
