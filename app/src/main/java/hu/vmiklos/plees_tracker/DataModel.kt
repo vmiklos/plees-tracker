@@ -15,6 +15,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.switchMap
 import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -167,7 +168,14 @@ object DataModel {
     }
 
     fun getSleepsAfterLive(after: Date): LiveData<List<Sleep>> {
-        return database.sleepDao().getAfterLive(after.time)
+        // Callable, so we update if any of the below LiveDatas change.
+        val afterSleep = {
+            database.sleepDao().getAfterLive(after.time)
+        }
+        val useMedian = preferences.liveDataBoolean("use_median", false).switchMap { _ ->
+            afterSleep()
+        }
+        return useMedian
     }
 
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
