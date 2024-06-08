@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#474 don't require app restart when changing the `use_median` setting
+
 ## 24.2.4
 
 - Resolves: gh#437 add option to use median instead of average
