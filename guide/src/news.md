@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 24.2.5
 
 - Resolves: gh#474 don't require app restart when changing the `use_median` setting
 

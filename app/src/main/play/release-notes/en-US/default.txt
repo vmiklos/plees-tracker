@@ -1,1 +1,1 @@
-- Resolves: gh#437 add option to use median instead of average
+- Resolves: gh#474 don't require app restart when changing the `use_median` setting
