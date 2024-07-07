@@ -26,7 +26,7 @@ Features:
 
 ## Contributing
 
-plees-tracker is free and open source. You can view the [source code](https://github.com/vmiklos/plees-tracker) and file an [https://github.com/vmiklos/plees-tracker/issues](issue or feature request). If you'd like to contribute, please consider opening a pull request.
+plees-tracker is free and open source. You can view the [source code](https://github.com/vmiklos/plees-tracker) and file an [issue or feature request](https://github.com/vmiklos/plees-tracker/issues). If you'd like to contribute, please consider opening a pull request.
 
 ## License
 
