@@ -6,9 +6,7 @@ The latest version is v24.2.5, released on 2024-07-02.
 
 ## Description
 
-This is meant to be a very simple open source clone of
-[PrimeNap](https://play.google.com/store/apps/details?id=com.primenap), i.e. just track sleep
-start/stop times and count the average / day.
+This is meant to be a simple open source sleep tracker, allowing to track sleep start/stop times and count the average / day.
 
 Features:
 
@@ -20,7 +18,7 @@ Features:
 
 - Can show past sleeps, can selectively delete individual sleeps.
 
-It looks like this:
+## Screenshot
 
 <img src="https://vmiklos.hu/plees-tracker/app/1.png"
     width="360"
@@ -28,9 +26,7 @@ It looks like this:
 
 ## Contributing
 
-plees-tracker is free and open source. You can find the source code on
-[GitHub](https://github.com/vmiklos/plees-tracker) and issues and feature requests can be posted on
-the issue tracker. If you'd like to contribute, please consider opening a pull request.
+plees-tracker is free and open source. You can view the [source code](https://github.com/vmiklos/plees-tracker) and file an [https://github.com/vmiklos/plees-tracker/issues](issue or feature request). If you'd like to contribute, please consider opening a pull request.
 
 ## License
 
