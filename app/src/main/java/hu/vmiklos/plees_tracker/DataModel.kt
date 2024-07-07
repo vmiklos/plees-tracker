@@ -104,7 +104,7 @@ object DataModel {
     }
 
     fun getCompactView(): Boolean {
-        return preferences.getBoolean("compact_view", false)
+        return preferences.getBoolean("compact_view", true)
     }
 
     fun getIgnoreEmptyDays(): Boolean {
