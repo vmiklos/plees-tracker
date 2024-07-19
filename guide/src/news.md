@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Fix the default for the compact view (was meant to be disabled)
+
 ## 24.2.5
 
 - Resolves: gh#474 don't require app restart when changing the `use_median` setting
