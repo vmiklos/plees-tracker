@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 24.8.0
 
 - Fix the default for the compact view (was meant to be disabled)
 
