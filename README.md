@@ -4,10 +4,23 @@
 
 Plees Tracker is a simple sleep tracker for your Android phone.
 
-## Description
+This app is meant to be a simple open source sleep tracker, allowing you to track sleep start/stop times and count the average per day.
 
-Check out the [user guide](https://vmiklos.hu/plees-tracker/) for a list of features and
-installation and usage information.
+Features:
+* It literally does nothing while you sleep, causes no battery drain.
+* Stores past sleeps, counts stat from them.
+* Exports/imports sleep data to/from CSV.
+* Can show past sleeps, can selectively delete individual sleeps.
+
+
+![Sample Interface of Plees-Tracker App](doc/sample_interface.png)
+
+Check out the [user guide](https://vmiklos.hu/plees-tracker/) for a full list of features, 
+installation, and usage information.
+
+## Contributing
+plees-tracker is free and open source. You can view the source code, file an issue, or request new features. 
+If you'd like to contribute, please consider opening a pull request.
 
 ## License
 
