@@ -13,14 +13,12 @@ Features:
 * Can show past sleeps, can selectively delete individual sleeps.
 
 
-![Sample Interface of Plees-Tracker App](doc/sample_interface.png)
+<!-- ![Sample Interface of Plees-Tracker App](doc/sample_interface.png) -->
+<img alt="Sample Interface of Plees-Tracker App" width="300px" src="doc/sample_interface.png" />
 
 Check out the [user guide](https://vmiklos.hu/plees-tracker/) for a full list of features, 
 installation, and usage information.
 
-Get it on F-Droid:
-
-image::doc/fdroid.png[width=194,height=75,link="https://f-droid.org/en/packages/hu.vmiklos.plees_tracker/"]
 
 ## Contributing
 plees-tracker is free and open source. You can view the source code, file an issue, or request new features. 
@@ -29,3 +27,7 @@ If you'd like to contribute, please consider opening a pull request.
 ## License
 
 Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
+
+
+## Get it on F-Droid:
+[<img alt="f-droid" width="80px" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/F-Droid_Logo_4.svg" />](https://f-droid.org/en/packages/hu.vmiklos.plees_tracker/)
