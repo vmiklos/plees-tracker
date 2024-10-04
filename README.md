@@ -18,6 +18,10 @@ Features:
 Check out the [user guide](https://vmiklos.hu/plees-tracker/) for a full list of features, 
 installation, and usage information.
 
+Get it on F-Droid:
+
+image::doc/fdroid.png[width=194,height=75,link="https://f-droid.org/en/packages/hu.vmiklos.plees_tracker/"]
+
 ## Contributing
 plees-tracker is free and open source. You can view the source code, file an issue, or request new features. 
 If you'd like to contribute, please consider opening a pull request.
