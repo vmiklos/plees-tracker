@@ -27,16 +27,24 @@ class MainActivityUITest {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testCreate() {
+    fun testCreateAndRead() {
+        // Given no sleeps:
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val device = UiDevice.getInstance(instrumentation)
         val pkg = instrumentation.processName
         val timeout: Long = 5000
+        device.pressMenu()
+        val deleteAllSleep = device.wait(Until.findObject(By.text("Delete All Sleep")), timeout)
+        deleteAllSleep.click()
+        val yesButton = device.wait(Until.findObject(By.text("YES")), timeout)
+        yesButton.click()
 
+        // When creating one:
         val startStop = device.wait(Until.findObject(By.res(pkg, "start_stop")), timeout)
         startStop.click()
         startStop.click()
 
+        // Then make sure we have one sleep:
         val sleeps = device.wait(
             Until.findObject(By.res(pkg, "fragment_stats_sleeps").text("1")),
             timeout
