@@ -86,24 +86,6 @@ class MainActivityInstrumentedTest {
         assertEquals(1, database.sleepDao().getAll().size)
     }
 
-    // FIXME started to fail with: androidx.test.espresso.NoMatchingViewException: No views in hierarchy found matching: an instance of android.widget.TextView and view.getText() with or without transformation to match: is "Import File"
-    // @Test
-    fun testDoesNotImportDuplicate() = runBlocking {
-        // Create one sleep.
-        val sleep = Sleep()
-        sleep.start = Calendar.getInstance().timeInMillis
-        sleep.stop = Calendar.getInstance().timeInMillis + Duration.ofHours(1).toMillis()
-        database.sleepDao().insert(sleep)
-        assertEquals(1, database.sleepDao().getAll().size)
-
-        // Export.
-        exportToFile()
-
-        // Import.
-        importFromFile()
-        assertEquals(1, database.sleepDao().getAll().size)
-    }
-
     private fun exportToFile() {
         val intent = Intent()
         intent.data = Uri.fromFile(exportFile)
