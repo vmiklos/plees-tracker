@@ -12,8 +12,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,59 +27,66 @@ class MainActivityUITest {
     @JvmField
     @Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    private val timeout: Long = 5000
+    val pkg = InstrumentationRegistry.getInstrumentation().processName
 
-    @Test
-    fun testCreateAndRead() {
-        // Given no sleeps:
+    private fun resetDatabase() {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val device = UiDevice.getInstance(instrumentation)
-        val pkg = instrumentation.processName
-        val timeout: Long = 5000
         device.pressMenu()
         val deleteAllSleep = device.wait(Until.findObject(By.text("Delete All Sleep")), timeout)
         deleteAllSleep.click()
         val yesButton = device.wait(Until.findObject(By.text("YES")), timeout)
         yesButton.click()
+    }
 
-        // When creating one:
+    private fun getDevice(): UiDevice {
+        return UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+    }
+
+    private fun createSleep() {
+        val device = getDevice()
         val startStop = device.wait(Until.findObject(By.res(pkg, "start_stop")), timeout)
         startStop.click()
         startStop.click()
+    }
+
+    private fun assertResText(resourceId: String, textValue: String) {
+        val device = getDevice()
+        device.wait(Until.findObject(By.res(pkg, resourceId).text(textValue)), timeout)
+        val obj = device.findObject(By.res(pkg, resourceId))
+        assertEquals(textValue, obj.text)
+    }
+
+    private fun findObjectByRes(resourceId: String): UiObject2 {
+        val device = getDevice()
+        return device.wait(Until.findObject(By.res(pkg, resourceId)), timeout)
+    }
+
+    @Test
+    fun testCreateAndRead() {
+        // Given no sleeps:
+        resetDatabase()
+
+        // When creating one:
+        createSleep()
 
         // Then make sure we have one sleep:
-        val sleeps = device.wait(
-            Until.findObject(By.res(pkg, "fragment_stats_sleeps").text("1")),
-            timeout
-        )
-        assertNotNull(sleeps)
+        assertResText("fragment_stats_sleeps", "1")
     }
 
     @Test
     fun testDelete() {
         // Given a sleep:
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        val device = UiDevice.getInstance(instrumentation)
-        val pkg = instrumentation.processName
-        val timeout: Long = 5000
-        device.pressMenu()
-        val deleteAllSleep = device.wait(Until.findObject(By.text("Delete All Sleep")), timeout)
-        deleteAllSleep.click()
-        val yesButton = device.wait(Until.findObject(By.text("YES")), timeout)
-        yesButton.click()
-        val startStop = device.wait(Until.findObject(By.res(pkg, "start_stop")), timeout)
-        startStop.click()
-        startStop.click()
+        resetDatabase()
+        createSleep()
 
         // When deleting one:
-        val sleepSwipeable = device.wait(Until.findObject(By.res(pkg, "sleep_swipeable")), timeout)
+        val sleepSwipeable = findObjectByRes("sleep_swipeable")
         sleepSwipeable.swipe(Direction.RIGHT, 1F)
 
         // Then make sure we have no sleeps:
-        val sleeps = device.wait(
-            Until.findObject(By.res(pkg, "fragment_stats_sleeps").text("0")),
-            timeout
-        )
-        assertNotNull(sleeps)
+        assertResText("fragment_stats_sleeps", "0")
     }
 }
 
