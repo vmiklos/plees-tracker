@@ -63,6 +63,16 @@ class MainActivityUITest {
         return device.wait(Until.findObject(By.res(pkg, resourceId)), timeout)
     }
 
+    private fun findObjectByText(text: String): UiObject2 {
+        val device = getDevice()
+        return device.wait(Until.findObject(By.text(text)), timeout)
+    }
+
+    private fun findObjectByDesc(desc: String): UiObject2 {
+        val device = getDevice()
+        return device.wait(Until.findObject(By.desc(desc)), timeout)
+    }
+
     @Test
     fun testCreateAndRead() {
         // Given no sleeps:
@@ -87,6 +97,27 @@ class MainActivityUITest {
 
         // Then make sure we have no sleeps:
         assertResText("fragment_stats_sleeps", "0")
+    }
+
+    @Test
+    fun testUpdate() {
+        resetDatabase()
+        createSleep()
+
+        findObjectByRes("sleep_swipeable").click()
+        findObjectByRes("sleep_start_time").click()
+        findObjectByText("AM").click()
+        findObjectByDesc("10").click()
+        findObjectByDesc("0").click()
+        findObjectByText("OK").click()
+        findObjectByRes("sleep_stop_time").click()
+        findObjectByText("PM").click()
+        findObjectByDesc("10").click()
+        findObjectByDesc("0").click()
+        findObjectByText("OK").click()
+
+        assertResText("sleep_start_time", "10:00")
+        assertResText("sleep_stop_time", "22:00")
     }
 }
 
