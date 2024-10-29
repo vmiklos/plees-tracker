@@ -10,8 +10,7 @@
 #
 
 mkdir -p app/keystore/
-# TODO get this working on Linux
-if [ -n "$KEYSTORE" -a `uname` != Linux ]; then
+if [ -n "$KEYSTORE" ]; then
     echo "$KEYSTORE" | base64 -d > app/keystore/plees_keystore.jks
 fi
 
