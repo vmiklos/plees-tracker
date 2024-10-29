@@ -11,7 +11,7 @@ on:
       - 'private/**'
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: ubuntu-24.04
     steps:
     - name: checkout
       uses: actions/checkout@v4.1.1
@@ -20,11 +20,17 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: 17
+    - name: Enable KVM group perms
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+        mkdir -p ~/.android/avd/test.avd/
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2.30.1
       with:
-        api-level: 29
-        arch: x86
+        api-level: 34
+        arch: x86_64
         target: google_apis_playstore
         script: tools/ci-build.sh
       env:
