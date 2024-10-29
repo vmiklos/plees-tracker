@@ -10,8 +10,9 @@
 #
 
 mkdir -p app/keystore/
-if [ -n "$KEYSTORE" ]; then
-    echo $KEYSTORE | base64 -d > app/keystore/plees_keystore.jks
+# TODO get this working on Linux
+if [ -n "$KEYSTORE" -a `uname` != Linux ]; then
+    echo "$KEYSTORE" | base64 -d > app/keystore/plees_keystore.jks
 fi
 
 ./gradlew build
