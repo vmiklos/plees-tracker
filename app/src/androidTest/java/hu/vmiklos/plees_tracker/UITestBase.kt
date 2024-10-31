@@ -11,10 +11,12 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
+import java.util.Calendar
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 
 open class UITestBase {
-    protected val timeout: Long = 5000
+    private val timeout: Long = 5000
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
     protected val pkg = instrumentation.processName
     protected val device = UiDevice.getInstance(instrumentation)
@@ -48,9 +50,17 @@ open class UITestBase {
     }
 
     protected fun createSleep() {
-        val startStop = findObjectByRes("start_stop")
-        startStop.click()
-        startStop.click()
+        val sleep = Sleep()
+        val start = Calendar.getInstance()
+        start.set(Calendar.HOUR_OF_DAY, 9)
+        sleep.start = start.timeInMillis
+        val stop = Calendar.getInstance()
+        start.set(Calendar.HOUR_OF_DAY, 23)
+        sleep.stop = stop.timeInMillis
+        runBlocking {
+            DataModel.database.sleepDao().insert(sleep)
+        }
+        device.waitForIdle()
     }
 }
 
