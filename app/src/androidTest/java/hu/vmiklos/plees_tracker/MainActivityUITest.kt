@@ -9,6 +9,8 @@ package hu.vmiklos.plees_tracker
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.Direction
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,15 +25,33 @@ class MainActivityUITest : UITestBase() {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testCreateAndRead() {
+    fun testCreate() {
         // Given no sleeps:
         resetDatabase()
 
         // When creating one:
-        createSleep()
+        val startStop = findObjectByRes("start_stop")
+        startStop.click()
+        startStop.click()
 
         // Then make sure we have one sleep:
-        assertResText("fragment_stats_sleeps", "1")
+        device.waitForIdle()
+        var sleepCount: Int
+        runBlocking {
+            sleepCount = DataModel.database.sleepDao().getAll().count()
+        }
+        assertEquals(sleepCount, 1)
+    }
+
+    @Test
+    fun testRead() {
+        // Given no sleeps:
+        resetDatabase()
+        createSleep()
+
+        val text = getResText("fragment_stats_sleeps", "1")
+
+        assertEquals(text, "1")
     }
 
     @Test
