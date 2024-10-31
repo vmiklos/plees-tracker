@@ -38,9 +38,8 @@ open class UITestBase {
     }
 
     protected fun resetDatabase() {
-        device.pressMenu()
-        findObjectByText("Delete All Sleep").click()
-        findObjectByText("YES").click()
+        DataModel.database.clearAllTables()
+        device.waitForIdle()
     }
 
     protected fun createSleep() {
