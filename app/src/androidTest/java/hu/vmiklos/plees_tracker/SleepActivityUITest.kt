@@ -37,6 +37,12 @@ class SleepActivityUITest : UITestBase() {
         findObjectByDesc("10").click()
         findObjectByDesc("0").click()
         findObjectByText("OK").click()
+        // In case the start was not updated (to prevent negative sleep length), do it again:
+        findObjectByRes("sleep_start_time").click()
+        findObjectByText("AM").click()
+        findObjectByDesc("10").click()
+        findObjectByDesc("0").click()
+        findObjectByText("OK").click()
 
         assertResText("sleep_start_time", "10:00")
         assertResText("sleep_stop_time", "22:00")
