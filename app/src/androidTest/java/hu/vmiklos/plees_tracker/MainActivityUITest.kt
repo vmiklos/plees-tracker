@@ -32,6 +32,7 @@ class MainActivityUITest : UITestBase() {
         // When creating one:
         val startStop = findObjectByRes("start_stop")
         startStop.click()
+        Thread.sleep(1)
         startStop.click()
 
         // Then make sure we have one sleep:
