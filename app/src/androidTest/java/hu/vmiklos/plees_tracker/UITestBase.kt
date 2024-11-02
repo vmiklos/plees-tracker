@@ -33,15 +33,10 @@ open class UITestBase {
         return device.wait(Until.findObject(By.desc(desc)), timeout)
     }
 
-    protected fun getResText(resourceId: String, hint: String): String {
-        device.wait(Until.findObject(By.res(pkg, resourceId).text(hint)), timeout)
-        val obj = device.findObject(By.res(pkg, resourceId))
-        return obj.text
-    }
-
     protected fun assertResText(resourceId: String, textValue: String) {
-        val text = getResText(resourceId, textValue)
-        assertEquals(textValue, text)
+        device.wait(Until.findObject(By.res(pkg, resourceId).text(textValue)), timeout)
+        val obj = device.findObject(By.res(pkg, resourceId))
+        assertEquals(textValue, obj.text)
     }
 
     protected fun resetDatabase() {
