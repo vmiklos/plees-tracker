@@ -46,13 +46,15 @@ class MainActivityUITest : UITestBase() {
 
     @Test
     fun testRead() {
-        // Given no sleeps:
+        // Given no sleeps and creating one:
         resetDatabase()
         createSleep()
 
-        val text = getResText("fragment_stats_sleeps", "1")
+        // When waiting for 'SELECT' to be executed:
+        device.waitForIdle()
 
-        assertEquals(text, "1")
+        // Then make sure the sleep count widget reads the correct value:
+        assertResText("fragment_stats_sleeps", "1")
     }
 
     @Test
