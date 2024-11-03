@@ -18,7 +18,7 @@ import org.junit.Assert.assertEquals
 open class UITestBase {
     private val timeout: Long = 5000
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
-    protected val pkg = instrumentation.processName
+    private val pkg = instrumentation.processName
     protected val device = UiDevice.getInstance(instrumentation)
 
     protected fun findObjectByRes(resourceId: String): UiObject2 {
