@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="textColor">#ffffff</color>
-    <color name="colorPrimary">#000</color>
-    <color name="colorPrimaryDark">#000</color>
+    <color name="textColor">#e0e0e0</color>
+    <color name="colorPrimary">#1f1f1f</color>
+    <color name="colorPrimaryDark">#1f1f1f</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorBackground">#000000</color>
+    <color name="colorBackground">#1f1f1f</color>
     <color name="colorSurface">#1E1E1E</color>
 
     <!-- FAB color -->
     <color name="colorFabPrimary">#613583</color>
     <color name="colorFabAccent">#463A31</color>
+
+    <!-- Dashboard  color-->
+    <color name="dash_nights">#26862e</color>
+    <color name="dash_daily">#8c6e1b</color>
 </resources>
