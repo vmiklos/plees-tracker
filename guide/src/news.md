@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#506 dark mode: reduce contrast of colors
+
 ## 24.8.0
 
 - Fix the default for the compact view (was meant to be disabled)
