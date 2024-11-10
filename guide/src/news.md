@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 24.8.1
 
 - Resolves: gh#506 dark mode: reduce contrast of colors
 
