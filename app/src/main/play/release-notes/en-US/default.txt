@@ -1,1 +1,1 @@
-- Fix the default for the compact view (was meant to be disabled)
+- Resolves: gh#506 dark mode: reduce contrast of colors
