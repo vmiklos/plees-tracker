@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#515 export to file: add a pretty mode to produce human-readable output
+
 ## 24.8.1
 
 - Resolves: gh#506 dark mode: reduce contrast of colors
