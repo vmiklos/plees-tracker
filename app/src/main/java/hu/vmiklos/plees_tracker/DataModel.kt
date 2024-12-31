@@ -303,6 +303,7 @@ object DataModel {
         uri: Uri,
         showToast: Boolean
     ) {
+        val prettyBackup = preferences.getBoolean("pretty_backup", false)
         val sleeps = database.sleepDao().getAll()
 
         try {
@@ -321,9 +322,32 @@ object DataModel {
                 return
             }
             val writer = CSVPrinter(OutputStreamWriter(os, "UTF-8"), CSVFormat.DEFAULT)
-            writer.printRecord("sid", "start", "stop", "rating", "comment")
+            if (prettyBackup) {
+                writer.printRecord("sid", "start", "stop", "length", "rating", "comment")
+            } else {
+                writer.printRecord("sid", "start", "stop", "rating", "comment")
+            }
             for (sleep in sleeps) {
-                writer.printRecord(sleep.sid, sleep.start, sleep.stop, sleep.rating, sleep.comment)
+                if (prettyBackup) {
+                    val durationMS = sleep.stop - sleep.start
+
+                    writer.printRecord(
+                        sleep.sid,
+                        DataModel.formatTimestamp(Date(sleep.start), DataModel.getCompactView()),
+                        DataModel.formatTimestamp(Date(sleep.stop), DataModel.getCompactView()),
+                        DataModel.formatDuration(durationMS / 1000, DataModel.getCompactView()),
+                        sleep.rating,
+                        sleep.comment
+                    )
+                } else {
+                    writer.printRecord(
+                        sleep.sid,
+                        sleep.start,
+                        sleep.stop,
+                        sleep.rating,
+                        sleep.comment
+                    )
+                }
             }
             writer.close()
         } catch (e: Exception) {

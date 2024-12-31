@@ -22,6 +22,10 @@
         <Preference
             android:key="auto_backup_path"
             android:title="@string/settings_backup_path" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pretty_backup"
+            android:title="@string/settings_pretty_backup" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_category_dashboard">

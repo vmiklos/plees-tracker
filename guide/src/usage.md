@@ -61,6 +61,9 @@ Backup settings allow you to automatically back up your sleeps after a tracking 
 useful in case you selected a path which is then implicitly synchronized to some external server,
 e.g. Nextcloud.
 
+Pretty backup allows you to create a CSV file which has human-readable start, stop and length values
+during exporting to a file. This pretty output can't be imported back, though.
+
 ### Dashboard
 
 You can also customize the dashboard duration, which limits the sleeps and sleep statistics on the
