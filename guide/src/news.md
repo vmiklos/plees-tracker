@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Target Android 14
+
 ## 24.8.2
 
 - Resolves: gh#515 export to file: add a pretty mode to produce human-readable output
