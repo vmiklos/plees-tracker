@@ -2,7 +2,7 @@
 
 ## master
 
-- Target Android 14
+- Target Android 15
 
 ## 24.8.2
 
