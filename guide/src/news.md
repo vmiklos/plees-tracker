@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 25.2
 
 - Target Android 15
 
