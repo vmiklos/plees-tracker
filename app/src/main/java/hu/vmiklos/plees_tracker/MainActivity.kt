@@ -40,7 +40,9 @@ import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.LibsBuilder
 import hu.vmiklos.plees_tracker.calendar.CalendarImport
 import hu.vmiklos.plees_tracker.calendar.UserCalendar
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -294,7 +296,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "text/csv"
-        intent.putExtra(Intent.EXTRA_TITLE, "plees-tracker.csv")
+
+        // Make it less likely that we would overwrite a previous export result.
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val fileName = "plees-tracker-" + sdf.format(calendar.time) + ".csv"
+        intent.putExtra(Intent.EXTRA_TITLE, fileName)
+
         exportActivityResult.launch(intent)
     }
 
