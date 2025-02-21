@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#527 export to file: include ISO date in default file name
+
 ## 25.2
 
 - Target Android 15
