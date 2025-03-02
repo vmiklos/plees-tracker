@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 25.2.1
 
 - Resolves: gh#527 export to file: include ISO date in default file name
 
