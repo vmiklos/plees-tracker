@@ -44,3 +44,7 @@ Log.e(TAG, "debug, myFunc: myVar is " + myVar)
 
 This way it stands out from the stock debug messages when you filter for `package:mine` in the
 Logcat tab in Android Studio.
+
+## Updating dependencies
+
+- Update `.github/workflows/tests.yml` based on `github-outdated`.
