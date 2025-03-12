@@ -7,7 +7,10 @@
 package hu.vmiklos.plees_tracker
 
 import android.Manifest
+import android.app.AlarmManager
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -96,7 +99,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         var index = resources.getStringArray(R.array.duration_entry_values).indexOf(durationStr)
         val durations = resources.getStringArray(R.array.duration_entries)
         if (index == -1) {
-            index = durations.size - 1 // indexOf may return -1, which will out of bounds.
+            index = durations.size - 1 // indexOf may return -1, which will be out of bounds.
         }
         val durationHeaderStr = resources.getStringArray(R.array.duration_entries)[index]
         findViewById<TextView>(R.id.dashboard_header)?.text =
@@ -252,6 +255,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         // See if the activity is triggered from the widget. If so, toggle the start/stop state.
         handleIntent(intent)
+
+        // Schedule bedtime and wakeup reminders if already set in preferences.
+        if (preferences.contains("bedtime_hour") && preferences.contains("wakeup_hour")) {
+            val bedHour = preferences.getInt("bedtime_hour", 22)
+            val bedMinute = preferences.getInt("bedtime_minute", 0)
+            val wakeHour = preferences.getInt("wakeup_hour", 7)
+            val wakeMinute = preferences.getInt("wakeup_minute", 0)
+            scheduleReminders(bedHour, bedMinute, wakeHour, wakeMinute)
+        }
 
         updateView()
     }
@@ -440,6 +452,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, GraphsActivity::class.java))
                 return true
             }
+            R.id.set_bedtime -> {
+                showBedtimeDialog()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -523,6 +539,69 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun open(link: Uri) {
         val intent = Intent(Intent.ACTION_VIEW, link)
         startActivity(intent)
+    }
+
+    // --- New functions for bedtime/wakeup reminders ---
+
+    // Show a dialog to set bedtime and wakeup times (using two TimePickerDialogs sequentially)
+    private fun showBedtimeDialog() {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        // Get current values or use defaults (22:00 for bedtime, 07:00 for wakeup)
+        val currentBedHour = preferences.getInt("bedtime_hour", 22)
+        val currentBedMinute = preferences.getInt("bedtime_minute", 0)
+        val currentWakeHour = preferences.getInt("wakeup_hour", 7)
+        val currentWakeMinute = preferences.getInt("wakeup_minute", 0)
+
+        // First, pick bedtime
+        TimePickerDialog(this, { _, bedHour, bedMinute ->
+            // Save bedtime values
+            preferences.edit().putInt("bedtime_hour", bedHour).putInt("bedtime_minute", bedMinute).apply()
+            // Then, pick wakeup time
+            TimePickerDialog(this, { _, wakeHour, wakeMinute ->
+                // Save wakeup values
+                preferences.edit().putInt("wakeup_hour", wakeHour).putInt("wakeup_minute", wakeMinute).apply()
+                // Schedule the alarms with the selected times
+                scheduleReminders(bedHour, bedMinute, wakeHour, wakeMinute)
+                Toast.makeText(this, "Reminders set for bedtime and wakeup.", Toast.LENGTH_SHORT).show()
+            }, currentWakeHour, currentWakeMinute, true).show()
+        }, currentBedHour, currentBedMinute, true).show()
+    }
+
+    // Schedule two daily repeating alarms (one for bedtime and one for wakeup)
+    private fun scheduleReminders(bedHour: Int, bedMinute: Int, wakeHour: Int, wakeMinute: Int) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // Schedule bedtime alarm
+        val bedTimeCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, bedHour)
+            set(Calendar.MINUTE, bedMinute)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            if (timeInMillis <= System.currentTimeMillis()) {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
+        }
+        val bedIntent = Intent(this, ReminderReceiver::class.java).apply {
+            putExtra("reminder_type", "bedtime")
+        }
+        val bedPendingIntent = PendingIntent.getBroadcast(this, 100, bedIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, bedTimeCalendar.timeInMillis, AlarmManager.INTERVAL_DAY, bedPendingIntent)
+
+        // Schedule wakeup alarm
+        val wakeTimeCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, wakeHour)
+            set(Calendar.MINUTE, wakeMinute)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            if (timeInMillis <= System.currentTimeMillis()) {
+                add(Calendar.DAY_OF_MONTH, 1)
+            }
+        }
+        val wakeIntent = Intent(this, ReminderReceiver::class.java).apply {
+            putExtra("reminder_type", "wakeup")
+        }
+        val wakePendingIntent = PendingIntent.getBroadcast(this, 101, wakeIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, wakeTimeCalendar.timeInMillis, AlarmManager.INTERVAL_DAY, wakePendingIntent)
     }
 
     companion object {

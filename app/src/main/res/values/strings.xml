@@ -24,6 +24,7 @@
     <string name="deleted">Deleted</string>
     <string name="undo">Undo</string>
     <string name="about_item">About</string>
+    <string name="bedtime_item">Set Bedtime</string>
     <string name="about_toolbar">About</string>
     <string name="app_description">A simple sleep tracker for Android.</string>
     <string name="sleep_id">Sleep #%s</string>
