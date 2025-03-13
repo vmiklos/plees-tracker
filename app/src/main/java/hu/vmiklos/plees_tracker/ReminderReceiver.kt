@@ -23,22 +23,22 @@ class ReminderReceiver : BroadcastReceiver() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "bedtime_reminder_channel",
-                "Bedtime Reminders",
+                context.getString(R.string.notification_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             )
-            channel.description = "Channel for bedtime and wakeup reminders"
+            channel.description = context.getString(R.string.notification_channel_description)
             notificationManager.createNotificationChannel(channel)
         }
 
         val title = when (reminderType) {
-            "bedtime" -> "Bedtime Reminder"
-            "wakeup" -> "Wake Up Reminder"
-            else -> "Reminder"
+            "bedtime" -> context.getString(R.string.bedtime_reminder_title)
+            "wakeup" -> context.getString(R.string.wakeup_reminder_title)
+            else -> context.getString(R.string.default_reminder_title)
         }
         val message = when (reminderType) {
-            "bedtime" -> "It's time to go to bed. Remember to start tracking your sleep!"
-            "wakeup" -> "Good morning! Don't forget to stop tracking if you haven't already."
-            else -> "Time for your reminder."
+            "bedtime" -> context.getString(R.string.bedtime_reminder_message)
+            "wakeup" -> context.getString(R.string.wakeup_reminder_message)
+            else -> context.getString(R.string.default_reminder_message)
         }
 
         val notification = NotificationCompat.Builder(context, "bedtime_reminder_channel")
@@ -51,3 +51,4 @@ class ReminderReceiver : BroadcastReceiver() {
         notificationManager.notify(reminderType.hashCode(), notification)
     }
 }
+
