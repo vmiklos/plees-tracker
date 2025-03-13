@@ -224,4 +224,12 @@
     <string name="show_averege_of_daily_sums">Show average of daily sums</string>
     <string name="ignore_empty_days">Ignore empty days when showing average of daily sums</string>
     <string name="use_median">Use median instead of average when counting the daily duration</string>
+    <string name="bedtime_reminder_message">It\'s time to go to bed. Remember to start tracking your sleep!</string>
+    <string name="wakeup_reminder_message">Good morning! Don\'t forget to stop tracking if you haven\'t already.</string>
+    <string name="bedtime_reminder_title">Bedtime Reminder</string>
+    <string name="wakeup_reminder_title">Wake Up Reminder</string>
+    <string name="default_reminder_title">Reminder</string>
+    <string name="default_reminder_message">Time for your reminder.</string>
+    <string name="notification_channel_description">Channel for bedtime and wakeup reminders</string>
+
 </resources>
