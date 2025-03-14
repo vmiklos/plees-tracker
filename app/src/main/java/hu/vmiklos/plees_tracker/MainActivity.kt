@@ -553,18 +553,39 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val currentWakeMinute = preferences.getInt("wakeup_minute", 0)
 
         // First, pick bedtime
-        TimePickerDialog(this, { _, bedHour, bedMinute ->
-            // Save bedtime values
-            preferences.edit().putInt("bedtime_hour", bedHour).putInt("bedtime_minute", bedMinute).apply()
-            // Then, pick wakeup time
-            TimePickerDialog(this, { _, wakeHour, wakeMinute ->
-                // Save wakeup values
-                preferences.edit().putInt("wakeup_hour", wakeHour).putInt("wakeup_minute", wakeMinute).apply()
-                // Schedule the alarms with the selected times
-                scheduleReminders(bedHour, bedMinute, wakeHour, wakeMinute)
-                Toast.makeText(this, "Reminders set for bedtime and wakeup.", Toast.LENGTH_SHORT).show()
-            }, currentWakeHour, currentWakeMinute, true).show()
-        }, currentBedHour, currentBedMinute, true).show()
+        TimePickerDialog(
+            this,
+            { _, bedHour, bedMinute ->
+                // Save bedtime values
+                val editor = preferences.edit()
+                editor.putInt("bedtime_hour", bedHour)
+                editor.putInt("bedtime_minute", bedMinute)
+                editor.apply()
+                // Then, pick wakeup time
+                TimePickerDialog(
+                    this,
+                    { _, wakeHour, wakeMinute ->
+                        // Save wakeup values
+                        editor.putInt("wakeup_hour", wakeHour)
+                        editor.putInt("wakeup_minute", wakeMinute)
+                        editor.apply()
+                        // Schedule the alarms with the selected times
+                        scheduleReminders(bedHour, bedMinute, wakeHour, wakeMinute)
+                        Toast.makeText(
+                            this,
+                            getString(R.string.bedtime_toast),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
+                    currentWakeHour,
+                    currentWakeMinute,
+                    true
+                ).show()
+            },
+            currentBedHour,
+            currentBedMinute,
+            true
+        ).show()
     }
 
     // Schedule two daily repeating alarms (one for bedtime and one for wakeup)
@@ -584,8 +605,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val bedIntent = Intent(this, ReminderReceiver::class.java).apply {
             putExtra("reminder_type", "bedtime")
         }
-        val bedPendingIntent = PendingIntent.getBroadcast(this, 100, bedIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, bedTimeCalendar.timeInMillis, AlarmManager.INTERVAL_DAY, bedPendingIntent)
+        val bedPendingIntent = PendingIntent.getBroadcast(
+            this,
+            100,
+            bedIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            bedTimeCalendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            bedPendingIntent
+        )
 
         // Schedule wakeup alarm
         val wakeTimeCalendar = Calendar.getInstance().apply {
@@ -600,8 +631,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val wakeIntent = Intent(this, ReminderReceiver::class.java).apply {
             putExtra("reminder_type", "wakeup")
         }
-        val wakePendingIntent = PendingIntent.getBroadcast(this, 101, wakeIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, wakeTimeCalendar.timeInMillis, AlarmManager.INTERVAL_DAY, wakePendingIntent)
+        val wakePendingIntent = PendingIntent.getBroadcast(
+            this,
+            101,
+            wakeIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            wakeTimeCalendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            wakePendingIntent
+        )
     }
 
     companion object {

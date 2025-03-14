@@ -1,23 +1,24 @@
 /*
- * Copyright 2023 Miklos Vajna
+ * Copyright 2025 Miklos Vajna
  *
  * SPDX-License-Identifier: MIT
  */
 
 package hu.vmiklos.plees_tracker
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import androidx.core.app.NotificationCompat
 import android.os.Build
+import androidx.core.app.NotificationCompat
 
 class ReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val reminderType = intent.getStringExtra("reminder_type") ?: "unknown"
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val service = context.getSystemService(Context.NOTIFICATION_SERVICE)
+        val notificationManager = service as NotificationManager
 
         // Create notification channel for API 26+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -52,3 +53,4 @@ class ReminderReceiver : BroadcastReceiver() {
     }
 }
 
+/* vim:set shiftwidth=4 softtabstop=4 expandtab: */
