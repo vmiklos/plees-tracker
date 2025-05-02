@@ -257,11 +257,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         handleIntent(intent)
 
         // Schedule bedtime and wakeup reminders if already set in preferences.
-        if (preferences.contains("bedtime_hour") && preferences.contains("wakeup_hour")) {
-            val bedHour = preferences.getInt("bedtime_hour", 22)
-            val bedMinute = preferences.getInt("bedtime_minute", 0)
-            val wakeHour = preferences.getInt("wakeup_hour", 7)
-            val wakeMinute = preferences.getInt("wakeup_minute", 0)
+        if (preferences.contains("bedtime") && preferences.contains("wakeup")) {
+            val bedHour = DataModel.getBedtimeHour(preferences)
+            val bedMinute = DataModel.getBedtimeMinute(preferences)
+            val wakeHour = DataModel.getWakeupHour(preferences)
+            val wakeMinute = DataModel.getWakeupMinute(preferences)
             scheduleReminders(bedHour, bedMinute, wakeHour, wakeMinute)
         }
 
@@ -547,10 +547,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun showBedtimeDialog() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         // Get current values or use defaults (22:00 for bedtime, 07:00 for wakeup)
-        val currentBedHour = preferences.getInt("bedtime_hour", 22)
-        val currentBedMinute = preferences.getInt("bedtime_minute", 0)
-        val currentWakeHour = preferences.getInt("wakeup_hour", 7)
-        val currentWakeMinute = preferences.getInt("wakeup_minute", 0)
+        val currentBedHour = DataModel.getBedtimeHour(preferences)
+        val currentBedMinute = DataModel.getBedtimeMinute(preferences)
+        val currentWakeHour = DataModel.getWakeupHour(preferences)
+        val currentWakeMinute = DataModel.getWakeupMinute(preferences)
 
         // First, pick bedtime
         TimePickerDialog(
@@ -558,16 +558,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             { _, bedHour, bedMinute ->
                 // Save bedtime values
                 val editor = preferences.edit()
-                editor.putInt("bedtime_hour", bedHour)
-                editor.putInt("bedtime_minute", bedMinute)
+                editor.putString("bedtime", "$bedHour:$bedMinute")
                 editor.apply()
                 // Then, pick wakeup time
                 TimePickerDialog(
                     this,
                     { _, wakeHour, wakeMinute ->
                         // Save wakeup values
-                        editor.putInt("wakeup_hour", wakeHour)
-                        editor.putInt("wakeup_minute", wakeMinute)
+                        editor.putString("wakeup", "$wakeHour:$wakeMinute")
                         editor.apply()
                         // Schedule the alarms with the selected times
                         scheduleReminders(bedHour, bedMinute, wakeHour, wakeMinute)
