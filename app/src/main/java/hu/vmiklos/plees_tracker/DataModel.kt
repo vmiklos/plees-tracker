@@ -508,6 +508,41 @@ object DataModel {
     fun filterSleeps(sleeps: List<Sleep>, after: Date): List<Sleep> {
         return sleeps.filter { it.stop > after.time }
     }
+
+    private fun getPreferencesToken(
+        preferences: SharedPreferences,
+        name: String,
+        index: Int,
+        default: Int
+    ): Int {
+        val pref = preferences.getString(name, "")
+        if (pref == null) {
+            return default
+        }
+
+        val tokens = pref.split(":").toTypedArray()
+        if (tokens.size != 2) {
+            return default
+        }
+
+        return tokens[index].toInt()
+    }
+
+    fun getBedtimeHour(preferences: SharedPreferences): Int {
+        return getPreferencesToken(preferences, "bedtime", 0, 22)
+    }
+
+    fun getBedtimeMinute(preferences: SharedPreferences): Int {
+        return getPreferencesToken(preferences, "bedtime", 1, 0)
+    }
+
+    fun getWakeupHour(preferences: SharedPreferences): Int {
+        return getPreferencesToken(preferences, "wakeup", 0, 7)
+    }
+
+    fun getWakeupMinute(preferences: SharedPreferences): Int {
+        return getPreferencesToken(preferences, "wakeup", 1, 0)
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
