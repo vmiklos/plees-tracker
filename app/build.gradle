@@ -67,13 +67,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.6.1'
     androidTestImplementation "androidx.test.uiautomator:uiautomator:2.3.0"
-    def room_version = "2.6.1"
+    def room_version = "2.7.1"
     implementation "androidx.room:room-runtime:$room_version"
     ksp "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     implementation 'javax.annotation:jsr250-api:1.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.core:core-ktx:1.16.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "com.mikepenz:aboutlibraries:7.1.0"
