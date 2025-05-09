@@ -58,6 +58,8 @@
         <item quantity="other">Exported %d items</item>
     </plurals>
     <string name="settings_category_backup">Backup</string>
+    <string name="settings_wakeup">Wakeup</string>
+    <string name="settings_bedtime">Bedtime</string>
     <string name="settings_automatic_backup">Automatic backup</string>
     <string name="settings_pretty_backup">Pretty backup: human-readable, but can\'t be imported</string>
     <string name="settings_compact_view">Compact view: no seconds and timezone</string>
@@ -65,6 +67,7 @@
     <string name="widget_start_stop">Toggle tracking</string>
     <string name="settings_category_dashboard">Dashboard</string>
     <string name="settings_dashboard_duration">Duration</string>
+    <string name="settings_reminders">Reminders</string>
     <string name="settings_etc">Miscellaneous</string>
     <string name="settings_enable_dnd">Do not disturb when tracking</string>
     <string name="settings_enable_dnd_q_title">Permissions Required</string>
