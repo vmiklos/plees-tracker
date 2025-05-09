@@ -85,6 +85,17 @@
     <PreferenceCategory
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:title="@string/settings_reminders">
+        <Preference
+            android:key="wakeup"
+            android:title="@string/settings_wakeup" />
+        <Preference
+            android:key="bedtime"
+            android:title="@string/settings_bedtime" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:title="@string/settings_etc">
         <SwitchPreference
             android:defaultValue="false"
