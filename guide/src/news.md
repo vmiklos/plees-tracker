@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- preferences: add bedtime and wakeup reminders if requested (qureshikaif)
+
 ## 25.2.1
 
 - Resolves: gh#527 export to file: include ISO date in default file name

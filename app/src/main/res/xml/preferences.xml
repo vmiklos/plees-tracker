@@ -86,6 +86,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/settings_reminders">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="daily_reminder"
+            android:title="@string/settings_daily_reminder" />
         <Preference
             android:key="wakeup"
             android:title="@string/settings_wakeup" />

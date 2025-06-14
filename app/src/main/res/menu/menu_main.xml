@@ -5,7 +5,6 @@
     <item android:id="@+id/export_file_data" android:title="@string/export_file_item"/>
     <item android:id="@+id/export_calendar_data" android:title="@string/export_calendar_item"/>
     <item android:id="@+id/stats" android:title="@string/stats" />
-    <item android:id="@+id/set_bedtime" android:title="@string/bedtime_item" />
     <item android:id="@+id/graphs" android:title="@string/graphs" />
     <item android:id="@+id/settings" android:title="@string/settings" />
     <item android:id="@+id/delete_all_sleep" android:title="@string/delete_all_sleep" />
