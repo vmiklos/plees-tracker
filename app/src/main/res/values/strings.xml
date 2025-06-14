@@ -24,7 +24,6 @@
     <string name="deleted">Deleted</string>
     <string name="undo">Undo</string>
     <string name="about_item">About</string>
-    <string name="bedtime_item">Set Bedtime</string>
     <string name="about_toolbar">About</string>
     <string name="app_description">A simple sleep tracker for Android.</string>
     <string name="sleep_id">Sleep #%s</string>
@@ -61,6 +60,7 @@
     <string name="settings_wakeup">Wakeup</string>
     <string name="settings_bedtime">Bedtime</string>
     <string name="settings_automatic_backup">Automatic backup</string>
+    <string name="settings_daily_reminder">Daily reminder</string>
     <string name="settings_pretty_backup">Pretty backup: human-readable, but can\'t be imported</string>
     <string name="settings_compact_view">Compact view: no seconds and timezone</string>
     <string name="settings_backup_path">Backup path</string>

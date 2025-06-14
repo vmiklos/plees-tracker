@@ -42,6 +42,15 @@ class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChan
                 }
                 return
             }
+            "daily_reminder" -> {
+                val autoReminder = sharedPreferences.getBoolean("daily_reminder", false)
+                if (autoReminder) {
+                    val preferencesActivity = DataModel.preferencesActivity
+                    if (preferencesActivity != null) {
+                        preferencesActivity.showBedtimeDialog()
+                    }
+                }
+            }
             "enable_dnd" -> {
                 if (sharedPreferences.getBoolean("enable_dnd", false)) {
                     val preferencesActivity = DataModel.preferencesActivity
