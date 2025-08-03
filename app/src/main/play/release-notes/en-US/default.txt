@@ -1,1 +1,1 @@
-- Resolves: gh#527 export to file: include ISO date in default file name
+- preferences: add bedtime and wakeup reminders if requested (qureshikaif)
