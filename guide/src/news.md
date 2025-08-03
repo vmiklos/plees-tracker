@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 25.8
 
 - preferences: add bedtime and wakeup reminders if requested (qureshikaif)
 
