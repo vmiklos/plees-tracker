@@ -9,6 +9,7 @@ package hu.vmiklos.plees_tracker
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.Direction
+import androidx.test.uiautomator.StaleObjectException
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -64,8 +65,14 @@ class MainActivityUITest : UITestBase() {
         createSleep()
 
         // When deleting one:
-        val sleepSwipeable = findObjectByRes("sleep_swipeable")
-        sleepSwipeable.swipe(Direction.RIGHT, 1F)
+        while (true) {
+            try {
+                val sleepSwipeable = findObjectByRes("sleep_swipeable")
+                sleepSwipeable.swipe(Direction.RIGHT, 1F)
+                break
+            } catch (e: StaleObjectException) {
+            }
+        }
 
         // Then make sure we have no sleeps:
         assertResText("fragment_stats_sleeps", "0")
