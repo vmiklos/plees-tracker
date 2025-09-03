@@ -27,24 +27,31 @@ import kotlin.math.sqrt
 
 /** This activity provides graphs of sleep data, filtered by the selected dashboard duration. */
 class GraphsActivity : AppCompatActivity() {
+    companion object {
+        private const val KEY_SELECTED_CHART = "selected_chart"
+    }
     private lateinit var preferences: SharedPreferences
     private lateinit var viewModel: MainViewModel
     private lateinit var chart: LineChart
     private lateinit var chartAxisLeftLabel: TextView
+    private var selectedChartId: Int = R.id.graph_deficit
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_graphs, menu)
         return true
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_SELECTED_CHART, selectedChartId)
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.graph_deficit -> renderDeficitChart()
-            R.id.graph_length -> renderLengthChart()
-            R.id.graph_start -> renderStartChart()
-            R.id.graph_stop -> renderStopChart()
-            R.id.graph_rating -> renderRatingChart()
-            R.id.graph_variance -> renderVarianceChart()
+            R.id.graph_deficit, R.id.graph_length, R.id.graph_start,
+            R.id.graph_stop, R.id.graph_rating, R.id.graph_variance -> {
+                selectedChartId = item.itemId
+                renderChartById(selectedChartId)
+            }
             android.R.id.home -> {
                 this.finish()
                 true
@@ -61,6 +68,8 @@ class GraphsActivity : AppCompatActivity() {
 
         // Show a back button.
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        selectedChartId = savedInstanceState?.getInt(KEY_SELECTED_CHART) ?: R.id.graph_deficit
 
         preferences = PreferenceManager.getDefaultSharedPreferences(application)
 
@@ -91,8 +100,19 @@ class GraphsActivity : AppCompatActivity() {
 
         chartAxisLeftLabel = findViewById(R.id.chart_axis_left_label)
 
-        // Default to deficit/surplus.
-        renderDeficitChart()
+        // Render the restored (or default) chart.
+        renderChartById(selectedChartId)
+    }
+    private fun renderChartById(itemId: Int): Boolean {
+        return when (itemId) {
+            R.id.graph_deficit -> renderDeficitChart()
+            R.id.graph_length -> renderLengthChart()
+            R.id.graph_start -> renderStartChart()
+            R.id.graph_stop -> renderStopChart()
+            R.id.graph_rating -> renderRatingChart()
+            R.id.graph_variance -> renderVarianceChart()
+            else -> false
+        }
     }
 
     private fun renderDeficitChart(): Boolean {
