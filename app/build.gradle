@@ -8,6 +8,12 @@ android {
     kotlinOptions {
         kotlinOptions.allWarningsAsErrors = true
     }
+    testOptions {
+        unitTests.all {
+            systemProperty 'user.timezone', 'UTC'
+        }
+    }
+
     compileSdk 35
 
     defaultConfig {
@@ -45,6 +51,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    kotlinOptions {
+        jvmTarget = "21"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_21
