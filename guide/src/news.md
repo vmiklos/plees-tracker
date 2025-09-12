@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- graphs activity: preserve selected chart across rotation (venkatchalapathi)
+
 ## 25.8
 
 - preferences: add bedtime and wakeup reminders if requested (qureshikaif)
