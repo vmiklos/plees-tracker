@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 25.8.1
 
 - graphs activity: preserve selected chart across rotation (venkatchalapathi)
 
