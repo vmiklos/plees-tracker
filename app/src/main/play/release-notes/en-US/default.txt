@@ -1,1 +1,1 @@
-- preferences: add bedtime and wakeup reminders if requested (qureshikaif)
+- graphs activity: preserve selected chart across rotation (venkatchalapathi)
