@@ -14,6 +14,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,9 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -132,6 +136,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             .create(MainViewModel::class.java)
 
         setContentView(R.layout.activity_main)
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            // Handle edge-to-edge mode
+            val rootView = findViewById<View>(R.id.root)
+            ViewCompat.setOnApplyWindowInsetsListener(rootView) { view, insets ->
+                val sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom)
+                WindowInsetsCompat.CONSUMED
+            }
+            val nightMask = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            if (nightMask == Configuration.UI_MODE_NIGHT_NO) {
+                val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+                insetsController.isAppearanceLightStatusBars = true
+            }
+        }
+
         val startStop = findViewById<LinearLayout>(R.id.start_stop_layout)
         startStop.setOnClickListener(this)
 
