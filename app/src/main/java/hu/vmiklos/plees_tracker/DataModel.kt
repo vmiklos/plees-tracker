@@ -10,9 +10,15 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.switchMap
@@ -542,6 +548,25 @@ object DataModel {
 
     fun getWakeupMinute(preferences: SharedPreferences): Int {
         return getPreferencesToken(preferences, "wakeup", 1, 0)
+    }
+
+    fun handleWindowInsets(activity: AppCompatActivity) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            // Handle edge-to-edge mode
+            val rootView = activity.findViewById<View>(R.id.root)
+            ViewCompat.setOnApplyWindowInsetsListener(rootView) { view, insets ->
+                val sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                view.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom)
+                WindowInsetsCompat.CONSUMED
+            }
+            val resources = activity.resources
+            val nightMask = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            if (nightMask == Configuration.UI_MODE_NIGHT_NO) {
+                val window = activity.window
+                val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+                insetsController.isAppearanceLightStatusBars = true
+            }
+        }
     }
 }
 

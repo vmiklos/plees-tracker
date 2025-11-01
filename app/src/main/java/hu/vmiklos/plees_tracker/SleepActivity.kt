@@ -25,6 +25,9 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProvider.NewInstanceFactory().create(SleepViewModel::class.java)
 
         setContentView(R.layout.activity_sleep)
+
+        DataModel.handleWindowInsets(this)
+
         val startDate = findViewById<TextView>(R.id.sleep_start_date)
         startDate.setOnClickListener(this)
         val startTime = findViewById<TextView>(R.id.sleep_start_time)
