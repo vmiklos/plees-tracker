@@ -24,6 +24,8 @@ class StatsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_stats)
 
+        DataModel.handleWindowInsets(this)
+
         title = getString(R.string.stats)
         // Show a back button.
         actionBar?.setDisplayHomeAsUpEnabled(true)
