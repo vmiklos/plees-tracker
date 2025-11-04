@@ -64,6 +64,9 @@ class GraphsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_graphs)
+
+        DataModel.handleWindowInsets(this)
+
         title = getString(R.string.graphs)
 
         // Show a back button.
