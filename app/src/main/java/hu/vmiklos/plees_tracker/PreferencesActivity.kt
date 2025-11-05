@@ -24,9 +24,12 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.settings_container, Preferences())
+            .replace(R.id.root, Preferences())
             .commit()
-        setContentView(R.layout.settings)
+        setContentView(R.layout.activity_settings)
+
+        DataModel.handleWindowInsets(this)
+
         DataModel.preferencesActivity = this
     }
 
@@ -62,7 +65,7 @@ class PreferencesActivity : AppCompatActivity() {
                 // Refresh the view in case auto_backup or auto_backup_path changed.
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.settings_container, Preferences())
+                    .replace(R.id.root, Preferences())
                     .commit()
             } catch (e: Exception) {
                 Log.e(TAG, "onActivityResult: setting backup path failed")
