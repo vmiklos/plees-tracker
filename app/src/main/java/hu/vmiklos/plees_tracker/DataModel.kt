@@ -486,11 +486,8 @@ object DataModel {
     fun formatTimestamp(date: Date, compactView: Boolean): String {
         val sdf = if (compactView) {
             SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        } else if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            // The pattern character 'X' requires API level 24
-            SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX", Locale.getDefault())
         } else {
-            SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss XXX", Locale.getDefault())
         }
         return sdf.format(date)
     }
