@@ -13,6 +13,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 class PreferencesActivity : AppCompatActivity() {
@@ -49,17 +50,17 @@ class PreferencesActivity : AppCompatActivity() {
                         uri,
                         flags
                     )
-                    val editor = DataModel.preferences.edit()
-                    editor.putString("auto_backup_path", uri.toString())
-                    editor.apply()
+                    DataModel.preferences.edit {
+                        putString("auto_backup_path", uri.toString())
+                    }
                     success = true
                 }
 
                 if (!success) {
                     // Disable the bool setting when the user picked no folder.
-                    val editor = DataModel.preferences.edit()
-                    editor.putBoolean("auto_backup", false)
-                    editor.apply()
+                    DataModel.preferences.edit {
+                        putBoolean("auto_backup", false)
+                    }
                 }
 
                 // Refresh the view in case auto_backup or auto_backup_path changed.
@@ -68,7 +69,7 @@ class PreferencesActivity : AppCompatActivity() {
                     .replace(R.id.root, Preferences())
                     .commit()
             } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: setting backup path failed")
+                Log.e(TAG, "onActivityResult, setting backup path failed: $e")
             }
         }
 
