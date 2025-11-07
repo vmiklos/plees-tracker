@@ -14,6 +14,7 @@ import android.content.SharedPreferences
 import android.provider.Settings
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 
 class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChangeListener {
     companion object {
@@ -36,9 +37,9 @@ class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChan
                 } else {
                     // Forget old path, so it's possible to set a different one later.
                     Log.i(TAG, "onSharedPreferenceChanged: clearing old backup path")
-                    val editor = DataModel.preferences.edit()
-                    editor.remove("auto_backup_path")
-                    editor.apply()
+                    DataModel.preferences.edit {
+                        remove("auto_backup_path")
+                    }
                 }
                 return
             }
