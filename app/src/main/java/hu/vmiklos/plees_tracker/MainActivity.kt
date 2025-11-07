@@ -29,6 +29,7 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -367,9 +368,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         DataModel.start?.let { start ->
             // When user starts tracking sleep
-            preferences.edit()
-                .putInt("current_dnd", dndManager.currentInterruptionFilter)
-                .apply() // Saves current Do Not Disturb status
+            preferences.edit {
+                putInt("current_dnd", dndManager.currentInterruptionFilter)
+            }
             if (dndEnabled && dndManager.isNotificationPolicyAccessGranted) {
                 val filterPri = NotificationManager.INTERRUPTION_FILTER_PRIORITY
                 dndManager.setInterruptionFilter(filterPri)

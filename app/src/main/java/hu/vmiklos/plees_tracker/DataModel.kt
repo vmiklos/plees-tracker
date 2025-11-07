@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -68,11 +69,11 @@ object DataModel {
         set(start) {
             field = start
             // Save start timestamp in case the foreground service is killed.
-            val editor = preferences.edit()
-            field?.let {
-                editor.putLong("start", it.time)
+            preferences.edit {
+                field?.let {
+                    putLong("start", it.time)
+                }
             }
-            editor.apply()
         }
 
     var stop: Date? = null
@@ -144,9 +145,9 @@ object DataModel {
         database.sleepDao().insert(sleep)
 
         // Drop start timestamp from preferences, it's in the database now.
-        val editor = preferences.edit()
-        editor.remove("start")
-        editor.apply()
+        preferences.edit {
+            remove("start")
+        }
     }
 
     suspend fun insertSleep(sleep: Sleep) {
