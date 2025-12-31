@@ -13,5 +13,6 @@
 
     <!-- Dashboard  color-->
     <color name="dash_nights">#26862e</color>
+    <color name="dash_average">#2196F3</color>
     <color name="dash_daily">#91681c</color>
 </resources>
