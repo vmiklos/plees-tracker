@@ -3,6 +3,7 @@
 ## master
 
 - Target Android 16
+- Resolves: gh#561 dark mode: add suport for the dashboard's average color (@avi12)
 
 ## 25.8.1
 
