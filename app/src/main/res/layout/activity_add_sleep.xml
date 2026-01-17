@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingBottom="10dp">
+
+                <!-- Start Row -->
+                <ImageView
+                    android:id="@+id/start_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:contentDescription="@string/started_on"
+                    android:src="@drawable/ic_play_green"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/started_on_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/started_on"
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/start_image"
+                    app:layout_constraintStart_toEndOf="@+id/start_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/add_sleep_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="86dp"
+                    android:textSize="16sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/start_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10:50:38" />
+
+                <TextView
+                    android:id="@+id/add_sleep_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="16sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/start_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="10:50:38" />
+
+                <!-- Stop Row -->
+                <ImageView
+                    android:id="@+id/stop_red_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/stopped_on"
+                    android:src="@drawable/ic_stop_red"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/start_image" />
+
+                <TextView
+                    android:id="@+id/stopped_on_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/stopped_on"
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"
+                    app:layout_constraintStart_toEndOf="@+id/stop_red_image"
+                    app:layout_constraintTop_toBottomOf="@+id/start_image" />
+
+                <TextView
+                    android:id="@+id/add_sleep_stop_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="86dp"
+                    android:textSize="16sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/start_image"
+                    tools:text="10:50:38" />
+
+                <TextView
+                    android:id="@+id/add_sleep_stop_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:textSize="16sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/stop_red_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/start_image"
+                    tools:text="10:50:38" />
+
+                <!-- Wakes Row -->
+                <ImageView
+                    android:id="@+id/wakes_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/times_woken_up"
+                    android:src="@drawable/ic_sleep_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stop_red_image" />
+
+                <TextView
+                    android:id="@+id/wakes_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/times_woken_up"
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/wakes_image"
+                    app:layout_constraintStart_toEndOf="@+id/wakes_image"
+                    app:layout_constraintTop_toBottomOf="@+id/stop_red_image" />
+
+                <EditText
+                    android:id="@+id/add_sleep_wakes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:minWidth="50dp"
+                    android:gravity="end"
+                    app:layout_constraintBottom_toBottomOf="@+id/wakes_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/wakes_image" />
+
+
+                <!-- Rating Row -->
+                <RatingBar
+                    android:id="@+id/add_sleep_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:numStars="5"
+                    android:stepSize="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wakes_image" />
+
+                <!-- Notes Row -->
+                <TextView
+                    android:id="@+id/sleep_notes_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/sleep_notes"
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_sleep_rating" />
+
+                <EditText
+                    android:id="@+id/add_sleep_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    app:layout_constraintBaseline_toBaselineOf="@id/sleep_notes_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/sleep_notes_label" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/add_sleep_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/fab_btn_corner"
+            android:backgroundTint="@color/colorFabPrimary"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_view">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textColor="@color/colorFabText"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

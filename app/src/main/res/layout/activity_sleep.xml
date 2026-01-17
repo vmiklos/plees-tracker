@@ -136,6 +136,42 @@
                 app:layout_constraintTop_toTopOf="@+id/stop_red_image"
                 tools:text="10:50:38" />
 
+            <ImageView
+                android:id="@+id/wakes_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/times_woken_up"
+                android:src="@drawable/ic_sleep_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stop_red_image" />
+
+            <TextView
+                android:id="@+id/wakes_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/times_woken_up"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/wakes_image"
+                app:layout_constraintStart_toEndOf="@+id/wakes_image"
+                app:layout_constraintTop_toBottomOf="@+id/stop_red_image" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/sleep_item_wakes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:hint="0"
+                android:inputType="number"
+                android:minWidth="50dp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@+id/wakes_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stop_red_image" />
+
             <RatingBar
                 android:id="@+id/sleep_item_rating"
                 android:layout_width="wrap_content"
@@ -148,7 +184,7 @@
                 android:stepSize="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/stop_red_image" />
+                app:layout_constraintTop_toBottomOf="@id/wakes_image" />
 
             <TextView
                 android:id="@+id/sleep_item_comment_label"

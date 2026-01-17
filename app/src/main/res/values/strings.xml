@@ -235,5 +235,10 @@
     <string name="default_reminder_message">Time for your reminder.</string>
     <string name="notification_channel_description">Channel for bedtime and wakeup reminders</string>
     <string name="bedtime_toast">Reminders set for bedtime and wakeup</string>
+    <string name="manual_entry">Manual Entry</string>
+    <string name="add_sleep">Add Sleep</string>
+    <string name="times_woken_up">Times Woken Up</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

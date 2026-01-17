@@ -121,33 +121,72 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/start_stop_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/fab_btn_corner"
-        android:gravity="center_vertical">
+        android:orientation="horizontal"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:gravity="bottom|end">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/start_stop"
+        <LinearLayout
+            android:id="@+id/manual_entry_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/start"
-            android:src="@drawable/ic_start"
-            app:borderWidth="0dp"
-            app:elevation="0dp" />
+            android:background="@drawable/fab_btn_corner"
+            android:gravity="center_vertical"
+            android:backgroundTint="@color/colorFabPrimary"
+            android:layout_marginEnd="16dp">
 
-        <TextView
-            android:id="@+id/start_stop_text"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/manual_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/manual_entry"
+                app:borderWidth="0dp"
+                app:elevation="0dp"
+                app:backgroundTint="@color/colorFabPrimary" />
+
+            <TextView
+                android:id="@+id/manual_entry_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="16dp"
+                android:text="@string/manual_entry"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textColor="@color/colorFabText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/start_stop_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="0dp"
-            android:paddingEnd="16dp"
-            android:text="@string/start"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            android:textColor="@color/colorFabText" />
+            android:animateLayoutChanges="true"
+            android:background="@drawable/fab_btn_corner"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/start_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/start"
+                android:src="@drawable/ic_start"
+                app:borderWidth="0dp"
+                app:elevation="0dp" />
+
+            <TextView
+                android:id="@+id/start_stop_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="16dp"
+                android:text="@string/start"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                android:textColor="@color/colorFabText" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

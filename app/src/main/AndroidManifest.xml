@@ -40,6 +40,11 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".PreferencesActivity" />
+        <activity android:name=".AddSleepActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <service
             android:name=".MainService"
             android:foregroundServiceType="specialUse">

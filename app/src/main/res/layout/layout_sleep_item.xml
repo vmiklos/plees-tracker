@@ -25,6 +25,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:id="@+id/sleep_swipeable">
 
 
@@ -32,6 +33,7 @@
             android:id="@+id/card_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="5dp"
             android:background="@color/colorBackground">
 
 
@@ -180,15 +182,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:numStars="5"
                 android:rating="0"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:stepSize="1"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wake_time_image"
+                app:layout_constraintTop_toBottomOf="@id/wakes_image"
                 android:isIndicator="true"/>
+
+            <ImageView
+                android:id="@+id/wakes_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/times_woken_up"
+                android:src="@drawable/ic_sleep_icon"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wake_time_image" />
+
+            <TextView
+                android:id="@+id/wakes_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/times_woken_up"
+                android:textSize="16dp"
+                app:layout_constraintStart_toEndOf="@id/wakes_image"
+                app:layout_constraintTop_toBottomOf="@id/wake_time_image" />
+
+            <TextView
+                android:id="@+id/sleep_item_wakes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wake_time_image" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

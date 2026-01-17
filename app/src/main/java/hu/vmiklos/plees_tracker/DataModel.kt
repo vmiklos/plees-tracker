@@ -55,6 +55,22 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
     }
 }
 
+val MIGRATION_3_4 = object : Migration(3, 4) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE sleep ADD COLUMN wakes INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        try {
+            db.execSQL("ALTER TABLE sleep ADD COLUMN wakes INTEGER NOT NULL DEFAULT 0")
+        } catch (e: Exception) {
+            // Column may already exist, which is fine
+        }
+    }
+}
+
 /**
  * Data model is the singleton shared state between the activity and the
  * service.
@@ -101,6 +117,8 @@ object DataModel {
         database = Room.databaseBuilder(context, AppDatabase::class.java, "database")
             .addMigrations(MIGRATION_1_2)
             .addMigrations(MIGRATION_2_3)
+            .addMigrations(MIGRATION_3_4)
+            .addMigrations(MIGRATION_4_5)
             .build()
         initialized = true
     }
@@ -212,6 +230,9 @@ object DataModel {
                     }
                     if (cells.isSet(4)) {
                         sleep.comment = cells[4]
+                    }
+                    if (cells.isSet(5)) {
+                        sleep.wakes = cells[5].toInt()
                     }
                     importedSleeps.add(sleep)
                 }
@@ -330,9 +351,9 @@ object DataModel {
             }
             val writer = CSVPrinter(OutputStreamWriter(os, "UTF-8"), CSVFormat.DEFAULT)
             if (prettyBackup) {
-                writer.printRecord("sid", "start", "stop", "length", "rating", "comment")
+                writer.printRecord("sid", "start", "stop", "length", "rating", "comment", "wakes")
             } else {
-                writer.printRecord("sid", "start", "stop", "rating", "comment")
+                writer.printRecord("sid", "start", "stop", "rating", "comment", "wakes")
             }
             for (sleep in sleeps) {
                 if (prettyBackup) {
@@ -344,7 +365,8 @@ object DataModel {
                         DataModel.formatTimestamp(Date(sleep.stop), DataModel.getCompactView()),
                         DataModel.formatDuration(durationMS / 1000, DataModel.getCompactView()),
                         sleep.rating,
-                        sleep.comment
+                        sleep.comment,
+                        sleep.wakes
                     )
                 } else {
                     writer.printRecord(
@@ -352,7 +374,8 @@ object DataModel {
                         sleep.start,
                         sleep.stop,
                         sleep.rating,
-                        sleep.comment
+                        sleep.comment,
+                        sleep.wakes
                     )
                 }
             }

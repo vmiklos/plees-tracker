@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 class SleepViewModel : ViewModel() {
 
     private var sleepCommentCallback: SleepCommentCallback? = null
+    private var sleepWakesCallback: SleepWakesCallback? = null
 
     fun showSleep(activity: SleepActivity, sid: Int) {
         val viewModel = this
@@ -52,6 +53,14 @@ class SleepViewModel : ViewModel() {
             comment.setText(sleep.comment)
             viewModel.sleepCommentCallback = SleepCommentCallback(viewModel, sleep)
             comment.addTextChangedListener(viewModel.sleepCommentCallback)
+
+            val wakes = activity.findViewById<AppCompatEditText>(R.id.sleep_item_wakes)
+            viewModel.sleepWakesCallback?.let {
+                wakes.removeTextChangedListener(it)
+            }
+            wakes.setText(sleep.wakes.toString())
+            viewModel.sleepWakesCallback = SleepWakesCallback(viewModel, sleep)
+            wakes.addTextChangedListener(viewModel.sleepWakesCallback)
         }
     }
 

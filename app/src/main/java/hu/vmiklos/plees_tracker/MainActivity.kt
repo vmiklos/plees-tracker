@@ -139,6 +139,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startStop = findViewById<LinearLayout>(R.id.start_stop_layout)
         startStop.setOnClickListener(this)
 
+        val manualEntry = findViewById<FloatingActionButton>(R.id.manual_entry)
+        manualEntry.setOnClickListener(this)
+        val manualEntryLayout = findViewById<LinearLayout>(R.id.manual_entry_layout)
+        manualEntryLayout.setOnClickListener(this)
+
         preferences.liveData("dashboard_duration", "-7").observe(
             this
         ) { setDashboardText(it ?: "0") }
@@ -297,6 +302,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
+
             R.id.start_stop_layout -> {
                 if (DataModel.start != null && DataModel.stop == null) {
                     DataModel.stop = Calendar.getInstance().time
@@ -306,6 +312,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     DataModel.stop = null
                 }
                 updateView()
+            }
+            R.id.manual_entry, R.id.manual_entry_layout -> {
+                startActivity(Intent(this, AddSleepActivity::class.java))
             }
         }
     }
