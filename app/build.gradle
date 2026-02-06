@@ -14,7 +14,9 @@ android {
         }
     }
 
-    compileSdk 36
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
