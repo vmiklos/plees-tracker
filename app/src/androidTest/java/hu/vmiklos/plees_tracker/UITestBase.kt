@@ -46,11 +46,14 @@ open class UITestBase {
 
     protected fun createSleep() {
         val sleep = Sleep()
+
         val start = Calendar.getInstance()
         start.set(Calendar.HOUR_OF_DAY, 9)
         sleep.start = start.timeInMillis
+
         val stop = Calendar.getInstance()
-        start.set(Calendar.HOUR_OF_DAY, 23)
+        stop.set(Calendar.HOUR_OF_DAY, 23)
+        stop.set(Calendar.MINUTE, 59)
         sleep.stop = stop.timeInMillis
         runBlocking {
             DataModel.database.sleepDao().insert(sleep)
