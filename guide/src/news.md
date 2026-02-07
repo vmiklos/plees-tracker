@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 26.2
 
 - Target Android 16
 - Resolves: gh#561 dark mode: add suport for the dashboard's average color (@avi12)

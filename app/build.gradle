@@ -14,14 +14,16 @@ android {
         }
     }
 
-    compileSdk 36
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 64
-        versionName "25.8.1"
+        versionCode 65
+        versionName "26.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
