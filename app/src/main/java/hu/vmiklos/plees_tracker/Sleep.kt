@@ -31,6 +31,9 @@ class Sleep {
     @ColumnInfo(name = "comment")
     var comment: String = ""
 
+    @ColumnInfo(name = "wakes")
+    var wakes: Int = 0
+
     private val lengthMs
         get() = stop - start
 
@@ -41,12 +44,16 @@ class Sleep {
         other is Sleep &&
             other.start == start &&
             other.stop == stop &&
-            other.rating == rating
+            other.rating == rating &&
+            other.comment == comment &&
+            other.wakes == wakes
 
     override fun hashCode(): Int {
         var result = start.hashCode()
         result = 31 * result + stop.hashCode()
         result = 31 * result + rating.hashCode()
+        result = 31 * result + comment.hashCode()
+        result = 31 * result + wakes
         return result
     }
 }
