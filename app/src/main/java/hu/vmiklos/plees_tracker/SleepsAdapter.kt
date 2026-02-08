@@ -105,10 +105,22 @@ class SleepsAdapter(
             holder.durationWakeImage.visibility = View.GONE
         }
 
-        if (preferences.getBoolean("show_rating", false)) {
+        if (preferences.getBoolean("show_rating", false) || sleep.rating > 0) {
             holder.rating.rating = sleep.rating.toFloat()
+            holder.rating.visibility = View.VISIBLE
         } else {
             holder.rating.visibility = View.GONE
+        }
+
+        if (sleep.wakes > 0) {
+            holder.wakes.text = sleep.wakes.toString()
+            holder.wakes.visibility = View.VISIBLE
+            holder.wakesHeader.visibility = View.VISIBLE
+            holder.wakesImage.visibility = View.VISIBLE
+        } else {
+            holder.wakes.visibility = View.GONE
+            holder.wakesHeader.visibility = View.GONE
+            holder.wakesImage.visibility = View.GONE
         }
     }
 
@@ -122,9 +134,13 @@ class SleepsAdapter(
 
         val durationWakeImage: View = view.findViewById(R.id.wake_time_image)
         val durationWakeHeader: View = view.findViewById(R.id.wake_time_header)
+
         val durationWake: TextView = view.findViewById(R.id.wake_item_duration)
 
         val rating: RatingBar = view.findViewById(R.id.sleep_item_rating)
+        val wakes: TextView = view.findViewById(R.id.sleep_item_wakes)
+        val wakesHeader: TextView = view.findViewById(R.id.wakes_header)
+        val wakesImage: ImageView = view.findViewById(R.id.wakes_image)
 
         val swipeable: View = view.findViewById(R.id.sleep_swipeable)
         private val deleteLeft: ImageView = view.findViewById(R.id.sleep_delete_left)
