@@ -105,9 +105,8 @@ class SleepsAdapter(
             holder.durationWakeImage.visibility = View.GONE
         }
 
-        if (preferences.getBoolean("show_rating", false) || sleep.rating > 0) {
+        if (preferences.getBoolean("show_rating", false)) {
             holder.rating.rating = sleep.rating.toFloat()
-            holder.rating.visibility = View.VISIBLE
         } else {
             holder.rating.visibility = View.GONE
         }

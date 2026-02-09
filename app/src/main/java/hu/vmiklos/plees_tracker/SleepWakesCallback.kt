@@ -25,7 +25,7 @@ class SleepWakesCallback(
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         val wakesStr = s.toString()
         val wakes = if (wakesStr.isNotEmpty()) wakesStr.toIntOrNull() ?: 0 else 0
-        if (sleep.wakes != wakes && wakes in 0..10) {
+        if (sleep.wakes != wakes) {
             sleep.wakes = wakes
             viewModel.updateSleep(sleep)
         }
