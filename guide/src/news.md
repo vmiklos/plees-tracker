@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- sleep activity now has a 'times woken up' widget (@Rikul)
+
 ## 26.2
 
 - Target Android 16
