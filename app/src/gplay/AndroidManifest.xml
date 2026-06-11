@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- gplay flavor only: the Google Drive backup makes its REST calls in-process (not via Play
+         Services), so the app itself needs network access. The foss flavor backs up to a local
+         folder only and deliberately ships without INTERNET, keeping the F-Droid build offline. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>
