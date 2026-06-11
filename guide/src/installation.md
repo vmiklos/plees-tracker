@@ -8,6 +8,10 @@ You can build the code using:
 ./gradlew build
 ```
 
+This builds both product flavors: `foss` (this is what F-Droid ships, free of proprietary Google
+dependencies) and `gplay` (adds the Google Drive backup destination). To build or install only the
+Drive-capable flavor, use e.g. `./gradlew assembleGplayRelease` or `./gradlew installGplayDebug`.
+
 You can run the tests using:
 
 ```console

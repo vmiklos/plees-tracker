@@ -57,12 +57,65 @@ This allows manually setting the dark mode for plees-tracker. This is useful on 
 
 ### Backup
 
-Backup settings allow you to automatically back up your sleeps after a tracking stopped. This is
-useful in case you selected a path which is then implicitly synchronized to some external server,
-e.g. Nextcloud.
+Backup settings start with an "Automatic backup" switch, which is off by default. Turning it on for
+the first time asks where to back up to; the switch turns itself back off when the last backup
+destination is removed. When it's off, no backups run and any configured destinations below it are
+greyed out (they are kept, so turning the switch back on resumes backups unchanged).
+
+Backups go to the configured destinations, which are shown as rows in the settings: one device
+folder and (in the `gplay` flavor) one Google Drive account can be configured, separately or
+together.
+
+"Add backup destination" opens a chooser where both "This device (folder)" and "Google Drive" can be
+ticked. Once one type is configured, the row's label adapts ("Add device backup destination" / "Add
+Google Drive backup destination") and adding the remaining type asks whether the new destination is
+in addition to or instead of the existing one. "Instead of Google Drive" permanently deletes the
+Drive backup; switching to Drive instead of the folder asks whether to also delete the folder's
+backup.csv. The add row disappears once both types are configured.
+
+Folder backups write a backup.csv file into the chosen folder. This is useful in case you select a
+path which is then implicitly synchronized to some external server, e.g. Nextcloud. Tapping the
+folder row offers: Change path and Remove folder. Removing the folder offers an optional "Also
+delete the backup file (backup.csv)" checkbox when a backup exists; the file is kept unless that is
+ticked.
 
 Pretty backup allows you to create a CSV file which has human-readable start, stop and length values
 during exporting to a file. This pretty output can't be imported back, though.
+
+#### Google Drive
+
+The Google Drive destination is only available in the `gplay` build flavor (the F-Droid `foss`
+flavor is free of proprietary Google dependencies, so it only offers the folder destination).
+
+When you add Google Drive, you sign in with a Google account and your sleeps are backed up to your
+Drive's hidden per-app storage (the appDataFolder): it's not visible among your normal Drive files
+and is only accessible to this app.
+
+A newly added account backs up once a day by default; "Change frequency" switches between "Once a
+day" and "On sleep add / edit / remove". Automatic uploads are skipped when nothing changed since
+the last successful upload; "Back up now" always uploads. When an automatic upload fails (no
+network, or the app's Drive access was revoked), the data stays on the device and the upload is
+retried in the background until it succeeds.
+
+If the Google account is removed from the device's system settings, the destination row is kept but
+marked "Account not on this device" and backups pause; adding the account back, or using "Change
+account" to pick another, resumes them, and "Remove account" discards the destination.
+
+Tapping the Google Drive row offers: Back up now, Change frequency, Restore backup and Delete
+backup (the last two only when a backup exists), Change account and Remove account. Remove account offers an optional "Also delete the Google Drive backup" checkbox when a
+backup exists; removing the account never deletes the backup unless that is ticked.
+
+"Restore backup" downloads the backup, which is handy after a reinstall or on a new
+phone. When local sleeps exist, it asks whether to "Merge with existing data" or "Replace existing
+data"; replacing deletes all local sleeps first. With no local sleeps the backup is restored
+directly.
+
+Setting this up for a self-built `gplay` flavor requires a Google Cloud project of your own: enable
+the Drive API, add the `.../auth/drive.appdata` scope to the OAuth consent screen, and create an
+OAuth 2.0 client ID of type "Android" for the app's package name and signing certificate SHA-1
+fingerprint (register both the release package and the `.debug` package if you test debug builds).
+The `drive.appdata` scope is not "sensitive", so no Google verification review is needed. Sign-in
+fails until this is configured.
 
 ### Dashboard
 
