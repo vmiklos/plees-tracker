@@ -24,9 +24,12 @@ git ls-files| grep '\.kt[s"]\?$' | xargs ./ktlint --android --relative .
 
 tools/license-check.sh
 
-if [ -e app/build/outputs/apk/release/app-release.apk ]; then
-    mkdir dist
-    cp app/build/outputs/apk/release/app-release.apk dist/
-fi
+# Collect the release APK of each product flavor (foss, gplay).
+for apk in app/build/outputs/apk/*/release/app-*-release.apk; do
+    if [ -e "$apk" ]; then
+        mkdir -p dist
+        cp "$apk" dist/
+    fi
+done
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab:

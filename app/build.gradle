@@ -54,6 +54,18 @@ android {
     buildFeatures {
         viewBinding true
     }
+    // The "store" dimension keeps proprietary Google Play Services code opt-in at build time:
+    // - foss (default): no Google dependencies, suitable for F-Droid.
+    // - gplay: adds Google Drive backup support.
+    flavorDimensions += "store"
+    productFlavors {
+        foss {
+            dimension "store"
+        }
+        gplay {
+            dimension "store"
+        }
+    }
     kotlinOptions {
         jvmTarget = "21"
     }
@@ -64,6 +76,13 @@ android {
     lint {
         disable 'MissingTranslation'
     }
+    packaging {
+        resources {
+            // The Google API client libraries (gplay flavor) ship duplicate META-INF metadata
+            // files that would otherwise clash when merging.
+            excludes += ['META-INF/INDEX.LIST', 'META-INF/DEPENDENCIES']
+        }
+    }
     namespace 'hu.vmiklos.plees_tracker'
 }
 
@@ -73,6 +92,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.documentfile:documentfile:1.1.0'
     testImplementation 'junit:junit:4.13.2'
+    // Real org.json implementation for unit tests: the android.jar bundled one is a stub that
+    // throws at runtime, so BackupDestination's JSON (de)serialization can't be tested without it.
+    testImplementation 'org.json:json:20250107'
     androidTestImplementation 'androidx.test:core:1.7.0'
     androidTestImplementation 'androidx.test.ext:junit:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
@@ -93,6 +115,18 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.8.9"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'org.apache.commons:commons-csv:1.14.1'
+
+    // gplay flavor only: Google Drive (appDataFolder) backup. These are proprietary and are kept
+    // out of the foss flavor so the F-Droid build stays free of Google dependencies.
+    gplayImplementation 'com.google.android.gms:play-services-auth:21.3.0'
+    gplayImplementation 'androidx.work:work-runtime-ktx:2.10.0'
+    gplayImplementation('com.google.api-client:google-api-client-android:2.7.0') {
+        exclude group: 'org.apache.httpcomponents'
+        exclude group: 'com.google.guava', module: 'guava-jdk5'
+    }
+    gplayImplementation('com.google.apis:google-api-services-drive:v3-rev20240914-2.0.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
 }
 repositories {
     mavenCentral()
