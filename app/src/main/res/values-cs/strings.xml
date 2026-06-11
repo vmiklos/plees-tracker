@@ -63,7 +63,6 @@
     <string name="settings_category_backup">Záloha</string>
     <string name="settings_automatic_backup">Automaticky zálohovat</string>
     <string name="settings_compact_view">Kompaktní zobrazení: bez vteřin a časového pásma</string>
-    <string name="settings_backup_path">Cesta pro zálohu</string>
     <string name="widget_start_stop">Přepnout sledování</string>
     <string name="settings_category_dashboard">Nástěnka</string>
     <string name="settings_dashboard_duration">Doba trvání</string>

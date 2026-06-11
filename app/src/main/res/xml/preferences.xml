@@ -14,17 +14,30 @@
             android:title="@string/settings_enable_dark_theme" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/settings_category_backup">
+    <PreferenceCategory
+        android:key="backup_destinations_category"
+        android:title="@string/settings_category_backup">
+        <!-- Master switch: when off, on-change and daily backups stop running for all configured
+             destinations and the destination rows below are disabled. Toggling it on with no
+             destinations configured starts the add-destination flow; it turns itself back off
+             when the last destination is removed (see Preferences.setupBackupPreferences). -->
         <SwitchPreference
             android:defaultValue="false"
-            android:key="auto_backup"
+            android:key="automatic_backup"
+            android:order="-1"
+            android:summaryOff="@string/settings_automatic_backup_off"
             android:title="@string/settings_automatic_backup" />
+        <!-- Configured destination rows are added here programmatically in Preferences.kt with
+             order 0..n, so the static items get high explicit orders to always sort after them. -->
         <Preference
-            android:key="auto_backup_path"
-            android:title="@string/settings_backup_path" />
+            android:dependency="automatic_backup"
+            android:key="add_backup_destination"
+            android:order="100"
+            android:title="@string/settings_add_backup_destination" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="pretty_backup"
+            android:order="101"
             android:title="@string/settings_pretty_backup" />
     </PreferenceCategory>
 

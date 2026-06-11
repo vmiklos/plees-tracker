@@ -12,37 +12,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.edit
 
 class SharedPreferencesChangeListener : SharedPreferences.OnSharedPreferenceChangeListener {
-    companion object {
-        private const val TAG = "SPChangeListener"
-    }
-
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         when (key) {
-            "auto_backup" -> {
-                val autoBackup = sharedPreferences.getBoolean("auto_backup", false)
-                val autoBackupPath = sharedPreferences.getString("auto_backup_path", "")
-                if (autoBackup) {
-                    if (autoBackupPath.isNullOrEmpty()) {
-                        val preferencesActivity = DataModel.preferencesActivity
-                        if (preferencesActivity != null) {
-                            Log.i(TAG, "onSharedPreferenceChanged: setting new backup path")
-                            preferencesActivity.openFolderChooser()
-                        }
-                    }
-                } else {
-                    // Forget old path, so it's possible to set a different one later.
-                    Log.i(TAG, "onSharedPreferenceChanged: clearing old backup path")
-                    DataModel.preferences.edit {
-                        remove("auto_backup_path")
-                    }
-                }
-                return
-            }
             "daily_reminder" -> {
                 val autoReminder = sharedPreferences.getBoolean("daily_reminder", false)
                 if (autoReminder) {
