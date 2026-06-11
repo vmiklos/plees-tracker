@@ -28,10 +28,13 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import hu.vmiklos.plees_tracker.calendar.CalendarExport
 import hu.vmiklos.plees_tracker.calendar.CalendarImport
-import java.io.IOException
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.io.InputStreamReader
 import java.io.OutputStream
 import java.io.OutputStreamWriter
+import java.io.Reader
+import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -110,6 +113,53 @@ object DataModel {
             .addMigrations(MIGRATION_3_4)
             .build()
         initialized = true
+        migrateFromSingleDestination()
+    }
+
+    /** Returns all currently configured backup destinations in insertion order. */
+    fun getDestinations(): List<BackupDestination> =
+        BackupDestination.listFromJson(preferences.getString("backup_destinations", "[]") ?: "[]")
+
+    private fun saveDestinations(destinations: List<BackupDestination>) {
+        preferences.edit {
+            putString("backup_destinations", BackupDestination.listToJson(destinations))
+        }
+    }
+
+    fun addDestination(destination: BackupDestination) {
+        saveDestinations(getDestinations() + destination)
+    }
+
+    fun removeDestination(destination: BackupDestination) {
+        saveDestinations(getDestinations().filter { it != destination })
+    }
+
+    /** Swaps [old] for [new], keeping its position in the list. */
+    fun replaceDestination(old: BackupDestination, new: BackupDestination) {
+        saveDestinations(getDestinations().map { if (it == old) new else it })
+    }
+
+    /**
+     * One-time migration from the old single-destination SharedPreferences keys (auto_backup,
+     * auto_backup_path) to the new backup_destinations JSON list. Runs only when the old keys
+     * are present and the new key is absent.
+     */
+    private fun migrateFromSingleDestination() {
+        if (preferences.contains("backup_destinations") || !preferences.contains("auto_backup")) {
+            return
+        }
+        val destinations = BackupDestination.fromLegacyPreferences(
+            autoBackup = preferences.getBoolean("auto_backup", false),
+            folderPath = preferences.getString("auto_backup_path", null)
+        )
+        saveDestinations(destinations)
+        preferences.edit {
+            // Keep backups running for users who had the legacy switch on; the new key
+            // defaults to off otherwise.
+            putBoolean("automatic_backup", destinations.isNotEmpty())
+            remove("auto_backup")
+            remove("auto_backup_path")
+        }
     }
 
     private fun getStartDelay(): Int {
@@ -193,53 +243,11 @@ object DataModel {
     }
 
     suspend fun importData(context: Context, cr: ContentResolver, uri: Uri) {
-        var ret = false
-        withContext(Dispatchers.IO) {
-            val inputStream = cr.openInputStream(uri)
-            val records: Iterable<CSVRecord> =
-                CSVFormat.DEFAULT.parse(InputStreamReader(inputStream))
-            // We have a speed vs memory usage trade-off here. Pay the cost of keeping all sleeps in
-            // memory: the benefit is that inserting all of them once triggers a single notification of
-            // observers. This means that importing 100s of sleeps is still ~instant, while it used to
-            // take ~forever.
-            val importedSleeps = mutableListOf<Sleep>()
-            try {
-                var first = true
-                for (cells in records) {
-                    if (first) {
-                        // Ignore the header.
-                        first = false
-                        continue
-                    }
-                    val sleep = Sleep()
-                    sleep.start = cells[1].toLong()
-                    sleep.stop = cells[2].toLong()
-                    if (cells.isSet(3)) {
-                        sleep.rating = cells[3].toLong()
-                    }
-                    if (cells.isSet(4)) {
-                        sleep.comment = cells[4]
-                    }
-                    if (cells.isSet(5)) {
-                        sleep.wakes = cells[5].toIntOrNull() ?: 0
-                    }
-                    importedSleeps.add(sleep)
-                }
-                val oldSleeps = database.sleepDao().getAll()
-                val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
-                Log.e(TAG, "debug, importData: newSleeps.size is " + newSleeps.size)
-                database.sleepDao().insert(newSleeps.toList())
-                ret = true
-            } catch (e: IOException) {
-                Log.e(TAG, "importData: readLine() failed")
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close()
-                    } catch (_: Exception) {
-                    }
-                }
-            }
+        val inputStream = cr.openInputStream(uri)
+        val ret = if (inputStream != null) {
+            inputStream.use { importSleepsFromReader(InputStreamReader(it)) }
+        } else {
+            false
         }
 
         if (ret) {
@@ -248,6 +256,86 @@ object DataModel {
             val toast = Toast.makeText(context, text, duration)
             toast.show()
         }
+    }
+
+    /**
+     * Parses CSV sleeps from [reader] and inserts the ones not already in the database. Returns
+     * true on success. The [reader] is not closed; the caller owns it.
+     */
+    private suspend fun importSleepsFromReader(reader: Reader): Boolean {
+        val importedSleeps = parseSleepsCsv(reader) ?: return false
+        insertNewSleeps(importedSleeps)
+        return true
+    }
+
+    /** Parses CSV sleeps from [reader], or returns null when the data is not a valid CSV. */
+    private suspend fun parseSleepsCsv(reader: Reader): List<Sleep>? = withContext(
+        Dispatchers.IO
+    ) {
+        try {
+            val records: Iterable<CSVRecord> = CSVFormat.DEFAULT.parse(reader)
+            val importedSleeps = mutableListOf<Sleep>()
+            var first = true
+            for (cells in records) {
+                if (first) {
+                    // Ignore the header.
+                    first = false
+                    continue
+                }
+                val sleep = Sleep()
+                sleep.start = cells[1].toLong()
+                sleep.stop = cells[2].toLong()
+                if (cells.isSet(3)) {
+                    sleep.rating = cells[3].toLong()
+                }
+                if (cells.isSet(4)) {
+                    sleep.comment = cells[4]
+                }
+                if (cells.isSet(5)) {
+                    sleep.wakes = cells[5].toIntOrNull() ?: 0
+                }
+                importedSleeps.add(sleep)
+            }
+            importedSleeps
+        } catch (e: Exception) {
+            Log.e(TAG, "parseSleepsCsv: parsing failed: $e")
+            null
+        }
+    }
+
+    /**
+     * We have a speed vs memory usage trade-off here. Pay the cost of keeping all sleeps in
+     * memory: the benefit is that inserting all of them once triggers a single notification of
+     * observers. This means that importing 100s of sleeps is still ~instant, while it used to
+     * take ~forever.
+     */
+    private suspend fun insertNewSleeps(importedSleeps: List<Sleep>) {
+        val oldSleeps = database.sleepDao().getAll()
+        val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
+        database.sleepDao().insert(newSleeps.toList())
+    }
+
+    /**
+     * True when there is at least one sleep stored locally.
+     */
+    suspend fun hasSleeps(): Boolean {
+        return database.sleepDao().count() > 0
+    }
+
+    /**
+     * Restores sleeps from the Google Drive backup (gplay flavor only). Returns true on success.
+     * With [override] the local sleeps are replaced by the backup; otherwise the backup is merged
+     * into the existing data. The local data is only cleared after both the download and the
+     * parse succeeded, so a failed fetch or a corrupt backup never wipes existing sleeps.
+     */
+    suspend fun restoreFromDrive(context: Context, email: String, override: Boolean): Boolean {
+        val data = DriveBackend.download(context, email) ?: return false
+        val sleeps = parseSleepsCsv(InputStreamReader(ByteArrayInputStream(data))) ?: return false
+        if (override) {
+            deleteAllSleep()
+        }
+        insertNewSleeps(sleeps)
+        return true
     }
 
     suspend fun importDataFromCalendar(context: Context, calendarId: String) {
@@ -292,27 +380,116 @@ object DataModel {
         toast.show()
     }
 
+    /**
+     * Backs up sleeps to all configured destinations. Drive accounts with "on_change" frequency
+     * are uploaded via a WorkManager job, so the upload survives this call's coroutine being
+     * cancelled (e.g. the app is closed) and retries on transient failure; "daily" accounts are
+     * handled by their own periodic worker. Folder backups are written here directly.
+     */
     suspend fun backupSleeps(context: Context, cr: ContentResolver) {
-        val autoBackup = preferences.getBoolean("auto_backup", false)
-        val autoBackupPath = preferences.getString("auto_backup_path", "")
-        if (!autoBackup || autoBackupPath.isNullOrEmpty()) {
-            return
+        if (!isAutomaticBackupEnabled()) return
+        val destinations = getDestinations()
+        if (destinations.isEmpty()) return
+        // Enqueue the Drive uploads first: enqueueing is a fast, persisted WorkManager call that
+        // is not lost if the app is closed mid-backup, unlike the folder write below.
+        for (dest in destinations) {
+            if (dest is BackupDestination.DriveAccount && dest.frequency != "daily") {
+                DriveBackend.scheduleBackup(context, dest.email)
+            }
         }
-
-        val folder = DocumentFile.fromTreeUri(context, Uri.parse(autoBackupPath))
-            ?: return
-
-        // Make sure that we don't create "backup (1).csv", etc.
-        val oldBackup = folder.findFile("backup.csv")
-        if (oldBackup != null && oldBackup.exists()) {
-            oldBackup.delete()
+        for (dest in destinations) {
+            if (dest is BackupDestination.LocalFolder) {
+                backupSleepsToFolder(context, cr, dest.path)
+            }
         }
-
-        val backup = folder.createFile("text/csv", "backup.csv") ?: return
-        exportDataToFile(
-            context, cr, backup.uri, showToast = false
-        )
     }
+
+    /** The master switch gating all automatic backups; manual "Back up now" ignores it. */
+    fun isAutomaticBackupEnabled(): Boolean = preferences.getBoolean("automatic_backup", false)
+
+    /** True when a backup.csv exists in the folder destination [path]. */
+    suspend fun hasFolderBackup(context: Context, path: String): Boolean =
+        withContext(Dispatchers.IO) {
+            try {
+                DocumentFile.fromTreeUri(context, Uri.parse(path))
+                    ?.findFile("backup.csv") != null
+            } catch (_: Exception) {
+                false
+            }
+        }
+
+    /**
+     * Deletes the backup.csv written by [backupSleepsToFolder] from the folder destination
+     * [path]. Returns true when the file is gone afterwards (deleted or never existed).
+     */
+    suspend fun deleteFolderBackup(context: Context, path: String): Boolean =
+        withContext(Dispatchers.IO) {
+            try {
+                val folder = DocumentFile.fromTreeUri(context, Uri.parse(path))
+                    ?: return@withContext false
+                val file = folder.findFile("backup.csv") ?: return@withContext true
+                file.delete()
+            } catch (e: Exception) {
+                Log.e(TAG, "deleteFolderBackup: $e")
+                false
+            }
+        }
+
+    private suspend fun backupSleepsToFolder(context: Context, cr: ContentResolver, path: String) {
+        if (path.isEmpty()) return
+        val folder = DocumentFile.fromTreeUri(context, Uri.parse(path)) ?: return
+        // Overwrite an existing backup rather than creating "backup (1).csv" etc.
+        folder.findFile("backup.csv")?.delete()
+        val backup = folder.createFile("text/csv", "backup.csv") ?: return
+        exportDataToFile(context, cr, backup.uri, showToast = false)
+    }
+
+    /**
+     * Serializes all sleeps to importable (non-pretty) CSV bytes, used by the Drive backup.
+     */
+    suspend fun serializeSleeps(): ByteArray = withContext(Dispatchers.IO) {
+        val sleeps = database.sleepDao().getAll()
+        val os = ByteArrayOutputStream()
+        writeSleepsCsv(sleeps, os, prettyBackup = false)
+        os.toByteArray()
+    }
+
+    /**
+     * Uploads [data] to [email]'s Drive backup unless it is byte-identical to the last payload
+     * this device successfully uploaded there, so automatic backups (daily worker, on-change)
+     * don't re-send unchanged data. Returns true when the backup is up to date afterwards.
+     * Manual "Back up now" bypasses this and always uploads, which also repairs a backup that
+     * went missing remotely while the stored hash still matches.
+     */
+    suspend fun uploadToDriveIfChanged(context: Context, email: String, data: ByteArray): Boolean {
+        val hash = sha256(data)
+        if (hash == getDriveBackupHash(email)) {
+            return true
+        }
+        val success = DriveBackend.upload(context, email, data)
+        if (success) {
+            setDriveBackupHash(email, hash)
+        }
+        return success
+    }
+
+    private fun getDriveBackupHash(email: String): String? =
+        preferences.getString("drive_backup_hash_$email", null)
+
+    /** Records the hash of [email]'s last uploaded payload; null forgets it (backup deleted). */
+    fun setDriveBackupHash(email: String, hash: String?) {
+        preferences.edit {
+            if (hash == null) {
+                remove("drive_backup_hash_$email")
+            } else {
+                putString("drive_backup_hash_$email", hash)
+            }
+        }
+    }
+
+    fun sha256(data: ByteArray): String =
+        MessageDigest.getInstance("SHA-256").digest(data)
+            .joinToString("") { "%02x".format(it) }
 
     suspend fun exportDataToFile(
         context: Context,
@@ -338,37 +515,7 @@ object DataModel {
                 Log.e(TAG, "exportData: openOutputStream() failed")
                 return
             }
-            val writer = CSVPrinter(OutputStreamWriter(os, "UTF-8"), CSVFormat.DEFAULT)
-            if (prettyBackup) {
-                writer.printRecord("sid", "start", "stop", "length", "rating", "comment", "wakes")
-            } else {
-                writer.printRecord("sid", "start", "stop", "rating", "comment", "wakes")
-            }
-            for (sleep in sleeps) {
-                if (prettyBackup) {
-                    val durationMS = sleep.stop - sleep.start
-
-                    writer.printRecord(
-                        sleep.sid,
-                        DataModel.formatTimestamp(Date(sleep.start), DataModel.getCompactView()),
-                        DataModel.formatTimestamp(Date(sleep.stop), DataModel.getCompactView()),
-                        DataModel.formatDuration(durationMS / 1000, DataModel.getCompactView()),
-                        sleep.rating,
-                        sleep.comment,
-                        sleep.wakes
-                    )
-                } else {
-                    writer.printRecord(
-                        sleep.sid,
-                        sleep.start,
-                        sleep.stop,
-                        sleep.rating,
-                        sleep.comment,
-                        sleep.wakes
-                    )
-                }
-            }
-            writer.close()
+            writeSleepsCsv(sleeps, os, prettyBackup)
         } catch (e: Exception) {
             if (showToast) {
                 val text = String.format(context.getString(R.string.export_failure), e)
@@ -393,6 +540,44 @@ object DataModel {
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)
         toast.show()
+    }
+
+    /**
+     * Writes [sleeps] as CSV into [os]. Shared by the file export and the Drive backup. The stream
+     * is flushed but not closed; the caller owns it.
+     */
+    fun writeSleepsCsv(sleeps: List<Sleep>, os: OutputStream, prettyBackup: Boolean) {
+        val writer = CSVPrinter(OutputStreamWriter(os, "UTF-8"), CSVFormat.DEFAULT)
+        if (prettyBackup) {
+            writer.printRecord("sid", "start", "stop", "length", "rating", "comment", "wakes")
+        } else {
+            writer.printRecord("sid", "start", "stop", "rating", "comment", "wakes")
+        }
+        for (sleep in sleeps) {
+            if (prettyBackup) {
+                val durationMS = sleep.stop - sleep.start
+
+                writer.printRecord(
+                    sleep.sid,
+                    formatTimestamp(Date(sleep.start), getCompactView()),
+                    formatTimestamp(Date(sleep.stop), getCompactView()),
+                    formatDuration(durationMS / 1000, getCompactView()),
+                    sleep.rating,
+                    sleep.comment,
+                    sleep.wakes
+                )
+            } else {
+                writer.printRecord(
+                    sleep.sid,
+                    sleep.start,
+                    sleep.stop,
+                    sleep.rating,
+                    sleep.comment,
+                    sleep.wakes
+                )
+            }
+        }
+        writer.flush()
     }
 
     private const val TAG = "DataModel"
