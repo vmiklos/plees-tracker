@@ -108,7 +108,7 @@ object DriveBackend {
     fun isAccountOnDevice(context: Context, email: String): Boolean = try {
         AccountManager.get(context).getAccountsByType("com.google").any { it.name == email }
     } catch (_: Exception) {
-        true  // Can't verify; assume valid so callers don't silently drop the account.
+        true // Can't verify; assume valid so callers don't silently drop the account.
     }
 
     suspend fun upload(context: Context, email: String, data: ByteArray): Boolean =
