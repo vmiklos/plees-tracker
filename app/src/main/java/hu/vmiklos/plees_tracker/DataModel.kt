@@ -269,7 +269,7 @@ object DataModel {
     }
 
     /** Parses CSV sleeps from [reader], or returns null when the data is not a valid CSV. */
-    private suspend fun parseSleepsCsv(reader: Reader): List<Sleep>? = withContext(
+    internal suspend fun parseSleepsCsv(reader: Reader): List<Sleep>? = withContext(
         Dispatchers.IO
     ) {
         try {
@@ -284,7 +284,14 @@ object DataModel {
                 }
                 val sleep = Sleep()
                 sleep.start = cells[1].toLong()
+                // Before 2001-09? Then probably seconds was used, not milliseconds.
+                if (sleep.start < 1000000000000L) {
+                    sleep.start *= 1000
+                }
                 sleep.stop = cells[2].toLong()
+                if (sleep.stop < 1000000000000L) {
+                    sleep.stop *= 1000
+                }
                 if (cells.isSet(3)) {
                     sleep.rating = cells[3].toLong()
                 }

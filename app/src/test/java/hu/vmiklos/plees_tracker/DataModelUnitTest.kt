@@ -6,9 +6,11 @@
 
 package hu.vmiklos.plees_tracker
 
+import java.io.StringReader
 import java.util.ArrayList
 import java.util.Calendar
 import java.util.Date
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -249,6 +251,19 @@ class DataModelUnitTest {
         calendar.set(2020, 2, 14, 12, 0, 0)
         val filtered = DataModel.filterSleeps(sleeps, calendar.time)
         assertEquals(filtered.size, 1)
+    }
+
+    @Test
+    fun testParseSleepsCsvSecondsToMilliseconds() = runBlocking {
+        val data = """
+sid,start,stop,rating,comment
+1,1625105400,1625121600,0,
+        """.trimIndent()
+        val reader = StringReader(data)
+        val sleeps = DataModel.parseSleepsCsv(reader)
+        assertEquals(1, sleeps?.size)
+        assertEquals(1625105400000L, sleeps?.get(0)?.start)
+        assertEquals(1625121600000L, sleeps?.get(0)?.stop)
     }
 }
 
