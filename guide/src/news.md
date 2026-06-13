@@ -4,9 +4,10 @@
 
 - sleep activity now has a 'times woken up' widget (@Rikul)
 - backup settings redesign: multiple backup destinations (a device folder and, in the gplay flavor,
-  Google Drive with restore), per-destination menus
+  Google Drive with restore), per-destination menus (@avi12)
 - new foss/gplay product flavors: the F-Droid build is foss, release artifacts are now
-  app-foss-release.apk and app-gplay-release.apk
+  app-foss-release.apk and app-gplay-release.apk (@avi12)
+- Resolves: gh#579 CSV import: tolerate if seconds is used instead of milliseconds
 
 ## 26.2
 
