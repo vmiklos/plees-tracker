@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 26.8
 
 - sleep activity now has a 'times woken up' widget (@Rikul)
 - backup settings redesign: multiple backup destinations (a device folder and, in the gplay flavor,
