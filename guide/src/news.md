@@ -1,8 +1,11 @@
 # Changelog
 
+## master
+
+- Add optional Health Connect synchronization for sleep sessions. (Aozora7)
+
 ## 26.8
 
-- Add optional Health Connect synchronization for sleep sessions.(@aozora.one)
 - sleep activity now has a 'times woken up' widget (@Rikul)
 - backup settings redesign: multiple backup destinations (a device folder and, in the gplay flavor,
   Google Drive with restore), per-destination menus (@avi12)
