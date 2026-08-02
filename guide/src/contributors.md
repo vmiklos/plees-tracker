@@ -4,7 +4,9 @@ Here is a list of the contributors who have helped improving plees-tracker. Big
 shout-out to them!
 
 - Miklos Vajna <plees-tracker@vmiklos.hu>
-- Jesper Lillqvist <https://github.com/toveri>
+- Jesper Lillqvist <https://github.com/toveri>: Calendar code
+- Avi <https://github.com/avi12>: Google Drive code
+- Aleksandrs Serbajevs <https://github.com/Aozora7>: Health Connect code
 - Sebastian <https://github.com/SebiderSushi>
 - Diego <https://github.com/sguinetti>
 - Sanju S <https://github.com/Spikeysanju>
