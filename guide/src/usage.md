@@ -106,9 +106,9 @@ during exporting to a file. This pretty output can't be imported back, though.
 The Google Drive destination is only available in the `gplay` build flavor (the F-Droid `foss`
 flavor is free of proprietary Google dependencies, so it only offers the folder destination).
 
-When you add Google Drive, you sign in with a Google account and your sleeps are backed up to your
-Drive's hidden per-app storage (the appDataFolder): it's not visible among your normal Drive files
-and is only accessible to this app.
+When you add Google Drive, you pick one of the Google accounts of the device and confirm the app's
+Drive access. Your sleeps are then backed up to that account's hidden per-app storage (the
+appDataFolder): it's not visible among your normal Drive files and is only accessible to this app.
 
 A newly added account backs up once a day by default; "Change frequency" switches between "Once a
 day" and "On sleep add / edit / remove". Automatic uploads are skipped when nothing changed since
@@ -133,8 +133,8 @@ Setting this up for a self-built `gplay` flavor requires a Google Cloud project 
 the Drive API, add the `.../auth/drive.appdata` scope to the OAuth consent screen, and create an
 OAuth 2.0 client ID of type "Android" for the app's package name and signing certificate SHA-1
 fingerprint (register both the release package and the `.debug` package if you test debug builds).
-The `drive.appdata` scope is not "sensitive", so no Google verification review is needed. Sign-in
-fails until this is configured.
+The `drive.appdata` scope is not "sensitive", so no Google verification review is needed.
+Authorizing the account fails until this is configured.
 
 ### Dashboard
 
