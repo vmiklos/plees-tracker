@@ -4,12 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-// The classic GoogleSignIn API is deprecated in favor of Credential Manager + the Identity
-// AuthorizationClient, but it stays the simplest, best-documented way to obtain Drive appDataFolder
-// authorization and still works at runtime. Suppress the deprecation warnings so the -Werror build
-// passes; migrating to AuthorizationClient would be a future improvement.
-@file:Suppress("DEPRECATION")
-
 package hu.vmiklos.plees_tracker
 
 import android.accounts.Account
@@ -25,13 +19,13 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
+import com.google.android.gms.auth.api.identity.AuthorizationRequest
+import com.google.android.gms.auth.api.identity.AuthorizationResult
+import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Scope
+import com.google.android.gms.tasks.Tasks
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.http.ByteArrayContent
 import com.google.api.client.http.javanet.NetHttpTransport
@@ -54,6 +48,8 @@ object DriveBackend {
 
     private const val BACKUP_NAME = "backup.csv"
 
+    private const val ACCOUNT_TYPE = "com.google"
+
     // WorkManager work-name prefixes; a per-account suffix (the email) makes them unique per
     // account.
     private const val WORK_NAME_PREFIX = "drive_backup_"
@@ -62,51 +58,89 @@ object DriveBackend {
     // Not a const val on purpose: see the foss flavor's DriveBackend for the rationale.
     val isSupported = true
 
-    fun createSignInIntent(context: Context): Intent? = signInClient(context).signInIntent
+    /**
+     * Intent for the system Google account picker, which always prompts, so there is no sign-in
+     * state to clear before adding or changing an account.
+     *
+     * Naming the account and authorizing Drive are two separate steps: the picker gives back the
+     * email that keys the whole destination and that [driveService] needs as a device account,
+     * then [authorize] asks Play Services for the appDataFolder scope on its behalf.
+     */
+    fun createAccountPickerIntent(): Intent? = AccountManager.newChooseAccountIntent(
+        null, null, arrayOf(ACCOUNT_TYPE), null, null, null, null
+    )
 
-    /** Processes the result of the Drive sign-in activity. */
-    suspend fun handleSignInResult(context: Context, data: Intent?): DriveSignInResult =
+    /** Email of the account picked in the account picker, null when the user backed out of it. */
+    fun readPickedAccount(data: Intent?): String? =
+        data?.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
+
+    /**
+     * Requests the Drive appDataFolder scope for [email]. Returns [DriveAuthorization.Consent]
+     * when Play Services wants the user to confirm the grant first -- the normal case for an
+     * account authorized for the first time -- carrying the intent only an activity can launch.
+     */
+    suspend fun authorize(context: Context, email: String): DriveAuthorization =
         withContext(Dispatchers.IO) {
-            if (data == null) {
-                // No result payload at all: the user backed out before picking an account.
-                return@withContext DriveSignInResult.Cancelled
-            }
+            val request = AuthorizationRequest.Builder()
+                .setRequestedScopes(listOf(appDataScope()))
+                .setAccount(Account(email, ACCOUNT_TYPE))
+                .build()
             try {
-                val account = GoogleSignIn.getSignedInAccountFromIntent(data)
-                    .getResult(ApiException::class.java)
-                val email = account?.email
-                if (email == null) {
-                    Log.e(TAG, "handleSignInResult: no account in result")
-                    return@withContext DriveSignInResult.Failed
+                // Blocking await: this already runs off the main thread, and it keeps the
+                // callers plain suspending code without a coroutines-play-services dependency.
+                val result = Tasks.await(
+                    Identity.getAuthorizationClient(context).authorize(request)
+                )
+                val pendingIntent = result.pendingIntent
+                when {
+                    result.hasResolution() && pendingIntent != null ->
+                        DriveAuthorization.Consent(pendingIntent)
+                    isAppDataGranted(result) -> DriveAuthorization.Granted
+                    else -> {
+                        Log.e(TAG, "authorize($email): drive.appdata scope not granted")
+                        DriveAuthorization.Failed
+                    }
                 }
-                if (!GoogleSignIn.hasPermissions(account, appDataScope())) {
-                    Log.e(TAG, "handleSignInResult: drive.appdata scope not granted")
-                    return@withContext DriveSignInResult.Failed
-                }
-                DriveSignInResult.Success(email)
-            } catch (e: ApiException) {
-                if (e.statusCode == GoogleSignInStatusCodes.SIGN_IN_CANCELLED ||
-                    e.statusCode == CommonStatusCodes.CANCELED
-                ) {
-                    DriveSignInResult.Cancelled
-                } else {
-                    Log.e(TAG, "handleSignInResult: sign-in failed, status=${e.statusCode}")
-                    DriveSignInResult.Failed
-                }
+            } catch (e: Exception) {
+                Log.e(TAG, "authorize($email): $e")
+                DriveAuthorization.Failed
             }
         }
 
     /**
-     * Signs out from GoogleSignIn. Called before adding a new account so the sign-in flow always
-     * shows the account picker rather than silently reusing the previous account.
+     * Processes the result of the consent activity launched for [DriveAuthorization.Consent].
+     * [email] is the account the consent was asked for, so that a success can name it.
      */
-    fun signOut(context: Context) {
-        signInClient(context).signOut()
+    suspend fun handleAuthorizationResult(
+        context: Context,
+        email: String,
+        data: Intent?
+    ): DriveSignInResult = withContext(Dispatchers.IO) {
+        if (data == null) {
+            // No result payload at all: the user backed out of the consent screen.
+            return@withContext DriveSignInResult.Cancelled
+        }
+        try {
+            val result = Identity.getAuthorizationClient(context)
+                .getAuthorizationResultFromIntent(data)
+            if (!isAppDataGranted(result)) {
+                Log.e(TAG, "handleAuthorizationResult: drive.appdata scope not granted")
+                return@withContext DriveSignInResult.Failed
+            }
+            DriveSignInResult.Success(email)
+        } catch (e: ApiException) {
+            if (e.statusCode == CommonStatusCodes.CANCELED) {
+                DriveSignInResult.Cancelled
+            } else {
+                Log.e(TAG, "handleAuthorizationResult: failed, status=${e.statusCode}")
+                DriveSignInResult.Failed
+            }
+        }
     }
 
     /** True when the given email corresponds to a Google account still present on the device. */
     fun isAccountOnDevice(context: Context, email: String): Boolean = try {
-        AccountManager.get(context).getAccountsByType("com.google").any { it.name == email }
+        AccountManager.get(context).getAccountsByType(ACCOUNT_TYPE).any { it.name == email }
     } catch (_: Exception) {
         true // Can't verify; assume valid so callers don't silently drop the account.
     }
@@ -222,19 +256,13 @@ object DriveBackend {
 
     private fun appDataScope() = Scope(DriveScopes.DRIVE_APPDATA)
 
-    private fun signInClient(context: Context): GoogleSignInClient {
-        val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestScopes(appDataScope())
-            .build()
-        return GoogleSignIn.getClient(context, options)
-    }
+    private fun isAppDataGranted(result: AuthorizationResult): Boolean =
+        DriveScopes.DRIVE_APPDATA in result.grantedScopes.orEmpty()
 
     /**
      * Builds a Drive client for [email], or null when the account is no longer on the device.
-     * This builds Account(email, "com.google") directly instead of getLastSignedInAccount(), so
-     * any Google account on the device can be used regardless of which one most recently
-     * completed the sign-in flow.
+     * The token comes from the device account itself, so every configured account keeps working
+     * independently of which one was authorized last.
      */
     private fun driveService(context: Context, email: String): Drive? {
         if (!isAccountOnDevice(context, email)) {
@@ -244,7 +272,7 @@ object DriveBackend {
         val credential = GoogleAccountCredential.usingOAuth2(
             context, listOf(DriveScopes.DRIVE_APPDATA)
         )
-        credential.selectedAccount = Account(email, "com.google")
+        credential.selectedAccount = Account(email, ACCOUNT_TYPE)
         return Drive.Builder(NetHttpTransport(), GsonFactory.getDefaultInstance(), credential)
             .setApplicationName(context.getString(R.string.app_name))
             .build()
