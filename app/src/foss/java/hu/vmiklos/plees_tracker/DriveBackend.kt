@@ -18,12 +18,18 @@ object DriveBackend {
     // constant conditions, which the warnings-as-errors build rejects.
     val isSupported = false
 
-    fun createSignInIntent(context: Context): Intent? = null
+    fun createAccountPickerIntent(): Intent? = null
 
-    suspend fun handleSignInResult(context: Context, data: Intent?): DriveSignInResult =
-        DriveSignInResult.Cancelled
+    fun readPickedAccount(data: Intent?): String? = null
 
-    fun signOut(context: Context) {}
+    suspend fun authorize(context: Context, email: String): DriveAuthorization =
+        DriveAuthorization.Failed
+
+    suspend fun handleAuthorizationResult(
+        context: Context,
+        email: String,
+        data: Intent?
+    ): DriveSignInResult = DriveSignInResult.Cancelled
 
     fun isAccountOnDevice(context: Context, email: String): Boolean = false
 

@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -41,6 +42,7 @@ class PreferencesActivity : AppCompatActivity() {
         private const val STATE_CHANGE_PATH_FROM = "changePathFrom"
         private const val STATE_CHANGE_ACCOUNT_EMAIL = "changeAccountEmail"
         private const val STATE_CHANGE_ACCOUNT_FREQUENCY = "changeAccountFrequency"
+        private const val STATE_AUTHORIZE_EMAIL = "authorizeEmail"
         private const val STATE_HEALTH_SETTINGS_PENDING = "healthSettingsPending"
         private const val STATE_HEALTH_CHECK_PENDING = "healthCheckPending"
         private const val HEALTH_CONNECT_WIPE_DELAY_SECONDS = 5
@@ -72,6 +74,10 @@ class PreferencesActivity : AppCompatActivity() {
     // The destination whose account is being replaced by "Change account". Null means the
     // sign-in result adds a new destination instead.
     private var changeAccountFrom: BackupDestination.DriveAccount? = null
+
+    // The picked account whose Drive consent screen is on screen. The consent result only says
+    // which scopes were granted, so the email it belongs to is remembered here.
+    private var authorizeEmail: String? = null
 
     // True while Health Connect's app-specific settings were opened from the enable flow. This
     // lets a permission granted there complete the opt-in when the user returns to Plees.
@@ -123,6 +129,7 @@ class PreferencesActivity : AppCompatActivity() {
             if (email != null && frequency != null) {
                 changeAccountFrom = BackupDestination.DriveAccount(email, frequency)
             }
+            authorizeEmail = state.getString(STATE_AUTHORIZE_EMAIL)
             healthSettingsPending = state.getBoolean(STATE_HEALTH_SETTINGS_PENDING)
         }
         val persistedCheckPending = HealthConnectBackend.localPreferences(applicationContext)
@@ -491,6 +498,7 @@ class PreferencesActivity : AppCompatActivity() {
         outState.putString(STATE_CHANGE_PATH_FROM, changePathFrom?.path)
         outState.putString(STATE_CHANGE_ACCOUNT_EMAIL, changeAccountFrom?.email)
         outState.putString(STATE_CHANGE_ACCOUNT_FREQUENCY, changeAccountFrom?.frequency)
+        outState.putString(STATE_AUTHORIZE_EMAIL, authorizeEmail)
         outState.putBoolean(STATE_HEALTH_SETTINGS_PENDING, healthSettingsPending)
         outState.putBoolean(STATE_HEALTH_CHECK_PENDING, healthConnectCheckPending)
     }
@@ -644,35 +652,79 @@ class PreferencesActivity : AppCompatActivity() {
         }
     }
 
-    private val driveSignInResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val changeFrom = changeAccountFrom
-            changeAccountFrom = null
-            val replaceFolder = replaceFolderOnSignIn
-            replaceFolderOnSignIn = null
+    // Second step of adding a Drive account: the Play Services consent screen, shown only when
+    // the account has not granted the appDataFolder scope to this app yet.
+    private val driveConsentResult =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            val email = authorizeEmail
+            authorizeEmail = null
             lifecycleScope.launch {
-                val signIn = DriveBackend.handleSignInResult(applicationContext, result.data)
-                when (signIn) {
-                    is DriveSignInResult.Success -> if (changeFrom != null) {
-                        applyAccountChange(changeFrom, signIn.email)
+                finishDriveSignIn(
+                    if (email == null) {
+                        DriveSignInResult.Failed
                     } else {
-                        addDriveDestination(signIn.email)
-                        toast(R.string.drive_sign_in_success)
-                        if (replaceFolder != null) {
-                            // "Instead of the device folder": Drive is in place, retire the
-                            // folder destination and offer to clean up its backup file.
-                            DataModel.removeDestination(replaceFolder)
-                            releaseFolderPermission(replaceFolder.path)
-                            confirmDeleteRetiredFolderBackup(replaceFolder)
-                        }
+                        DriveBackend.handleAuthorizationResult(
+                            applicationContext, email, result.data
+                        )
                     }
-                    // Backing out of the account picker is a deliberate choice, not an error.
-                    DriveSignInResult.Cancelled -> {}
-                    DriveSignInResult.Failed -> toast(R.string.drive_sign_in_failure)
-                }
-                refreshFragment()
+                )
             }
         }
+
+    // First step of adding a Drive account: the system account picker, which names the account
+    // the destination is keyed by.
+    private val driveAccountPickerResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val email = DriveBackend.readPickedAccount(result.data)
+            if (email == null) {
+                // Backing out of the account picker is a deliberate choice, not an error.
+                finishDriveSignIn(DriveSignInResult.Cancelled)
+                return@registerForActivityResult
+            }
+            lifecycleScope.launch {
+                when (val authorization = DriveBackend.authorize(applicationContext, email)) {
+                    is DriveAuthorization.Consent -> {
+                        authorizeEmail = email
+                        driveConsentResult.launch(
+                            IntentSenderRequest.Builder(authorization.pendingIntent).build()
+                        )
+                    }
+                    DriveAuthorization.Granted ->
+                        finishDriveSignIn(DriveSignInResult.Success(email))
+                    DriveAuthorization.Failed -> finishDriveSignIn(DriveSignInResult.Failed)
+                }
+            }
+        }
+
+    /**
+     * Applies the outcome of a Drive sign-in and consumes the pending state of the flow that
+     * started it, no matter which of the two steps the flow ended at.
+     */
+    private fun finishDriveSignIn(signIn: DriveSignInResult) {
+        val changeFrom = changeAccountFrom
+        changeAccountFrom = null
+        val replaceFolder = replaceFolderOnSignIn
+        replaceFolderOnSignIn = null
+        when (signIn) {
+            is DriveSignInResult.Success -> if (changeFrom != null) {
+                applyAccountChange(changeFrom, signIn.email)
+            } else {
+                addDriveDestination(signIn.email)
+                toast(R.string.drive_sign_in_success)
+                if (replaceFolder != null) {
+                    // "Instead of the device folder": Drive is in place, retire the
+                    // folder destination and offer to clean up its backup file.
+                    DataModel.removeDestination(replaceFolder)
+                    releaseFolderPermission(replaceFolder.path)
+                    confirmDeleteRetiredFolderBackup(replaceFolder)
+                }
+            }
+            // Backing out of the flow is a deliberate choice, not an error.
+            DriveSignInResult.Cancelled -> {}
+            DriveSignInResult.Failed -> toast(R.string.drive_sign_in_failure)
+        }
+        refreshFragment()
+    }
 
     private fun addDriveDestination(email: String) {
         // The result can arrive twice for the same account, e.g. when the activity was
@@ -796,11 +848,8 @@ class PreferencesActivity : AppCompatActivity() {
     }
 
     private fun addDriveAccount() {
-        // Sign out first so GoogleSignIn shows the account picker rather than silently reusing
-        // whichever account last completed the flow (e.g. one removed just before).
-        DriveBackend.signOut(this)
-        val intent = DriveBackend.createSignInIntent(this) ?: return
-        driveSignInResult.launch(intent)
+        val intent = DriveBackend.createAccountPickerIntent() ?: return
+        driveAccountPickerResult.launch(intent)
     }
 
     fun backupNow(email: String) {
@@ -886,11 +935,9 @@ class PreferencesActivity : AppCompatActivity() {
      * fails or is cancelled.
      */
     fun changeDriveAccount(dest: BackupDestination.DriveAccount) {
-        // Sign out first so the picker is shown instead of silently reusing the last account.
-        DriveBackend.signOut(this)
-        val intent = DriveBackend.createSignInIntent(this) ?: return
+        val intent = DriveBackend.createAccountPickerIntent() ?: return
         changeAccountFrom = dest
-        driveSignInResult.launch(intent)
+        driveAccountPickerResult.launch(intent)
     }
 
     private fun applyAccountChange(old: BackupDestination.DriveAccount, newEmail: String) {
