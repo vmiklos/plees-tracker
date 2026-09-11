@@ -49,7 +49,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".PreferencesActivity" />
+        <activity
+            android:name=".PreferencesActivity"
+            android:label="@string/settings" />
         <activity
             android:name=".HealthConnectRationaleActivity"
             android:exported="true">
