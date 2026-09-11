@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -146,7 +147,18 @@ class PreferencesActivity : AppCompatActivity() {
 
         DataModel.handleWindowInsets(this)
 
+        // Show a back button.
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         DataModel.preferencesActivity = this
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            this.finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun requestHealthConnectPermission() {
