@@ -1,1 +1,313 @@
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name" translatable="false">Plees Tracker</string>
+    <string name="start">시작</string>
+    <string name="stop">중지</string>
+    <string name="start_again">다시 시작</string>
+    <string name="press_start">기록을 시작하려면 아래의 시작 버튼을 누르세요</string>
+    <string name="stopped_on">중지 시간</string>
+    <string name="started_on">시작 시간</string>
+    <string name="slept_for_label">수면 시간</string>
+    <string name="awake_for_label">깨어있는 시간</string>
+    <string name="sleeps">수면 기록</string>
+    <string name="status">상태</string>
+    <string name="import_file_item">파일 가져오기</string>
+    <string name="import_calendar_item">캘린더에서 가져오기</string>
+    <string name="export_file_item">파일로 내보내기</string>
+    <string name="export_calendar_item">캘린더로 내보내기</string>
+    <string name="import_success">가져오기를 완료했습니다</string>
+    <string name="export_success">내보내기를 완료했습니다</string>
+    <string name="export_failure">내보내기 실패: %s</string>
+    <string name="sleeping_since">%s부터 수면 중</string>
+    <string name="past">이전 수면 기록</string>
+    <string name="tracking_stopped">기록 중지됨</string>
+    <string name="deleted">삭제됨</string>
+    <string name="undo">실행 취소</string>
+    <string name="about_item">정보</string>
+    <string name="about_toolbar">정보</string>
+    <string name="app_description">간단한 안드로이드용 수면 추적 앱입니다.</string>
+    <string name="sleep_id">수면 #%s</string>
+    <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
+    <string name="documentation">웹사이트</string>
+    <string name="average_string">평균</string>
+    <string name="daily_average_string">일일 평균</string>
+    <string name="dashboard">대시보드 (%s)</string>
+    <string name="sleep_details">수면 상세 정보</string>
+    <string name="settings">설정</string>
+    <string name="settings_category_theme">테마 (앱 재시작이 필요할 수 있음)</string>
+    <string name="settings_follow_system_theme">시스템 테마 따르기</string>
+    <string name="settings_enable_dark_theme">다크 모드</string>
+    <string name="stats">통계</string>
+    <string name="delete_all_sleep">모든 수면 기록 삭제</string>
+    <string name="notification_channel_name">기록 알림</string>
+    <string name="select_calendar_dialog_title">캘린더 선택</string>
+    <string name="select_calendar_dialog_negative">취소</string>
+    <string name="select_calendar_dialog_positive">선택</string>
+    <string name="import_dialog_error_message">캘린더를 찾을 수 없습니다</string>
+    <string name="dismiss">닫기</string>
+    <string name="calendar_permission_required">캘린더 권한이 필요합니다</string>
+    <plurals name="imported_items">
+      <item quantity="one">%d개 항목을 가져왔습니다</item>
+      <item quantity="other">%d개 항목을 가져왔습니다</item>
+    </plurals>
+    <string name="exported_event_description">Plees Tracker에서 내보냄</string>
+    <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
+    <plurals name="exported_items">
+        <item quantity="one">%d개 항목을 내보냈습니다</item>
+        <item quantity="other">%d개 항목을 내보냈습니다</item>
+    </plurals>
+    <string name="settings_category_backup">백업</string>
+    <string name="settings_health_connect_category">Health Connect</string>
+    <string name="settings_health_connect">Health Connect와 수면 기록 공유</string>
+    <string name="settings_health_connect_off">수면 기록을 공유하지 않음</string>
+    <string name="settings_health_connect_on">수면 기록이 Health Connect와 동기화됨</string>
+    <string name="settings_health_connect_checking">기존 Health Connect 기록 확인 중</string>
+    <string name="settings_health_connect_unavailable">Android 9 이상 및 Health Connect가 필요합니다</string>
+    <string name="settings_health_connect_update">활성화하려면 Health Connect를 설치하거나 업데이트하세요</string>
+    <string name="settings_health_connect_update_manually">활성화하려면 Health Connect를 별도로 설치하거나 업데이트하세요</string>
+    <string name="settings_health_connect_force_sync">강제 동기화</string>
+    <string name="settings_health_connect_force_sync_summary">Plees Tracker에 맞춰 Health Connect 수면 기록을 추가, 업데이트 또는 삭제합니다</string>
+    <string name="health_connect_force_sync_finished">Health Connect 동기화 완료</string>
+    <string name="health_connect_permission_denied_title">Health Connect 권한 필요</string>
+    <string name="health_connect_permission_denied_message">수면 데이터 접근 권한이 거부되었습니다. 동기화를 활성화하려면 Health Connect 설정에서 Plees Tracker의 수면 데이터 쓰기를 허용하세요.</string>
+    <string name="health_connect_temporarily_unavailable">Health Connect를 일시적으로 사용할 수 없습니다. 나중에 다시 시도하세요.</string>
+    <string name="health_connect_open_settings">Health Connect 열기</string>
+    <string name="health_connect_import_title">이전 수면 기록 발견</string>
+    <plurals name="health_connect_import_message">
+        <item quantity="one">Health Connect에 이 기기 설정에 포함되지 않은 Plees Tracker의 이전 수면 기록 %d개가 있습니다. 데이터를 가져오거나 Health Connect에만 유지할 수 있습니다. 설치된 Health Connect 버전이 전체 기록을 제공할 수 없는 경우, 권한 부여 30일 전 기록부터 접근 가능하며 그보다 오래된 기록은 가져오거나 조정할 수 없습니다.</item>
+        <item quantity="other">Health Connect에 이 기기 설정에 포함되지 않은 Plees Tracker의 이전 수면 기록 %d개가 있습니다. 데이터를 가져오거나 Health Connect에만 유지할 수 있습니다. 설치된 Health Connect 버전이 전체 기록을 제공할 수 없는 경우, 권한 부여 30일 전 기록부터 접근 가능하며 그보다 오래된 기록은 가져오거나 조정할 수 없습니다.</item>
+    </plurals>
+    <plurals name="health_connect_import_message_all_history">
+        <item quantity="one">Health Connect에 이 기기 설정에 포함되지 않은 Plees Tracker의 이전 수면 기록 %d개가 있습니다. 데이터를 이 기기로 가져오거나, 무시하거나, 동기화하기 전에 Health Connect 데이터를 지울 수 있습니다.</item>
+        <item quantity="other">Health Connect에 이 기기 설정에 포함되지 않은 Plees Tracker의 이전 수면 기록 %d개가 있습니다. 데이터를 이 기기로 가져오거나, 무시하거나, 동기화하기 전에 Health Connect 데이터를 지울 수 있습니다.</item>
+    </plurals>
+    <string name="health_connect_import">가져오기</string>
+    <string name="health_connect_skip">건너뛰기</string>
+    <string name="health_connect_skip_check">검사 건너뛰기</string>
+    <string name="health_connect_cancel_check">취소</string>
+    <string name="health_connect_wipe">데이터 초기화</string>
+    <string name="health_connect_wipe_countdown">데이터 초기화 (%1$d초)</string>
+    <string name="health_connect_privacy_title">Health Connect 개인정보 처리방침</string>
+    <string name="health_connect_privacy_text">Health Connect 지원은 선택 사항이며 기본적으로 비활성화되어 있습니다. 활성화하면 Plees Tracker는 추적된 수면 시작/종료 시간, 메모, 평점, 기상 횟수를 이 기기의 Health Connect 저장소에 기록합니다. 메모, 평점, 기상 횟수는 읽을 수 있는 노트 형태로 저장됩니다.\n\nPlees Tracker는 수면 데이터 쓰기 권한만 요청합니다. 다른 앱의 수면 데이터를 읽을 권한은 요청하지 않습니다. 변경 사항을 동기화하고 이전 기록을 복구하기 위해 Plees Tracker 자체가 작성한 기록만 다시 읽어옵니다. 설치된 Health Connect 시스템 모듈이 전체 기록을 제공할 수 있는 경우, 동기화를 활성화하면 Health Connect에서 Plees Tracker의 모든 수면 기록을 삭제할 수도 있습니다. 삭제 후 현재 로컬 기록이 다시 동기화됩니다. 제거된 세션은 Health Connect에 일시적으로 남아있을 수 있으며, 앱을 열 때마다 전면 동기화를 통해 제거를 다시 시도합니다.\n\n기본 데이터의 기준은 항상 Plees Tracker입니다. 동기화를 꺼도 향후 업데이트만 중단될 뿐, 이미 저장된 기록은 삭제되지 않으며 Health Connect에서 직접 삭제할 수 있습니다. Health Connect는 Plees Tracker의 CSV 또는 Google Drive 백업을 대체하지 않습니다.</string>
+    <string name="settings_automatic_backup">자동 백업</string>
+    <string name="settings_automatic_backup_off">수면 기록이 백업되지 않음</string>
+    <string name="settings_wakeup">기상</string>
+    <string name="settings_bedtime">취침</string>
+    <string name="settings_daily_reminder">일일 알림</string>
+    <string name="settings_pretty_backup">텍스트 형식 백업: 사람이 읽기 쉽지만 가져올 수 없음</string>
+    <string name="settings_compact_view">간단히 보기: 초 및 타임존 표시 안 함</string>
+    <string name="settings_add_backup_destination">백업 저장소 추가</string>
+    <string name="settings_add_device_backup_destination">기기 내 백업 저장소 추가</string>
+    <string name="settings_add_drive_backup_destination">Google Drive 백업 저장소 추가</string>
+    <string name="backup_target_title">백업 위치</string>
+    <string name="backup_target_folder">이 기기 (폴더)</string>
+    <string name="backup_target_drive">Google Drive</string>
+    <string name="backup_to_drive_title">Google Drive에 백업</string>
+    <string name="backup_to_folder_title">이 기기에 백업</string>
+    <string name="backup_drive_in_addition">기기 폴더와 함께 백업</string>
+    <string name="backup_drive_instead">기기 폴더 대신 백업</string>
+    <string name="backup_folder_in_addition">Google Drive와 함께 백업</string>
+    <string name="backup_folder_instead">Google Drive 대신 백업 (Drive 백업 삭제됨)</string>
+    <string name="folder_change_path">경로 변경</string>
+    <string name="folder_remove_also_delete">백업 파일(backup.csv)도 함께 삭제</string>
+    <string name="folder_retired_delete_backup_confirm">폴더에서 백업 파일(backup.csv)도 삭제하시겠습니까?</string>
+    <string name="folder_delete_backup_success">백업 파일이 삭제되었습니다</string>
+    <string name="folder_delete_backup_failure">백업 파일을 삭제할 수 없습니다</string>
+    <string name="folder_destination_remove">폴더 제거</string>
+    <string name="destination_remove_confirm">이 백업 저장소를 제거하시겠습니까?</string>
+    <string name="drive_frequency">백업 주기</string>
+    <string name="drive_frequency_change">주기 변경</string>
+    <string name="drive_backup_frequency_daily">하루에 한 번</string>
+    <string name="drive_backup_frequency_on_change">수면 기록 추가 / 수정 / 삭제 시</string>
+    <string name="drive_backup_now">지금 백업</string>
+    <string name="drive_backup_success">Google Drive에 백업되었습니다</string>
+    <string name="drive_backup_failure">Google Drive 백업 실패</string>
+    <string name="drive_restore">백업 복원</string>
+    <string name="restore_merge">기존 데이터와 병합</string>
+    <string name="restore_override">기존 데이터 덮어쓰기</string>
+    <string name="drive_restore_failure">Google Drive 백업을 찾을 수 없습니다</string>
+    <string name="drive_delete">백업 삭제</string>
+    <string name="drive_delete_confirm">Google Drive 백업이 영구적으로 삭제됩니다. 계속하시겠습니까?</string>
+    <string name="drive_delete_success">Google Drive 백업이 삭제되었습니다</string>
+    <string name="drive_delete_failure">Google Drive 백업을 삭제할 수 없습니다</string>
+    <string name="drive_sign_in_success">Google Drive에 로그인되었습니다</string>
+    <string name="drive_sign_in_failure">Google Drive에 로그인할 수 없습니다</string>
+    <string name="drive_account_change">계정 변경</string>
+    <string name="drive_account_remove">계정 제거</string>
+    <string name="drive_remove_also_delete">Google Drive 백업도 함께 삭제</string>
+    <string name="drive_checking_backup">확인 중…</string>
+    <string name="drive_account_unavailable">이 기기에 없는 계정입니다</string>
+    <string name="widget_start_stop">기록 토글</string>
+    <string name="settings_category_dashboard">대시보드</string>
+    <string name="settings_dashboard_duration">기간</string>
+    <string name="settings_reminders">알림</string>
+    <string name="settings_etc">기타</string>
+    <string name="settings_enable_dnd">기록 중 방해금지 모드 켜기</string>
+    <string name="settings_enable_dnd_q_title">권한 필요</string>
+    <string name="settings_enable_dnd_q_message">다음 화면에서 이 앱의 방해금지 권한을 허용해 주세요.</string>
+    <string name="settings_enable_dnd_q_ok">확인</string>
+    <string name="settings_enable_dnd_q_cancel">취소</string>
+    <string name="last_week">지난주</string>
+    <string name="last_two_weeks">지난 2주</string>
+    <string name="last_month">지난달</string>
+    <string name="last_year">작년</string>
+    <string name="all_time">전체 기간</string>
+    <string-array name="duration_entries">
+        <item>@string/last_week</item>
+        <item>@string/last_two_weeks</item>
+        <item>@string/last_month</item>
+        <item>@string/last_year</item>
+        <item>@string/all_time</item>
+    </string-array>
+    <string-array name="duration_entry_values">
+        <item>"-7"</item>
+        <item>"-14"</item>
+        <item>"-30"</item>
+        <item>"-365"</item>
+        <item>"0"</item>
+    </string-array>
+    <string name="graphs">그래프</string>
+    <string name="graph_deficit">부족/초과량</string>
+    <string name="graph_length">수면 시간</string>
+    <string name="graph_start">시작 시간</string>
+    <string name="graph_stop">종료 시간</string>
+    <string name="graph_rating">평점</string>
+    <string name="graph_average">평균</string>
+    <string name="graph_variance">분산</string>
+    <string name="graph_deviation">표준편차</string>
+    <string name="graph_total">총합</string>
+    <string name="graph_hours">시간</string>
+    <string name="graph_ideal">목표 수면</string>
+    <string name="settings_ideal_sleep_length">목표 수면 시간</string>
+    <string name="hours_2">"2시간"</string>
+    <string name="hours_2_30">"2시간 30분"</string>
+    <string name="hours_3">"3시간"</string>
+    <string name="hours_3_30">"3시간 30분"</string>
+    <string name="hours_4">"4시간"</string>
+    <string name="hours_4_30">"4시간 30분"</string>
+    <string name="hours_5">"5시간"</string>
+    <string name="hours_5_30">"5시간 30분"</string>
+    <string name="hours_6">"6시간"</string>
+    <string name="hours_6_30">"6시간 30분"</string>
+    <string name="hours_7">"7시간"</string>
+    <string name="hours_7_30">"7시간 30분"</string>
+    <string name="hours_8">"8시간"</string>
+    <string name="hours_8_30">"8시간 30분"</string>
+    <string name="hours_9">"9시간"</string>
+    <string name="hours_9_30">"9시간 30분"</string>
+    <string name="hours_10">"10시간"</string>
+    <string name="hours_10_30">"10시간 30분"</string>
+    <string name="hours_11">"11시간"</string>
+    <string name="hours_11_30">"11시간 30분"</string>
+    <string name="hours_12">"12시간"</string>
+    <string name="hours_12_30">"12시간 30분"</string>
+    <string name="hours_13">"13시간"</string>
+    <string name="hours_13_30">"13시간 30분"</string>
+    <string name="hours_14">"14시간"</string>
+    <string name="settings_sleep_start_delta">시작 시간 지연</string>
+    <string name="minutes_0">0분</string>
+    <string name="minute_1">1분</string>
+    <string name="minutes_5">5분</string>
+    <string name="minutes_10">10분</string>
+    <string name="minutes_15">15분</string>
+    <string name="minutes_30">30분</string>
+    <string name="minutes_45">45분</string>
+    <string name="minutes_60">60분</string>
+    <string name="show_rating">평점 표시</string>
+    <string name="show_awake_duration">깨어있는 시간 표시</string>
+    <string name="past_sleeps">이전 수면 기록</string>
+    <string-array name="ideal_sleep_entries">
+        <item>@string/hours_2</item>
+        <item>@string/hours_2_30</item>
+        <item>@string/hours_3</item>
+        <item>@string/hours_3_30</item>
+        <item>@string/hours_4</item>
+        <item>@string/hours_4_30</item>
+        <item>@string/hours_5</item>
+        <item>@string/hours_5_30</item>
+        <item>@string/hours_6</item>
+        <item>@string/hours_6_30</item>
+        <item>@string/hours_7</item>
+        <item>@string/hours_7_30</item>
+        <item>@string/hours_8</item>
+        <item>@string/hours_8_30</item>
+        <item>@string/hours_9</item>
+        <item>@string/hours_9_30</item>
+        <item>@string/hours_10</item>
+        <item>@string/hours_10_30</item>
+        <item>@string/hours_11</item>
+        <item>@string/hours_11_30</item>
+        <item>@string/hours_12</item>
+        <item>@string/hours_12_30</item>
+        <item>@string/hours_13</item>
+        <item>@string/hours_13_30</item>
+        <item>@string/hours_14</item>
+    </string-array>
+    <string-array name="ideal_sleep_entry_values">
+        <item>"2.0"</item>
+        <item>"2.5"</item>
+        <item>"3.0"</item>
+        <item>"3.5"</item>
+        <item>"4.0"</item>
+        <item>"4.5"</item>
+        <item>"5.0"</item>
+        <item>"5.5"</item>
+        <item>"6.0"</item>
+        <item>"6.5"</item>
+        <item>"7.0"</item>
+        <item>"7.5"</item>
+        <item>"8.0"</item>
+        <item>"8.5"</item>
+        <item>"9.0"</item>
+        <item>"9.5"</item>
+        <item>"10.0"</item>
+        <item>"10.5"</item>
+        <item>"11.0"</item>
+        <item>"11.5"</item>
+        <item>"12.0"</item>
+        <item>"12.5"</item>
+        <item>"13.0"</item>
+        <item>"13.5"</item>
+        <item>"14.0"</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entries">
+        <item>@string/minutes_0</item>
+        <item>@string/minute_1</item>
+        <item>@string/minutes_5</item>
+        <item>@string/minutes_10</item>
+        <item>@string/minutes_15</item>
+        <item>@string/minutes_30</item>
+        <item>@string/minutes_45</item>
+        <item>@string/minutes_60</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entry_values">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+    </string-array>
+    <string name="negative_duration">종료 시간이 시작 시간보다 빨라 수면 기록을 업데이트하지 않습니다.</string>
+    <string name="sleep_notes">메모:</string>
+    <string name="delete_all_message">"모든 수면 기록을 삭제하시겠습니까?"</string>
+    <string name="delete_all_positive">예</string>
+    <string name="delete_all_negative">아니요</string>
+    <string name="no_sleeps">추적한 수면 기록이 여기에 표시됩니다. [시작]을 눌러 수면을 기록하고, 기록을 탭하여 수정하거나 스와이프하여 삭제하세요. 더 자세한 내용은 웹사이트를 참고하세요.</string>
+    <string name="show_average_of_sleep_duration">수면 시간 평균 표시</string>
+    <string name="show_averege_of_daily_sums">일일 수면 시간 합계 평균 표시</string>
+    <string name="ignore_empty_days">일일 수면 합계 평균 계산 시 기록이 없는 날 제외</string>
+    <string name="use_median">일일 수면 시간 계산 시 평균 대신 중앙값 사용</string>
+    <string name="bedtime_reminder_message">잠자리에 들 시간입니다. 수면 기록을 시작하는 것을 잊지 마세요!</string>
+    <string name="wakeup_reminder_message">좋은 아침입니다! 수면 기록을 아직 중지하지 않았다면 중지해 주세요.</string>
+    <string name="bedtime_reminder_title">취침 시간 알림</string>
+    <string name="wakeup_reminder_title">기상 시간 알림</string>
+    <string name="default_reminder_title">알림</string>
+    <string name="default_reminder_message">알림 시간입니다.</string>
+    <string name="notification_channel_description">취침 및 기상 알림용 채널</string>
+    <string name="bedtime_toast">취침 및 기상 알림이 설정되었습니다</string>
+    <string name="times_woken_up">깬 횟수</string>
 
+</resources>
