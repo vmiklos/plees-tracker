@@ -2,9 +2,10 @@
 
 ## master
 
-- Add optional Health Connect synchronization for sleep sessions. (Aozora7)
+- Add optional Health Connect synchronization for sleep sessions. (@Aozora7)
 - Resolves: gh#608 preferences activity: fixed the label and back button in its inconsistent action
   bar
+- Add Korean translation (@hawk1335)
 
 ## 26.8
 
