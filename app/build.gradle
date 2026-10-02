@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "hu.vmiklos.plees_tracker"
         minSdkVersion 24
-        targetSdkVersion 36
+        targetSdkVersion 37
         versionCode 66
         versionName "26.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
