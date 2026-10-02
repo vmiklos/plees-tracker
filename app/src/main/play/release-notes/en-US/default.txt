@@ -1,6 +1,5 @@
-- sleep activity now has a 'times woken up' widget (@Rikul)
-- backup settings redesign: multiple backup destinations (a device folder and, in the gplay flavor,
-  Google Drive with restore), per-destination menus (@avi12)
-- new foss/gplay product flavors: the F-Droid build is foss, release artifacts are now
-  app-foss-release.apk and app-gplay-release.apk (@avi12)
-- Resolves: gh#579 CSV import: tolerate if seconds is used instead of milliseconds
+- Add optional Health Connect synchronization for sleep sessions. (@Aozora7)
+- Resolves: gh#608 preferences activity: fixed the label and back button in its inconsistent action
+  bar
+- Add Korean translation (@hawk1335)
+- Target Android 17
