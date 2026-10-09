@@ -167,6 +167,7 @@
         <item>"0"</item>
     </string-array>
     <string name="graphs">Graphs</string>
+    <string name="graph_no_data">No chart data available.</string>
     <string name="graph_deficit">Deficit/surplus</string>
     <string name="graph_length">Length</string>
     <string name="graph_start">Start time</string>

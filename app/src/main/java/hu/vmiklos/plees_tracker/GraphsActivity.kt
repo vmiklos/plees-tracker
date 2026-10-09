@@ -82,6 +82,7 @@ class GraphsActivity : AppCompatActivity() {
         // The chart is reused for all different graphs. Below are settings which are the same
         // across all possible graphs.
         chart = findViewById(R.id.line_chart)
+        chart.setNoDataText(getString(R.string.graph_no_data))
         chart.setTouchEnabled(false)
         chart.description = null
 
