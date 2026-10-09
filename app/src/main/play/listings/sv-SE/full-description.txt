@@ -1,0 +1,13 @@
+Plees Tracker är en enkel app för sömnregistrering på din Android-telefon.
+
+Appen är tänkt som en mycket enkel variant av PrimeNap med öppen källkod: registrera bara när sömnen börjar och slutar och beräkna den genomsnittliga sömntiden per dag.
+
+Funktioner:
+
+- Appen gör ingenting medan du sover och drar därför ingen extra batteriström.
+
+- Sparar tidigare sömnperioder och beräknar statistik utifrån dem (medelvärde).
+
+- Exporterar och importerar sömndata till och från CSV.
+
+- Visar tidigare sömnperioder och låter dig redigera och ta bort enskilda sömnperioder.

@@ -1,0 +1,4 @@
+- Lagt till valfri synkronisering av sömnperioder med Health Connect. (@Aozora7)
+- Åtgärdat gh#608: rättat etiketten och bakåtknappen i inställningsvyns inkonsekventa åtgärdsfält.
+- Lagt till koreansk översättning. (@hawk1335)
+- Anpassat appen för Android 17.
