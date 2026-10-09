@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Add Swedish translation and store metadata (@NickWick13)
+
 ## 26.8.1
 
 - Add optional Health Connect synchronization for sleep sessions. (@Aozora7)
