@@ -9,8 +9,17 @@ android {
         kotlinOptions.allWarningsAsErrors = true
     }
     testOptions {
+        unitTests.includeAndroidResources = true
         unitTests.all {
             systemProperty 'user.timezone', 'UTC'
+            jvmArgs = [
+                '--add-opens', 'java.base/java.io=ALL-UNNAMED',
+                '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+                '--add-opens', 'java.base/java.lang.reflect=ALL-UNNAMED',
+                '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+                '--add-opens', 'java.base/jdk.internal.access=ALL-UNNAMED',
+                '--add-opens', 'java.base/jdk.internal.misc=ALL-UNNAMED'
+            ]
         }
     }
 
@@ -95,6 +104,7 @@ dependencies {
     // Real org.json implementation for unit tests: the android.jar bundled one is a stub that
     // throws at runtime, so BackupDestination's JSON (de)serialization can't be tested without it.
     testImplementation 'org.json:json:20260814'
+    testImplementation 'org.robolectric:robolectric:4.17'
     testImplementation 'androidx.health.connect:connect-testing:1.0.0-alpha04'
     androidTestImplementation 'androidx.health.connect:connect-testing:1.0.0-alpha04'
     androidTestImplementation 'androidx.test:core:1.7.0'
