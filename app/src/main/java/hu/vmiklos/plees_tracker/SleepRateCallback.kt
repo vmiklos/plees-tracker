@@ -6,6 +6,8 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.content.ContentResolver
+import android.content.Context
 import android.widget.RatingBar
 
 /**
@@ -13,12 +15,14 @@ import android.widget.RatingBar
  */
 class SleepRateCallback(
     private val viewModel: SleepViewModel,
-    private val sleep: Sleep
+    private val sleep: Sleep,
+    private val context: Context,
+    private val cr: ContentResolver
 ) : RatingBar.OnRatingBarChangeListener {
     override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
         if (sleep.rating != rating.toLong()) {
             sleep.rating = rating.toLong()
-            viewModel.updateSleep(sleep)
+            viewModel.updateSleep(sleep, context, cr)
         }
     }
 }
