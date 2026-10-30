@@ -45,7 +45,9 @@ class SleepViewModel : ViewModel() {
             stopTime.text = DataModel.formatDateTime(Date(sleep.stop), true, compactView)
             val rating = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
             rating.rating = sleep.rating.toFloat()
-            rating.onRatingBarChangeListener = SleepRateCallback(viewModel, sleep)
+            rating.onRatingBarChangeListener = SleepRateCallback(
+                viewModel, sleep, activity.applicationContext, activity.contentResolver
+            )
             val comment = activity.findViewById<AppCompatEditText>(R.id.sleep_item_comment)
             viewModel.sleepCommentCallback?.let {
                 comment.removeTextChangedListener(it)
@@ -152,6 +154,13 @@ class SleepViewModel : ViewModel() {
     fun updateSleep(sleep: Sleep) {
         viewModelScope.launch {
             DataModel.updateSleep(sleep)
+        }
+    }
+
+    fun updateSleep(sleep: Sleep, context: Context, cr: ContentResolver) {
+        viewModelScope.launch {
+            DataModel.updateSleep(sleep)
+            DataModel.backupSleeps(context, cr)
         }
     }
 }
