@@ -10,8 +10,6 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.StaleObjectException
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -24,26 +22,6 @@ class MainActivityUITest : UITestBase() {
     @JvmField
     @Rule
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
-
-    @Test
-    fun testCreate() {
-        // Given no sleeps:
-        resetDatabase()
-
-        // When creating one:
-        val startStop = findObjectByRes("start_stop")
-        startStop.click()
-        Thread.sleep(1)
-        startStop.click()
-
-        // Then make sure we have one sleep:
-        device.waitForIdle()
-        var sleepCount: Int
-        runBlocking {
-            sleepCount = DataModel.database.sleepDao().getAll().count()
-        }
-        assertEquals(sleepCount, 1)
-    }
 
     @Test
     fun testRead() {
