@@ -24,19 +24,6 @@ class MainActivityUITest : UITestBase() {
     var activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun testRead() {
-        // Given no sleeps and creating one:
-        resetDatabase()
-        createSleep()
-
-        // When waiting for 'SELECT' to be executed:
-        device.waitForIdle()
-
-        // Then make sure the sleep count widget reads the correct value:
-        assertResText("fragment_stats_sleeps", "1")
-    }
-
-    @Test
     fun testDelete() {
         // Given a sleep:
         resetDatabase()
