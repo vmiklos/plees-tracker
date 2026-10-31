@@ -9,8 +9,10 @@ package hu.vmiklos.plees_tracker
 import android.content.Context
 import android.os.Looper
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.room.Room
+import java.util.Calendar
 import java.util.concurrent.Executor
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -52,6 +54,20 @@ class MainActivityTest {
         shadowOf(Looper.getMainLooper()).idle()
     }
 
+    private fun createSleep() {
+        val sleep = Sleep()
+        val start = Calendar.getInstance()
+        start.set(Calendar.HOUR_OF_DAY, 9)
+        sleep.start = start.timeInMillis
+        val stop = Calendar.getInstance()
+        stop.set(Calendar.HOUR_OF_DAY, 23)
+        stop.set(Calendar.MINUTE, 59)
+        sleep.stop = stop.timeInMillis
+        runBlocking {
+            DataModel.database.sleepDao().insert(sleep)
+        }
+    }
+
     @Test
     fun testCreate() {
         val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
@@ -72,6 +88,23 @@ class MainActivityTest {
             DataModel.database.sleepDao().getAll().count()
         }
         assertEquals(1, sleepCount)
+    }
+
+    @Test
+    fun testRead() {
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        idle()
+
+        // Given no sleeps and creating one:
+        DataModel.database.clearAllTables()
+        createSleep()
+        idle()
+
+        // Then make sure the sleep count widget reads the correct value:
+        assertEquals(
+            "1",
+            activity.findViewById<TextView>(R.id.fragment_stats_sleeps).text.toString()
+        )
     }
 }
 
