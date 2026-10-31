@@ -120,6 +120,8 @@ object DataModel {
 
     private var initialized: Boolean = false
 
+    var backupSleepsCallCount: Int = 0
+
     fun init(context: Context, preferences: SharedPreferences) {
         if (initialized) {
             return
@@ -507,6 +509,7 @@ object DataModel {
      * handled by their own periodic worker. Folder backups are written here directly.
      */
     suspend fun backupSleeps(context: Context, cr: ContentResolver) {
+        backupSleepsCallCount++
         if (!isAutomaticBackupEnabled()) return
         val destinations = getDestinations()
         if (destinations.isEmpty()) return

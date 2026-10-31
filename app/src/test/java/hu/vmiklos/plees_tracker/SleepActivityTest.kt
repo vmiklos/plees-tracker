@@ -11,6 +11,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Looper
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.room.Room
@@ -18,6 +19,7 @@ import java.util.Calendar
 import java.util.concurrent.Executor
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -50,6 +52,7 @@ class SleepActivityTest {
             .setTransactionExecutor(direct)
             .build()
         ShadowDialog.reset()
+        DataModel.backupSleepsCallCount = 0
     }
 
     private fun idle() {
@@ -98,6 +101,21 @@ class SleepActivityTest {
             "22:00",
             activity.findViewById<TextView>(R.id.sleep_stop_time).text.toString()
         )
+    }
+
+    @Test
+    fun testRatingTriggersAutomaticBackup() {
+        val sid = createSleep()
+        val intent = Intent(context, SleepActivity::class.java).putExtra("sid", sid)
+        val activity = Robolectric.buildActivity(SleepActivity::class.java, intent).setup().get()
+        idle()
+
+        val before = DataModel.backupSleepsCallCount
+        val ratingBar = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
+        ratingBar.rating = 3.0f
+        idle()
+
+        assertTrue(DataModel.backupSleepsCallCount > before)
     }
 }
 
