@@ -11,6 +11,7 @@ import android.os.Looper
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import java.util.Calendar
 import java.util.concurrent.Executor
@@ -103,6 +104,50 @@ class MainActivityTest {
         // Then make sure the sleep count widget reads the correct value:
         assertEquals(
             "1",
+            activity.findViewById<TextView>(R.id.fragment_stats_sleeps).text.toString()
+        )
+    }
+
+    @Test
+    fun testDelete() {
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        idle()
+
+        // Given a sleep:
+        DataModel.database.clearAllTables()
+        createSleep()
+        idle()
+        assertEquals(
+            "1",
+            activity.findViewById<TextView>(R.id.fragment_stats_sleeps).text.toString()
+        )
+
+        // When deleting one:
+        val recyclerView = activity.findViewById<RecyclerView>(R.id.sleeps)
+        val viewHolder = recyclerView.findViewHolderForAdapterPosition(0)
+            ?: throw AssertionError("no view holder")
+        // Simulate the swipe handled by ItemTouchHelper
+        val adapter = recyclerView.adapter as SleepsAdapter
+        val viewModelField = MainActivity::class.java.getDeclaredField("viewModel")
+        viewModelField.isAccessible = true
+        val viewModel = viewModelField.get(activity) as MainViewModel
+        val callback = SleepTouchCallback(
+            context,
+            context.contentResolver,
+            viewModel,
+            adapter
+        )
+        callback.onSwiped(viewHolder, 4) // ItemTouchHelper.RIGHT
+        idle()
+
+        // Snackbar should be shown
+        // ShadowSnackbar.latestSnackbar
+        // Undo if desired? No, delete should remain - but click undo would restore it;
+        // just ensure we didn't undo. The snackbar is fine.
+
+        // Then make sure we have no sleeps:
+        assertEquals(
+            "0",
             activity.findViewById<TextView>(R.id.fragment_stats_sleeps).text.toString()
         )
     }
