@@ -52,7 +52,7 @@ class SleepActivityTest {
             .setTransactionExecutor(direct)
             .build()
         ShadowDialog.reset()
-        DataModel.backupSleepsCallCount = 0
+        DataModel.registerOnBackupSleeps(null)
     }
 
     private fun idle() {
@@ -110,12 +110,14 @@ class SleepActivityTest {
         val activity = Robolectric.buildActivity(SleepActivity::class.java, intent).setup().get()
         idle()
 
-        val before = DataModel.backupSleepsCallCount
+        var called = 0
+        DataModel.registerOnBackupSleeps { called++ }
         val ratingBar = activity.findViewById<RatingBar>(R.id.sleep_item_rating)
         ratingBar.rating = 3.0f
         idle()
 
-        assertTrue(DataModel.backupSleepsCallCount > before)
+        assertTrue(called > 0)
+        DataModel.registerOnBackupSleeps(null)
     }
 }
 
