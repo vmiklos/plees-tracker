@@ -6,14 +6,18 @@
     <string name="press_start">Pulsa el botón de abajo para empezar a rastrear</string>
     <string name="stopped_on">Terminó en</string>
     <string name="started_on">Empezó en</string>
-    <string name="slept_for_label">Dormir para</string>
-    <string name="awake_for_label">Despierto para</string>
+    <string name="slept_for_label">Tiempo dormido</string>
+    <string name="awake_for_label">Tiempo despierto</string>
     <string name="sleeps">Dormidas</string>
     <string name="status">Estado</string>
-    <string name="export_file_item">Exportación de archivos</string>
+    <string name="import_file_item">Importar archivo</string>
+    <string name="import_calendar_item">Importar desde Calendario</string>
+    <string name="export_file_item">Exportar a archivo</string>
+    <string name="export_calendar_item">Exportar a Calendario</string>
     <string name="import_success">Importación finalizada con éxito</string>
     <string name="export_success">Exportación finalizada con éxito</string>
-    <string name="sleeping_since">Dormir desde %s</string>
+    <string name="export_failure">Error al exportar: %s</string>
+    <string name="sleeping_since">Durmiendo desde %s</string>
     <string name="past">Dormidas pasadas</string>
     <string name="tracking_stopped">Rastreo detenido</string>
     <string name="deleted">Borrado</string>
@@ -22,6 +26,7 @@
     <string name="about_toolbar">Acerca de</string>
     <string name="app_description">Un simple rastreador de sueño para Android.</string>
     <string name="sleep_id">Sueño #%s</string>
+    <string name="documentation">Documentación</string>
     <string name="average_string">Promedio</string>
     <string name="daily_average_string">Diario</string>
     <string name="dashboard">Control (%s)</string>
@@ -33,31 +38,141 @@
     <string name="stats">Estadísticas</string>
     <string name="delete_all_sleep">Eliminar todos los datos de sueño</string>
     <string name="notification_channel_name">Notificaciones del rastreo</string>
-    <string name="import_file_item">Importar archivo</string>
-    <string name="import_calendar_item">Importar desde Calendario</string>
     <string name="select_calendar_dialog_title">Seleccionar Calendario</string>
-    <string name="select_calendar_dialog_positive">Importar</string>
     <string name="select_calendar_dialog_negative">Cancelar</string>
-    <string name="dismiss">Descartar</string>
+    <string name="select_calendar_dialog_positive">Seleccionar</string>
     <string name="import_dialog_error_message">No se encontraron calendarios</string>
+    <string name="dismiss">Descartar</string>
     <string name="calendar_permission_required">Permiso de Calendario denegado</string>
-    <string name="export_calendar_item">Exportar a Calendario</string>
+    <plurals name="imported_items">
+      <item quantity="one">%d elemento importado</item>
+      <item quantity="other">%d elementos importados</item>
+    </plurals>
     <string name="exported_event_description">Exportado desde Plees Tracker</string>
+    <plurals name="exported_items">
+        <item quantity="one">%d elemento exportado</item>
+        <item quantity="other">%d elementos exportados</item>
+    </plurals>
     <string name="settings_category_backup">Respaldo</string>
+    <string name="settings_health_connect_category">Health Connect</string>
+    <string name="settings_health_connect">Compartir sueños con Health Connect</string>
+    <string name="settings_health_connect_off">Los sueños no se comparten</string>
+    <string name="settings_health_connect_on">Los sueños se sincronizan con Health Connect</string>
+    <string name="settings_health_connect_checking">Buscando registros existentes en Health Connect</string>
+    <string name="settings_health_connect_unavailable">Requiere Android 9 o posterior y Health Connect</string>
+    <string name="settings_health_connect_update">Instala o actualiza Health Connect para activarlo</string>
+    <string name="settings_health_connect_update_manually">Instala o actualiza Health Connect por separado para activarlo</string>
+    <string name="settings_health_connect_force_sync">Forzar sincronización</string>
+    <string name="settings_health_connect_force_sync_summary">Añade, actualiza o elimina registros de sueño en Health Connect para que coincidan con Plees Tracker</string>
+    <string name="health_connect_force_sync_finished">Sincronización con Health Connect finalizada</string>
+    <string name="health_connect_permission_denied_title">Se necesita permiso de Health Connect</string>
+    <string name="health_connect_permission_denied_message">No se ha concedido el acceso a los datos de sueño. Para activar la sincronización, permite que Plees Tracker escriba datos de sueño en los ajustes de Health Connect.</string>
+    <string name="health_connect_temporarily_unavailable">Health Connect no está disponible temporalmente. Inténtalo de nuevo más tarde.</string>
+    <string name="health_connect_open_settings">Abrir Health Connect</string>
+    <string name="health_connect_import_title">Se han encontrado sueños anteriores</string>
+    <plurals name="health_connect_import_message">
+        <item quantity="one">Health Connect contiene %d sueño guardado anteriormente por Plees Tracker que no está en esta instalación. Puedes importarlo o conservarlo solo en Health Connect. Si la versión instalada de Health Connect no puede dar acceso al historial completo de Plees Tracker, el acceso empieza 30 días antes de la fecha en que se concedió el permiso; los sueños más antiguos no se pueden importar ni conciliar.</item>
+        <item quantity="other">Health Connect contiene %d sueños guardados anteriormente por Plees Tracker que no están en esta instalación. Puedes importarlos o conservarlos solo en Health Connect. Si la versión instalada de Health Connect no puede dar acceso al historial completo de Plees Tracker, el acceso empieza 30 días antes de la fecha en que se concedió el permiso; los sueños más antiguos no se pueden importar ni conciliar.</item>
+    </plurals>
+    <plurals name="health_connect_import_message_all_history">
+        <item quantity="one">Health Connect contiene %d sueño guardado anteriormente por Plees Tracker que no está en esta instalación. Puedes importarlo a esta instalación, ignorarlo o borrar los registros de Health Connect antes de sincronizar.</item>
+        <item quantity="other">Health Connect contiene %d sueños guardados anteriormente por Plees Tracker que no están en esta instalación. Puedes importarlos a esta instalación, ignorarlos o borrar los registros de Health Connect antes de sincronizar.</item>
+    </plurals>
+    <string name="health_connect_import">Importar</string>
+    <string name="health_connect_skip">Omitir</string>
+    <string name="health_connect_skip_check">Omitir comprobación</string>
+    <string name="health_connect_cancel_check">Cancelar</string>
+    <string name="health_connect_wipe">Borrar</string>
+    <string name="health_connect_wipe_countdown">Borrar (%1$ds)</string>
+    <string name="health_connect_privacy_title">Privacidad de Health Connect</string>
+    <string name="health_connect_privacy_text">La compatibilidad con Health Connect es opcional y está desactivada de forma predeterminada. Si la activas, Plees Tracker escribe en el almacenamiento de Health Connect de este dispositivo las horas de inicio y fin de los sueños que registras, junto con el comentario, la puntuación y el número de despertares. El comentario, la puntuación y el número de despertares se escriben como notas legibles.\n\nPlees Tracker solo pide permiso para escribir datos de sueño. No pide permiso para leer datos de sueño de otras apps. Solo vuelve a leer los registros que ha escrito el propio Plees Tracker, para sincronizar los cambios y, si quieres, recuperar registros anteriores de Plees Tracker. Si el módulo del sistema de Health Connect instalado puede dar acceso al historial completo de registros de Plees Tracker, al activar la sincronización también puedes eliminar de Health Connect todos los registros de sueño de Plees Tracker; después, los sueños locales actuales se vuelven a sincronizar. Una sesión eliminada puede seguir en Health Connect durante un tiempo; Plees Tracker vuelve a intentar eliminarla durante la sincronización en primer plano cada vez que se abre la app.\n\nPlees Tracker sigue siendo la fuente de datos principal. Al desactivar la sincronización se dejan de enviar actualizaciones, pero no se eliminan los registros que ya se han escrito en Health Connect. Puedes eliminar esos registros desde Health Connect. Health Connect no sustituye al respaldo en CSV ni al respaldo en Google Drive de Plees Tracker.</string>
     <string name="settings_automatic_backup">Respaldo automático</string>
+    <string name="settings_automatic_backup_off">Los sueños no se respaldan</string>
+    <string name="settings_wakeup">Hora de despertarse</string>
+    <string name="settings_bedtime">Hora de acostarse</string>
+    <string name="settings_daily_reminder">Recordatorio diario</string>
+    <string name="settings_pretty_backup">Respaldo legible: fácil de leer, pero no se puede importar</string>
+    <string name="settings_compact_view">Vista compacta: sin segundos ni zona horaria</string>
+    <string name="settings_add_backup_destination">Añadir destino de respaldo</string>
+    <string name="settings_add_device_backup_destination">Añadir destino de respaldo en el dispositivo</string>
+    <string name="settings_add_drive_backup_destination">Añadir destino de respaldo en Google Drive</string>
+    <string name="backup_target_title">Respaldar en</string>
+    <string name="backup_target_folder">Este dispositivo (carpeta)</string>
+    <string name="backup_target_drive">Google Drive</string>
+    <string name="backup_to_drive_title">Respaldar en Google Drive</string>
+    <string name="backup_to_folder_title">Respaldar en este dispositivo</string>
+    <string name="backup_drive_in_addition">Además de la carpeta del dispositivo</string>
+    <string name="backup_drive_instead">En lugar de la carpeta del dispositivo</string>
+    <string name="backup_folder_in_addition">Además de Google Drive</string>
+    <string name="backup_folder_instead">En lugar de Google Drive (elimina el respaldo de Drive)</string>
+    <string name="folder_change_path">Cambiar ruta</string>
+    <string name="folder_remove_also_delete">Eliminar también el archivo de respaldo (backup.csv)</string>
+    <string name="folder_retired_delete_backup_confirm">¿Eliminar también el archivo de respaldo (backup.csv) de la carpeta?</string>
+    <string name="folder_delete_backup_success">Archivo de respaldo eliminado</string>
+    <string name="folder_delete_backup_failure">No se ha podido eliminar el archivo de respaldo</string>
+    <string name="folder_destination_remove">Quitar carpeta</string>
+    <string name="destination_remove_confirm">¿Quitar este destino de respaldo?</string>
+    <string name="drive_frequency">Frecuencia de respaldo</string>
+    <string name="drive_frequency_change">Cambiar frecuencia</string>
+    <string name="drive_backup_frequency_daily">Una vez al día</string>
+    <string name="drive_backup_frequency_on_change">Al añadir, editar o eliminar un sueño</string>
+    <string name="drive_backup_now">Respaldar ahora</string>
+    <string name="drive_backup_success">Respaldo guardado en Google Drive</string>
+    <string name="drive_backup_failure">Error al respaldar en Google Drive</string>
+    <string name="drive_restore">Restaurar respaldo</string>
+    <string name="restore_merge">Combinar con los datos existentes</string>
+    <string name="restore_override">Reemplazar los datos existentes</string>
+    <string name="drive_restore_failure">No se ha encontrado ningún respaldo en Google Drive</string>
+    <string name="drive_delete">Eliminar respaldo</string>
+    <string name="drive_delete_confirm">El respaldo de Google Drive se eliminará de forma permanente. ¿Quieres continuar?</string>
+    <string name="drive_delete_success">Respaldo de Google Drive eliminado</string>
+    <string name="drive_delete_failure">No se ha podido eliminar el respaldo de Google Drive</string>
+    <string name="drive_sign_in_success">Sesión iniciada en Google Drive</string>
+    <string name="drive_sign_in_failure">No se ha podido iniciar sesión en Google Drive</string>
+    <string name="drive_account_change">Cambiar cuenta</string>
+    <string name="drive_account_remove">Quitar cuenta</string>
+    <string name="drive_remove_also_delete">Eliminar también el respaldo de Google Drive</string>
+    <string name="drive_checking_backup">Comprobando…</string>
+    <string name="drive_account_unavailable">La cuenta no está en este dispositivo</string>
+    <string name="widget_start_stop">Iniciar/detener rastreo</string>
     <string name="settings_category_dashboard">Tablero</string>
     <string name="settings_dashboard_duration">Duración</string>
+    <string name="settings_reminders">Recordatorios</string>
+    <string name="settings_etc">Varios</string>
+    <string name="settings_enable_dnd">No molestar durante el rastreo</string>
+    <string name="settings_enable_dnd_q_title">Se necesitan permisos</string>
+    <string name="settings_enable_dnd_q_message">En la siguiente pantalla, concede a esta app el acceso a No molestar.</string>
+    <string name="settings_enable_dnd_q_ok">Aceptar</string>
+    <string name="settings_enable_dnd_q_cancel">Cancelar</string>
     <string name="last_week">Última semana</string>
     <string name="last_two_weeks">Últimas 2 semanas</string>
     <string name="last_month">Último mes</string>
-    <string name="last_year">Último mes</string>
+    <string name="last_year">Último año</string>
     <string name="all_time">Todo el tiempo</string>
+    <string-array name="duration_entries">
+        <item>@string/last_week</item>
+        <item>@string/last_two_weeks</item>
+        <item>@string/last_month</item>
+        <item>@string/last_year</item>
+        <item>@string/all_time</item>
+    </string-array>
+    <string-array name="duration_entry_values">
+        <item>"-7"</item>
+        <item>"-14"</item>
+        <item>"-30"</item>
+        <item>"-365"</item>
+        <item>"0"</item>
+    </string-array>
     <string name="graphs">Gráficos</string>
+    <string name="graph_no_data">No hay datos para el gráfico.</string>
     <string name="graph_deficit">Déficit/superávit</string>
     <string name="graph_length">Duración</string>
-    <string name="graph_start">Tiempo de inicio</string>
+    <string name="graph_start">Hora de inicio</string>
+    <string name="graph_stop">Hora de fin</string>
     <string name="graph_rating">Puntuación</string>
     <string name="graph_average">Promedio</string>
+    <string name="graph_variance">Varianza</string>
+    <string name="graph_deviation">Desviación típica</string>
     <string name="graph_total">Total</string>
     <string name="graph_hours">Horas</string>
     <string name="graph_ideal">Ideal</string>
@@ -87,8 +202,109 @@
     <string name="hours_13">"13 horas"</string>
     <string name="hours_13_30">"13 horas 30 minutos"</string>
     <string name="hours_14">"14 horas"</string>
-    <string name="show_rating">Mostrar índice</string>
+    <string name="settings_sleep_start_delta">Retraso de la hora de inicio</string>
+    <string name="minutes_0">0 minutos</string>
+    <string name="minute_1">1 minuto</string>
+    <string name="minutes_5">5 minutos</string>
+    <string name="minutes_10">10 minutos</string>
+    <string name="minutes_15">15 minutos</string>
+    <string name="minutes_30">30 minutos</string>
+    <string name="minutes_45">45 minutos</string>
+    <string name="minutes_60">60 minutos</string>
+    <string name="show_rating">Mostrar puntuación</string>
     <string name="show_awake_duration">Mostrar duración despierto</string>
     <string name="past_sleeps">Sueños pasados</string>
-    <string name="negative_duration">El sueño no está actualizando, detenlo si no se inicia luego.</string>
+    <string-array name="ideal_sleep_entries">
+        <item>@string/hours_2</item>
+        <item>@string/hours_2_30</item>
+        <item>@string/hours_3</item>
+        <item>@string/hours_3_30</item>
+        <item>@string/hours_4</item>
+        <item>@string/hours_4_30</item>
+        <item>@string/hours_5</item>
+        <item>@string/hours_5_30</item>
+        <item>@string/hours_6</item>
+        <item>@string/hours_6_30</item>
+        <item>@string/hours_7</item>
+        <item>@string/hours_7_30</item>
+        <item>@string/hours_8</item>
+        <item>@string/hours_8_30</item>
+        <item>@string/hours_9</item>
+        <item>@string/hours_9_30</item>
+        <item>@string/hours_10</item>
+        <item>@string/hours_10_30</item>
+        <item>@string/hours_11</item>
+        <item>@string/hours_11_30</item>
+        <item>@string/hours_12</item>
+        <item>@string/hours_12_30</item>
+        <item>@string/hours_13</item>
+        <item>@string/hours_13_30</item>
+        <item>@string/hours_14</item>
+    </string-array>
+    <string-array name="ideal_sleep_entry_values">
+        <item>"2.0"</item>
+        <item>"2.5"</item>
+        <item>"3.0"</item>
+        <item>"3.5"</item>
+        <item>"4.0"</item>
+        <item>"4.5"</item>
+        <item>"5.0"</item>
+        <item>"5.5"</item>
+        <item>"6.0"</item>
+        <item>"6.5"</item>
+        <item>"7.0"</item>
+        <item>"7.5"</item>
+        <item>"8.0"</item>
+        <item>"8.5"</item>
+        <item>"9.0"</item>
+        <item>"9.5"</item>
+        <item>"10.0"</item>
+        <item>"10.5"</item>
+        <item>"11.0"</item>
+        <item>"11.5"</item>
+        <item>"12.0"</item>
+        <item>"12.5"</item>
+        <item>"13.0"</item>
+        <item>"13.5"</item>
+        <item>"14.0"</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entries">
+        <item>@string/minutes_0</item>
+        <item>@string/minute_1</item>
+        <item>@string/minutes_5</item>
+        <item>@string/minutes_10</item>
+        <item>@string/minutes_15</item>
+        <item>@string/minutes_30</item>
+        <item>@string/minutes_45</item>
+        <item>@string/minutes_60</item>
+    </string-array>
+    <string-array name="sleep_start_delay_entry_values">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"30"</item>
+        <item>"45"</item>
+        <item>"60"</item>
+    </string-array>
+    <string name="negative_duration">No se ha actualizado el sueño: la hora de fin no es posterior a la de inicio.</string>
+    <string name="sleep_notes">Notas:</string>
+    <string name="delete_all_message">"¿Seguro que quieres eliminar todos los sueños?"</string>
+    <string name="delete_all_positive">Sí</string>
+    <string name="delete_all_negative">No</string>
+    <string name="no_sleeps">Aquí aparecerán los sueños que registres. Pulsa Iniciar para crear un sueño, toca un sueño para editarlo y deslízalo hacia un lado para eliminarlo. Para más información, consulta la opción Documentación del menú.</string>
+    <string name="show_average_of_sleep_duration">Mostrar el promedio de duración de los sueños</string>
+    <string name="show_averege_of_daily_sums">Mostrar el promedio de los totales diarios</string>
+    <string name="ignore_empty_days">Ignorar los días vacíos al mostrar el promedio de los totales diarios</string>
+    <string name="use_median">Usar la mediana en lugar del promedio al calcular la duración diaria</string>
+    <string name="bedtime_reminder_message">Es hora de irse a la cama. ¡Recuerda iniciar el rastreo de tu sueño!</string>
+    <string name="wakeup_reminder_message">¡Buenos días! No olvides detener el rastreo si aún no lo has hecho.</string>
+    <string name="bedtime_reminder_title">Recordatorio para acostarse</string>
+    <string name="wakeup_reminder_title">Recordatorio para despertarse</string>
+    <string name="default_reminder_title">Recordatorio</string>
+    <string name="default_reminder_message">Es la hora de tu recordatorio.</string>
+    <string name="notification_channel_description">Canal para los recordatorios de acostarse y despertarse</string>
+    <string name="bedtime_toast">Recordatorios configurados para acostarse y despertarse</string>
+    <string name="times_woken_up">Número de despertares</string>
 </resources>

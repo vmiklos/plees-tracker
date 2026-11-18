@@ -1,0 +1,13 @@
+Plees Tracker es un rastreador de sueño sencillo para tu teléfono Android.
+
+La idea es que sea un clon de código abierto muy sencillo de PrimeNap: solo registra las horas de inicio y fin del sueño y calcula el promedio por día.
+
+Funciones:
+
+- No hace literalmente nada mientras duermes, así que no gasta batería.
+
+- Guarda los sueños pasados y calcula estadísticas a partir de ellos (promedio).
+
+- Exporta e importa los datos de sueño en formato CSV.
+
+- Muestra los sueños pasados y permite editar y eliminar sueños concretos.
