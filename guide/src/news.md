@@ -4,6 +4,7 @@
 
 - Add Swedish translation and store metadata (@NickWick13)
 - Resolves: gh#623 trigger automatic backup on changing sleep rating
+- Update Spanish translation (@PedroFlores199)
 
 ## 26.8.1
 
