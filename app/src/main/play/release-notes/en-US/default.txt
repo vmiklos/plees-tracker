@@ -1,5 +1,3 @@
-- Add optional Health Connect synchronization for sleep sessions. (@Aozora7)
-- Resolves: gh#608 preferences activity: fixed the label and back button in its inconsistent action
-  bar
-- Add Korean translation (@hawk1335)
-- Target Android 17
+- Add Swedish translation and store metadata (@NickWick13)
+- Resolves: gh#623 trigger automatic backup on changing sleep rating
+- Update Spanish translation (@PedroFlores199)
