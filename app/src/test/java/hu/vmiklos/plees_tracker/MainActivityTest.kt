@@ -8,6 +8,7 @@ package hu.vmiklos.plees_tracker
 
 import android.content.Context
 import android.os.Looper
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.preference.PreferenceManager
@@ -17,6 +18,7 @@ import java.util.Calendar
 import java.util.concurrent.Executor
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -150,6 +152,34 @@ class MainActivityTest {
             "0",
             activity.findViewById<TextView>(R.id.fragment_stats_sleeps).text.toString()
         )
+    }
+
+    @Test
+    fun testNoteIndicator() {
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+            .putBoolean("show_rating", true)
+            .commit()
+
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        idle()
+
+        // Given no sleeps and creating one:
+        DataModel.database.clearAllTables()
+        createSleep()
+        idle()
+
+        // When editing the comment:
+        val sleep = runBlocking { DataModel.database.sleepDao().getAll().first() }
+        sleep.comment = "my note"
+        runBlocking { DataModel.database.sleepDao().update(sleep) }
+        idle()
+
+        // Then make sure the note indicator is visible:
+        val recyclerView = activity.findViewById<RecyclerView>(R.id.sleeps)
+        val viewHolder = recyclerView.findViewHolderForAdapterPosition(0)
+            ?: throw AssertionError("no view holder")
+        val indicator = viewHolder.itemView.findViewById<View>(R.id.sleep_item_has_comment)
+        assertNotEquals(View.GONE, indicator.visibility)
     }
 }
 

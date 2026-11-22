@@ -107,8 +107,15 @@ class SleepsAdapter(
 
         if (preferences.getBoolean("show_rating", false)) {
             holder.rating.rating = sleep.rating.toFloat()
+            holder.rating.visibility = View.VISIBLE
+            if (sleep.comment.isNotEmpty()) {
+                holder.hasComment.visibility = View.VISIBLE
+            } else {
+                holder.hasComment.visibility = View.GONE
+            }
         } else {
             holder.rating.visibility = View.GONE
+            holder.hasComment.visibility = View.GONE
         }
 
         if (sleep.wakes > 0) {
@@ -137,6 +144,7 @@ class SleepsAdapter(
         val durationWake: TextView = view.findViewById(R.id.wake_item_duration)
 
         val rating: RatingBar = view.findViewById(R.id.sleep_item_rating)
+        val hasComment: ImageView = view.findViewById(R.id.sleep_item_has_comment)
         val wakes: TextView = view.findViewById(R.id.sleep_item_wakes)
         val wakesHeader: TextView = view.findViewById(R.id.wakes_header)
         val wakesImage: ImageView = view.findViewById(R.id.wakes_image)

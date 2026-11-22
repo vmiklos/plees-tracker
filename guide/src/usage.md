@@ -173,8 +173,8 @@ The past sleeps section allow configuring the contents of the individual sleep c
 
 - awake time is hidden by default
 
-- the read-only rating is hidden by default on the main activity, the read-write rating is always
-  visible in the sleep activity
+- the read-only rating and note indicator are hidden by default on the main activity, the read-write
+  rating and note editor are always visible in the sleep activity
 
 The sleep cards are not re-created when changing settings, so you need to restart plees-tracker to
 see the effect.
