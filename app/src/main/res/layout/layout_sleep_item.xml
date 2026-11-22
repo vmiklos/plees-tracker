@@ -179,7 +179,7 @@
                 android:id="@+id/sleep_item_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="44dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="10dp"
                 android:numStars="5"
@@ -189,10 +189,20 @@
                 android:stepSize="1"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/wakes_image"
                 android:isIndicator="true"/>
+
+            <ImageView
+                android:id="@+id/sleep_item_has_comment"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/sleep_notes"
+                android:src="@drawable/ic_note"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sleep_item_rating" />
 
             <ImageView
                 android:id="@+id/wakes_image"
