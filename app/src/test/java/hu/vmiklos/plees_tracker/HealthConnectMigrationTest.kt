@@ -11,19 +11,21 @@ import androidx.room.Room
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
-/** On-device validation of the database state introduced for Health Connect. */
-@RunWith(AndroidJUnit4::class)
+/** Validation of the database state introduced for Health Connect. */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [37])
 class HealthConnectMigrationTest {
-    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val context: Context = RuntimeEnvironment.getApplication()
     private val databaseName = "health-connect-migration-test"
 
     @Before
