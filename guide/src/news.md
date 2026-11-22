@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Resolves: gh#638 main activity: indicate if the sleep has notes
+
 ## 26.8.2
 
 - Add Swedish translation and store metadata (@NickWick13)
