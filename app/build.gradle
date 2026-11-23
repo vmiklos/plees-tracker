@@ -113,6 +113,7 @@ dependencies {
     // throws at runtime, so BackupDestination's JSON (de)serialization can't be tested without it.
     testImplementation 'org.json:json:20260814'
     testImplementation 'org.robolectric:robolectric:4.17'
+    testImplementation 'androidx.work:work-testing:2.12.0'
     testImplementation 'androidx.health.connect:connect-testing:1.0.0-alpha04'
     androidTestImplementation 'androidx.health.connect:connect-testing:1.0.0-alpha04'
     androidTestImplementation 'androidx.test:core:1.7.0'

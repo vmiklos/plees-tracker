@@ -7,11 +7,10 @@
 package hu.vmiklos.plees_tracker
 
 import android.content.Context
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.work.ListenableWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.testing.WorkManagerTestInitHelper
 import androidx.work.workDataOf
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -23,13 +22,24 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
-/** On-device tests for the WorkManager result bridge used by Health Connect operations. */
-@RunWith(AndroidJUnit4::class)
+/** Tests for the WorkManager result bridge used by Health Connect operations. */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [37])
 class HealthConnectWorkTest {
-    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private lateinit var context: Context
+
+    @Before
+    fun setUp() {
+        context = RuntimeEnvironment.getApplication()
+        WorkManagerTestInitHelper.initializeTestWorkManager(context)
+    }
 
     @Test
     fun testActiveCancellationIsRethrown() {
@@ -102,7 +112,9 @@ class HealthConnectWorkTest {
             )
             .build()
         val succeeded = try {
-            WorkManager.getInstance(context).enqueue(request)
+            WorkManager.getInstance(context).enqueue(request).result.get()
+            val driver = WorkManagerTestInitHelper.getTestDriver(context)
+            driver?.setAllConstraintsMet(request.id)
             HealthConnectBackend.awaitSuccess(context, request.id)
         } finally {
             preferences.edit().apply {
@@ -130,9 +142,9 @@ class HealthConnectWorkTest {
             )
             .build()
         val workManager = WorkManager.getInstance(context)
-        workManager.enqueue(request)
+        workManager.enqueue(request).result.get()
         workManager.getWorkInfoByIdFlow(request.id).filterNotNull().first()
-        workManager.cancelWorkById(request.id)
+        workManager.cancelWorkById(request.id).result.get()
 
         val succeeded = HealthConnectBackend.awaitSuccess(context, request.id)
 
