@@ -19,9 +19,6 @@ import androidx.health.connect.client.testing.FakeHealthConnectClient
 import androidx.health.connect.client.testing.FakePermissionController
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SdkSuppress
 import java.time.Clock
 import java.time.Instant
 import java.util.UUID
@@ -36,12 +33,15 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
-/** On-device reconciliation tests using the official in-memory Health Connect client. */
-@RunWith(AndroidJUnit4::class)
-@SdkSuppress(minSdkVersion = 28)
+/** Reconciliation tests using the official in-memory Health Connect client. */
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [37])
 class HealthConnectSyncTest {
-    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val context: Context = RuntimeEnvironment.getApplication()
     private val packageName = "hu.vmiklos.plees_tracker"
     private lateinit var database: AppDatabase
     private lateinit var client: FakeHealthConnectClient
