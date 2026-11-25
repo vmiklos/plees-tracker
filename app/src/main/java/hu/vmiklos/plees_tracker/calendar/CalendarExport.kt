@@ -9,6 +9,7 @@ package hu.vmiklos.plees_tracker.calendar
 import android.content.ContentValues
 import android.content.Context
 import android.provider.CalendarContract
+import hu.vmiklos.plees_tracker.DataModel
 import hu.vmiklos.plees_tracker.R
 import hu.vmiklos.plees_tracker.Sleep
 import java.util.TimeZone
@@ -24,8 +25,8 @@ object CalendarExport {
     fun exportSleep(context: Context, calendarId: String, sleepList: List<Sleep>) {
         sleepList.forEach { sleep ->
             val values = ContentValues().apply {
-                put(CalendarContract.Events.DTSTART, sleep.start)
-                put(CalendarContract.Events.DTEND, sleep.stop)
+                put(CalendarContract.Events.DTSTART, DataModel.floorToSecondMillis(sleep.start))
+                put(CalendarContract.Events.DTEND, DataModel.floorToSecondMillis(sleep.stop))
                 put(CalendarContract.Events.TITLE, context.getString(R.string.exported_event_title))
                 val description = context.getString(R.string.exported_event_description)
                 put(CalendarContract.Events.DESCRIPTION, description)
