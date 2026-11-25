@@ -469,10 +469,10 @@ object DataModel {
             context, calendarId
         ).map(CalendarImport::mapEventToSleep)
         val oldSleeps = database.sleepDao().getAll()
-        val newSleeps = importedSleeps.subtract(oldSleeps.toSet())
+        val newSleeps = filterCalendarSleeps(importedSleeps, oldSleeps)
 
         // Insert the list of Sleep into DB
-        insertSleeps(newSleeps.toList())
+        insertSleeps(newSleeps)
         scheduleHealthConnectSync()
 
         // Show how many sleeps were imported.
@@ -491,9 +491,9 @@ object DataModel {
             context, calendarId
         ).map(CalendarImport::mapEventToSleep)
         val sleeps = database.sleepDao().getAll()
-        val exportedSleeps = sleeps.subtract(calendarSleeps.toSet())
+        val exportedSleeps = filterCalendarSleeps(sleeps, calendarSleeps)
 
-        CalendarExport.exportSleep(context, calendarId, exportedSleeps.toList())
+        CalendarExport.exportSleep(context, calendarId, exportedSleeps)
 
         // Show how many sleeps were exported.
         val text = context.resources.getQuantityString(
@@ -504,6 +504,20 @@ object DataModel {
         val duration = Toast.LENGTH_SHORT
         val toast = Toast.makeText(context, text, duration)
         toast.show()
+    }
+
+    internal fun floorToSecondMillis(timestamp: Long): Long = timestamp / 1000L * 1000L
+
+    private fun calendarSleepKey(sleep: Sleep) =
+        floorToSecondMillis(sleep.start) to floorToSecondMillis(sleep.stop)
+
+    /**
+     * Calendar events only store whole-second start and end times without rating, comment, or
+     * wakes, so deduplicate on (start, stop) seconds rather than Sleep.equals().
+     */
+    internal fun filterCalendarSleeps(sleeps: List<Sleep>, existing: List<Sleep>): List<Sleep> {
+        val keys = existing.mapTo(mutableSetOf(), ::calendarSleepKey)
+        return sleeps.filter { keys.add(calendarSleepKey(it)) }
     }
 
     /**

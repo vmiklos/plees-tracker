@@ -287,6 +287,30 @@ sid,start,stop,rating,comment
         assertEquals(1625105400000L, sleeps?.get(0)?.start)
         assertEquals(1625121600000L, sleeps?.get(0)?.stop)
     }
+
+    @Test
+    fun testFilterCalendarSleeps() {
+        assertEquals(1795642608000L, DataModel.floorToSecondMillis(1795642608065L))
+        assertEquals(1795642612000L, DataModel.floorToSecondMillis(1795642612598L))
+        val synced = createSleep(1795642608000L, 1795642612000L)
+        val edited = createSleep(1795642608065L, 1795642612598L)
+        edited.rating = 4
+        edited.comment = "good"
+        edited.wakes = 2
+        val added = createSleep(1795729000123L, 1795757800456L)
+        val duplicate = createSleep(1795729000999L, 1795757800000L)
+        val sleeps = listOf(edited, added, duplicate)
+        assertEquals(listOf(added), DataModel.filterCalendarSleeps(sleeps, listOf(synced)))
+        assertEquals(
+            emptyList<Sleep>(),
+            DataModel.filterCalendarSleeps(listOf(synced), listOf(edited))
+        )
+    }
+
+    private fun createSleep(start: Long, stop: Long) = Sleep().apply {
+        this.start = start
+        this.stop = stop
+    }
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
