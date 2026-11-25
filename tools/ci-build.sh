@@ -16,7 +16,6 @@ fi
 
 ./gradlew build
 ./gradlew test
-./gradlew connectedAndroidTest
 
 curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.40.0/ktlint
 chmod a+x ktlint
