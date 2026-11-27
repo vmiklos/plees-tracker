@@ -311,12 +311,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.start_stop_layout -> {
+                val notificationManager = getSystemService(NotificationManager::class.java)
+                val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
                 if (DataModel.start != null && DataModel.stop == null) {
                     DataModel.stop = Calendar.getInstance().time
                     viewModel.stopSleep(applicationContext, contentResolver)
+                    if (preferences.contains("current_dnd")) {
+                        val filterAll = NotificationManager.INTERRUPTION_FILTER_ALL
+                        var filter = preferences.getInt("current_dnd", filterAll)
+                        preferences.edit { remove("current_dnd") }
+                        if (notificationManager.isNotificationPolicyAccessGranted) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                                // Android 15+ needs FILTER_ALL to clear the implicit rule.
+                                filter = filterAll
+                            }
+                            notificationManager.setInterruptionFilter(filter)
+                        }
+                    }
                 } else {
                     DataModel.start = Calendar.getInstance().time
                     DataModel.stop = null
+                    val dndEnabled = preferences.getBoolean("enable_dnd", false)
+                    if (dndEnabled && notificationManager.isNotificationPolicyAccessGranted) {
+                        preferences.edit {
+                            putInt("current_dnd", notificationManager.currentInterruptionFilter)
+                        }
+                        val filterPri = NotificationManager.INTERRUPTION_FILTER_PRIORITY
+                        notificationManager.setInterruptionFilter(filterPri)
+                    } else {
+                        preferences.edit { remove("current_dnd") }
+                    }
                 }
                 updateView()
             }
@@ -355,18 +379,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val startStop = findViewById<FloatingActionButton>(R.id.start_stop)
         val startStopText = findViewById<TextView>(R.id.start_stop_text)
 
-        val dndManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val dndEnabled = preferences.getBoolean("enable_dnd", false)
-
         if (DataModel.start != null && DataModel.stop != null) {
             // When user stops tracking sleep
-            if (dndEnabled && dndManager.isNotificationPolicyAccessGranted) {
-                // Restore Do Not Disturb status when user started tracking
-                val filterAll = NotificationManager.INTERRUPTION_FILTER_ALL
-                dndManager.setInterruptionFilter(preferences.getInt("current_dnd", filterAll))
-            }
-
             status.text = getString(R.string.tracking_stopped)
             startStop.contentDescription = getString(R.string.start_again)
             startStop.setImageResource(R.drawable.ic_start)
@@ -381,13 +395,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         DataModel.start?.let { start ->
             // When user starts tracking sleep
-            preferences.edit {
-                putInt("current_dnd", dndManager.currentInterruptionFilter)
-            }
-            if (dndEnabled && dndManager.isNotificationPolicyAccessGranted) {
-                val filterPri = NotificationManager.INTERRUPTION_FILTER_PRIORITY
-                dndManager.setInterruptionFilter(filterPri)
-            }
             status.text = String.format(
                 getString(R.string.sleeping_since),
                 DataModel.formatTimestamp(start, DataModel.getCompactView())
