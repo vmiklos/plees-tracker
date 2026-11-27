@@ -6,7 +6,13 @@
 
 package hu.vmiklos.plees_tracker
 
+import android.app.NotificationManager
+import android.app.NotificationManager.INTERRUPTION_FILTER_ALARMS
+import android.app.NotificationManager.INTERRUPTION_FILTER_ALL
+import android.app.NotificationManager.INTERRUPTION_FILTER_PRIORITY
 import android.content.Context
+import android.content.SharedPreferences
+import android.os.Build
 import android.os.Looper
 import android.view.View
 import android.widget.LinearLayout
@@ -27,6 +33,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import org.robolectric.util.ReflectionHelpers
 
 /**
  * Tests for MainActivity, run on the JVM with Robolectric.
@@ -35,11 +42,15 @@ import org.robolectric.annotation.Config
 @Config(sdk = [37])
 class MainActivityTest {
     private lateinit var context: Context
+    private lateinit var preferences: SharedPreferences
+    private lateinit var notificationManager: NotificationManager
 
     @Before
     fun setUp() {
         context = RuntimeEnvironment.getApplication()
-        DataModel.init(context, PreferenceManager.getDefaultSharedPreferences(context))
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        notificationManager = context.getSystemService(NotificationManager::class.java)
+        DataModel.init(context, preferences)
         DataModel.database.close()
         // Run Room queries on the calling thread, so the activity's viewModelScope coroutines
         // can be driven deterministically by idling the main looper.
@@ -180,6 +191,68 @@ class MainActivityTest {
             ?: throw AssertionError("no view holder")
         val indicator = viewHolder.itemView.findViewById<View>(R.id.sleep_item_has_comment)
         assertNotEquals(View.GONE, indicator.visibility)
+    }
+
+    private fun setupDnd(filter: Int, enabled: Boolean = true) {
+        preferences.edit().putBoolean("enable_dnd", enabled).commit()
+        shadowOf(notificationManager).setNotificationPolicyAccessGranted(true)
+        notificationManager.setInterruptionFilter(filter)
+    }
+
+    private fun toggleSleep(activity: MainActivity) {
+        activity.findViewById<LinearLayout>(R.id.start_stop_layout).performClick()
+        idle()
+    }
+
+    @Test
+    fun testDndRestoredAfterRecreate() {
+        // Given DND enabled on Android 14 with alarms-only mode active:
+        ReflectionHelpers.setStaticField(Build.VERSION::class.java, "SDK_INT", 34)
+        setupDnd(INTERRUPTION_FILTER_ALARMS)
+        val controller = Robolectric.buildActivity(MainActivity::class.java).setup()
+        idle()
+
+        // When starting, recreating the activity, and stopping sleep:
+        toggleSleep(controller.get())
+        controller.recreate()
+        idle()
+        toggleSleep(controller.get())
+
+        // Then the pre-sleep interruption filter is restored:
+        assertEquals(INTERRUPTION_FILTER_ALARMS, notificationManager.currentInterruptionFilter)
+    }
+
+    @Test
+    fun testDndClearedOnStop() {
+        // Given DND enabled with alarms-only mode active on API 37:
+        setupDnd(INTERRUPTION_FILTER_ALARMS)
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        idle()
+
+        // When starting sleep, disabling enable_dnd, and stopping sleep:
+        toggleSleep(activity)
+        preferences.edit().putBoolean("enable_dnd", false).commit()
+        toggleSleep(activity)
+
+        // Then DND is cleared on stop:
+        assertEquals(INTERRUPTION_FILTER_ALL, notificationManager.currentInterruptionFilter)
+    }
+
+    @Test
+    fun testDndDropsStaleSavedFilter() {
+        // Given enable_dnd disabled on Android 14 with a stale saved filter:
+        ReflectionHelpers.setStaticField(Build.VERSION::class.java, "SDK_INT", 34)
+        setupDnd(INTERRUPTION_FILTER_ALL, enabled = false)
+        preferences.edit().putInt("current_dnd", INTERRUPTION_FILTER_PRIORITY).commit()
+        val activity = Robolectric.buildActivity(MainActivity::class.java).setup().get()
+        idle()
+
+        // When starting and stopping sleep:
+        toggleSleep(activity)
+        toggleSleep(activity)
+
+        // Then the stale saved filter is dropped and DND stays off:
+        assertEquals(INTERRUPTION_FILTER_ALL, notificationManager.currentInterruptionFilter)
     }
 }
 
